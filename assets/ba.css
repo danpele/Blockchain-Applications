@@ -1,0 +1,13 @@
+/* Blockchain Applications: additions to the shared MFM stylesheet (site.css) */
+.badge-date { background: rgba(255,255,255,0.18); color: white; border: 1px solid rgba(255,255,255,0.6); }
+.section-intro { max-width: 60rem; margin-bottom: 1rem; }
+.table-wrap { overflow-x: auto; }
+table.sessions { width: 100%; border-collapse: collapse; font-size: 0.92rem; background: var(--white); }
+table.sessions th { background: var(--main-blue); color: white; text-align: left; padding: 0.55rem 0.7rem; }
+table.sessions td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.sessions td.c { white-space: nowrap; color: var(--main-blue); }
+table.sessions tr:nth-child(even) td { background: var(--light-gray); }
+@media (max-width: 600px) {
+    table.sessions { font-size: 0.85rem; }
+    table.sessions th, table.sessions td { padding: 0.4rem 0.45rem; }
+}
