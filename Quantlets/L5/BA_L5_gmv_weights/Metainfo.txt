@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_gmv_weights'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Monthly averages of the weekly global minimum variance weights (long only, capped at 30%, covariance of the last 90 days shrunk 10% towards its diagonal) of 10 stablecoins, June 2020 - May 2026, EODHD reference-adjusted returns.'
+
+Keywords: 'stablecoins, global minimum variance, portfolio weights, shrinkage, concentration, issuer risk'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD'
+
+Output: 'ba_l5_gmv_weights.pdf'

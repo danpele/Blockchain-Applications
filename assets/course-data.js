@@ -29,7 +29,7 @@
     // links of lecture n: slides, lecture notebook (GitHub + Colab), Quantlets
     // lectures whose notebook / Quantlets are already in the repo
     const NB_READY = [1, 2, 3, 4, 5, 6, 7];
-    const QL_READY = [];
+    const QL_READY = [1, 2, 3, 4, 5, 6, 7];
     const L = (n, base) => ({
         en: [
             { type: 'slides', href: `EN/Lectures/lecture${n}_${base}.pdf` },
@@ -46,7 +46,15 @@
                 pageTitle: 'Blockchain Applications - Course Website',
                 courseTitle: 'Blockchain Applications',
                 subtitle: "Master's programme Blockchain for Business (MBB) | Faculty of Business Administration in Foreign Languages (FABIZ) | Bucharest University of Economic Studies",
-                nav: { home: 'Home', chapters: 'Lectures', project: 'Seminars &amp; Exam', resources: 'Resources', contact: 'Contact' },
+                nav: { home: 'Home', chapters: 'Lectures', project: 'Seminars &amp; Exam', quizzes: 'Quizzes', resources: 'Resources', contact: 'Contact' },
+                quizzes: 'Practice Quizzes',
+                quizIntro: 'Each attempt draws 15 questions at random from the lecture bank and shuffles the answers. An answer is locked once selected. The quizzes are for practice: they do not count towards the grade and no score is stored.',
+                quizSoon: 'The quiz for this lecture is not published yet.',
+                question: 'Question', correct: 'Correct!', incorrect: 'Incorrect.', correctIs: 'The correct answer is',
+                calc: 'Calculate Score', reset: 'New attempt', score: 'Score', unanswered: 'questions unanswered',
+                verdicts: ['Keep practicing!', 'Keep studying!', 'Good job!', 'Excellent!'],
+                detailed: 'Detailed Results',
+                colQ: 'Q', colQuestion: 'Question', colCorrect: 'Correct answer', colYours: 'Your answer', colResult: 'Result',
                 overview: 'Course Overview',
                 objectives: 'Learning Outcomes',
                 heroTag: 'Blockchain applications as data generators: every transaction, fee and transfer is public and time-stamped. Seven lectures turn that data into statistical evidence on real markets, with Colab notebooks.',
@@ -81,7 +89,15 @@
                 pageTitle: 'Blockchain Applications - Site-ul cursului',
                 courseTitle: 'Blockchain Applications',
                 subtitle: 'Masterul Blockchain for Business (MBB) | Facultatea de Administrarea Afacerilor, cu predare în limbi străine (FABIZ) | Academia de Studii Economice din București',
-                nav: { home: 'Acasă', chapters: 'Cursuri', project: 'Seminare și examen', resources: 'Resurse', contact: 'Contact' },
+                nav: { home: 'Acasă', chapters: 'Cursuri', project: 'Seminare și examen', quizzes: 'Quiz-uri', resources: 'Resurse', contact: 'Contact' },
+                quizzes: 'Quiz-uri de exersare',
+                quizIntro: 'La fiecare încercare se extrag aleator 15 întrebări din banca de întrebări a cursului, iar variantele de răspuns sînt amestecate. Răspunsul se blochează după selectare. Quiz-urile sînt pentru exersare: nu intră în notă și scorul nu se salvează. Întrebările sînt în engleză, ca și cursurile.',
+                quizSoon: 'Quiz-ul acestui curs nu este publicat încă.',
+                question: 'Întrebarea', correct: 'Corect!', incorrect: 'Greșit.', correctIs: 'Răspunsul corect este',
+                calc: 'Calculează scorul', reset: 'Încercare nouă', score: 'Scor', unanswered: 'întrebări fără răspuns',
+                verdicts: ['Mai exersează!', 'Mai studiază!', 'Bine!', 'Excelent!'],
+                detailed: 'Rezultate detaliate',
+                colQ: 'Nr.', colQuestion: 'Întrebare', colCorrect: 'Răspuns corect', colYours: 'Răspunsul tău', colResult: 'Rezultat',
                 overview: 'Prezentarea cursului',
                 objectives: 'Rezultatele învățării',
                 heroTag: 'Aplicațiile blockchain generează date: fiecare tranzacție, comision și transfer este public și are o marcă de timp. Cele șapte cursuri transformă aceste date în dovezi statistice despre piețe reale, cu notebook-uri Colab.',
@@ -253,7 +269,7 @@
         resources: [
             { icon: '&#128187;', href: REPO, en: ['GitHub Repository', 'Slides, notebooks, Quantlets and data'], ro: ['Repository GitHub', 'Slide-uri, notebook-uri, Quantlets și date'] },
             { icon: '&#127891;', img: 'logos/qr_logo.png', href: 'https://quantinar.com/coursecontent/695/blockchain', en: ['Blockchain Analytics on Quantinar', 'Video course: 23 units with slides and recorded lectures'], ro: ['Blockchain Analytics pe Quantinar', 'Curs video: 23 de unități cu slide-uri și prelegeri înregistrate'] },
-            { icon: '&#128190;', img: 'logos/ql_logo.png', href: 'https://quantlet.com', en: ['Quantlet', 'Reproducible code for every chart'], ro: ['Quantlet', 'Cod reproductibil pentru fiecare grafic'] },
+            { icon: '&#128190;', img: 'logos/ql_logo.png', href: 'https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets', en: ['Quantlets', 'One notebook for every course chart (Quantlet format)'], ro: ['Quantlets', 'Cîte un notebook pentru fiecare grafic al cursului (format Quantlet)'] },
             { icon: '&#128200;', href: 'https://thecrix.de', en: ['CRIX', 'CRypto IndeX'], ro: ['CRIX', 'CRypto IndeX'] },
             { icon: '&#127963;', img: 'logos/ida_square.png', href: 'https://theida.net', en: ['IDA', 'Institute for Digital Assets'], ro: ['IDA', 'Institute for Digital Assets'] }
         ],

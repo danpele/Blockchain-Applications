@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_paper_shap'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Shares of the mean absolute SHAP contribution of the CatBoost early-warning model on the test set, grouped by economic block of on-chain features; values from Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper.'
+
+Keywords: 'SHAP, feature attribution, CatBoost, early warning, Uniswap V3 liquidity, Curve 3pool, depeg'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper (values typed in the notebook)'
+
+Output: 'ba_l4_paper_shap.pdf'

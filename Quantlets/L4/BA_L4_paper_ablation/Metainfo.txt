@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_paper_ablation'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Deterioration of the quantile (pinball) loss at the 1% and 99% levels when one component of the distributional depeg forecast model is removed (twCRPS loss, GPD tails, non-Gaussian head, sparsity, liquidity features, covariates); values from Table 4 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper.'
+
+Keywords: 'ablation study, quantile loss, pinball loss, GPD tails, twCRPS, liquidity features, depeg forecast'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Table 4 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper (values typed in the notebook)'
+
+Output: 'ba_l4_paper_ablation.pdf'

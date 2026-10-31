@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_lppl_btc2017'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Log-periodic power law (LPPL) fit of the Bitcoin daily log close on 1 January to 1 December 2017, two-step estimation (OLS for the linear parameters, Nelder-Mead search over the critical time, the exponent and the log-frequency from 300 random starts), with the estimated critical time against the actual peak of 16 December 2017.'
+
+Keywords: 'bubbles, LPPL, log-periodic power law, critical time, crash, Bitcoin 2017, nonlinear least squares'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_lppl_btc2017.pdf'

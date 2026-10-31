@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_term_structure'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'GARCH(1,1)-t variance forecasts by horizon up to 250 days: mean reversion after a shock for the S&P 500 and gold (persistence below 1), and the forecasts made for Bitcoin on 18 September 2026 by an integrated GARCH (persistence 1, positive intercept) and by EWMA. Daily log returns 2018-2026.'
+
+Keywords: 'GARCH, IGARCH, EWMA, volatility forecast, term structure, half-life, mean reversion'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_term_structure.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_riskcontrib'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Euler risk contributions of Bitcoin in a 60/40 S&P 500/Treasuries (TLT) portfolio with Bitcoin weights from 0 to 10%: share of the portfolio volatility and of the historical ES 2.5%, daily simple returns on common trading days 2018 to 18 September 2026.'
+
+Keywords: 'risk contribution, Euler allocation, Expected Shortfall, portfolio risk, Bitcoin, 60/40 portfolio, risk budgeting'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market); TLT adjusted close (distributions reinvested)'
+
+Output: 'ba_l3_riskcontrib.pdf'

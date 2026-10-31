@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_lambda'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Monte Carlo study of correcting a biased 1% quantile forecast by the empirical quantile of 500 past errors with intensity 0 (Raw), 1/2 (Half) or 1 (Full): excess expected quantile score and expected breach rate against the bias, with the local second-order theory. Student-t(5) returns, 20,000 replications.'
+
+Keywords: 'Value-at-Risk, recalibration, quantile score, bias-variance trade-off, shrinkage, Monte Carlo'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Simulated data (no data file)'
+
+Output: 'ba_l7_lambda.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_lppl_tc'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Stability of the LPPL critical time: the model is re-estimated on eleven windows starting on 1 January 2017 and ending weekly from 1 October to 10 December 2017 (Bitcoin daily close, 120 random starts each), and the estimated critical times are compared with the actual peak.'
+
+Keywords: 'bubbles, LPPL, critical time, parameter stability, identification, Bitcoin 2017, robustness'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_lppl_tc.pdf'

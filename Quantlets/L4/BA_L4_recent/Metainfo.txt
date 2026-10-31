@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_recent'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Hourly deviations from the 1 USD peg of USDT, USDC and DAI, and of USDC priced in USDT, from 1 August to 23 October 2026, with a band of plus or minus 15 basis points; monthly mean discount of USDT. Data: EODHD hourly aggregated prices.'
+
+Keywords: 'stablecoins, peg deviation, USDT discount, USDC/USDT cross rate, hourly data, depeg threshold'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD hourly prices in the course repository (data/hourly)'
+
+Output: 'ba_l4_recent.pdf'

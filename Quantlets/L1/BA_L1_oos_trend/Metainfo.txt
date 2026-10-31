@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_oos_trend'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The log-linear trend of Bitcoin market value, estimated on monthly means to October 2025, is extended from November 2025 to October 2026 with a naive 95% band and compared with the market value reconstructed from EODHD daily closes to 23 October 2026 and the protocol supply rule.'
+
+Keywords: 'out-of-sample forecast, log-linear trend, forecast band, Bitcoin, market value, supply rule, autocorrelation'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain); EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_oos_trend.pdf'

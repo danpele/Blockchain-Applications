@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_oos_pit'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Probability integral transforms of the one-step GARCH(1,1)-t predictive densities for Bitcoin, Ethereum, the S&P 500 and gold over 19 September - 23 October 2026 (parameters frozen on 18 September 2026), with the Berkowitz likelihood-ratio test and the Kolmogorov-Smirnov test of uniformity.'
+
+Keywords: 'probability integral transform, Berkowitz test, density forecast, Kolmogorov-Smirnov, GARCH, out-of-sample'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_oos_pit.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_stablecoin_conc'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Shares of Tether (USDT) and USD Coin (USDC) in the circulating supply of all USD stablecoins and the Herfindahl-Hirschman index (HHI) of stablecoin issuers, daily, January 2019 to 18 September 2026, from a DefiLlama snapshot.'
+
+Keywords: 'stablecoins, Tether, USD Coin, market concentration, Herfindahl-Hirschman index, DefiLlama'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'DefiLlama stablecoin snapshot of 21 October 2026 in the course repository (data/snapshots)'
+
+Output: 'ba_l1_stablecoin_conc.pdf'

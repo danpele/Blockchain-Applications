@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_hist_qq'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Histogram of Bitcoin daily log returns against the Normal density with the same mean and standard deviation, and Normal QQ plots of Bitcoin and S&P 500 standardised returns, 1 January 2018 to 18 September 2026, with moments and the Jarque-Bera test.'
+
+Keywords: 'stylized facts, heavy tails, QQ plot, Normal distribution, kurtosis, Jarque-Bera test, Bitcoin, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_hist_qq.pdf'

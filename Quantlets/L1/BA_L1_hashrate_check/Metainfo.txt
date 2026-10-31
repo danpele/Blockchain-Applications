@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_hashrate_check'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The reported Bitcoin hash rate against the hash rate implied by the published difficulty, D x 2^32 / 600, monthly means, November 2014 to October 2025, and their ratio.'
+
+Keywords: 'proof of work, mining difficulty, hash rate, Bitcoin, block time, on-chain data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain)'
+
+Output: 'ba_l1_hashrate_check.pdf'

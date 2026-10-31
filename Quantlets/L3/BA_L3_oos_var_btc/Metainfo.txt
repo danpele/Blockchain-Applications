@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_oos_var_btc'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The four one-day VaR 1% methods of the backtest (Normal from 2018, historical simulation 500 days, EWMA, GARCH(1,1)-t with parameters frozen on 18 September 2026) rolled forward over 19 September - 23 October 2026 for Bitcoin: VaR paths, hits and mean capital per 1 million USD.'
+
+Keywords: 'out-of-sample, Value-at-Risk, GARCH, EWMA, historical simulation, Bitcoin, capital'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_oos_var_btc.pdf'

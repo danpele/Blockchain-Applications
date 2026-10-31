@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_safe_haven'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean daily return of the S&P 500, Bitcoin, Ethereum and gold on the worst 5% of S&P 500 days, with 95% confidence intervals, on the days common to all four assets, 2018 to 18 September 2026.'
+
+Keywords: 'safe haven, hedge, stress days, Bitcoin, gold, S&P 500, confidence interval'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_safe_haven.pdf'

@@ -202,6 +202,149 @@
     }
 
     // ------------------------------------------------------------
+    // PRACTICE QUIZZES (no sign-in, no stored score)
+    // Bank format (assets/quizzes/<lecture id>.js):
+    //   MFM_DATA.quizzes['l3'] = { draw: 15, questions: [
+    //     { correct: <index 0-3>, en: {title, text, options:[4], correctExplanation, incorrectExplanation} } ] }
+    // The questions are in English on both pages, like the lectures.
+    // ------------------------------------------------------------
+    const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+    let quiz = null;   // { items: [{ q, order, correctPos }], answers: {} }
+    const QL = q => q[LANG] || q.en;
+
+    function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function renderQuizTabs() {
+        $('quiz-tabs').innerHTML = D.chapters.map(ch => {
+            const has = !!D.quizzes[ch.id];
+            return `<button class="btn btn-outline${has ? '' : ' unavailable'}" data-ch="${ch.id}" title="${esc(ch.title[LANG])}">L${ch.num}</button>`;
+        }).join('');
+        $('quiz-tabs').querySelectorAll('button').forEach(b => {
+            b.onclick = () => showQuiz(b.getAttribute('data-ch'));
+        });
+    }
+
+    function showQuiz(id) {
+        $('quiz-tabs').querySelectorAll('button').forEach(b =>
+            b.classList.toggle('active', b.getAttribute('data-ch') === id));
+        const ch = D.chapters.find(c => c.id === id);
+        const bank = D.quizzes[id];
+        const box = $('quiz-container');
+        const heading = `<h3>${T.chapter} ${ch.num}: ${ch.title[LANG]}</h3>`;
+        if (!bank) {
+            quiz = null;
+            box.innerHTML = `${heading}<p class="quiz-intro">${T.quizSoon}</p>`;
+            return;
+        }
+        box.innerHTML = `${heading}
+            <p class="quiz-intro">${T.quizIntro}</p>
+            <div id="quiz-questions"></div>
+            <div class="quiz-actions">
+                <button class="btn btn-primary" id="quiz-score">${T.calc}</button>
+                <button class="btn btn-outline" id="quiz-reset">${T.reset}</button>
+            </div>
+            <p class="score-display" id="quiz-score-display" aria-live="polite"></p>
+            <div id="quiz-answer-key"></div>`;
+        $('quiz-score').onclick = calculateScore;
+        $('quiz-reset').onclick = () => showQuiz(id);
+        newAttempt(bank);
+    }
+
+    function newAttempt(bank) {
+        const n = Math.min(bank.draw || 15, bank.questions.length);
+        const items = shuffle(bank.questions).slice(0, n).map(q => {
+            const order = shuffle(QL(q).options.map((_, i) => i));   // order[pos] = original option index
+            return { q, order, correctPos: order.indexOf(q.correct) };
+        });
+        quiz = { items, answers: {} };
+        $('quiz-questions').innerHTML = items.map((it, k) => {
+            const L = QL(it.q);
+            return `<div class="quiz-question" id="qq${k}">
+                <h4>${T.question} ${k + 1}: ${L.title}</h4>
+                <p>${L.text}</p>
+                <ul class="quiz-options" role="radiogroup">
+                    ${it.order.map((orig, pos) =>
+                        `<li tabindex="0" role="radio" aria-checked="false" data-k="${k}" data-pos="${pos}">
+                            <input type="radio" name="qq${k}" tabindex="-1"> ${LETTERS[pos]}) ${L.options[orig]}</li>`).join('')}
+                </ul>
+                <div class="answer-reveal answer-correct" id="qq${k}-ok"><strong>${T.correct}</strong> ${L.correctExplanation}</div>
+                <div class="answer-reveal answer-incorrect" id="qq${k}-ko"><strong>${T.incorrect}</strong>
+                    ${T.correctIs} ${LETTERS[it.correctPos]}) ${L.options[it.q.correct]}. ${L.incorrectExplanation}</div>
+            </div>`;
+        }).join('');
+        $('quiz-questions').querySelectorAll('.quiz-options li').forEach(li => {
+            const pick = () => answer(parseInt(li.dataset.k, 10), parseInt(li.dataset.pos, 10));
+            li.onclick = pick;
+            li.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } };
+        });
+        typeset($('quiz-container'));
+    }
+
+    function answer(k, pos) {
+        if (!quiz || quiz.answers[k] !== undefined) return;   // locked after the first answer
+        quiz.answers[k] = pos;
+        $('qq' + k).querySelectorAll('.quiz-options li').forEach(li => {
+            const mine = parseInt(li.dataset.pos, 10) === pos;
+            li.classList.add('locked');
+            li.classList.toggle('chosen', mine);
+            li.setAttribute('aria-checked', mine ? 'true' : 'false');
+            li.querySelector('input').checked = mine;
+        });
+        const ok = pos === quiz.items[k].correctPos;
+        $('qq' + k + '-ok').style.display = ok ? 'block' : 'none';
+        $('qq' + k + '-ko').style.display = ok ? 'none' : 'block';
+    }
+
+    function calculateScore() {
+        if (!quiz) return;
+        const total = quiz.items.length;
+        let score = 0, answered = 0;
+        quiz.items.forEach((it, k) => {
+            if (quiz.answers[k] !== undefined) {
+                answered++;
+                if (quiz.answers[k] === it.correctPos) score++;
+            }
+        });
+        const pct = Math.round((score / total) * 100);
+        let msg = `${T.score}: ${score}/${total} (${pct}%)`;
+        if (answered < total) msg += ` - ${total - answered} ${T.unanswered}`;
+        msg += ' - ' + T.verdicts[pct >= 90 ? 3 : pct >= 70 ? 2 : pct >= 50 ? 1 : 0];
+        $('quiz-score-display').textContent = msg;
+        const rows = quiz.items.map((it, k) => {
+            const L = QL(it.q);
+            const a = quiz.answers[k];
+            const cls = a === undefined ? '' : (a === it.correctPos ? 'ok' : 'ko');
+            const res = a === undefined ? '-' : (a === it.correctPos ? '<span class="res-ok">OK</span>' : '<span class="res-ko">X</span>');
+            const yours = a === undefined ? '-' : `${LETTERS[a]}) ${L.options[it.order[a]]}`;
+            return `<tr class="${cls}"><td class="c"><strong>${k + 1}</strong></td><td>${L.text}</td>
+                <td>${LETTERS[it.correctPos]}) ${L.options[it.q.correct]}</td><td>${yours}</td><td class="c">${res}</td></tr>`;
+        }).join('');
+        $('quiz-answer-key').innerHTML = `<div class="answer-key"><h4>${T.detailed}</h4><table>
+            <tr><th class="c">${T.colQ}</th><th>${T.colQuestion}</th><th>${T.colCorrect}</th><th>${T.colYours}</th><th class="c">${T.colResult}</th></tr>
+            ${rows}</table></div>`;
+        typeset($('quiz-answer-key'));
+    }
+
+    // the quiz section and its menu link appear only once a lecture has a quiz bank
+    function initQuizzes() {
+        const any = D.chapters.some(ch => D.quizzes && D.quizzes[ch.id]);
+        const sec = $('quizzes'), link = document.querySelector('nav a[href="#quizzes"]');
+        if (sec) sec.hidden = !any;
+        if (link) link.parentElement.hidden = !any;
+        if (!any) return;
+        renderQuizTabs();
+        const first = D.chapters.find(ch => D.quizzes[ch.id]);
+        showQuiz(first.id);
+    }
+
+    // ------------------------------------------------------------
     // INIT
     // ------------------------------------------------------------
     function init() {
@@ -212,6 +355,7 @@
         renderProject();
         renderResources();
         renderContact();
+        initQuizzes();
         typeset();
     }
 

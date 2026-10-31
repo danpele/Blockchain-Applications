@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_links'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Signed selection frequency of each predictor stablecoin in the 5% Quantile Lasso equation of each target stablecoin (percentage of equations with a positive slope minus percentage with a negative slope), from the De-pegging Pressure Index estimation on EODHD data, April 2020 - October 2026. Every 7th day by default; FULL_DAILY = True for all days as in the lecture.'
+
+Keywords: 'stablecoins, Quantile Lasso, tail links, selection frequency, contagion, heat map, De-pegging Pressure Index'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield'
+
+Output: 'ba_l5_links.pdf'

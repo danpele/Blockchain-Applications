@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_supply'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Circulating supply of US dollar (USD) stablecoins from January 2019 to 21 October 2026, stacked by peg mechanism (fiat-backed, crypto-backed, algorithmic), and the shares of the eight largest issuers on the last day. Data: DefiLlama stablecoin snapshot of 21 October 2026.'
+
+Keywords: 'stablecoins, USDT, USDC, fiat-backed, crypto-backed, algorithmic stablecoin, market concentration, DefiLlama'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'DefiLlama stablecoin snapshot of 21 October 2026 in the course repository (data/snapshots)'
+
+Output: 'ba_l4_supply.pdf'

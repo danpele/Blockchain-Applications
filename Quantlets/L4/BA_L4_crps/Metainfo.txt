@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_crps'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Continuous ranked probability score (CRPS) as the squared gap between a forecast CDF and the step function of the outcome, and the logistic threshold weight of the threshold-weighted CRPS (twCRPS) around plus or minus 15 basis points; worked example with three forecasts and three outcomes. Analytical, no data.'
+
+Keywords: 'CRPS, twCRPS, proper scoring rule, pinball loss, distributional forecast, threshold weighting, depeg'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none (analytical computation)'
+
+Output: 'ba_l4_crps.pdf'

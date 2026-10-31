@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_tails'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Empirical survival function of standardised daily losses of Bitcoin and the S&P 500 on log-log scales against the Normal, and the Hill estimator of the tail index as a function of the number of order statistics with 95% bands, daily log returns 1 January 2018 to 18 September 2026.'
+
+Keywords: 'heavy tails, tail index, Hill estimator, power law, extreme value theory, Bitcoin, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_tails.pdf'

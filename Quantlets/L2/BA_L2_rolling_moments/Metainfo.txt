@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_rolling_moments'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Skewness and excess kurtosis of Bitcoin daily log returns on rolling 365-day windows, 2018 to 18 September 2026, showing how single extreme days move the estimates.'
+
+Keywords: 'kurtosis, skewness, rolling window, heavy tails, moment estimation, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_rolling_moments.pdf'

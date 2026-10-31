@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_hedonic'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Composition bias in a boom: 3,600 simulated sales of digital artworks over 12 quarters with a known true price index; a time-dummy hedonic regression controlling for rarity, artist and size is compared with the median sale price index by their RMSE in logs.'
+
+Keywords: 'hedonic regression, price index, composition bias, NFT, digital art, time-dummy method, simulation'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Simulated data, generated in the notebook (seed 42)'
+
+Output: 'ba_l6_hedonic.pdf'

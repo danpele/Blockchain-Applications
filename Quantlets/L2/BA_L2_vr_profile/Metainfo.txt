@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_vr_profile'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Variance ratios VR(q) for horizons of 2 to 30 days for Bitcoin, Ethereum and the S&P 500, daily log returns 1 January 2018 to 18 September 2026, with the heteroskedasticity-robust 95% band of the random walk for Bitcoin.'
+
+Keywords: 'market efficiency, random walk, variance ratio, Lo-MacKinlay test, momentum, mean reversion, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_vr_profile.pdf'

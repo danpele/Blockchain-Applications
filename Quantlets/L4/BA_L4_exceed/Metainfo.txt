@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_exceed'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Empirical exceedance probabilities of the absolute daily deviation from the 1 USD peg (closes and intraday lows) of USDT, USDC and DAI on log-log axes, and the share of days per year with a deviation of at least 15 basis points, 2021 to 23 October 2026. Data: EODHD daily aggregated prices.'
+
+Keywords: 'stablecoins, peg deviation, exceedance probability, heavy tails, depeg frequency, USDT, USDC, DAI'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_exceed.pdf'

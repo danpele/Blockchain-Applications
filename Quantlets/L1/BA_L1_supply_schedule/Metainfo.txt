@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_supply_schedule'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The Bitcoin supply path implied by the protocol rule (block subsidy of 50 BTC halved every 210 000 blocks) on a simulated calendar with exactly 144 blocks a day, 2009 to 2040, and its annual growth rate on a log scale.'
+
+Keywords: 'Bitcoin, supply schedule, halving, block subsidy, monetary policy, supply growth, 21 million cap'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'None: the supply path is computed from the protocol rule'
+
+Output: 'ba_l1_supply_schedule.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_condvol'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Annualised conditional volatility of Bitcoin, Ethereum and the S&P 500 from GARCH(1,1) models with Student-t errors, estimated by maximum likelihood on daily log returns from 2018 to 18 September 2026.'
+
+Keywords: 'GARCH, conditional volatility, Student-t, maximum likelihood, Bitcoin, Ethereum, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_condvol.pdf'

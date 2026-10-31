@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_clustering'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Bitcoin daily log returns from 2018 to 18 September 2026 and the sample autocorrelations of returns, absolute returns and squared returns at lags 1-30 days, with the 5% band for an independent series: returns are hardly autocorrelated, absolute returns are autocorrelated at every lag (volatility clustering).'
+
+Keywords: 'volatility clustering, autocorrelation, absolute returns, squared returns, Bitcoin, stylised facts'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_clustering.pdf'
