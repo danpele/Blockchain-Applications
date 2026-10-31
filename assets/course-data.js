@@ -27,15 +27,14 @@
     const q = (...keys) => keys.map(k => ({ title: Q[k][0], url: Q[k][1] }));
 
     // links of lecture n: slides, lecture notebook (GitHub + Colab), Quantlets
-    // CODE_READY lists the lectures whose notebook and Quantlets are already in the repo
-    const CODE_READY = [];
+    // lectures whose notebook / Quantlets are already in the repo
+    const NB_READY = [1, 2, 3, 4, 5, 6, 7];
+    const QL_READY = [];
     const L = (n, base) => ({
         en: [
             { type: 'slides', href: `EN/Lectures/lecture${n}_${base}.pdf` },
-            ...(CODE_READY.includes(n) ? [
-                { type: 'lectureNb', href: `${REPO}/blob/main/notebooks/lecture${n}_notebook.ipynb`, colab: `${COLAB}notebooks/lecture${n}_notebook.ipynb` },
-                { type: 'quantlets', href: `${REPO}/tree/main/Quantlets/L${n}` }
-            ] : [])
+            ...(NB_READY.includes(n) ? [{ type: 'lectureNb', href: `${REPO}/blob/main/notebooks/lecture${n}_notebook.ipynb`, colab: `${COLAB}notebooks/lecture${n}_notebook.ipynb` }] : []),
+            ...(QL_READY.includes(n) ? [{ type: 'quantlets', href: `${REPO}/tree/main/Quantlets/L${n}` }] : [])
         ]
     });
 
@@ -156,12 +155,12 @@
         },
 
         chapterCharts: {
-            l1: { src: 'charts/ba_l1_value_activity.png', en: 'Bitcoin market value against on-chain activity, monthly, 2014–2026', ro: 'Valoarea de piață a Bitcoin față de activitatea on-chain, lunar, 2014–2026' },
+            l1: { src: 'charts/ba_l1_value_activity.png', en: 'Bitcoin market value against on-chain activity, monthly, 2014–2025', ro: 'Valoarea de piață a Bitcoin față de activitatea on-chain, lunar, 2014–2025' },
             l2: { src: 'charts/ba_l2_lppl_btc2017.png', en: 'LPPL fit to the 2017 Bitcoin bubble and its estimated critical time', ro: 'Modelul LPPL estimat pe bula Bitcoin din 2017 și momentul critic estimat' },
             l3: { src: 'charts/ba_l3_var_methods.png', en: 'One-day VaR 1% and ES 2.5% of Bitcoin under four methods', ro: 'VaR 1% și ES 2,5% pe o zi pentru Bitcoin, cu patru metode' },
             l4: { src: 'charts/ba_l4_svb.png', en: 'USDC, DAI and USDT around the March 2023 SVB depeg, in basis points', ro: 'USDC, DAI și USDT în jurul depeg-ului din martie 2023 (SVB), în puncte de bază' },
             l5: { src: 'charts/ba_l5_dpi.png', en: 'De-pegging Pressure Index (DPI), 2020–2026, coloured by quintile', ro: 'De-pegging Pressure Index (DPI), 2020–2026, colorat pe quintile' },
-            l6: { src: 'charts/ba_l6_mst.png', en: 'Correlations of daily returns and the minimum spanning tree of 20 crypto assets', ro: 'Corelațiile randamentelor zilnice și arborele de acoperire minim (minimum spanning tree) pentru 20 de criptoactive' },
+            l6: { src: 'charts/ba_l6_mst.png', en: 'Correlations of daily returns and the minimum spanning tree of 19 crypto assets', ro: 'Corelațiile randamentelor zilnice și arborele de acoperire minim (minimum spanning tree) pentru 19 criptoactive' },
             l7: { src: 'charts/ba_l7_var_models.png', en: 'Bitcoin VaR 1%: breach rates and quantile scores of six models, including Chronos-2', ro: 'VaR 1% pentru Bitcoin: rata depășirilor și scorul cuantil pentru șase modele, inclusiv Chronos-2' }
         },
 
@@ -260,6 +259,7 @@
         ],
 
         dataSources: [
+            { name: 'EODHD', href: 'https://eodhd.com', en: 'Daily and hourly prices of cryptos, stablecoins, stocks, indices, FX and gold (the files are in the repository, data/)', ro: 'Prețuri zilnice și orare pentru criptoactive, stablecoin-uri, acțiuni, indici, cursuri valutare și aur (fișierele sînt în repository, data/)' },
             { name: 'CoinGecko', href: 'https://www.coingecko.com', en: 'Crypto prices and market capitalisation', ro: 'Prețuri și capitalizare de piață pentru criptoactive' },
             { name: 'Yahoo Finance', href: 'https://finance.yahoo.com', en: 'Stock, index and gold prices', ro: 'Prețuri pentru acțiuni, indici și aur' },
             { name: 'DefiLlama', href: 'https://defillama.com', en: 'Stablecoin supply and DeFi total value locked', ro: 'Oferta de stablecoin-uri și valoarea totală blocată (TVL) în DeFi' },
@@ -271,7 +271,7 @@
         bibliography: [
             'Härdle, W. K., Harvey, C. R., &amp; Reule, R. C. G. (2020). <a href="https://doi.org/10.1093/jjfinec/nbz033" target="_blank" rel="noopener">Understanding cryptocurrencies</a>. <em>Journal of Financial Econometrics</em>, 18(2), 181–208.',
             'Trimborn, S., &amp; Härdle, W. K. (2018). <a href="https://doi.org/10.1016/j.jempfin.2018.08.004" target="_blank" rel="noopener">CRIX an index for cryptocurrencies</a>. <em>Journal of Empirical Finance</em>, 49, 107–122.',
-            'Pele, D. T., Wesselhöfft, N., Härdle, W. K., Kolossiatis, M., &amp; Yatracos, Y. G. (2023). <a href="https://doi.org/10.1080/1351847X.2021.1960403" target="_blank" rel="noopener">Are cryptos becoming alternative assets?</a> <em>The European Journal of Finance</em>, 29(10), 1093–1120.',
+            'Pele, D. T., Wesselhöfft, N., Härdle, W. K., Kolossiatis, M., &amp; Yatracos, Y. G. (2023). <a href="https://doi.org/10.1080/1351847X.2021.1960403" target="_blank" rel="noopener">Are cryptos becoming alternative assets?</a> <em>The European Journal of Finance</em>, 29(10), 1064–1105.',
             'Lyons, R. K., &amp; Viswanath-Natraj, G. (2023). <a href="https://doi.org/10.1016/j.jimonfin.2022.102777" target="_blank" rel="noopener">What keeps stablecoins stable?</a> <em>Journal of International Money and Finance</em>, 131, 102777.'
         ],
 
