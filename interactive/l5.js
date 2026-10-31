@@ -136,6 +136,34 @@ function checkLoss() {
   out('cl-out', [T.cl1(nf(t, 2), nf(20 * t, 2)), A.lo === A.hi ? T.cl2(nf(t, 2), gnum(A.lo), nf(A.min, 2)) : T.cl3(nf(t, 2), gnum(A.lo), gnum(A.hi), nf(A.min, 2)), T.cl4(gnum(M.lo), gnum(M.hi), nf(M.min, 2))]);
 }
 
+// ================================================================= 2.3 the 5% quantile counts ranks, not depth
+const RQ_I = [DV_D.indexOf('2022-07-01'), DV_D.indexOf('2024-03-31')];
+function rollLower(a, W, q) {          // q-quantile of the W values before each day, pandas interpolation 'lower'
+  const k = Math.floor(q * (W - 1)), outv = new Array(a.length).fill(null);
+  for (let i = W; i < a.length; i++) {
+    const w = a.slice(i - W, i);
+    if (w.every(finite)) outv[i] = sortNum(w)[k];
+  }
+  return outv;
+}
+function rollq() {
+  const W = +$('rq-w').value, k = Math.floor(0.05 * (W - 1)) + 1;
+  $('rq-w-v').textContent = W + ' days';
+  const x = DV_D.slice(RQ_I[0], RQ_I[1] + 1), tr = [], Q = {};
+  [['USDC', BA.blue], ['DAI', BA.gold]].forEach(([c, col]) => {
+    Q[c] = rollLower(DV[c], W, 0.05);
+    tr.push({ x, y: DV[c].slice(RQ_I[0], RQ_I[1] + 1), mode: 'lines', name: c + ': daily deviation d (bp)', line: { color: col, width: 0.6 }, opacity: 0.45,
+      hovertemplate: c + ' %{x|%d %b %Y}: d = %{y:.1f} bp<extra></extra>' });
+    tr.push({ x, y: Q[c].slice(RQ_I[0], RQ_I[1] + 1), mode: 'lines', name: c + ': 5% quantile of the previous ' + W + ' days', line: { color: col, width: 2, shape: 'hv' },
+      hovertemplate: c + ' %{x|%d %b %Y}: 5% quantile = %{y:.2f} bp<extra></extra>' });
+  });
+  plot('rq-chart', tr, layout({ title: ttl('Daily deviations and the 5% quantile of the previous ' + W + ' days, July 2022 – March 2024'),
+    xaxis: AX('', { type: 'date' }), yaxis: AX('bp', { range: [-100, 40] }), shapes: [vline('2023-03-11', BA.eth, 'dot')], legend: LEG }));
+  const at = (c, d) => Q[c][DV_D.indexOf(d)], y23 = c => Math.min(...Q[c].filter((v, i) => finite(v) && DV_D[i].startsWith('2023')));
+  out('rq-out', [T.rq1(W, k), T.rq2(nf(at('USDC', '2023-03-11'), 2), nf(at('USDC', '2023-03-12'), 2), nf(at('USDC', '2023-03-15'), 2), nf(y23('USDC'), 2)),
+    T.rq3(nf(at('DAI', '2023-03-12'), 2), nf(y23('DAI'), 2))]);
+}
+
 // ================================================================= 2.4 worked example: one equation, USDC after SVB
 const LP = D.path, LP_PAL = [BA.green, BA.gold, BA.teal, BA.eth, '#6C3483', BA.blue, BA.red, '#D4AC0D', '#16A085', C.navy, '#884EA0', '#2874A6', '#B03A2E'];
 function lassoPath() {
@@ -182,6 +210,42 @@ function dpi() {
   const yrs = [...new Set(DP_D.map(d => d.slice(0, 4)))];
   out('dp-out', [T.dp1(yrs.map(y => `${y} ${nf(median(DP.dpi.filter((_, i) => DP_D[i].startsWith(y))), 2)}`).join(', ')),
     T.dp2(gnum(R.n), longDate(end), (R.f.b >= 0 ? '+' : '') + nf(R.f.b, 3), nf(R.se, 3), nf(R.p, 2), nf(R.lo, 3), nf(R.hi, 3)), R.p < 0.05 ? T.dp3r() : T.dp3n()]);
+}
+
+// ================================================================= 3.3 which coins carry the DPI
+const LAMD = D.lam, YRS = [...new Set(DP_D.map(d => d.slice(0, 4)))];
+const CCOL = { USDT: BA.green, USDC: BA.blue, DAI: BA.gold, TUSD: BA.teal, USDP: BA.eth, GUSD: BA.btc, BUSD: '#C2185B', SUSD: BA.red, PAXG: '#D4AC0D', EURS: '#16A085' };
+function dpiWithout(c) {               // mean of the available selected penalties, coin c left out
+  return DP_D.map((_, i) => { const v = COINS.filter(k => k !== c).map(k => LAMD[k][i]).filter(finite); return v.length ? sum(v) / v.length : null; });
+}
+const annMed = x => YRS.map(y => median(x.filter((v, i) => finite(v) && DP_D[i].startsWith(y))));
+function coinShares() {                // yearly mean of the terms lambda_j / J (J = coins available that day), normalised to 100% (as l5_more.py)
+  const n = DP_D.map((_, i) => COINS.filter(k => finite(LAMD[k][i])).length), m = {};
+  COINS.forEach(k => { m[k] = YRS.map(y => mean(DP_D.map((d, i) => (d.startsWith(y) && finite(LAMD[k][i]) ? LAMD[k][i] / n[i] : null)).filter(v => v !== null))); });
+  const out_ = {};
+  COINS.forEach(k => { out_[k] = YRS.map((_, j) => 100 * m[k][j] / sum(COINS.map(c => m[c][j]))); });
+  return out_;
+}
+const DC_SH = coinShares();
+function dpiCoins() {
+  const c = $('dc-c').value, nm = c ? NAME(c) : '';
+  const tr = COINS.map(k => ({ type: 'bar', x: YRS, y: DC_SH[k], name: NAME(k), marker: { color: CCOL[k], line: { color: k === c ? '#000' : 'rgba(0,0,0,0)', width: k === c ? 2 : 0 } },
+    hovertemplate: NAME(k) + ' %{x}: %{y:.1f}% of the DPI<extra></extra>' }));
+  plot('dc-share', tr, layout({ title: ttl('Share of each coin in the yearly mean of the DPI'), barmode: 'stack', xaxis: AX('', { type: 'category' }), yaxis: AX('share of the DPI (%)', { range: [0, 100] }), legend: LEG }));
+  const all = annMed(DP.dpi), tr2 = [{ x: YRS, y: all, mode: 'lines+markers', name: 'DPI, 10 coins: annual median', line: { color: BA.blue, width: 2 }, hovertemplate: '%{x}: %{y:.3f}<extra></extra>' }];
+  let wo = null;
+  if (c) { wo = dpiWithout(c); tr2.push({ x: YRS, y: annMed(wo), mode: 'lines+markers', name: `DPI without ${nm} (9 coins): annual median`, line: { color: BA.red, width: 2, dash: 'dash' }, marker: { symbol: 'square' }, hovertemplate: '%{x}: %{y:.3f}<extra></extra>' }); }
+  plot('dc-ann', tr2, layout({ title: ttl(c ? `Annual median of the DPI, with and without ${nm}` : 'Annual median of the DPI'), xaxis: AX('', { type: 'category' }), yaxis: AX('DPI'), legend: LEG }));
+  const q4 = x => median(x.filter((v, i) => finite(v) && DP_D[i] >= '2025-10-01' && DP_D[i] <= '2025-12-31'));
+  const lines = [T.dc0(YRS.map((y, j) => `${y} ${nf(all[j], 2)}`).join(', '))];
+  if (c) {
+    const a = annMed(wo), lx = [], ly = [];
+    DP.dpi.forEach((v, i) => { if (finite(v) && finite(wo[i])) { lx.push(Math.log(v)); ly.push(Math.log(wo[i])); } });
+    const mx = mean(lx), my = mean(ly), cv = sum(lx.map((v, i) => (v - mx) * (ly[i] - my))), r = cv / Math.sqrt(sum(lx.map(v => (v - mx) ** 2)) * sum(ly.map(v => (v - my) ** 2)));
+    lines.push(T.dc1(nm, YRS.map((y, j) => `${y} ${nf(DC_SH[c][j], 1)}`).join(', ')), T.dc2(nm, YRS.map((y, j) => `${y} ${nf(a[j], 2)}`).join(', ')),
+      T.dc3(nf(q4(DP.dpi), 2), nf(q4(wo), 2), nm, nf(r, 2)));
+  }
+  out('dc-out', lines);
 }
 
 // ================================================================= 3.4 event responses
@@ -267,18 +331,20 @@ function init() {
   $('pq-e').max = PQ_M.length - 1; $('pq-e').value = pq0; on(['pq-e'], pegQuality); P('pq-play', 'pq-e', range(0, PQ_M.length - 1, 1), 250);
   on(['su-c'], susd); P('su-play', 'su-c', range(0.99, 0.1, -0.01), 120);
   on(['cl-t'], checkLoss); P('cl-play', 'cl-t', range(0.01, 0.5, 0.01), 200);
+  on(['rq-w'], rollq); P('rq-play', 'rq-w', [90, 75, 60, 45, 35, 30, 25, 22, 21, 20], 900);
   $('lp-k').value = LP.kb; on(['lp-k'], lassoPath); P('lp-play', 'lp-k', range(24, 0, -1), 450);
   const dp0 = DP_M.indexOf('2026-05');
   $('dp-e').max = DP_M.length - 1; $('dp-e').value = dp0; on(['dp-e'], dpi); P('dp-play', 'dp-e', range(0, DP_M.length - 1, 1), 300); tall('dp-chart', 420);
+  on(['dc-c'], dpiCoins); P('dc-play', 'dc-c', ['USDT', 'USDC', 'DAI', 'TUSD', 'USDP', 'GUSD', 'SUSD', 'PAXG', 'EURS', '', 'BUSD'], 1400);
   on(['ev-h'], events); P('ev-play', 'ev-h', range(1, 30, 1), 350);
   $('lk-y').max = LK_Y.length - 1; on(['lk-y'], links); P('lk-play', 'lk-y', range(1, LK_Y.length - 1, 1).concat([0]), 1100); tall('lk-chart', 480);
   on(['ac-g'], active); P('ac-play', 'ac-g', range(2, 10, 1), 800);
-  const PFX = { 'peg-quality': 'pq', 'susd': 'su', 'check-loss': 'cl', 'lasso-path': 'lp', 'dpi': 'dp', 'events': 'ev', 'links': 'lk', 'active': 'ac' };
+  const PFX = { 'peg-quality': 'pq', 'susd': 'su', 'check-loss': 'cl', 'rollq': 'rq', 'dpi-coins': 'dc', 'lasso-path': 'lp', 'dpi': 'dp', 'events': 'ev', 'links': 'lk', 'active': 'ac' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  pegQuality(); susd(); checkLoss(); lassoPath(); dpi(); events(); links(); active();
+  pegQuality(); susd(); checkLoss(); rollq(); lassoPath(); dpi(); dpiCoins(); events(); links(); active();
 }
-window.L5 = { pegQuality, susd, checkLoss, lassoPath, dpi, events, links, active, pegStats, argminSet, trendTo, response, holm, linkMatrix, groups, spearman, days, PQ_M, DP_M, LK_Y };
+window.L5 = { pegQuality, susd, checkLoss, rollq, rollLower, lassoPath, dpi, dpiCoins, dpiWithout, events, links, active, pegStats, argminSet, trendTo, response, holm, linkMatrix, groups, spearman, days, PQ_M, DP_M, LK_Y };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

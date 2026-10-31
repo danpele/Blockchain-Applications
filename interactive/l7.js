@@ -201,6 +201,25 @@ function varPaths() {
   return { hb, lo };
 }
 
+// ================================================================= rolling quantile-score difference against GARCH-t
+function qsRoll() {
+  const W = +$('qr-w').value, a = 0.01, y = VR.r, base = y.map((v, t) => qsOf(v, VR.q['GARCH-t|0.01'][t], a));
+  $('qr-w-v').textContent = W + ' days' + (W === 365 ? ' (as on the slide)' : '');
+  const res = [], tr = [];
+  VM.filter(m => m !== 'GARCH-t').forEach(m => {
+    const d = y.map((v, t) => qsOf(v, VR.q[m + '|0.01'][t], a) - base[t]), cs = [0];
+    d.forEach(v => cs.push(cs[cs.length - 1] + v));
+    const x = [], z = [];
+    for (let t = W; t <= NV; t++) { x.push(VD[t - 1]); z.push(1000 * (cs[t] - cs[t - W]) / W); }
+    res.push({ m, last: z[z.length - 1], ahead: 100 * mean(z.map(v => +(v < 0))), n: z.length, x0: x[0] });
+    tr.push({ x, y: z, mode: 'lines', name: `${m} minus GARCH-t`, line: { color: VCOL[m], width: m === 'Chronos-2' ? 2.2 : 1.4 }, hovertemplate: `${m}, window ending %{x|%d %b %Y}: %{y:.1f}<extra></extra>` });
+  });
+  plot('qr-chart', tr, layout({ title: ttl(`Mean 1% quantile score minus that of GARCH-t over the last ${W} days (× 10⁻³); below zero = better than GARCH-t`),
+    xaxis: AX('', { type: 'date' }), yaxis: AX('QS difference (× 10⁻³)'), shapes: [hline(0, '#1F77B4'), vline(VR.release, BA.gold, 'dot')], legend: legendBelow(-0.12) }));
+  out('qr-out', [T.qr0(W, res[0].n, longDate(res[0].x0)), ...res.map(r_ => T.qr(r_.m, sgn(r_.last, 1), nf(r_.ahead, 0)))]);
+  return res;
+}
+
 // ================================================================= wiring
 function init() {
   const on = (ids, f) => ids.forEach(id => $(id).addEventListener('input', f));
@@ -214,12 +233,13 @@ function init() {
   $('vp-t').max = NV - 1; $('vp-t').value = VD.indexOf('2024-01-14'); tall('vp-chart', 430);
   on(['vp-t', 'vp-ref'], varPaths);
   P('vp-play', 'vp-t', range(0, 30, 1).concat(range(35, NV - 1, 7)).concat([NV - 1]), 220);
-  const PFX = { 'overfitting': 'oa', 'trading': 'eq', 'snooping': 'sn', 'var-models': 'vm', 'var-paths': 'vp' };
+  tall('qr-chart', 400); on(['qr-w'], qsRoll); P('qr-play', 'qr-w', [60, 90, 120, 180, 240, 300, 365, 420, 480, 540, 600, 660, 720], 800);
+  const PFX = { 'overfitting': 'oa', 'trading': 'eq', 'snooping': 'sn', 'var-models': 'vm', 'var-paths': 'vp', 'qs-roll': 'qr' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  shapChart(); overfit(); trading(); snoop(); varModels(); varPaths();
+  shapChart(); overfit(); trading(); snoop(); varModels(); varPaths(); qsRoll();
 }
-window.L7 = { accuracy, perf, dsr, scores, MEND, days, PhiInv, Phi, ranks, pearson, kupiecP, christP, dmP, overfit, trading, snoop, varModels, varPaths };
+window.L7 = { accuracy, perf, dsr, scores, MEND, days, PhiInv, Phi, ranks, pearson, kupiecP, christP, dmP, overfit, trading, snoop, varModels, varPaths, qsRoll };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -58,6 +58,28 @@ const LOG = { type: 'log', dtick: 1 };                 // log axis with one labe
 const tall = (id, h) => { $(id).style.height = h + 'px'; };
 const lastOfMonth = dates => dates.map((d, i) => (i === dates.length - 1 || dates[i + 1].slice(0, 7) !== d.slice(0, 7))).map((f, i) => (f ? i : -1)).filter(i => i >= 0);
 
+// ================================================================= 1.5 who pays the miners: subsidy or fees?
+const MR = D.miner, MR_D = days(MR.dates);
+const roll30 = a => a.map((_, i) => (i < 29 ? null : sum(a.slice(i - 29, i + 1))));          // pandas rolling(30).sum()
+const MR_F30 = roll30(MR.fee);
+function minerRevenue() {
+  const k = +$('mr-k').value, f = 2 ** -k;
+  $('mr-k-v').textContent = k === 0 ? 'none (as in the data)' : k;
+  const s30 = roll30(MR.sub.map(v => v * f)), share = s30.map((v, i) => (v === null ? null : 100 * MR_F30[i] / (MR_F30[i] + v)));
+  const x = MR_D.slice(29), sh = share.slice(29);
+  const halv = MR.halv.map(h => vline(h, BA.green, 'dot'));
+  plot('mr-rev', [
+    { x, y: s30.slice(29).map(v => v / 30), mode: 'lines', name: 'block subsidy' + (k ? ' / ' + 2 ** k : '') + ' (USD million a day, 30-day mean)', line: { color: BA.btc, width: 1.2 }, hovertemplate: 'subsidy %{x|%d %b %Y}: %{y:,.2f} USD million a day<extra></extra>' },
+    { x, y: MR_F30.slice(29).map(v => v / 30), mode: 'lines', name: 'transaction fees (USD million a day, 30-day mean)', line: { color: BA.blue, width: 1.2 }, hovertemplate: 'fees %{x|%d %b %Y}: %{y:,.3f} USD million a day<extra></extra>' }],
+    layout({ title: ttl('Bitcoin miner revenue per day' + (k ? ', subsidy divided by ' + 2 ** k : '')), xaxis: AX('', { type: 'date' }), yaxis: AX('USD million a day (log scale)', LOG), shapes: halv }));
+  plot('mr-share', [{ x, y: sh, mode: 'lines', name: 'fees as % of miner revenue (30-day sums)', line: { color: BA.eth, width: 1.2 }, hovertemplate: 'fee share %{x|%d %b %Y}: %{y:.2f}%<extra></extra>' }],
+    layout({ title: ttl('Fees as % of miner revenue'), xaxis: AX('', { type: 'date' }), yaxis: AX('%', { rangemode: 'tozero' }), shapes: halv }));
+  const L = sh.length - 1;
+  let im = 0; sh.forEach((v, i) => { if (v > sh[im]) im = i; });
+  out('mr-out', [T.mr1(k, String(3.125 * f), [2028, 2032, 2036, 2040][k - 1]),
+    T.mr2(longDate(x[L]), nf(s30[s30.length - 1] / 30, 1), nf(MR_F30[MR_F30.length - 1] / 30, 2), nf(sh[L], 2)), T.mr3(nf(sh[im], 1), longDate(x[im]))]);
+}
+
 // ================================================================= 2.1 market value of the five coins
 const CO = D.coins, CO_D = days(CO.dates), NC = CO_D.length;
 const coinTot = CO_D.map((_, i) => sum(CO.keys.map(k => CO.mv[k][i])));
@@ -289,6 +311,7 @@ function oos() {
 function init() {
   const on = (ids, f) => ids.forEach(id => $(id).addEventListener('input', f));
   const players = {}, P = (btn, id, vals, ms) => (players[btn] = new Player(btn, $(id), vals, ms));
+  on(['mr-k'], minerRevenue); P('mr-play', 'mr-k', [0, 1, 2, 3, 4], 1100);
   tall('mv-chart', 440);
   $('mv-t').max = NC - 1; $('mv-t').value = NC - 1; on(['mv-t'], marketValue); P('mv-play', 'mv-t', range(0, NC - 1, 30).concat([NC - 1]), 90);
   on(['cx-k'], crix); P('cx-play', 'cx-k', [1, 2, 3, 4], 1100);
@@ -301,13 +324,13 @@ function init() {
   $('va-e').max = VA.dates.length - 1; $('va-e').value = VA.dates.length - 1; on(['va-e'], valueActivity); P('va-play', 'va-e', range(23, VA.dates.length - 1, 3), 220);
   $('tr-s').max = TR.dates.length - 37; $('tr-s').value = 0; on(['tr-s'], trend); P('tr-play', 'tr-s', range(0, TR.dates.length - 37, 3), 220);
   $('os-o').max = TR.dates.length - 1; $('os-o').value = TR.dates.length - 1; on(['os-o'], oos); P('os-play', 'os-o', range(35, TR.dates.length - 1, 3).concat([TR.dates.length - 1]), 260);
-  const PFX = { 'market-value': 'mv', 'crix': 'cx', 'stablecoin-supply': 'ss', 'stablecoin-issuers': 'sc', 'defi-tvl': 'df', 'spot-etf': 'et',
+  const PFX = { 'miner-revenue': 'mr', 'market-value': 'mv', 'crix': 'cx', 'stablecoin-supply': 'ss', 'stablecoin-issuers': 'sc', 'defi-tvl': 'df', 'spot-etf': 'et',
     'four-views': 'oc', 'value-activity': 'va', 'trend': 'tr', 'out-of-sample': 'os' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  marketValue(); crix(); stableSupply(); concentration(); defi(); etf(); onchain(); valueActivity(); trend(); oos();
+  minerRevenue(); marketValue(); crix(); stableSupply(); concentration(); defi(); etf(); onchain(); valueActivity(); trend(); oos();
 }
-window.L1 = { crixAll, growth, trendFit, nwSE, oosAt, rollMean, ols, corr, days };
+window.L1 = { roll30, crixAll, growth, trendFit, nwSE, oosAt, rollMean, ols, corr, days };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

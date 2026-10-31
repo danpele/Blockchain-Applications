@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_crash_counts'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Number of days with standardised returns beyond k standard deviations (k = 2 to 6), Bitcoin and the S&P 500, 2018 to 18 September 2026, against the number expected under the Normal distribution; with the expected counts worked out step by step.'
+
+Keywords: 'heavy tails, Normal distribution, crashes, standardised returns, Bitcoin, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_crash_counts.pdf'

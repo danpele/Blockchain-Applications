@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_tails'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Standardised residuals of a GARCH(1,1)-t model for Bitcoin, 2018 to 18 September 2026: histogram on a log scale against the Normal and the fitted Student-t, and the number of days with |z| above a threshold, observed against expected under each distribution.'
+
+Keywords: 'heavy tails, Student-t, standardised residuals, GARCH, tail counts, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_tails.pdf'

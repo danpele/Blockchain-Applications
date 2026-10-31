@@ -133,6 +133,33 @@ function ewmaWeights() {
     T.ew2(longDate(RB_D[drop]), nf(an(roll[drop - 1]), 0), nf(an(roll[drop]), 0), nf(an(Math.sqrt(ew[drop - 1])), 0), nf(an(Math.sqrt(ew[drop])), 0))]);
 }
 
+// ================================================================= 2.2 heavy tails after filtering (Bitcoin standardised residuals)
+const ZB = RB.map((r, i) => (r - G.btc.mu) / Math.sqrt(FILT.btc.s2[i])), NZ = ZB.length, NU_B = G.btc.nu, SC_B = Math.sqrt((NU_B - 2) / NU_B);
+const ZABS = ZB.map(Math.abs).sort((a, b) => b - a);
+const above = c => { let k = 0; while (k < ZABS.length && ZABS[k] > c) k++; return k; };
+const sci = x => { if (x >= 0.01) return nf(x, x < 1 ? 2 : 1); const e = Math.floor(Math.log10(x)), m = x / 10 ** e; return nf(m, 1) + ' × 10<sup>' + e + '</sup>'; };
+const ZBIN = (() => { const w = 0.25, lo = -14, nb = 92, cnt = new Array(nb).fill(0); ZB.forEach(z => { const k = Math.floor((z - lo) / w); if (k >= 0 && k < nb) cnt[k]++; });
+  return { x: cnt.map((_, k) => lo + (k + 0.5) * w), y: cnt.map(v => (v ? v / (NZ * w) : null)), w }; })();
+function tails() {
+  const c = +$('tl-c').value;
+  $('tl-c-v').textContent = nf(c, 2);
+  const xx = range(-14, 9, 0.05), CG = range(2, 8, 0.05);
+  plot('tl-hist', [
+    { x: ZBIN.x, y: ZBIN.y, type: 'bar', width: ZBIN.w, name: 'Bitcoin standardised residuals ẑ<sub>t</sub>', marker: { color: BA.btc + 'BF' }, hovertemplate: 'ẑ ≈ %{x:.2f}: density %{y:.2e}<extra></extra>' },
+    { x: xx, y: xx.map(normPdf), mode: 'lines', name: 'Normal, variance 1', line: { color: BA.blue, width: 1.4 }, hoverinfo: 'skip' },
+    { x: xx, y: xx.map(v => tPdf(v / SC_B, NU_B) / SC_B), mode: 'lines', name: 'Student-t, ν = ' + nf(NU_B, 2) + ', variance 1', line: { color: BA.red, width: 1.4 }, hoverinfo: 'skip' }],
+    layout({ title: ttl('Density of ẑ<sub>t</sub> (horizontal), log scale; dotted: ±c'), xaxis: AX('', { range: [-14, 9] }), yaxis: AX('density (log scale)', { type: 'log', range: [-5, 0], exponentformat: 'power' }), bargap: 0,
+      shapes: [vline(-c, C.navy, 'dot'), vline(c, C.navy, 'dot')] }));
+  plot('tl-count', [
+    { x: CG, y: CG.map(above), mode: 'lines', name: 'observed days', line: { color: BA.btc, width: 2, shape: 'hv' }, hovertemplate: 'c = %{x:.2f}: %{y} days<extra></extra>' },
+    { x: CG, y: CG.map(v => NZ * 2 * (1 - normCdf(v))), mode: 'lines', name: 'expected, Normal', line: { color: BA.blue, width: 1.4 }, hovertemplate: 'Normal, c = %{x:.2f}: %{y:.2e}<extra></extra>' },
+    { x: CG, y: CG.map(v => NZ * 2 * (1 - tCdf(v / SC_B, NU_B))), mode: 'lines', name: 'expected, Student-t', line: { color: BA.red, width: 1.4 }, hovertemplate: 'Student-t, c = %{x:.2f}: %{y:.1f}<extra></extra>' }],
+    layout({ title: ttl('Days with |ẑ<sub>t</sub>| > c, log scale; horizontal: c'), xaxis: AX(''), yaxis: AX('days (log scale)', { type: 'log', range: [-2, 2.7], exponentformat: 'power' }), shapes: [vline(c, C.navy, 'dot')] }));
+  const jmin = ZB.reduce((b, z, i) => (z < ZB[b] ? i : b), 0);
+  out('tl-out', [T.tl1(gnum(NZ), nf(NU_B, 2)), T.tl2(nf(c, 2), above(c), sci(NZ * 2 * (1 - normCdf(c))), sci(NZ * 2 * (1 - tCdf(c / SC_B, NU_B)))),
+    T.tl3(nf(ZB[jmin], 1), longDate(RB_D[jmin]))]);
+}
+
 // ================================================================= 2.2 conditional volatility
 function condVol() {
   const f = +$('cv-a').value;
@@ -170,6 +197,31 @@ function termStructure() {
     layout({ title: ttl('Bitcoin, forecasts made on 18 Sep 2026'), xaxis: AX('horizon h (days)'), yaxis: AX('forecast volatility (% a year)', { rangemode: 'tozero' }), shapes: [vline(h, C.navy, 'dot')] }));
   rows.push(T.ts2(nf(p.omega, 3), nf(an(fb[0]), 1), h, nf(an(fb[h - 1]), 1), nf(an(fb[249]), 1), nf(an(ew), 1)));
   out('ts-out', rows);
+}
+
+// ================================================================= 3.2 VaR and ES on the forecast density
+const NU_LIST = [30, 20, 15, 10, 8, 6, 5, 4, 3.5, G.btc.nu, 3, 2.75, 2.5, 2.4, 2.3, 2.2, 2.1, 2.05], NU_EST = 9;
+function densityVar() {
+  const nu = NU_LIST[+$('dv-n').value], g = G.btc, mu = g.mu, sf = Math.sqrt(FILT.btc.next), sc = Math.sqrt((nu - 2) / nu);
+  $('dv-n-v').textContent = nf(nu, 2) + (+$('dv-n').value === NU_EST ? ' (estimate)' : '');
+  const vt = -(mu + sf * sc * tPpf(0.01, nu)), q25 = tPpf(0.025, nu), et = -mu + sf * sc * esFactor(q25, 0.025, nu);
+  const vn = -(mu + sf * normPpf(0.01)), en = -mu + sf * normPdf(normPpf(0.025)) / 0.025;
+  const xx = range(-16, 12, 0.05), ft = xx.map(x => tPdf((x - mu) / (sf * sc), nu) / (sf * sc)), fn = xx.map(x => normPdf((x - mu) / sf) / sf);
+  const tl = { x: xx, y: ft, mode: 'lines', name: 'GARCH(1,1)-t forecast density, ν = ' + nf(nu, 2), line: { color: BA.btc, width: 1.8 }, hovertemplate: '%{x:.2f}%: %{y:.4f}<extra></extra>' };
+  const nl = { x: xx, y: fn, mode: 'lines', name: 'Normal with the same mean and σ', line: { color: BA.blue, width: 1.4, dash: 'dash' }, hovertemplate: '%{x:.2f}%: %{y:.4f}<extra></extra>' };
+  plot('dv-dens', [tl, nl], layout({ title: ttl('Return on 19 Sep 2026 (%), σ = ' + nf(sf, 2) + '% a day'), xaxis: AX('', { range: [-12, 12] }), yaxis: AX('density', { rangemode: 'tozero' }) }));
+  const cut = xx.map((x, i) => (x <= -vt ? ft[i] : null));
+  plot('dv-tail', [Object.assign({}, tl, { showlegend: false }), Object.assign({}, nl, { showlegend: false }),
+    { x: xx, y: cut, mode: 'lines', fill: 'tozeroy', name: 'Student-t: the 1% left tail', line: { color: BA.btc, width: 0 }, fillcolor: BA.btc + '59', hoverinfo: 'skip' },
+    { x: [-vt, -vt], y: [0, 0.03], mode: 'lines', name: 'Student-t: −VaR 1% (solid), −ES 2.5% (dotted)', line: { color: BA.btc, width: 2 }, hoverinfo: 'skip' },
+    { x: [-et, -et], y: [0, 0.03], mode: 'lines', showlegend: false, line: { color: BA.btc, width: 2, dash: 'dot' }, hoverinfo: 'skip' },
+    { x: [-vn, -vn], y: [0, 0.03], mode: 'lines', name: 'Normal: −VaR 1% (solid), −ES 2.5% (dotted)', line: { color: BA.blue, width: 2 }, hoverinfo: 'skip' },
+    { x: [-en, -en], y: [0, 0.03], mode: 'lines', showlegend: false, line: { color: BA.blue, width: 2, dash: 'dot' }, hoverinfo: 'skip' }],
+    layout({ title: ttl('The left tail, return (%)'), xaxis: AX('', { range: [-16, -3] }), yaxis: AX('density', { range: [0, 0.03] }) }));
+  const gp = p => sc * tPpf(p, nu) - normPpf(p), ps = range(-5, Math.log10(0.49), 0.05).map(e => 10 ** e);
+  let cross = null; for (let i = 1; i < ps.length && cross === null; i++) if (Math.sign(gp(ps[i - 1])) !== Math.sign(gp(ps[i]))) { const sg = gp(ps[i - 1]) < 0 ? 1 : -1; cross = bisect(p => sg * gp(p), ps[i - 1], ps[i], 60); }
+  out('dv-out', [T.dv1(nf(nu, 2), nf(vt, 2), nf(vn, 2), nf(et, 2), nf(en, 2)), T.dv2(nf(100 * tCdf((-vn - mu) / (sf * sc), nu), 2)),
+    cross === null ? T.dv4 : T.dv3(nf(100 * cross, 2))]);
 }
 
 // ================================================================= 3.4 VaR and ES by method
@@ -249,17 +301,19 @@ function init() {
   const players = {}, P = (btn, id, vals, ms) => (players[btn] = new Player(btn, $(id), vals, ms));
   on(['cl-k'], clustering); P('cl-play', 'cl-k', [0, 1, 2, 3, 5, 7, 10, 15, 20, 25, 30], 700);
   on(['ew-l'], ewmaWeights); P('ew-play', 'ew-l', range(0.8, 0.99, 0.01), 400);
+  on(['tl-c'], tails); P('tl-play', 'tl-c', range(2, 8, 0.25), 350);
+  $('dv-n').value = NU_EST; on(['dv-n'], densityVar); P('dv-play', 'dv-n', range(0, NU_LIST.length - 1, 1), 600);
   on(['cv-a'], condVol); P('cv-play', 'cv-a', range(0.25, 2.5, 0.25), 700);
   on(['ts-s', 'ts-h'], termStructure); P('ts-play', 'ts-s', range(0.25, 4, 0.25), 500);
   on(['vm-p'], varMethods); P('vm-play', 'vm-p', [0.1, 0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5], 700);
   $('bt-e').max = NT - 1; $('bt-e').value = NT - 1; on(['bt-e', 'bt-m'], backtest); P('bt-play', 'bt-e', range(249, NT - 1, 21).concat([NT - 1]), 160);
   $('ov-d').max = NO; $('ov-d').value = NO; on(['ov-d'], oosVar); P('ov-play', 'ov-d', range(1, NO, 1), 300);
   tall('bt-chart', 400);
-  const PFX = { 'clustering': 'cl', 'ewma-weights': 'ew', 'conditional-volatility': 'cv', 'term-structure': 'ts', 'var-methods': 'vm', 'violations': 'bt', 'oos-var': 'ov' };
+  const PFX = { 'clustering': 'cl', 'ewma-weights': 'ew', 'tails': 'tl', 'conditional-volatility': 'cv', 'term-structure': 'ts', 'density-var': 'dv', 'var-methods': 'vm', 'violations': 'bt', 'oos-var': 'ov' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  clustering(); ewmaWeights(); condVol(); termStructure(); varMethods(); backtest(); oosVar();
+  clustering(); ewmaWeights(); tails(); condVol(); termStructure(); densityVar(); varMethods(); backtest(); oosVar();
 }
 window.L3 = { RET, G, FILT, garchFilter, ewmaNext, varAll, tPpf, tCdf, normPpf, kupiec, christoffersen, HIT, ROLL, BT_D, acf, days };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

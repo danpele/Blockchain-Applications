@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_missing'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Share of days with no value in the daily transactions file of eleven coins, by coin and calendar year, November 2014 to 8 October 2025, and the period in which all eleven coins are observed.'
+
+Keywords: 'data quality, missing values, coverage, balanced panel, on-chain data, cryptocurrencies'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain)'
+
+Output: 'ba_l1_missing.pdf'

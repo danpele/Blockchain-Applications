@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_calib'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Reliability diagram and histogram of the out-of-sample probabilities of an up day from three walk-forward classifiers (logit, random forest, XGBoost) for Bitcoin; share of up days in bins of the forecast probability. EODHD daily data, test period 1 January 2020 - 22 October 2026.'
+
+Keywords: 'calibration, reliability diagram, probability forecast, Brier score, XGBoost, logit, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l7_calib.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_calm'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean absolute daily return by quintile of the previous day’s absolute return, Bitcoin and the S&P 500, 2018 to 18 September 2026: a direct view of volatility clustering.'
+
+Keywords: 'volatility clustering, absolute returns, conditional mean, Bitcoin, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_calm.pdf'

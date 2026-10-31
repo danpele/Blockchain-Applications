@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_vr_periods'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Robust variance-ratio statistic Z*(5) of Lo and MacKinlay for Bitcoin, Ethereum and the S&P 500 in three sub-periods, 2014-2017 (Ethereum from 2016), 2018-2021 and 2022 to 18 September 2026.'
+
+Keywords: 'variance ratio, random walk, market efficiency, Lo-MacKinlay, Bitcoin, Ethereum, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_vr_periods.pdf'

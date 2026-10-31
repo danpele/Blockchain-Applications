@@ -252,15 +252,15 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "DPI over time",
-                text: "Own replication, annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and what happened then?",
+                text: "Own replication, annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and which coin carried it?",
                 options: [
                     "2020, during the pandemic market crash",
-                    "2025, at the start of the sUSD depeg",
-                    "2023, because of the Silicon Valley Bank failure",
+                    "2025, carried mostly by BUSD, a thinly traded coin",
+                    "2025, carried by the depeg of sUSD in November",
                     "2026, because of the Iran-Hormuz shock"
                 ],
-                correctExplanation: "The highest annual median is 0.52 in 2025; the highest regime came in late 2025, when sUSD fell below 0.95 USD (from 24 November 2025).",
-                incorrectExplanation: "Read the medians: the maximum, 0.52, is in 2025, coinciding with the start of the persistent sUSD depeg."
+                correctExplanation: "The highest annual median is 0.52 in 2025. BUSD carries 63% of the index in October–December 2025; without BUSD the 2025 median falls to 0.34, while leaving out sUSD raises it to 0.55.",
+                incorrectExplanation: "The maximum, 0.52, is in 2025, but the leave-one-coin-out check points to BUSD, not to the sUSD depeg that began in the same months."
             }
         },
         {

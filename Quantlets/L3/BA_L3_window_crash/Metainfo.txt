@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_window_crash'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Bitcoin volatility from February to May 2020 by three estimates available at the end of each day: the 30-day equal-weight standard deviation, the EWMA with decay 0.94 and the GARCH(1,1)-t forecast for the next day, annualised; the crash of 12 March 2020 enters all three at once and leaves the 30-day window on 11 April 2020, when that estimate falls by almost half in one day.'
+
+Keywords: 'EWMA, RiskMetrics, rolling window, GARCH, volatility estimation, Bitcoin, March 2020 crash'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_window_crash.pdf'

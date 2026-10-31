@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_returns_path'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Bitcoin daily close on a log scale and daily log returns in percent, 1 January 2018 to 18 September 2026, with the worst day and the share of days beyond plus or minus 5%.'
+
+Keywords: 'Bitcoin, log returns, prices, volatility, daily data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_returns_path.pdf'

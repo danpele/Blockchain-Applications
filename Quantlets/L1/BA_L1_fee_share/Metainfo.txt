@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_fee_share'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Bitcoin miner revenue per day in USD from the block subsidy and from transaction fees (30-day means) and the share of fees in miner revenue, November 2014 to 8 October 2025, with the three halvings; with one day of revenue worked out step by step.'
+
+Keywords: 'Bitcoin, miner revenue, block subsidy, transaction fees, halving, security budget'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain); EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l1_fee_share.pdf'

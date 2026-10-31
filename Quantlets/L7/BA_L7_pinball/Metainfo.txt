@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_pinball'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Quantile score (pinball loss) of a 1% quantile forecast as a function of the forecast error, and the mean score of constant 1% quantile forecasts of the daily Bitcoin return over 1 January 2024 - 23 October 2026, against the empirical quantile and the GARCH(1,1)-t forecast.'
+
+Keywords: 'quantile score, pinball loss, strictly consistent scoring function, Value-at-Risk, GARCH, backtesting, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l7_pinball.pdf'

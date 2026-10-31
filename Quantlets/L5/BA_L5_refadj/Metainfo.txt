@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_refadj'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Rolling 90-day standard deviations of the daily dollar return of STASIS Euro (EURS) and Pax Gold (PAXG), of their reference assets (EUR/USD, XAU/USD) and of the reference-adjusted return, January 2021 - May 2026 (EODHD data).'
+
+Keywords: 'stablecoins, reference adjustment, EURS, PAXG, gold token, euro stablecoin, rolling volatility'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD'
+
+Output: 'ba_l5_refadj.pdf'

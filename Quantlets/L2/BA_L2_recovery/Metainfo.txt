@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L2_recovery'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The gain d/(1-d) needed to recover a drawdown d, with the maximum drawdowns of the S&P 500, Bitcoin and Ethereum since 2016; with the Bitcoin drawdown of 2021-2022 and its recovery worked out step by step.'
+
+Keywords: 'drawdown, recovery, maximum drawdown, Bitcoin, Ethereum, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l2_recovery.pdf'

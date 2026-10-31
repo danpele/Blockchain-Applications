@@ -99,6 +99,39 @@ function exceed() {
     T.ex3(k, ...COINS.map(s => nf(100 * share(DL.low[s], k, (v, x) => v <= -x), 2)))]);
 }
 
+// ================================================================= 2.5 tail risk moves: rolling VaR 1%
+function rollQuant(a, W, q) {        // rolling q-quantile of the last W values (current day included), linear interpolation as pandas
+  const out = new Array(a.length).fill(null), win = [];
+  const ins = v => { let lo = 0, hi = win.length; while (lo < hi) { const m = (lo + hi) >> 1; if (win[m] < v) lo = m + 1; else hi = m; } win.splice(lo, 0, v); };
+  const del = v => { let lo = 0, hi = win.length; while (lo < hi) { const m = (lo + hi) >> 1; if (win[m] < v) lo = m + 1; else hi = m; } win.splice(lo, 1); };
+  let bad = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (finite(a[i])) ins(a[i]); else bad++;
+    if (i >= W) { if (finite(a[i - W])) del(a[i - W]); else bad--; }
+    if (i >= W - 1 && bad === 0) { const h = (W - 1) * q, f = Math.floor(h); out[i] = win[f] + (h - f) * ((win[Math.min(f + 1, W - 1)]) - win[f]); }
+  }
+  return out;
+}
+const RV_I0 = DL_D.indexOf('2022-01-01');
+function rollvar() {
+  const W = +$('rv-w').value;
+  $('rv-w-v').textContent = W + ' days';
+  const x = DL_D.slice(RV_I0), tr = [], rd = [];
+  COINS.forEach(s => {
+    const v = rollQuant(DL.close[s], W, 0.01).slice(RV_I0).map(q => (finite(q) ? -q : null));
+    tr.push({ x, y: v, mode: 'lines', name: s + ': VaR 1% of the daily close deviation, past ' + W + ' days', line: { color: COL[s], width: 1.5, shape: 'hv' },
+      hovertemplate: s + ' %{x|%d %b %Y}: VaR 1% = %{y:.1f} bp<extra></extra>' });
+    let mx = -1e9, mi = 1e9, mxd = '', mid = '';
+    v.forEach((q, j) => { if (finite(q)) { if (q > mx) { mx = q; mxd = x[j]; } if (q < mi) { mi = q; mid = x[j]; } } });
+    rd.push(T.rv2(s, nf(v[v.length - 1], 1), nf(mx, 1), longDate(mxd), nf(mi, 1), longDate(mid)));
+  });
+  tr.push({ x: [x[0], x[x.length - 1]], y: [15, 15], mode: 'lines', name: '15 bp', line: { color: BA.eth, width: 1.2, dash: 'dot' }, hoverinfo: 'skip' });
+  plot('rv-chart', tr, layout({ title: ttl('VaR 1% of the daily close deviation over the previous ' + W + ' days, from January 2022'),
+    xaxis: AX('', { type: 'date' }), yaxis: AX('VaR 1% (bp, a loss), log scale', { type: 'log', range: [Math.log10(1.5), Math.log10(400)] }), legend: LEG }));
+  const pos = (W - 1) * 0.01, ord = k => k + (k === 1 ? 'st' : k === 2 ? 'nd' : k === 3 ? 'rd' : 'th');
+  out('rv-out', [T.rv1(W, nf(pos, 2), ord(Math.floor(pos) + 1), ord(Math.floor(pos) + 2))].concat(rd));
+}
+
 // ================================================================= 2.5 the SVB weekend, hour by hour
 const SV = D.svb, SV_H = hours(SV.hours), SV_X = SV_H.map(h => h.replace('T', ' '));
 const SVB_S = 3.3 / 40;
@@ -154,6 +187,54 @@ function amm() {
   plot('am-slip', ts, layout({ title: ttl('Average slippage of a sale of X (pool: 10m X + 10m Y)'), xaxis: AX('sale of X, million'), yaxis: AX('average slippage (%, log scale)', { type: 'log', dtick: 1 }), showlegend: false }));
   out('am-out', [T.am1(gnum(A), nf(ssAtShare(0.8, A), 3), nf(ssAtShare(0.9, A), 3), nf(ssAtShare(0.95, A), 3)),
     T.am2(gnum(A), nf(ssSlip(1, A), 3), nf(ssSlip(5, A), 3), nf(ssSlip(9.5, A), 3), nf(cpSlip(1), 2), nf(cpSlip(5), 1))]);
+}
+
+// ================================================================= 4.2 episodes: duration and depth
+const EPD = D.dh, EP_H = hours(EPD.hours), EP_A = EPD.d.map(v => (finite(v) ? Math.abs(v) : null));
+function epList(k) {                 // episode starts (breach after 24 observed quiet hours), ambiguous onsets, duration and peak
+  const n = EP_A.length, b = EP_A.map(v => finite(v) && v >= k), ev = [];
+  let amb = 0;
+  for (let t = 24; t < n; t++) {
+    if (!b[t]) continue;
+    let obsQuiet = 0, anyB = false;
+    for (let j = t - 24; j < t; j++) { if (b[j]) anyB = true; else if (finite(EP_A[j])) obsQuiet++; }
+    if (anyB) continue;
+    if (obsQuiet < 24) { amb++; continue; }
+    let run = 0, last = t, peak = EP_A[t], u = t;          // end: last breach before 24 consecutive hours without a breach
+    for (u = t + 1; u < n; u++) {
+      if (b[u]) { run = 0; last = u; } else run++;
+      if (run === 24) break;
+    }
+    for (let j = t; j <= last; j++) if (finite(EP_A[j]) && EP_A[j] > peak) peak = EP_A[j];
+    ev.push({ t: EP_H[t], dur: last - t + 1, peak });
+  }
+  return { ev, amb };
+}
+const YCOL = { 2022: BA.red, 2023: BA.eth, 2024: BA.blue, 2025: BA.gold, 2026: BA.green };
+const median = a => { const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length ? (s.length % 2 ? s[m] : 0.5 * (s[m - 1] + s[m])) : NaN; };
+function episodes() {
+  const k = +$('ep-k').value;
+  $('ep-k-v').textContent = k + ' bp';
+  const { ev, amb } = epList(k), tr = [];
+  Object.keys(YCOL).forEach(y => {
+    const e = ev.filter(z => z.t.startsWith(y));
+    tr.push({ x: e.map(z => z.dur), y: e.map(z => z.peak), customdata: e.map(z => z.t.replace('T', ' ')), mode: 'markers', type: 'scatter',
+      name: `episodes starting in ${y} (${e.length})`, marker: { color: YCOL[y], size: 8 },
+      hovertemplate: 'start %{customdata} UTC: %{x} h, peak %{y:.1f} bp<extra></extra>' });
+  });
+  tr.push({ x: [0.7, 500], y: [k, k], mode: 'lines', name: 'δ = ' + k + ' bp', line: { color: BA.eth, width: 1.2, dash: 'dot' }, hoverinfo: 'skip' });
+  plot('ep-scatter', tr, layout({ title: ttl('Duration and peak of each episode, USDC priced in USDT'), xaxis: AX('duration (hours, first to last breach hour)', { type: 'log', range: [-0.15, 2.7] }),
+    yaxis: AX('peak |d| in the episode (bp)', { type: 'log', range: [Math.log10(8), Math.log10(1500)] }), legend: LEG }));
+  const bins = [1, 2, 4, 7, 13, 25, 49, 97, 1e9], lab = ['1', '2-3', '4-6', '7-12', '13-24', '25-48', '49-96', '>96'];
+  const cnt = lab.map((_, i) => ev.filter(z => z.dur >= bins[i] && z.dur < bins[i + 1]).length);
+  plot('ep-hist', [{ type: 'bar', x: lab, y: cnt, name: 'number of episodes by duration', marker: { color: BA.blue }, text: cnt.map(String), textposition: 'outside',
+    cliponaxis: false, hovertemplate: '%{x} h: %{y} episodes<extra></extra>' }],
+    layout({ title: ttl('Episodes by duration, δ = ' + k + ' bp'), xaxis: AX('duration (hours)', { type: 'category' }), yaxis: AX('episodes'), showlegend: true, legend: LEG }));
+  const d = ev.map(z => z.dur), pk = ev.map(z => z.peak);
+  let mx = null; ev.forEach(z => { if (!mx || z.peak > mx.peak) mx = z; });
+  out('ep-out', [T.ep1(k, ev.length, amb),
+    T.ep2(nf(median(d), 1), d.filter(v => v === 1).length, d.filter(v => v <= 6).length, d.filter(v => v > 24).length),
+    mx ? T.ep3(nf(median(pk), 1), gnum(mx.peak, 1), longHour(mx.t)) : '']);
 }
 
 // ================================================================= 4.5 worked example: the utility
@@ -285,19 +366,21 @@ function init() {
   $('su-t').max = n; $('su-t').value = n; on(['su-t'], supply); P('su-play', 'su-t', range(j20, n, 30).concat([n]), 110);
   on(['dd-k'], daily); P('dd-play', 'dd-k', range(5, 100, 5), 450); tall('dd-chart', 560);
   on(['ex-k'], exceed); P('ex-play', 'ex-k', range(5, 100, 5), 450);
+  on(['rv-w'], rollvar); P('rv-play', 'rv-w', [60, 90, 120, 180, 270, 365, 540, 730], 900);
   let lo = 0; SV.USDC.forEach((v, j) => { if (finite(v) && v < SV.USDC[lo]) lo = j; });
   $('sv-t').max = SV_H.length - 1; $('sv-t').value = lo; on(['sv-t', 'sv-r'], svb); P('sv-play', 'sv-t', range(lo, Math.min(SV_H.length - 1, lo + 72), 1), 160);
   on(['am-k'], amm); P('am-play', 'am-k', range(0, AV.length - 1, 1), 900);
+  on(['ep-k'], episodes); P('ep-play', 'ep-k', range(10, 50, 1), 450);
   on(['ut-f', 'ut-l'], utility); P('ut-play', 'ut-f', range(0, 10, 0.5), 300);
   on(['pt-a', 'pt-m'], paperT1); P('pt-play', 'pt-a', [0, 1, 2, 3, 4, 5], 1000);
   on(['tf-k'], tradeoff); P('tf-play', 'tf-k', range(4, 25, 1), 600);
   on(['rc-k'], recent); P('rc-play', 'rc-k', range(5, 20, 0.5), 350);
-  const PFX = { 'supply': 'su', 'dev-daily': 'dd', 'exceed': 'ex', 'svb': 'sv', 'amm': 'am', 'utility': 'ut', 'paper-t1': 'pt', 'tradeoff': 'tf', 'recent': 'rc' };
+  const PFX = { 'supply': 'su', 'dev-daily': 'dd', 'exceed': 'ex', 'rollvar': 'rv', 'svb': 'sv', 'episodes': 'ep', 'amm': 'am', 'utility': 'ut', 'paper-t1': 'pt', 'tradeoff': 'tf', 'recent': 'rc' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  supply(); daily(); exceed(); svb(); amm(); utility(); paperT1(); tradeoff(); recent();
+  supply(); daily(); exceed(); rollvar(); svb(); amm(); episodes(); utility(); paperT1(); tradeoff(); recent();
 }
-window.L4 = { supply, daily, exceed, svb, amm, utility, paperT1, tradeoff, recent, evaluate, ruleTest, ruleVal, ewCurves, clopper, ssAtShare, ssSlip, ssPrice, vl, days, hours, share };
+window.L4 = { supply, daily, exceed, rollvar, rollQuant, svb, amm, episodes, epList, utility, paperT1, tradeoff, recent, evaluate, ruleTest, ruleVal, ewCurves, clopper, ssAtShare, ssSlip, ssPrice, vl, days, hours, share };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

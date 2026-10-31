@@ -38,8 +38,8 @@
 <section class="blk" id="clustering">
   <h3>Volatility Clustering, Again</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=6" target="_blank" rel="noopener"><img src="slides/ba_l3_clustering.jpg?v=20261031a" alt="Slide 5: Volatility Clustering, Again" loading="lazy"></a>
-      <figcaption>Slide 5</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=7" target="_blank" rel="noopener"><img src="slides/ba_l3_clustering.jpg?v=20261031a" alt="Slide 6: Volatility Clustering, Again" loading="lazy"></a>
+      <figcaption>Slide 6</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cl-k">Largest absolute returns capped: <b id="cl-k-v"></b></label><input type="range" id="cl-k" min="0" max="30" step="1" value="0"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-ret"></div><div class="chart" id="cl-acf"></div></div><ul class="out" id="cl-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Without capping, 8 of the 30 autocorrelations of squared returns lie above the band. Cap only the largest absolute return, the −46.5% of 12 March 2020, at the second largest (18.5%). How many of the 30 lie above the band?</div>
@@ -48,18 +48,28 @@
 <section class="blk" id="ewma-weights">
   <h3>How EWMA Weights the Past</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=8" target="_blank" rel="noopener"><img src="slides/ba_l3_ewma_weights.jpg?v=20261031a" alt="Slide 7: How EWMA Weights the Past" loading="lazy"></a>
-      <figcaption>Slide 7</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l3_ewma_weights.jpg?v=20261031a" alt="Slide 8: How EWMA Weights the Past" loading="lazy"></a>
+      <figcaption>Slide 8</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ew-l">λ: <b id="ew-l-v"></b></label><input type="range" id="ew-l" min="0.8" max="0.99" step="0.01" value="0.94"></div><button class="btn play" id="ew-play" type="button"></button></div><div class="charts "><div class="chart" id="ew-w"></div><div class="chart" id="ew-btc"></div></div><ul class="out" id="ew-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With λ = 0.94 the last 30 days carry 84% of the weight. The ▶ button raises λ from 0.80 to 0.99. What happens to that share?</div>
   <details><summary>Answer</summary><p>It falls: 1 − λ³⁰ is 99.9% at λ = 0.80, 60% at λ = 0.97 and 26% at λ = 0.99; a higher λ spreads the weight over a longer past (effective memory 1/(1 − λ) from 5 to 100 days). λ is the weight of yesterday's variance estimate, not of yesterday's return, whose weight is 1 − λ: 20% at λ = 0.80, 1% at λ = 0.99. On 11 April 2020, when the crash of 12 March leaves a 30-day window, the equal-weight volatility drops from 197% to 106% a year; the EWMA with λ = 0.94 only from 124% to 121%.</p></details>
 </section><h2 class="sec" id="s-estimates">Estimates</h2>
+<section class="blk" id="tails">
+  <h3>Heavy Tails after Filtering: Bitcoin's Standardised Residuals</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l3_tails.jpg?v=20261031a" alt="Slide 14: Heavy Tails after Filtering: Bitcoin's Standardised Residuals" loading="lazy"></a>
+      <figcaption>Slide 14</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="tl-c">Threshold c for |ẑ<sub>t</sub>|: <b id="tl-c-v"></b></label><input type="range" id="tl-c" min="2" max="8" step="0.25" value="4"></div><button class="btn play" id="tl-play" type="button"></button></div><div class="charts "><div class="chart" id="tl-hist"></div><div class="chart" id="tl-count"></div></div><ul class="out" id="tl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> At c = 4 the fitted Student-t expects 19.2 days with |ẑ| above c and 18 are observed. The ▶ button raises c from 2 to 8. At c = 6, 3 days are observed. How many does the Student-t expect?</div>
+  <details><summary>Answer</summary><p>About 5.7, almost twice the 3 observed. Up to c ≈ 4 the fitted Student-t (estimated ν = 3.13) matches the counts; beyond about 4.5 it expects more extreme days than occurred: 9.9 against 5 at c = 5, and 2.3 against 2 at c = 8. The Normal expects 6.3 × 10⁻⁶ days beyond 6 in this sample, about one such day in 1.4 million years of daily data; the largest observed, 12 March 2020, has ẑ = −13.3. Both counts beyond 5 rest on a handful of days, so the excess of the Student-t is a weak signal.</p></details>
+</section>
 <section class="blk" id="conditional-volatility">
   <h3>Conditional Volatility</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l3_condvol.jpg?v=20261031a" alt="Slide 11: Conditional Volatility" loading="lazy"></a>
-      <figcaption>Slide 11</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l3_condvol.jpg?v=20261031a" alt="Slide 16: Conditional Volatility" loading="lazy"></a>
+      <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cv-a">α as a multiple of its estimate (α + β and ω kept): <b id="cv-a-v"></b></label><input type="range" id="cv-a" min="0.25" max="2.5" step="0.05" value="1"></div><button class="btn play" id="cv-play" type="button"></button></div><div class="charts "><div class="chart" id="cv-chart"></div></div><ul class="out" id="cv-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin's conditional volatility peaks at 253.5% a year on 13 March 2020. The ▶ button sets α from 0.25 to 2.5 times its estimate, keeping α + β = 1 and ω. What happens to the peak?</div>
@@ -68,18 +78,28 @@
 <section class="blk" id="term-structure">
   <h3>After a Shock: Volatility Forecasts by Horizon</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l3_term_structure.jpg?v=20261031a" alt="Slide 12: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
-      <figcaption>Slide 12</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_term_structure.jpg?v=20261031a" alt="Slide 18: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ts-s">Variance after the shock, multiple of the long-run variance: <b id="ts-s-v"></b></label><input type="range" id="ts-s" min="0.25" max="4" step="0.25" value="2"></div><div class="ctl"><label for="ts-h">Horizon h for the readout: <b id="ts-h-v"></b></label><input type="range" id="ts-h" min="1" max="250" step="1" value="10"></div><button class="btn play" id="ts-play" type="button"></button></div><div class="charts "><div class="chart" id="ts-left"></div><div class="chart" id="ts-right"></div></div><ul class="out" id="ts-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> After a shock that doubles the variance, a volatility shock of the S&amp;P 500 has a half-life of 36.1 days. The ▶ button raises the shock from 0.25 to 4 times the long-run variance. What happens to the half-life?</div>
   <details><summary>Answer</summary><p>It stays at 36.1 days (gold: 90.0 days). The gap between the forecast and the long-run variance is multiplied by the estimated α + β = 0.981 each day, whatever its size, so it halves in ln 0.5 / ln 0.981 = 36.1 days for every shock, also for a variance below the long run (0.25 times), from which the forecast rises. After 250 days the ratio is 1.025 for the largest shock and 0.994 for the smallest. Bitcoin has no half-life: with estimated α + β = 1 the forecast variance rises by ω = 0.144 a day, from 52.7% a year at h = 1 to 126% at h = 250.</p></details>
 </section><h2 class="sec" id="s-var">Value-at-Risk and Expected Shortfall</h2>
+<section class="blk" id="density-var">
+  <h3>VaR and ES on the Forecast Density</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=23" target="_blank" rel="noopener"><img src="slides/ba_l3_density_var.jpg?v=20261031a" alt="Slide 22: VaR and ES on the Forecast Density" loading="lazy"></a>
+      <figcaption>Slide 22</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="dv-n">Degrees of freedom ν of the Student-t (σ kept): <b id="dv-n-v"></b></label><input type="range" id="dv-n" min="0" max="17" step="1" value="9"></div><button class="btn play" id="dv-play" type="button"></button></div><div class="charts "><div class="chart" id="dv-dens"></div><div class="chart" id="dv-tail"></div></div><ul class="out" id="dv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the estimated ν = 3.13, the Student-t VaR 1% (7.23%) is above the Normal VaR 1% with the same σ (6.37%). The ▶ button lowers ν towards 2, even heavier tails, keeping σ. What happens to the Student-t VaR 1%?</div>
+  <details><summary>Answer</summary><p>It falls: 7.18% at ν = 3, 6.55% at ν = 2.5, below the Normal's 6.37% once ν < 2.44, and 2.85% at ν = 2.05. With σ fixed, a Student-t with ν close to 2 puts its variance into extremely rare, very large losses and concentrates the rest near zero, so its 1% quantile shrinks. Raising ν from the estimate the other way, the VaR first rises to about 7.28% near ν = 3.5 and then falls towards the Normal value (6.50% at ν = 30). ES 2.5% falls below the Normal value (6.40%) once ν < 2.23. Heavier tails do not always mean a larger VaR at a given level; the crossing level of the two VaR curves moves from 1.92% to 0.12%.</p></details>
+</section>
 <section class="blk" id="var-methods">
   <h3>VaR and ES by Method</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_var_methods.jpg?v=20261031a" alt="Slide 18: VaR and ES by Method" loading="lazy"></a>
-      <figcaption>Slide 18</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l3_var_methods.jpg?v=20261031a" alt="Slide 25: VaR and ES by Method" loading="lazy"></a>
+      <figcaption>Slide 25</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vm-p">Tail level p (%): <b id="vm-p-v"></b></label><input type="range" id="vm-p" min="0.1" max="5" step="0.05" value="1"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-chart"></div></div><ul class="out" id="vm-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> At p = 1% the Normal VaR (7.75%) is above the GARCH-t VaR (7.23%). The ▶ button moves p from 0.1% to 5%. At p = 0.1%, which of the two is larger?</div>
@@ -88,8 +108,8 @@
 <section class="blk" id="violations">
   <h3>Violations Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l3_backtest.jpg?v=20261031a" alt="Slide 23: Violations Through Time" loading="lazy"></a>
-      <figcaption>Slide 23</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l3_backtest.jpg?v=20261031a" alt="Slide 32: Violations Through Time" loading="lazy"></a>
+      <figcaption>Slide 32</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="bt-e">Last day of the 250-day Basel window: <b id="bt-e-v"></b></label><input type="range" id="bt-e" min="249" max="2452" step="1" value="2452"></div><div class="ctl"><label for="bt-m">Method whose violations are marked</label><select id="bt-m"><option value="GARCH-t" selected>GARCH(1,1)-t</option><option value="HS 500">Historical simulation, 500 days</option><option value="Normal 250">Normal, 250 days</option><option value="EWMA">EWMA, Normal</option></select></div><button class="btn play" id="bt-play" type="button"></button></div><div class="charts "><div class="chart" id="bt-chart"></div></div><ul class="out" id="bt-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Over 2020–2026 no test rejects GARCH-t, and its last 250 days are in the green zone (2 hits). The ▶ button moves the 250-day Basel window through the test period. Is GARCH-t in the green zone in every window?</div>
@@ -98,8 +118,8 @@
 <section class="blk" id="oos-var">
   <h3>Bitcoin VaR, Rolled Forward</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=29" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261031a" alt="Slide 28: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
-      <figcaption>Slide 28</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261031a" alt="Slide 38: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
+      <figcaption>Slide 38</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ov-d">Days of the window: <b id="ov-d-v"></b></label><input type="range" id="ov-d" min="1" max="35" step="1" value="35"></div><button class="btn play" id="ov-play" type="button"></button></div><div class="charts "><div class="chart" id="ov-chart"></div></div><ul class="out" id="ov-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> No method had a VaR hit in the 35 days. If a method's true hit rate were 2%, twice the promised 1%, what was the probability of no hit in 35 days?</div>

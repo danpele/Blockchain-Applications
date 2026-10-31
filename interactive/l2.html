@@ -38,8 +38,8 @@
 <section class="blk" id="normal-fit">
   <h3>The Normal Distribution Does Not Fit</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=10" target="_blank" rel="noopener"><img src="slides/ba_l2_hist_qq.jpg?v=20261031a" alt="Slide 9: The Normal Distribution Does Not Fit" loading="lazy"></a>
-      <figcaption>Slide 9</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l2_hist_qq.jpg?v=20261031a" alt="Slide 11: The Normal Distribution Does Not Fit" loading="lazy"></a>
+      <figcaption>Slide 11</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="nf-k">Threshold k (standard deviations): <b id="nf-k-v"></b></label><input type="range" id="nf-k" min="2" max="8" step="0.5" value="4"></div><div class="ctl"><label for="nf-a">Asset of the histogram and of the first QQ plot</label><select id="nf-a"><option value="btc" selected>Bitcoin</option><option value="eth">Ethereum</option><option value="sp500">S&amp;P 500</option><option value="gold">Gold</option></select></div><button class="btn play" id="nf-play" type="button"></button></div><div class="charts "><div class="chart" id="nf-hist"></div><div class="chart" id="nf-qq1"></div><div class="chart" id="nf-qq2"></div></div><ul class="out" id="nf-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Each threshold is k of the asset's own standard deviations. With k = 5, which asset has more days beyond the threshold in 2018–2026, Bitcoin or the S&amp;P 500?</div>
@@ -48,8 +48,8 @@
 <section class="blk" id="volatility-time">
   <h3>Volatility Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=12" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vol.jpg?v=20261031a" alt="Slide 11: Volatility Through Time" loading="lazy"></a>
-      <figcaption>Slide 11</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=16" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vol.jpg?v=20261031a" alt="Slide 15: Volatility Through Time" loading="lazy"></a>
+      <figcaption>Slide 15</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rv-w">Window: <b id="rv-w-v"></b></label><input type="range" id="rv-w" min="7" max="365" step="1" value="30"></div><button class="btn play" id="rv-play" type="button"></button></div><div class="charts "><div class="chart" id="rv-chart"></div></div><ul class="out" id="rv-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With a 30-day window the median of Bitcoin's rolling volatility is 54% a year. The ▶ button lengthens the window from 7 to 365 days. What happens to the median?</div>
@@ -58,28 +58,48 @@
 <section class="blk" id="volatility-clusters">
   <h3>Volatility Clusters</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=14" target="_blank" rel="noopener"><img src="slides/sfm_ch14_acf.jpg?v=20261031a" alt="Slide 13: Volatility Clusters" loading="lazy"></a>
-      <figcaption>Slide 13</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=19" target="_blank" rel="noopener"><img src="slides/sfm_ch14_acf.jpg?v=20261031a" alt="Slide 18: Volatility Clusters" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vc-m">Lags m in the Ljung–Box test: <b id="vc-m-v"></b></label><input type="range" id="vc-m" min="1" max="30" step="1" value="10"></div><button class="btn play" id="vc-play" type="button"></button></div><div class="charts "><div class="chart" id="vc-r"></div><div class="chart" id="vc-r2"></div></div><ul class="out" id="vc-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With m = 10 lags the Ljung–Box test rejects for Bitcoin returns: Q(10) = 20.2 against a critical value of 18.3. The ▶ button raises m from 1 to 30. For which m does the test on returns reject at 5%?</div>
   <details><summary>Answer</summary><p>Only for m = 10 and 11 and for m = 21 to 29. Q(m) grows with m, but so does the 5% critical value of χ²(m): at m = 12, Q = 20.6 against 21.0; at m = 30, Q = 43.5 against 43.8 (p-value 0.052). For returns the verdict depends on the number of lags, so the evidence of a predictable direction is weak. For squared returns Q(m) runs from 82 (m = 1) to 296 (m = 30), and every m rejects.</p></details>
 </section>
+<section class="blk" id="calm-follows-calm">
+  <h3>Calm Follows Calm</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l2_calm.jpg?v=20261031a" alt="Slide 19: Calm Follows Calm" loading="lazy"></a>
+      <figcaption>Slide 19</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cm-l">Lag L: days sorted by the absolute return L days earlier: <b id="cm-l-v"></b></label><input type="range" id="cm-l" min="1" max="60" step="1" value="1"></div><button class="btn play" id="cm-play" type="button"></button></div><div class="charts "><div class="chart" id="cm-btc"></div><div class="chart" id="cm-sp"></div></div><ul class="out" id="cm-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button moves the lag L from 1 to 60 days: the days are sorted by the absolute return L days earlier. At L = 30, how does Bitcoin's mean absolute return after the most turbulent fifth compare with that after the calmest fifth?</div>
+  <details><summary>Answer</summary><p>Still higher: 2.39% against 2.07% a day, 1.15 times, against 1.49 times at L = 1; at L = 60 the ratio is 1.03. For the S&amp;P 500 it is still 1.39 at L = 30 (1.02% against 0.73%) and 0.91 at L = 60. A turbulent day raises the expected size of moves for weeks: volatility has a long memory, which the GARCH models of Lecture 3 describe with a slowly decaying variance. Turbulence is not followed by unusual calm: the bars do not turn upside down.</p></details>
+</section>
 <section class="blk" id="btc-equities">
   <h3>Does Bitcoin Move with Equities?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=15" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_corr.jpg?v=20261031a" alt="Slide 14: Does Bitcoin Move with Equities?" loading="lazy"></a>
-      <figcaption>Slide 14</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=21" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_corr.jpg?v=20261031a" alt="Slide 20: Does Bitcoin Move with Equities?" loading="lazy"></a>
+      <figcaption>Slide 20</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="bc-w">Rolling window: <b id="bc-w-v"></b></label><input type="range" id="bc-w" min="30" max="500" step="10" value="250"></div><button class="btn play" id="bc-play" type="button"></button></div><div class="charts "><div class="chart" id="bc-chart"></div></div><ul class="out" id="bc-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With 250 common days the highest rolling correlation of Bitcoin and the S&amp;P 500 is 0.57 (February 2023). What is the highest value with a 30-day window?</div>
   <details><summary>Answer</summary><p>0.79 (May 2022), and the lowest falls from −0.16 to −0.64. A correlation estimated on 30 days has a large sampling error (about 1/√30 = 0.18 when the true correlation is zero), so short windows give more extreme highs and lows; the 500-day window gives 0.47 and −0.07. The correlation from 2020 onwards, 0.39, does not depend on the window.</p></details>
 </section><h2 class="sec" id="s-eff">Is the Market Efficient?</h2>
+<section class="blk" id="vr-sub-periods">
+  <h3>Variance Ratios by Sub-Period</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l2_vr_periods.jpg?v=20261031a" alt="Slide 23: Variance Ratios by Sub-Period" loading="lazy"></a>
+      <figcaption>Slide 23</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vp-q">Horizon q of the variance ratio (days): <b id="vp-q-v"></b></label><input type="range" id="vp-q" min="2" max="30" step="1" value="5"></div><button class="btn play" id="vp-play" type="button"></button></div><div class="charts "><div class="chart" id="vp-chart"></div></div><ul class="out" id="vp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the horizon q from 2 to 30 days. Over these 29 horizons and the nine bars, 261 tests at 5%, how many times does a bar cross ±1.96?</div>
+  <details><summary>Answer</summary><p>10 times, 3.8% of the tests: the S&amp;P 500 in 2018–2021 at q = 2 (Z* = −2.31), and Ethereum in 2016–2017 for q = 22 to 30 (Z* up to 2.48 at q = 30). Bitcoin never crosses. Under a random walk about 5% of 261 tests, 13, would reject by chance, and tests at neighbouring horizons are strongly dependent, so the nine rejections of Ethereum at q = 22–30 are one finding, not nine. Not rejecting at q = 5 does not settle every horizon, but these rejections are no evidence of weekly trends either.</p></details>
+</section>
 <section class="blk" id="efficiency-time">
   <h3>Efficiency Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=18" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vr.jpg?v=20261031a" alt="Slide 17: Efficiency Through Time" loading="lazy"></a>
-      <figcaption>Slide 17</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=25" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vr.jpg?v=20261031a" alt="Slide 24: Efficiency Through Time" loading="lazy"></a>
+      <figcaption>Slide 24</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ef-w">Window length: <b id="ef-w-v"></b></label><input type="range" id="ef-w" min="250" max="1500" step="50" value="500"></div><div class="ctl"><label for="ef-q">Horizon q of the variance ratio</label><select id="ef-q"><option value="2">q = 2</option><option value="5" selected>q = 5</option><option value="10">q = 10</option></select></div><button class="btn play" id="ef-play" type="button"></button></div><div class="charts "><div class="chart" id="ef-chart"></div></div><ul class="out" id="ef-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With q = 5 no 500-day window rejects VR(5) = 1 for any of the three assets. Switch the horizon to q = 2. Which asset has the largest share of rejecting windows?</div>
@@ -88,8 +108,8 @@
 <section class="blk" id="drawdowns">
   <h3>Drawdowns of Bitcoin, Ethereum and the S&P 500</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=21" target="_blank" rel="noopener"><img src="slides/sfm_ch14_drawdowns.jpg?v=20261031a" alt="Slide 20: Drawdowns of Bitcoin, Ethereum and the S&P 500" loading="lazy"></a>
-      <figcaption>Slide 20</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=30" target="_blank" rel="noopener"><img src="slides/sfm_ch14_drawdowns.jpg?v=20261031a" alt="Slide 29: Drawdowns of Bitcoin, Ethereum and the S&P 500" loading="lazy"></a>
+      <figcaption>Slide 29</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dd-d">Threshold below the record: <b id="dd-d-v"></b></label><input type="range" id="dd-d" min="5" max="90" step="5" value="10"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin spent 76% of the days since 2016 more than 10% below its last record. On what share of the days was it more than 50% below its record?</div>
@@ -98,8 +118,8 @@
 <section class="blk" id="lppl-2017">
   <h3>Bitcoin 2017: an LPPL Fit</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_btc2017.jpg?v=20261031a" alt="Slide 23: Bitcoin 2017: an LPPL Fit" loading="lazy"></a>
-      <figcaption>Slide 23</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_btc2017.jpg?v=20261031a" alt="Slide 32: Bitcoin 2017: an LPPL Fit" loading="lazy"></a>
+      <figcaption>Slide 32</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lp-tc">Critical time t<sub>c</sub> (m and ω fixed at the estimates): <b id="lp-tc-v"></b></label><input type="range" id="lp-tc" min="335" max="455" step="0.01" value="358.71"></div><button class="btn play" id="lp-play" type="button"></button></div><div class="charts "><div class="chart" id="lp-chart"></div></div><ul class="out" id="lp-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The estimated t<sub>c</sub> is 25 December 2017, with R² = 0.982. The ▶ button moves t<sub>c</sub> from 2 December 2017 to 31 March 2018, with m and ω fixed. How does R² change?</div>
@@ -108,8 +128,8 @@
 <section class="blk" id="tc-windows">
   <h3>t̂<sub>c</sub> Window by Window</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_tc.jpg?v=20261031a" alt="Slide 24: t̂c Window by Window" loading="lazy"></a>
-      <figcaption>Slide 24</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=34" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_tc.jpg?v=20261031a" alt="Slide 33: t̂c Window by Window" loading="lazy"></a>
+      <figcaption>Slide 33</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="tw-e">Estimation window ends on: <b id="tw-e-v"></b></label><input type="range" id="tw-e" min="0" max="10" step="1" value="10"></div><button class="btn play" id="tw-play" type="button"></button></div><div class="charts "><div class="chart" id="tw-tc"></div><div class="chart" id="tw-fit"></div></div><ul class="out" id="tw-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button adds the eleven weekly windows one by one, from the window ending 1 October to the one ending 10 December 2017. Does the estimated t<sub>c</sub> move towards the actual peak, 16 December 2017, as the window end approaches it?</div>
@@ -118,8 +138,8 @@
 <section class="blk" id="metcalfe">
   <h3>Market Value against Metcalfe Value</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=27" target="_blank" rel="noopener"><img src="slides/ba_l2_metcalfe.jpg?v=20261031a" alt="Slide 26: Market Value against Metcalfe Value" loading="lazy"></a>
-      <figcaption>Slide 26</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=36" target="_blank" rel="noopener"><img src="slides/ba_l2_metcalfe.jpg?v=20261031a" alt="Slide 35: Market Value against Metcalfe Value" loading="lazy"></a>
+      <figcaption>Slide 35</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="mf-b">Exponent b of the network value n<sup>b</sup>: <b id="mf-b-v"></b></label><input type="range" id="mf-b" min="0.5" max="4.5" step="0.05" value="2"></div><button class="btn play" id="mf-play" type="button"></button></div><div class="charts "><div class="chart" id="mf-lv"></div><div class="chart" id="mf-ratio"></div></div><ul class="out" id="mf-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button moves the exponent b of the network value from 1 to 4.5. For which b is the spread of the log ratio, market value over network value, the smallest?</div>

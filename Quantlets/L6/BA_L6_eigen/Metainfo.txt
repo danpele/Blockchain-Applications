@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_eigen'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Eigenvalue spectrum of the correlation matrix of daily log returns of 19 cryptocurrencies (EODHD, January 2021 - October 2026) against the equicorrelation benchmark, and the absorption ratio of each calendar year against (1 + 18 rho)/19 from the mean pairwise correlation.'
+
+Keywords: 'principal components, eigenvalues, absorption ratio, equicorrelation, common factor, cryptocurrency, diversification'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l6_eigen.pdf'

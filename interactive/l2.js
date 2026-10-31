@@ -173,6 +173,29 @@ function clusters() {
     T.vc2(ACF_R.filter(v => Math.abs(v) > band).length, ACF_R2.filter(v => v > band).length)]);
 }
 
+// ================================================================= 3.4 calm follows calm
+function quintileMeans(a, L) {      // mean of a[t] by quintile of a[t - L] (pandas qcut: right-closed bins, linear quantiles)
+  const prev = a.slice(0, a.length - L), cur = a.slice(L), s = prev.slice().sort((x, y) => x - y), n = s.length;
+  const qt = p => { const h = (n - 1) * p, lo = Math.floor(h); return s[lo] + (h - lo) * (s[Math.min(lo + 1, n - 1)] - s[lo]); };
+  const e = [0.2, 0.4, 0.6, 0.8].map(qt), S = [0, 0, 0, 0, 0], N = [0, 0, 0, 0, 0];
+  prev.forEach((v, i) => { let b = 0; while (b < 4 && v > e[b]) b++; S[b] += cur[i]; N[b]++; });
+  return S.map((v, i) => v / N[i]);
+}
+const ABS18 = { btc: R18.btc.r.map(Math.abs), sp500: R18.sp500.r.map(Math.abs) };
+function calm() {
+  const L = +$('cm-l').value;
+  $('cm-l-v').textContent = L + (L > 1 ? ' days' : ' day');
+  const QL = ['1 calmest', '2', '3', '4', '5 most turbulent'], rows = [T.cm0(L)];
+  [['btc', 'cm-btc'], ['sp500', 'cm-sp']].forEach(([k, id]) => {
+    const g = quintileMeans(ABS18[k], L), m = mean(ABS18[k]);
+    plot(id, [{ x: QL, y: g, type: 'bar', name: NAME[k] + ': mean |return| today', marker: { color: COL[k] }, hovertemplate: '%{x}: %{y:.2f}% a day<extra></extra>' },
+      { x: QL, y: QL.map(() => m), mode: 'lines', name: 'mean |return| on all days', line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' }],
+      layout({ title: ttl(NAME[k] + ', lag ' + L), xaxis: AX('quintile of |return| ' + L + (L > 1 ? ' days' : ' day') + ' earlier', { type: 'category' }), yaxis: AX('% a day', { rangemode: 'tozero' }) }));
+    rows.push(T.cm1(NAME[k], g.map(v => nf(v, 2)).join(', '), nf(g[4] / g[0], 2), nf(m, 2)));
+  });
+  out('cm-out', rows);
+}
+
 // ================================================================= 3.3 does Bitcoin move with equities?
 function joint(a, b) {              // prices joined on common days first, then log returns
   const mb = new Map(PX[b].d.map((d, i) => [d, PX[b].p[i]])), d = [], pa = [], pb = [];
@@ -207,6 +230,27 @@ function varianceRatio(x, q) {      // the notebook's variance_ratio(): VR(q) an
   return { vr, z: (vr - 1) / Math.sqrt(theta / n) };
 }
 const RFULL = { btc: rets('btc'), eth: rets('eth'), sp500: rets('sp500') };
+
+// ================================================================= 4.2 variance ratios by sub-period
+const VP_PER = [['2014-09-17', '2017-12-31'], ['2018-01-01', '2021-12-31'], ['2022-01-01', '2026-09-18']];
+const VP_LAB = ['2014-2017', '2018-2021', '2022-2026'];
+const VP_R = {};
+['btc', 'eth', 'sp500'].forEach(k => { VP_R[k] = VP_PER.map(([a, e]) => { const x = rets(k, a > PX[k].d[0] ? a : PX[k].d[0]); return x.r.filter((_, i) => x.d[i] <= e); }); });
+const VP_Z = {};                    // Z*(q) for q = 2..30, computed once
+['btc', 'eth', 'sp500'].forEach(k => { VP_Z[k] = VP_R[k].map(x => { const z = {}; for (let q = 2; q <= 30; q++) z[q] = varianceRatio(x, q); return z; }); });
+function vrPeriods() {
+  const q = +$('vp-q').value;
+  $('vp-q-v').textContent = q;
+  const tr = ['btc', 'eth', 'sp500'].map(k => ({ x: VP_LAB, y: VP_Z[k].map(z => z[q].z), type: 'bar', name: NAME[k] + ': robust Z*(' + q + ')', marker: { color: COL[k] },
+    hovertemplate: NAME[k] + ' %{x}: Z* = %{y:.2f}<extra></extra>' }));
+  tr.push({ x: VP_LAB, y: VP_LAB.map(() => 1.96), mode: 'lines', name: '±1.96', line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' });
+  tr.push({ x: VP_LAB, y: VP_LAB.map(() => -1.96), mode: 'lines', showlegend: false, line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' });
+  plot('vp-chart', tr, layout({ title: ttl('Robust Z*(' + q + ') by sub-period (Ethereum from 2016)'), barmode: 'group', xaxis: AX('', { type: 'category' }), yaxis: AX('Z*(' + q + ')', { range: [-3, 3] }) }));
+  let cnt = 0, now = 0;
+  ['btc', 'eth', 'sp500'].forEach(k => VP_Z[k].forEach(z => { for (let j = 2; j <= q; j++) if (Math.abs(z[j].z) > 1.96) cnt++; if (Math.abs(z[q].z) > 1.96) now++; }));
+  const n = 9 * (q - 1);
+  out('vp-out', [T.vp0(q, now, n, cnt, nf(0.05 * n, 1))].concat(['btc', 'eth', 'sp500'].map(k => T.vp1(NAME[k], VP_Z[k].map(z => nf(z[q].vr, 3)).join(', '), VP_Z[k].map(z => nf(z[q].z, 2)).join(', ')))));
+}
 function efficiency() {
   const w = +$('ef-w').value, q = +$('ef-q').value;
   $('ef-w-v').textContent = w + ' returns';
@@ -320,6 +364,8 @@ function init() {
   on(['nf-k', 'nf-a'], normalFit); P('nf-play', 'nf-k', range(2, 8, 0.5), 700);
   on(['rv-w'], rollingVol); P('rv-play', 'rv-w', [7, 14, 21, 30, 45, 60, 90, 120, 180, 250, 365], 600);
   on(['vc-m'], clusters); P('vc-play', 'vc-m', range(1, 30, 1), 350);
+  on(['cm-l'], calm); P('cm-play', 'cm-l', [1, 2, 3, 5, 7, 10, 15, 20, 30, 45, 60], 700);
+  on(['vp-q'], vrPeriods); P('vp-play', 'vp-q', range(2, 30, 1), 350);
   on(['bc-w'], btcEquities); P('bc-play', 'bc-w', [30, 60, 90, 120, 180, 250, 320, 400, 500], 700);
   on(['ef-w', 'ef-q'], efficiency); P('ef-play', 'ef-w', range(250, 1500, 50), 450);
   on(['dd-d'], drawdowns); P('dd-play', 'dd-d', range(5, 90, 5), 450);
@@ -329,13 +375,13 @@ function init() {
   $('tw-e').max = LW.length - 1; $('tw-e').value = LW.length - 1; on(['tw-e'], tcWindows); P('tw-play', 'tw-e', range(0, LW.length - 1, 1), 900);
   on(['mf-b'], metcalfe); P('mf-play', 'mf-b', range(1, 4.5, 0.1), 300);
   tall('lp-chart', 400);
-  const PFX = { 'normal-fit': 'nf', 'volatility-time': 'rv', 'volatility-clusters': 'vc', 'btc-equities': 'bc', 'efficiency-time': 'ef', 'drawdowns': 'dd',
+  const PFX = { 'normal-fit': 'nf', 'volatility-time': 'rv', 'volatility-clusters': 'vc', 'calm-follows-calm': 'cm', 'btc-equities': 'bc', 'vr-sub-periods': 'vp', 'efficiency-time': 'ef', 'drawdowns': 'dd',
     'lppl-2017': 'lp', 'tc-windows': 'tw', 'metcalfe': 'mf' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  normalFit(); rollingVol(); clusters(); btcEquities(); efficiency(); drawdowns(); lppl2017(); tcWindows(); metcalfe();
+  normalFit(); rollingVol(); clusters(); calm(); btcEquities(); vrPeriods(); efficiency(); drawdowns(); lppl2017(); tcWindows(); metcalfe();
 }
-window.L2 = { R18, rets, moments, varianceRatio, acf, ljung, chi2Sf, chi2Ppf, normSf, normPpf, lpplLinear, joint, rollStd, rollCorr, corr, days, DD, P16, PAIRS, RFULL, LW, tYears, yearsToDate };
+window.L2 = { quintileMeans, VP_Z, R18, rets, moments, varianceRatio, acf, ljung, chi2Sf, chi2Ppf, normSf, normPpf, lpplLinear, joint, rollStd, rollCorr, corr, days, DD, P16, PAIRS, RFULL, LW, tYears, yearsToDate };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

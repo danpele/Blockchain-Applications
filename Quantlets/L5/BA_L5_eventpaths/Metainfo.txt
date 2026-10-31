@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_eventpaths'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Daily De-pegging Pressure Index (DPI) from 60 days before to 30 days after six stress events, divided by its mean over days -60 to -8, with the pre-event and post-event window means (EODHD data, daily DPI in the event windows).'
+
+Keywords: 'stablecoins, De-pegging Pressure Index, quantile regression, Lasso, tail dependence, event study, event window'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield'
+
+Output: 'ba_l5_eventpaths.pdf'

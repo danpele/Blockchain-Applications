@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_rollq'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Daily reference-adjusted deviations of USD Coin (USDC) and Dai (DAI) and the 5% quantile of the previous 90 days (the 5th lowest deviation), July 2022 - March 2024, around the Silicon Valley Bank (SVB) depeg of March 2023 (EODHD data).'
+
+Keywords: 'quantile, rolling window, 5% quantile, order statistic, USDC, DAI, Silicon Valley Bank, stablecoins'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD'
+
+Output: 'ba_l5_rollq.pdf'

@@ -160,6 +160,20 @@ function connect() {
   return R;
 }
 
+// ================================================================= 1b. eigenvalue spectrum and the equicorrelation benchmark
+function eigen() {
+  const k = +$('eg-p').value, p = periodOf(k), Cm = corrOf(p.i0, p.i1), ev = eigVec(Cm).val, rb = meanOff(Cm);
+  $('eg-p-v').textContent = p.lab;
+  const kk = ev.map((_, i) => i + 1), eq = kk.map(i => (i === 1 ? 1 + (NC - 1) * rb : 1 - rb));
+  plot('eg-chart', [
+    { x: kk, y: ev, type: 'bar', name: `eigenvalue λₖ of the 19-coin correlation matrix, ${p.short}`, marker: { color: BA.blue }, hovertemplate: 'λ%{x} = %{y:.2f}<extra></extra>' },
+    { x: kk, y: eq, mode: 'markers', name: `equicorrelation benchmark, ρ = ${nf(rb, 2)}`, marker: { color: BA.btc, size: 8 }, hovertemplate: 'benchmark λ%{x} = %{y:.2f}<extra></extra>' }],
+    layout({ title: ttl('Eigenvalues of the correlation matrix of daily log returns, ' + p.short), xaxis: AX('component k', { dtick: 1 }), yaxis: AX('eigenvalue λₖ', { range: [0, 15] }), legend: legendBelow(-0.16) }));
+  const ar = ev[0] / NC, fo = (1 + (NC - 1) * rb) / NC;
+  out('eg-out', [T.eg1(p.lab, nf(ev[0], 2), nf(ev[1], 2), ev.filter(v => v > 1).length), T.eg2(nf(rb, 3), nf(1 + (NC - 1) * rb, 2), nf(1 - rb, 2)), T.eg3(nf(ar, 3), nf(fo, 3), nf(Math.abs(ar - fo), 3))]);
+  return { ev, rb, ar, fo };
+}
+
 // ================================================================= 3. Diebold-Yilmaz spillovers
 const SUB = D.sub, SI = SUB.map(c => COINS.indexOf(c)), K = SUB.length;
 function varFit(i0, i1, p) {       // VAR(p) with constant by OLS on days i0..i1-1: lag matrices and residual covariance
@@ -315,6 +329,23 @@ function carStats(stage, a, b) {   // window [a, b] in event days; arrays hold d
   const tcs = mean(car) / (sdev(car) / Math.sqrt(n)), tb = mean(sc) / (sdev(sc) / Math.sqrt(n)), np = car.filter(c => c > 0).length;
   return { car, mean: mean(car), tcs, pcs: tP2(tcs, n - 1), tb, pb: tP2(tb, n - 1), np, psign: binomP2(np, n), big: sc.filter(s => Math.abs(s) > 1.96).length, names: ev.map(e => e.name) };
 }
+function carBands() {
+  let a = +$('cb-a').value, b = +$('cb-b').value;
+  if (a > b) { if (document.activeElement === $('cb-a')) b = a; else a = b; $('cb-a').value = a; $('cb-b').value = b; }
+  $('cb-a-v').textContent = String(a).replace('-', '−'); $('cb-b-v').textContent = (b > 0 ? '+' : '') + b;
+  const L = b - a + 1, fam = EV.filter(e => e.stage === 'schedule').map(e => e.name), outs = [];
+  const tr = STAGES.map((st, k) => {
+    const ev = EV.filter(e => e.stage === st), car = ev.map(e => sum(e.ar.slice(a + 10, b + 11))), band = ev.map(e => 1.96 * e.sd * Math.sqrt(L));
+    car.forEach((c, i) => { if (Math.abs(c) > band[i]) outs.push(`${ev[i].name} ${st} (${sgn(c, 1)}%)`); });
+    return { x: fam, y: car, type: 'bar', name: `CAR[${String(a).replace('-', '−')}, ${(b > 0 ? '+' : '') + b}] of ETH, ${st} date`, marker: { color: k ? BA.eth : BA.blue }, offsetgroup: st,
+      error_y: { type: 'data', symmetric: true, array: band, color: BA.red, thickness: 1.2, width: 3 },
+      customdata: band, hovertemplate: `%{x}, ${st}: CAR %{y:.1f}%, 5% band ±%{customdata:.1f}%<extra></extra>` };
+  });
+  plot('cb-chart', tr, layout({ title: ttl('CAR of ETH; whiskers: CAR ± 1.96 σ̂ᵤ √L. A whisker that does not cross zero marks a CAR outside its 5% band'), barmode: 'group',
+    xaxis: AX('', { tickfont: { size: 10, color: C.navy } }), yaxis: AX('cumulative abnormal return (%)'), legend: legendBelow(-0.2) }));
+  out('cb-out', [T.cb1(String(a).replace('-', '−'), (b > 0 ? '+' : '') + b, L, outs.length, nf(0.05 * 2 * fam.length, 1)), T.cb2(outs.length ? outs.join('; ') : 'none')]);
+  return { outs };
+}
 function event() {
   let a = +$('ev-a').value, b = +$('ev-b').value;
   if (a > b) { if (document.activeElement === $('ev-a')) b = a; else a = b; $('ev-a').value = a; $('ev-b').value = b; }
@@ -346,13 +377,15 @@ function init() {
   tall('cn-chart', 380); on(['cn-w'], connect); P('cn-play', 'cn-w', range(30, 360, 30), 600);
   on(['sp-h', 'sp-w'], spill); P('sp-play', 'sp-h', [1, 2, 3, 5, 7, 10, 15, 20], 900);
   tall('cl-chart', 440); on(['cl-w', 'cl-k'], classes); P('cl-play', 'cl-w', range(0, 1, 0.05), 350);
+  tall('eg-chart', 380); on(['eg-p'], eigen); P('eg-play', 'eg-p', [0, 1, 2, 3, 4, 5, 6], 1300);
+  tall('cb-chart', 420); on(['cb-a', 'cb-b'], carBands); P('cb-play', 'cb-b', range(0, 10, 1), 700);
   tall('ev-sch', 420); tall('ev-imp', 420); on(['ev-a', 'ev-b'], event); P('ev-play', 'ev-b', range(0, 10, 1), 600);
-  const PFX = { 'mst': 'ms', 'connectedness': 'cn', 'spillovers': 'sp', 'asset-map': 'cl', 'event-paths': 'ev' };
+  const PFX = { 'mst': 'ms', 'eigenvalues': 'eg', 'car-bands': 'cb', 'connectedness': 'cn', 'spillovers': 'sp', 'asset-map': 'cl', 'event-paths': 'ev' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  mst(); connect(); spill(); classes(); event();
+  mst(); eigen(); connect(); spill(); classes(); carBands(); event();
 }
-window.L6 = { corrOf, mstOf, periodOf, rolling, varFit, gfevd, totalOf, spillRoll, assetMap, carStats, tP2, binomP2, days, mst, connect, spill, classes, event };
+window.L6 = { eigen, carBands, corrOf, mstOf, periodOf, rolling, varFit, gfevd, totalOf, spillRoll, assetMap, carStats, tP2, binomP2, days, mst, connect, spill, classes, event };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_blocktime'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Daily mean time between Bitcoin blocks (30-day mean) against the 10-minute target, and the histogram of the difficulty adjustments found in the daily difficulty series, November 2014 to 8 October 2025; with the last adjustment worked out step by step.'
+
+Keywords: 'Bitcoin, block time, difficulty adjustment, proof of work, epoch, on-chain data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain)'
+
+Output: 'ba_l1_blocktime.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_congestion'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Monthly mean Bitcoin block size against the average fee per transaction (log scale), coloured by year, November 2014 to October 2025, with the correlation of the logs and the median fee in the months with the fullest and the emptiest blocks.'
+
+Keywords: 'Bitcoin, block size, transaction fees, congestion, block space, on-chain data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'ETH Chronicles project (IDA): daily on-chain series of eleven coins, November 2014 to 8 October 2025, in the course repository (data/onchain)'
+
+Output: 'ba_l1_congestion.pdf'

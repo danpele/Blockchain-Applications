@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_cross_coin'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'GARCH(1,1) with Student-t errors for 11 crypto assets, the S&P 500 and gold, daily log returns 2018 to 18 September 2026: the persistence alpha + beta and the degrees of freedom nu of each asset.'
+
+Keywords: 'GARCH, persistence, IGARCH, Student-t, degrees of freedom, heavy tails, cryptocurrencies, S&P 500, gold'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l3_cross_coin.pdf'

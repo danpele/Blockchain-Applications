@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_qs_roll'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Rolling 365-day mean quantile score of Bitcoin VaR 1% forecasts (historical simulation, EWMA-Normal, quantile regression, gradient-boosted quantile trees, optional Chronos-2) minus that of GARCH(1,1)-t, 2024 - 23 October 2026.'
+
+Keywords: 'Value-at-Risk, quantile score, forecast comparison, rolling window, Chronos-2, GARCH, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l7_qs_roll.pdf'
