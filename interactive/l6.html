@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 6 · Networks, Sentiment and Asset Classes</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l6_data.js?v=20261031a"></script>
+<script src="l6_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l6.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 6 · Networks, Sentiment and Asset Classes</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l6.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L6" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-net">Crypto Markets as Networks</a> · <a href="#s-class">Are Cryptos an Asset Class?</a> · <a href="#s-event">Event Studies: Ethereum Upgrades</a></p>
+<h2 class="sec" id="s-net">Crypto Markets as Networks</h2>
+<section class="blk" id="mst">
+  <h3>Correlation Matrix and Minimum Spanning Tree (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l6_mst.jpg?v=20261031a" alt="Slide 8: Correlation Matrix and Minimum Spanning Tree (own)" loading="lazy"></a>
+      <figcaption>Slide 8</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ms-p">Sample (calendar year, or the full sample): <b id="ms-p-v"></b></label><input type="range" id="ms-p" min="0" max="6" step="1" value="6"></div><button class="btn play" id="ms-play" type="button"></button></div><div class="charts "><div class="chart" id="ms-heat"></div><div class="chart" id="ms-tree"></div></div><ul class="out" id="ms-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button builds the correlation matrix and the minimum spanning tree for each calendar year, 2021 to 2026. Which coin is the hub (the coin with the most MST edges) in most of these years?</div>
+  <details><summary>Answer</summary><p>Polkadot (DOT): it is the hub in 2022 (degree 5), 2023 (degree 9), 2024 (5) and 2025 (5). Litecoin is the hub in 2021 (5); in 2026, to 23 October, Bitcoin, Ether and Ethereum Classic share the highest degree (4). Over the full sample ETH and DOT tie with degree 6. The MST keeps the 18 strongest links that connect all coins, so a hub is a coin that is the nearest neighbour of many others, not the largest coin: Bitcoin has degree 1 in 2021 and 2 in 2025. The mean pairwise correlation is highest in 2022 (0.73) and lowest in 2024 (0.55).</p></details>
+</section>
+<section class="blk" id="connectedness">
+  <h3>How Connected, and When? (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l6_connect.jpg?v=20261031a" alt="Slide 10: How Connected, and When? (own)" loading="lazy"></a>
+      <figcaption>Slide 10</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cn-w">Window length: <b id="cn-w-v"></b></label><input type="range" id="cn-w" min="30" max="360" step="10" value="90"></div><button class="btn play" id="cn-play" type="button"></button></div><div class="charts "><div class="chart" id="cn-chart"></div></div><ul class="out" id="cn-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button lengthens the window from 30 to 360 days. What happens to the highest mean pairwise correlation over all windows?</div>
+  <details><summary>Answer</summary><p>It falls, from 0.90 (30-day window ending 15 June 2021) to 0.85 (90 days, 14 August 2021) and 0.75 (360 days). A long window averages the days after a crash with calmer days, so the peaks of co-movement are smoothed away; the lowest value rises from 0.28 to 0.49. The average absorption ratio hardly moves, from 0.69 to 0.67: the window changes how sharply the episodes show, not the overall level of connectedness.</p></details>
+</section>
+<section class="blk" id="spillovers">
+  <h3>Spillovers through Time (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l6_spill.jpg?v=20261031a" alt="Slide 13: Spillovers through Time (own)" loading="lazy"></a>
+      <figcaption>Slide 13</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="sp-h">Forecast horizon H: <b id="sp-h-v"></b></label><input type="range" id="sp-h" min="1" max="20" step="1" value="10"></div><div class="ctl"><label for="sp-w">Rolling window: <b id="sp-w-v"></b></label><input type="range" id="sp-w" min="100" max="400" step="50" value="200"></div><button class="btn play" id="sp-play" type="button"></button></div><div class="charts "><div class="chart" id="sp-roll"></div><div class="chart" id="sp-net"></div></div><ul class="out" id="sp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the forecast horizon H from 1 to 20 days. How does the total spillover index change?</div>
+  <details><summary>Answer</summary><p>It hardly changes: for the full-sample VAR(5) it is 72.7% at H = 1, 72.9% at H = 10 and 72.9% at H = 20; in the last 200-day window it moves from 80.3% to 80.4%. The lag coefficients of daily crypto returns are small, so almost all of the forecast-error variance comes from the same-day correlation of the shocks (Σ), which is already in the H = 1 decomposition. A high spillover index here measures common same-day moves, not shocks that travel from coin to coin over the following days.</p></details>
+</section><h2 class="sec" id="s-class">Are Cryptos an Asset Class?</h2>
+<section class="blk" id="asset-map">
+  <h3>The Map of Assets (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ba_l6_classes.jpg?v=20261031a" alt="Slide 15: The Map of Assets (own)" loading="lazy"></a>
+      <figcaption>Slide 15</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cl-w">Weight of volatility among the six standardised features: <b id="cl-w-v"></b></label><input type="range" id="cl-w" min="0" max="1" step="0.05" value="1"></div><div class="ctl"><label for="cl-k">Number of k-means groups</label><select id="cl-k"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-chart"></div></div><ul class="out" id="cl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the weight of volatility among the six standardised features from 0 (shape only) to 1 (all six features, as on the slide). How does the number of coins in the k-means group that holds the 14 traditional assets change?</div>
+  <details><summary>Answer</summary><p>It falls, from 8 coins to 4. With weight 0 to 0.15 the group holds BTC, ETH, LTC, LINK, DOT, AVAX, ATOM and ALGO; from 0.2 to 0.45, seven (AVAX leaves); from 0.5 on, only BTC, ETH, LTC and LINK. All 14 traditional assets stay in the same group at every weight. Volatility separates most altcoins from traditional assets; on the shape of the returns alone, the large coins resemble equities. PC1 explains 62.7% of the variance with all six features and 64.5% with shape only.</p></details>
+</section><h2 class="sec" id="s-event">Event Studies: Ethereum Upgrades</h2>
+<section class="blk" id="event-paths">
+  <h3>Abnormal Returns around the Event Day (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_networks_sentiment_art.pdf#page=22" target="_blank" rel="noopener"><img src="slides/ba_l6_event.jpg?v=20261031a" alt="Slide 21: Abnormal Returns around the Event Day (own)" loading="lazy"></a>
+      <figcaption>Slide 21</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ev-a">CAR window starts on event day τ₁: <b id="ev-a-v"></b></label><input type="range" id="ev-a" min="-10" max="0" step="1" value="-1"></div><div class="ctl"><label for="ev-b">CAR window ends on event day τ₂: <b id="ev-b-v"></b></label><input type="range" id="ev-b" min="0" max="10" step="1" value="1"></div><button class="btn play" id="ev-play" type="button"></button></div><div class="charts "><div class="chart" id="ev-sch"></div><div class="chart" id="ev-imp"></div></div><ul class="out" id="ev-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button extends the CAR window of the 13 implementation dates from [−1, 0] to [−1, +10]. Does the mean CAR move away from zero as the window lengthens?</div>
+  <details><summary>Answer</summary><p>No. The mean CAR[−1, τ₂] stays between −0.25% and +1.51%, and the cross-sectional test never comes near rejection: |t| ≤ 0.53, p ≥ 0.61 for every τ₂. The individual paths fan out as the window lengthens, because each CAR adds more daily noise (residual sd 1.5–3.7% a day), but the mean does not drift. The schedule dates give the same picture: the lowest p-value is 0.17, for [−1, +4].</p></details>
+</section>
+<p class="src foot">Prices: EODHD daily closes to 23 October 2026; 19 coins from 2 January 2021 (2,121 daily log returns); equities, Treasuries, silver and oil funds (adjusted closes), the S&amp;P 500, gold and four exchange rates (Monday–Friday closes, repeated closes removed). Correlations, minimum spanning trees, absorption ratios, VAR spillovers, principal components, k-means groups and event-window tests are computed in the browser from the returns, features and abnormal returns of the lecture notebook.</p>
+</main>
+</body>
+</html>

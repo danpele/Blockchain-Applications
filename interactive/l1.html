@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 1 · Blockchains and Crypto Markets as Data</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l1_data.js?v=20261031a"></script>
+<script src="l1_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l1.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 1 · Blockchains and Crypto Markets as Data</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l1.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L1" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-market">The Market in Numbers</a> · <a href="#s-onchain">On-Chain Activity</a> · <a href="#s-log">Growth on a Log Scale</a></p>
+<h2 class="sec" id="s-market">The Market in Numbers</h2>
+<section class="blk" id="market-value">
+  <h3>Five Selected Coins, One Dominant Asset</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=10" target="_blank" rel="noopener"><img src="slides/ch16_market_value.jpg?v=20261031a" alt="Slide 9: Five Selected Coins, One Dominant Asset" loading="lazy"></a>
+      <figcaption>Slide 9</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="mv-t">Date: <b id="mv-t-v"></b></label><input type="range" id="mv-t" min="0" max="3182" step="1" value="3182"></div><button class="btn play" id="mv-play" type="button"></button></div><div class="charts "><div class="chart" id="mv-chart"></div></div><ul class="out" id="mv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> On 18 September 2026 Bitcoin holds 82.5% of the value of the five selected coins. What is the effective number of coins, 1/HHI, of this basket?</div>
+  <details><summary>Answer</summary><p>1.42. The shares are 82.5% (Bitcoin), 16.2% (Ethereum), 0.7% (Dogecoin), 0.4% (Cardano) and 0.2% (Litecoin); the HHI, the sum of the squared shares, is 0.71, and 1/0.71 = 1.42. The basket has five coins, but its value behaves like that of 1.42 coins of equal size. 1/0.825 = 1.21 would count Bitcoin alone; the Ethereum share adds 0.162² = 0.026 to the HHI.</p></details>
+</section>
+<section class="blk" id="crix">
+  <h3>A Market Index: CRIX</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ch16_crix_index.jpg?v=20261031a" alt="Slide 11: A Market Index: CRIX" loading="lazy"></a>
+      <figcaption>Slide 11</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cx-k">Constituents k of the second cap-weighted index: <b id="cx-k-v"></b></label><input type="range" id="cx-k" min="1" max="4" step="1" value="2"></div><button class="btn play" id="cx-play" type="button"></button></div><div class="charts "><div class="chart" id="cx-chart"></div></div><ul class="out" id="cx-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the number of constituents k of the second cap-weighted index from 1 to 4. How does its tracking error against the index of all five coins change?</div>
+  <details><summary>Answer</summary><p>It falls from 11.13% a year (Bitcoin alone) to 2.71% (top 2), 1.69% (top 3) and 0.90% (top 4). Bitcoin dominates the basket, but its share moved between 55.8% and 88.5% since 2018, so the Bitcoin-only index still departs from the five-coin index. The Akaike information criterion chooses k = 4. The tracking error measures the difference of the daily returns, not the volatility of the index: the five-coin index itself has a volatility of 65.7% a year.</p></details>
+</section>
+<section class="blk" id="stablecoin-supply">
+  <h3>The Rise of Stablecoins</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ch16_stablecoin_supply.jpg?v=20261031a" alt="Slide 12: The Rise of Stablecoins" loading="lazy"></a>
+      <figcaption>Slide 12</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ss-t">Date: <b id="ss-t-v"></b></label><input type="range" id="ss-t" min="0" max="2817" step="1" value="2817"></div><button class="btn play" id="ss-play" type="button"></button></div><div class="charts "><div class="chart" id="ss-chart"></div></div><ul class="out" id="ss-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> From 2 April 2022 to 19 August 2023 the supply of all USD stablecoins fell from 187 to 123 USD bn. How did the supply of Tether (USDT) change between the same dates?</div>
+  <details><summary>Answer</summary><p>It stayed about the same: 82.1 USD bn on 2 April 2022 and 82.8 USD bn on 19 August 2023. The fall came from the other issuers: USD Coin went from 52.2 to 25.4 USD bn and Dai from 9.2 to 3.9 USD bn. The issuers do not move in proportion, and the largest issuer did not account for the largest decline.</p></details>
+</section>
+<section class="blk" id="stablecoin-issuers">
+  <h3>Who Issues the Stablecoins?</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l1_stablecoin_conc.jpg?v=20261031a" alt="Slide 13: Who Issues the Stablecoins?" loading="lazy"></a>
+      <figcaption>Slide 13</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="sc-t">Date: <b id="sc-t-v"></b></label><input type="range" id="sc-t" min="0" max="2817" step="1" value="2817"></div><button class="btn play" id="sc-play" type="button"></button></div><div class="charts "><div class="chart" id="sc-share"></div><div class="chart" id="sc-hhi"></div></div><ul class="out" id="sc-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Between 1 April 2022 and 19 August 2023 the Tether share rose from 44.0% to 67.5% and the USD Coin share fell from 27.9% to 20.7%. What happened to the HHI of issuers?</div>
+  <details><summary>Answer</summary><p>It rose, from 0.282 to 0.500. Shares enter the index squared, so the largest share dominates it: 0.675² = 0.456 alone is above the April 2022 value. The two largest shares are enough to see the direction: in April 2022 the HHI could be at most 0.440² + 0.279² + 0.281² = 0.350, with all the remaining 28.1% held by a single issuer, and in August 2023 it is at least 0.456.</p></details>
+</section>
+<section class="blk" id="defi-tvl">
+  <h3>DeFi: Total Value Locked</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ch16_defi_tvl.jpg?v=20261031a" alt="Slide 14: DeFi: Total Value Locked" loading="lazy"></a>
+      <figcaption>Slide 14</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="df-b">Base month (index = 100): <b id="df-b-v"></b></label><input type="range" id="df-b" min="0" max="79" step="1" value="0"></div><button class="btn play" id="df-play" type="button"></button></div><div class="charts "><div class="chart" id="df-chart"></div></div><ul class="out" id="df-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> From the end of November 2021 to the end of September 2026, TVL fell from 174 to 88 USD bn. What does this chart allow us to conclude about the tokens deposited?</div>
+  <details><summary>Answer</summary><p>Not that half of the deposits left. TVL is the quantity of tokens times their price. With November 2021 as the base month, the Ether price falls to 0.56 of its level (4,632 to 2,611 USD) and TVL to 0.51 (174 to 88 USD bn). Most of the fall can come from lower prices; the chart alone cannot separate quantities from prices (the appendix of the lecture does this for a fixed-price TVL). Deposits did not rise either: TVL fell slightly more than the Ether price.</p></details>
+</section>
+<section class="blk" id="spot-etf">
+  <h3>January 2024: Bitcoin Enters the Stock Exchange</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ch16_etf_tracking.jpg?v=20261031a" alt="Slide 15: January 2024: Bitcoin Enters the Stock Exchange" loading="lazy"></a>
+      <figcaption>Slide 15</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="et-b">Base date (both = 100): <b id="et-b-v"></b></label><input type="range" id="et-b" min="0" max="633" step="1" value="0"></div><button class="btn play" id="et-play" type="button"></button></div><div class="charts "><div class="chart" id="et-chart"></div></div><ul class="out" id="et-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin and the ETF IBIT both start at 100 on 11 January 2024. Where is IBIT on 18 September 2026, compared with Bitcoin?</div>
+  <details><summary>Answer</summary><p>Slightly below: IBIT is at 172.8 and Bitcoin at 174.5, about 1% lower after 674 common trading days. The drift of ln(IBIT/Bitcoin), the slope of a linear trend in years, is −0.24% a year: the cost of holding Bitcoin through the fund. The fund holds the coins, so the two lines overlap, but not exactly; skipping weekends does not lift the ETF above Bitcoin, because both are compared on the same trading days.</p></details>
+</section><h2 class="sec" id="s-onchain">On-Chain Activity</h2>
+<section class="blk" id="four-views">
+  <h3>Four Views of a Blockchain</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l1_onchain.jpg?v=20261031a" alt="Slide 16: Four Views of a Blockchain" loading="lazy"></a>
+      <figcaption>Slide 16</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="oc-w">Moving-mean window: <b id="oc-w-v"></b></label><input type="range" id="oc-w" min="1" max="90" step="1" value="30"></div><div class="ctl"><label for="oc-mc">Market value series</label><select id="oc-mc"><option value="raw" selected>Raw (as in the chart)</option><option value="clean">Recording error removed</option></select></div><button class="btn play" id="oc-play" type="button"></button></div><div class="charts "><div class="chart" id="oc-tx"></div><div class="chart" id="oc-fee"></div><div class="chart" id="oc-hr"></div><div class="chart" id="oc-val"></div></div><ul class="out" id="oc-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With a 30-day mean, the Bitcoin fee peaks at 19.81 USD (13 January 2018). The ▶ button lengthens the window from 1 to 90 days. What happens to the highest Bitcoin fee in the fees panel?</div>
+  <details><summary>Answer</summary><p>It falls: from 92.37 USD with daily values to 28.75 USD (7 days), 19.81 USD (30 days) and 11.32 USD (90 days). A longer mean averages the peak days with calmer days, so the reported peak depends on the smoothing; the Ethereum peak falls from 37.88 to 19.39 USD. A quoted peak is only comparable with another peak smoothed in the same way.</p></details>
+</section>
+<section class="blk" id="value-activity">
+  <h3>Does Value Follow Activity?</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l1_value_activity.jpg?v=20261031a" alt="Slide 18: Does Value Follow Activity?" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="va-e">Sample ends in: <b id="va-e-v"></b></label><input type="range" id="va-e" min="0" max="131" step="1" value="131"></div><button class="btn play" id="va-play" type="button"></button></div><div class="charts "><div class="chart" id="va-chart"></div></div><ul class="out" id="va-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button extends the sample month by month, from October 2016 to October 2025. Does the slope of the log-log line stay near the 3.6 of the full sample?</div>
+  <details><summary>Answer</summary><p>No. With the sample ending in October 2016 the slope is 0.95; it is 2.35 to October 2018, 3.28 to October 2021 and 3.59 to October 2025. The slope describes the association of two trending series over a given period; it is not a stable elasticity, and it is near the slope of 2 of Metcalfe's law only for samples ending in late 2017 or in 2018. Lecture 2 tests the relation formally.</p></details>
+</section><h2 class="sec" id="s-log">Growth on a Log Scale</h2>
+<section class="blk" id="trend">
+  <h3>Trend Lines on a Log Scale</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l1_trend.jpg?v=20261031a" alt="Slide 25: Trend Lines on a Log Scale" loading="lazy"></a>
+      <figcaption>Slide 25</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="tr-s">Sample starts in: <b id="tr-s-v"></b></label><input type="range" id="tr-s" min="0" max="95" step="1" value="0"></div><button class="btn play" id="tr-play" type="button"></button></div><div class="charts "><div class="chart" id="tr-chart"></div></div><ul class="out" id="tr-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the sample starting in November 2020 instead of November 2014, how does the estimated growth of Bitcoin's market value change?</div>
+  <details><summary>Answer</summary><p>It falls from 79.7% to 29.6% a year (ĝ = 0.260 instead of 0.586). The regression uses every month of the sample, but the sample still decides the result: the years of fastest growth, 2015–2017, drop out. Higher market values in the later years do not mean faster growth: the slope measures the change of the log level, not the level. Transactions grow 17.1% a year from November 2020, against 10.9% from November 2014.</p></details>
+</section>
+<section class="blk" id="out-of-sample">
+  <h3>Out of Sample: the Trend One Year Later</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture1_blockchains_as_data.pdf#page=27" target="_blank" rel="noopener"><img src="slides/ba_oos_trend.jpg?v=20261031a" alt="Slide 26: Out of Sample: the Trend One Year Later" loading="lazy"></a>
+      <figcaption>Slide 26</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="os-o">Trend estimated to (forecast origin): <b id="os-o-v"></b></label><input type="range" id="os-o" min="0" max="131" step="1" value="131"></div><button class="btn play" id="os-play" type="button"></button></div><div class="charts "><div class="chart" id="os-chart"></div></div><ul class="out" id="os-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button moves the forecast origin every three months, from October 2017 to October 2025 (33 origins). For how many origins does the realised value 12 months later lie outside the naive 95% band?</div>
+  <details><summary>Answer</summary><p>For 16 of the 33 origins (48%), every time below the band; a valid 95% band would miss about 5% of the time. The band is wide, from 0.26 to 3.8 times the forecast at the October 2025 origin, but it assumes independent residuals; the residuals have an AR(1) coefficient of 0.97, so deviations from the trend last for years and the band is far too narrow beyond a few months. At the October 2025 origin, the October 2026 value, 1,670 USD bn, lies just below the band, which starts at 1,770 USD bn.</p></details>
+</section>
+<p class="src foot">Prices: EODHD daily closes. Coins in circulation: Coin Metrics Community Data. Stablecoin supply and DeFi total value locked: DefiLlama snapshots. On-chain series: ETH Chronicles project (IDA), November 2014 to 8 October 2025. Lecture samples end on 18 September 2026; the out-of-sample check uses prices to 23 October 2026.</p>
+</main>
+</body>
+</html>

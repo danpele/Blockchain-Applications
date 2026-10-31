@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 3 · Volatility and Tail Risk</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l3_data.js?v=20261031a"></script>
+<script src="l3_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l3.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 3 · Volatility and Tail Risk</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l3.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L3" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-models">Volatility Models</a> · <a href="#s-estimates">Estimates</a> · <a href="#s-var">Value-at-Risk and Expected Shortfall</a> · <a href="#s-backtest">Backtesting</a> · <a href="#s-oos">Out of Sample: 19 September – 23 October 2026</a></p>
+<h2 class="sec" id="s-models">Volatility Models</h2>
+<section class="blk" id="clustering">
+  <h3>Volatility Clustering, Again</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=6" target="_blank" rel="noopener"><img src="slides/ba_l3_clustering.jpg?v=20261031a" alt="Slide 5: Volatility Clustering, Again" loading="lazy"></a>
+      <figcaption>Slide 5</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cl-k">Largest absolute returns capped: <b id="cl-k-v"></b></label><input type="range" id="cl-k" min="0" max="30" step="1" value="0"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-ret"></div><div class="chart" id="cl-acf"></div></div><ul class="out" id="cl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Without capping, 8 of the 30 autocorrelations of squared returns lie above the band. Cap only the largest absolute return, the −46.5% of 12 March 2020, at the second largest (18.5%). How many of the 30 lie above the band?</div>
+  <details><summary>Answer</summary><p>26, and 28 to 30 when more days are capped; the largest autocorrelation rises from 0.11 to 0.15. The squared return of that day, 46.5² = 2,162, dominates the sum of squares in the denominator of every autocorrelation, so one day hides the dependence that the other 3,182 days show. Absolute returns do not have this problem: all 30 lags lie above the band with or without capping. For returns the count stays at 2 of 30.</p></details>
+</section>
+<section class="blk" id="ewma-weights">
+  <h3>How EWMA Weights the Past</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=8" target="_blank" rel="noopener"><img src="slides/ba_l3_ewma_weights.jpg?v=20261031a" alt="Slide 7: How EWMA Weights the Past" loading="lazy"></a>
+      <figcaption>Slide 7</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ew-l">λ: <b id="ew-l-v"></b></label><input type="range" id="ew-l" min="0.8" max="0.99" step="0.01" value="0.94"></div><button class="btn play" id="ew-play" type="button"></button></div><div class="charts "><div class="chart" id="ew-w"></div><div class="chart" id="ew-btc"></div></div><ul class="out" id="ew-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With λ = 0.94 the last 30 days carry 84% of the weight. The ▶ button raises λ from 0.80 to 0.99. What happens to that share?</div>
+  <details><summary>Answer</summary><p>It falls: 1 − λ³⁰ is 99.9% at λ = 0.80, 60% at λ = 0.97 and 26% at λ = 0.99; a higher λ spreads the weight over a longer past (effective memory 1/(1 − λ) from 5 to 100 days). λ is the weight of yesterday's variance estimate, not of yesterday's return, whose weight is 1 − λ: 20% at λ = 0.80, 1% at λ = 0.99. On 11 April 2020, when the crash of 12 March leaves a 30-day window, the equal-weight volatility drops from 197% to 106% a year; the EWMA with λ = 0.94 only from 124% to 121%.</p></details>
+</section><h2 class="sec" id="s-estimates">Estimates</h2>
+<section class="blk" id="conditional-volatility">
+  <h3>Conditional Volatility</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l3_condvol.jpg?v=20261031a" alt="Slide 11: Conditional Volatility" loading="lazy"></a>
+      <figcaption>Slide 11</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cv-a">α as a multiple of its estimate (α + β and ω kept): <b id="cv-a-v"></b></label><input type="range" id="cv-a" min="0.25" max="2.5" step="0.05" value="1"></div><button class="btn play" id="cv-play" type="button"></button></div><div class="charts "><div class="chart" id="cv-chart"></div></div><ul class="out" id="cv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin's conditional volatility peaks at 253.5% a year on 13 March 2020. The ▶ button sets α from 0.25 to 2.5 times its estimate, keeping α + β = 1 and ω. What happens to the peak?</div>
+  <details><summary>Answer</summary><p>It rises with α: 148.6% at 0.25 times the estimate (α = 0.019), 253.5% at the estimate (α = 0.076) and 392.6% at 2.5 times (α = 0.190). α is the weight of yesterday's squared shock, so a larger α turns the crash of 12 March 2020 into a larger jump of the next day's variance; the persistence α + β decides how long a shock lasts, not how large the jump is. The median moves the other way, from 78.6% to 52.6% a year.</p></details>
+</section>
+<section class="blk" id="term-structure">
+  <h3>After a Shock: Volatility Forecasts by Horizon</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l3_term_structure.jpg?v=20261031a" alt="Slide 12: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
+      <figcaption>Slide 12</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ts-s">Variance after the shock, multiple of the long-run variance: <b id="ts-s-v"></b></label><input type="range" id="ts-s" min="0.25" max="4" step="0.25" value="2"></div><div class="ctl"><label for="ts-h">Horizon h for the readout: <b id="ts-h-v"></b></label><input type="range" id="ts-h" min="1" max="250" step="1" value="10"></div><button class="btn play" id="ts-play" type="button"></button></div><div class="charts "><div class="chart" id="ts-left"></div><div class="chart" id="ts-right"></div></div><ul class="out" id="ts-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> After a shock that doubles the variance, a volatility shock of the S&amp;P 500 has a half-life of 36.1 days. The ▶ button raises the shock from 0.25 to 4 times the long-run variance. What happens to the half-life?</div>
+  <details><summary>Answer</summary><p>It stays at 36.1 days (gold: 90.0 days). The gap between the forecast and the long-run variance is multiplied by the estimated α + β = 0.981 each day, whatever its size, so it halves in ln 0.5 / ln 0.981 = 36.1 days for every shock, also for a variance below the long run (0.25 times), from which the forecast rises. After 250 days the ratio is 1.025 for the largest shock and 0.994 for the smallest. Bitcoin has no half-life: with estimated α + β = 1 the forecast variance rises by ω = 0.144 a day, from 52.7% a year at h = 1 to 126% at h = 250.</p></details>
+</section><h2 class="sec" id="s-var">Value-at-Risk and Expected Shortfall</h2>
+<section class="blk" id="var-methods">
+  <h3>VaR and ES by Method</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_var_methods.jpg?v=20261031a" alt="Slide 18: VaR and ES by Method" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vm-p">Tail level p (%): <b id="vm-p-v"></b></label><input type="range" id="vm-p" min="0.1" max="5" step="0.05" value="1"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-chart"></div></div><ul class="out" id="vm-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> At p = 1% the Normal VaR (7.75%) is above the GARCH-t VaR (7.23%). The ▶ button moves p from 0.1% to 5%. At p = 0.1%, which of the two is larger?</div>
+  <details><summary>Answer</summary><p>GARCH-t, by far: 15.90% against 10.31% for the Normal. The Student-t with estimated ν = 3.13 has much heavier tails, so its quantile grows faster as p falls; at p = 1% the larger σ of the Normal (3.35% a day over 2018–2026, against a GARCH-t forecast of 2.76% for 19 September 2026) still dominates. At p = 5% the Normal is higher again, 5.46% against 3.78%. Historical simulation at 0.1% takes the worst returns of the last 500 days: 11.24%.</p></details>
+</section><h2 class="sec" id="s-backtest">Backtesting</h2>
+<section class="blk" id="violations">
+  <h3>Violations Through Time</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l3_backtest.jpg?v=20261031a" alt="Slide 23: Violations Through Time" loading="lazy"></a>
+      <figcaption>Slide 23</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="bt-e">Last day of the 250-day Basel window: <b id="bt-e-v"></b></label><input type="range" id="bt-e" min="249" max="2452" step="1" value="2452"></div><div class="ctl"><label for="bt-m">Method whose violations are marked</label><select id="bt-m"><option value="GARCH-t" selected>GARCH(1,1)-t</option><option value="HS 500">Historical simulation, 500 days</option><option value="Normal 250">Normal, 250 days</option><option value="EWMA">EWMA, Normal</option></select></div><button class="btn play" id="bt-play" type="button"></button></div><div class="charts "><div class="chart" id="bt-chart"></div></div><ul class="out" id="bt-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Over 2020–2026 no test rejects GARCH-t, and its last 250 days are in the green zone (2 hits). The ▶ button moves the 250-day Basel window through the test period. Is GARCH-t in the green zone in every window?</div>
+  <details><summary>Answer</summary><p>No. GARCH-t has 5 to 7 hits, the amber zone, in 23% of the 250-day windows (among them the windows ending between June 2022 and February 2023); it never reaches the red zone. A model can pass the full-period tests (28 hits against 24.5 expected) and still spend long periods in amber. EWMA is amber or red in 76% of the windows and reaches 10 hits in 2026; the Normal in 50%, with 10 hits in August 2024; historical simulation in 11%.</p></details>
+</section><h2 class="sec" id="s-oos">Out of Sample: 19 September – 23 October 2026</h2>
+<section class="blk" id="oos-var">
+  <h3>Bitcoin VaR, Rolled Forward</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=29" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261031a" alt="Slide 28: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
+      <figcaption>Slide 28</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ov-d">Days of the window: <b id="ov-d-v"></b></label><input type="range" id="ov-d" min="1" max="35" step="1" value="35"></div><button class="btn play" id="ov-play" type="button"></button></div><div class="charts "><div class="chart" id="ov-chart"></div></div><ul class="out" id="ov-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> No method had a VaR hit in the 35 days. If a method's true hit rate were 2%, twice the promised 1%, what was the probability of no hit in 35 days?</div>
+  <details><summary>Answer</summary><p>0.98³⁵ = 0.493, against 0.99³⁵ = 0.703 for a correct 1% VaR. No hit is almost as likely for the wrong model as for the right one, so these five weeks cannot separate them: the Kupiec statistic for no hit is 0.70 (p-value 0.40). Telling a 2% from a 1% hit rate with power 0.8 at the 5% level needs about 905 days.</p></details>
+</section>
+<p class="src foot">Prices: EODHD daily closes of Bitcoin, Ethereum, the S&amp;P 500 and gold; estimation sample 1 January 2018 – 18 September 2026, out-of-sample window 19 September – 23 October 2026. GARCH(1,1)-t parameters and the 2020–2026 VaR forecasts (GARCH-t re-estimated every 21 days) come from the lecture notebook; the variance filter, VaR, ES and the backtest statistics are computed in the browser.</p>
+</main>
+</body>
+</html>

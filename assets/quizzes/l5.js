@@ -57,7 +57,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "Two tiers of peg quality",
-                text: "Median absolute deviation $|d|$, January 2020 to May 2026 (EOD Historical Data): USDC 1.3 bp, USDT 3.6 bp, GUSD 17.7 bp, EURS 51.0 bp, sUSD 56.3 bp. What pattern do these numbers show?",
+                text: "Median absolute deviation $|d|$, January 2020 to May 2026 (EOD Historical Data): USDC 1.3 bp, USDT 3.6 bp, GUSD 17.7 bp, EURS 50.9 bp, sUSD 56.3 bp. What pattern do these numbers show?",
                 options: [
                     "All stablecoins hold their pegs about equally well, within a few bp",
                     "Two tiers: large dollar tokens tight, the others loose",
@@ -207,7 +207,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 2,
             en: {
                 title: "One equation: USDC after SVB",
-                text: "Target USDC, 90 days to 19 March 2023 (after the Silicon Valley Bank failure), 13 candidates: $\\lambda_{max} = 164.1$, GACV selects $\\hat\\lambda = 0.241$ with 12 active predictors; DAI enters first and stays to the largest $\\lambda$ (slope 3.70). How do you read this?",
+                text: "Target USDC, 90 days to 19 March 2023 (after the Silicon Valley Bank failure), 13 candidates: $\\lambda_{max} = 164.1$, GACV selects $\\hat\\lambda = 0.241$ with 12 active predictors; DAI keeps the largest slope along the path (3.70). How do you read this?",
                 options: [
                     "DAI caused the failure of Silicon Valley Bank",
                     "The equation is overfitted, so DAI should be dropped",

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 4 · Stablecoins I: Depeg Risk and On-Chain Early Warning</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l4_data.js?v=20261031a"></script>
+<script src="l4_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l4.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 4 · Stablecoins I: Depeg Risk and On-Chain Early Warning</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l4.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L4" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-promise">What a Stablecoin Promises</a> · <a href="#s-peg">Measuring the Peg</a> · <a href="#s-amm">Where the Price Is Formed: AMMs</a> · <a href="#s-ew">Early Warning</a> · <a href="#s-now">Now</a></p>
+<h2 class="sec" id="s-promise">What a Stablecoin Promises</h2>
+<section class="blk" id="supply">
+  <h3>Who Issues the Dollars on Chain</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l4_supply.jpg?v=20261031a" alt="Slide 8: Who Issues the Dollars on Chain" loading="lazy"></a>
+      <figcaption>Slide 8</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="su-t">Date: <b id="su-t-v"></b></label><input type="range" id="su-t" min="0" max="2850" step="1" value="2850"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-stack"></div><div class="chart" id="su-bar"></div></div><ul class="out" id="su-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> On 8 May 2022, the day before the TerraUSD collapse, the supply of USD stablecoins was 185.4 USD bn. What share of it was algorithmic?</div>
+  <details><summary>Answer</summary><p>About 11%: 11.5%, or 21.3 USD bn. Three weeks later, on 31 May 2022, the algorithmic share was 0.9%, and in October 2026 it is 0.0%; fiat-backed tokens hold 90.9% and crypto-backed tokens 8.1%. TerraUSD was large, but never the largest: on 8 May 2022 Tether held 45.0% and USD Coin 26.1% of the supply.</p></details>
+</section><h2 class="sec" id="s-peg">Measuring the Peg</h2>
+<section class="blk" id="dev-daily">
+  <h3>The Three Dollars, Day by Day</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l4_dev_daily.jpg?v=20261031a" alt="Slide 12: The Three Dollars, Day by Day" loading="lazy"></a>
+      <figcaption>Slide 12</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="dd-k">Threshold δ: <b id="dd-k-v"></b></label><input type="range" id="dd-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With δ = 15 bp, DAI closes beyond ±δ on 5.2% of days, USDT on 3.6% and USDC on 0.7%. The ▶ button raises δ to 100 bp. At δ = 50 bp, which coin has the largest share of closes beyond ±δ?</div>
+  <details><summary>Answer</summary><p>DAI, with 0.57% of days (12 of 2,122). USDT and USDC are beyond 50 bp on 0.14% of days each (3 days). USDT is the coin most often beyond 15 bp, but its deviations are small and persistent; USDC has the deepest close (−285 bp on 11 March 2023), but only on a few days. How often a coin breaches a threshold depends on the threshold: the ranking at 15 bp does not carry over to 50 bp.</p></details>
+</section>
+<section class="blk" id="exceed">
+  <h3>Tails and Their Frequency</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l4_exceed.jpg?v=20261031a" alt="Slide 13: Tails and Their Frequency" loading="lazy"></a>
+      <figcaption>Slide 13</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ex-k">Threshold x: <b id="ex-k-v"></b></label><input type="range" id="ex-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="ex-play" type="button"></button></div><div class="charts "><div class="chart" id="ex-curve"></div><div class="chart" id="ex-years"></div></div><ul class="out" id="ex-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With x = 15 bp, DAI was beyond on 26.6% of days in 2021 and on 0.3% in 2026; USDT on 8.2% and 3.0%. The ▶ button raises x. With x = 25 bp, how many of the three coins have at least one close beyond x in 2026?</div>
+  <details><summary>Answer</summary><p>None. In 2026 (to 23 October) no close of USDT, USDC or DAI is 25 bp or more from 1 USD; at 20 bp only USDT has any (0.34% of days). The tails are heavy over 2021–2026 as a whole, because of 2021, May 2022 and March 2023; in 2026 the deviations are small. A heavy tail of the full sample does not mean that large deviations occur every year.</p></details>
+</section>
+<section class="blk" id="svb">
+  <h3>The SVB Weekend, Hour by Hour (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l4_svb.jpg?v=20261031a" alt="Slide 14: The SVB Weekend, Hour by Hour (own)" loading="lazy"></a>
+      <figcaption>Slide 14</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="sv-t">Hour: <b id="sv-t-v"></b></label><input type="range" id="sv-t" min="0" max="239" step="1" value="79"></div><div class="ctl"><label for="sv-r">Recovery rate R on the SVB deposit</label><select id="sv-r"><option value="0" selected>R = 0 (zero recovery)</option><option value="0.5">R = 0.5</option><option value="0.9">R = 0.9</option></select></div><button class="btn play" id="sv-play" type="button"></button></div><div class="charts "><div class="chart" id="sv-chart"></div></div><ul class="out" id="sv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> USDC reached −1,036 bp at 07:00 UTC on Saturday 11 March 2023, 211 bp below its zero-recovery value of −825 bp. For how many hours of the weekend was the hourly close of USDC below the zero-recovery value?</div>
+  <details><summary>Answer</summary><p>For 8 hours, all on Saturday 11 March between 06:00 and 14:00 UTC (at 08:00 it was −771 bp). From 15:00 UTC on Saturday the price stayed above the value that a total loss of the SVB deposit implies, although it returned above −100 bp only at 22:00 UTC on Sunday 12 March and above −15 bp at 14:00 UTC on Monday 13 March. With a recovery rate R = 0.5 the value is −412 bp, and USDC was below it for 22 hours.</p></details>
+</section><h2 class="sec" id="s-amm">Where the Price Is Formed: AMMs</h2>
+<section class="blk" id="amm">
+  <h3>Prices Are Inelastic until They Are Not</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l4_amm.jpg?v=20261031a" alt="Slide 18: Prices Are Inelastic until They Are Not" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="am-k">Amplification A of the chosen StableSwap pool: <b id="am-k-v"></b></label><input type="range" id="am-k" min="0" max="11" step="1" value="6"></div><button class="btn play" id="am-play" type="button"></button></div><div class="charts "><div class="chart" id="am-price"></div><div class="chart" id="am-slip"></div></div><ul class="out" id="am-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> In a StableSwap pool with A = 2000 the price of X is 0.997 when X is 90% of the pool. As the share of X grows, where does the price of X first fall below 0.99?</div>
+  <details><summary>Answer</summary><p>Between 90% and 95% of the pool: the price is 0.9914 at 94.0% and 0.9898 at 94.5%. With A = 100 it falls below 0.99 already at about 76%, with A = 10 at about 55%; in a constant-product pool any imbalance moves the price (0.99 at a share of 50.3%). A high amplification keeps the price near 1 until the pool is almost one-sided: the price says little about the stress, the composition says much more.</p></details>
+</section><h2 class="sec" id="s-ew">Early Warning</h2>
+<section class="blk" id="utility">
+  <h3>Worked Example: Computing the Utility</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l4_utility.jpg?v=20261031a" alt="Slide 23: Worked Example: Computing the Utility" loading="lazy"></a>
+      <figcaption>Slide 23</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ut-f">False alerts per month F<sub>m</sub>: <b id="ut-f-v"></b></label><input type="range" id="ut-f" min="0" max="10" step="0.1" value="2.5"></div><div class="ctl"><label for="ut-l">Lead of the first alert before event 3: <b id="ut-l-v"></b></label><input type="range" id="ut-l" min="0" max="30" step="1" value="0"></div><button class="btn play" id="ut-play" type="button"></button></div><div class="charts "><div class="chart" id="ut-chart"></div></div><ul class="out" id="ut-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> In the example U = 0.398 − 0.05 × 2.5 = 0.273. The ▶ button raises the false-alert rate F<sub>m</sub> from 0 to 10 a month. At what rate of false alerts does U fall to zero?</div>
+  <details><summary>Answer</summary><p>At 7.96 false alerts a month: the mean credit of the four events, 0.398, divided by the cost of 0.05 per false alert a month. 0.273 / 0.05 = 5.46 is the number of false alerts a month that can be added to the 2.5 already counted. The budget of 2 false alerts a month is a constraint on the choice of the alert threshold, not the point where U changes sign.</p></details>
+</section>
+<section class="blk" id="paper-t1">
+  <h3>Results: Four Classifier Families (Paper, Table 1)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l4_paper_t1.jpg?v=20261031a" alt="Slide 24: Results: Four Classifier Families (Paper, Table 1)" loading="lazy"></a>
+      <figcaption>Slide 24</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="pt-a">Highlighted column: <b id="pt-a-v"></b></label><input type="range" id="pt-a" min="0" max="5" step="1" value="1"></div><div class="ctl"><label for="pt-m">Metric</label><select id="pt-m"><option value="U" selected>Event utility U, 95% CI</option><option value="recall">Timely event recall</option><option value="fa">False alerts per month</option></select></div><button class="btn play" id="pt-play" type="button"></button></div><div class="charts "><div class="chart" id="pt-chart"></div></div><ul class="out" id="pt-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> CatBoost with α = 0.3 has the highest utility of the table, 0.303. For how many of the six values of α does CatBoost have a higher U than the other three families?</div>
+  <details><summary>Answer</summary><p>For 5 of the 6. At α = 0.5 the random forest is higher (0.233 against 0.149). XGBoost and LightGBM never have the highest U; LightGBM has a negative U for five of the six values. Overlapping 95% intervals of CatBoost and the random forest do not change the ranking of the point estimates; they show that the ranking is uncertain.</p></details>
+</section>
+<section class="blk" id="tradeoff">
+  <h3>The Recall–False-Alert Trade-off (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=27" target="_blank" rel="noopener"><img src="slides/ba_l4_ew_tradeoff.jpg?v=20261031a" alt="Slide 26: The Recall–False-Alert Trade-off (own)" loading="lazy"></a>
+      <figcaption>Slide 26</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="tf-k">Threshold k of the rule |d<sub>t</sub>| ≥ k: <b id="tf-k-v"></b></label><input type="range" id="tf-k" min="4" max="25" step="1" value="11"></div><button class="btn play" id="tf-play" type="button"></button></div><div class="charts "><div class="chart" id="tf-chart"></div></div><ul class="out" id="tf-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> On the test period the rule |d<sub>t</sub>| ≥ 11 bp detects 4 of the 5 events with 3.18 false alerts a month. The ▶ button raises k from 4 to 25 bp. At the smallest k that meets the budget of 2 false alerts a month on the test period, how many events does the rule detect?</div>
+  <details><summary>Answer</summary><p>3 of the 5, at k = 13 bp, with 1.29 false alerts a month and U = 0.340 (Clopper–Pearson 95% interval for the recall [0.15, 0.95]). At k = 12 bp the rule has 2.26 false alerts a month. This k is chosen with hindsight on the test data; the rule chosen on 2024 under the same budget is k = 20 bp, which detects none of the test events. At k = 15 bp, the event threshold itself, the rule detects nothing in time: it fires only once the breach has started.</p></details>
+</section><h2 class="sec" id="s-now">Now</h2>
+<section class="blk" id="recent">
+  <h3>The Last Twelve Weeks (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l4_recent.jpg?v=20261031a" alt="Slide 27: The Last Twelve Weeks (own)" loading="lazy"></a>
+      <figcaption>Slide 27</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="rc-k">Alert level k for USDC priced in USDT: <b id="rc-k-v"></b></label><input type="range" id="rc-k" min="5" max="20" step="0.5" value="10"></div><button class="btn play" id="rc-play" type="button"></button></div><div class="charts "><div class="chart" id="rc-chart"></div></div><ul class="out" id="rc-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> In October 2026 USDC priced in USDT was at or above 10 bp in 206 of 552 hours, never at 15 bp. With an alert at |d<sub>t</sub>| ≥ 10 bp and a 24-hour refractory period, how many alert episodes would the rule have issued from 1 August to 23 October?</div>
+  <details><summary>Answer</summary><p>24, about two a week, none of them followed by a breach of 15 bp. The refractory period merges consecutive hours above 10 bp into one episode, so the count is far below the number of hours. With k = 12 bp there are 10 episodes, with k = 14 bp 2. A level rule cannot tell a persistent small discount of USDT from stress; the alarm of the paper also looks at the pool composition and the liquidity curve.</p></details>
+</section>
+<p class="src foot">Prices: EODHD daily closes and intraday lows (2021 to 23 October 2026) and hourly closes (January 2022 to 23 October 2026). Stablecoin supply: DefiLlama snapshot of 21 October 2026. Results of the paper: Chaffard et al. (2026), Table 1. The price-only alarms (logistic regression, gradient boosting) are fitted in the lecture notebook; the page evaluates their test-period scores and the rule |d<sub>t</sub>| ≥ k with the event-level protocol of the lecture.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 5 · Stablecoins II: the De-pegging Pressure Index</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l5_data.js?v=20261031a"></script>
+<script src="l5_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l5.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 5 · Stablecoins II: the De-pegging Pressure Index</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l5.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L5" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-anchors">Comparing Different Anchors</a> · <a href="#s-qr">Quantile Regression and the Lasso</a> · <a href="#s-dpi">The De-pegging Pressure Index</a> · <a href="#s-links">Inside the Tail Links</a></p>
+<h2 class="sec" id="s-anchors">Comparing Different Anchors</h2>
+<section class="blk" id="peg-quality">
+  <h3>Two Tiers of Peg Quality (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l5_pegquality.jpg?v=20261031a" alt="Slide 8: Two Tiers of Peg Quality (own)" loading="lazy"></a>
+      <figcaption>Slide 8</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="pq-e">Sample ends: <b id="pq-e-v"></b></label><input type="range" id="pq-e" min="0" max="69" step="1" value="64"></div><button class="btn play" id="pq-play" type="button"></button></div><div class="charts "><div class="chart" id="pq-chart"></div></div><ul class="out" id="pq-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the sample to 31 May 2026, the 95% quantile of |d| is 1,883 bp for sUSD and its median 56.3 bp. The ▶ button moves the end of the sample. With the sample extended to 23 October 2026, how does the 95% quantile of |d| of sUSD change?</div>
+  <details><summary>Answer</summary><p>It roughly doubles, to 3,929 bp, while the median rises only from 56.3 to 62.1 bp and the share of days at least 100 bp below the peg from 26.0% to 30.3%. The 145 added days are the collapse of sUSD to 0.09 USD: they are 6% of the sample, but they fill the upper tail. The other nine coins change much less, and the two tiers keep the same members.</p></details>
+</section>
+<section class="blk" id="susd">
+  <h3>A Persistent Depeg: sUSD (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=10" target="_blank" rel="noopener"><img src="slides/ba_l5_susd.jpg?v=20261031a" alt="Slide 9: A Persistent Depeg: sUSD (own)" loading="lazy"></a>
+      <figcaption>Slide 9</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="su-c">Threshold price: <b id="su-c-v"></b></label><input type="range" id="su-c" min="0.1" max="0.99" step="0.01" value="0.99"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-chart"></div></div><ul class="out" id="su-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> After September 2025 sUSD first closed below 0.95 USD on 24 November 2025, and it has stayed below 0.95 USD since 14 December 2025. The ▶ button lowers the threshold price. From which date does sUSD stay below 0.50 USD without interruption?</div>
+  <details><summary>Answer</summary><p>From 20 August 2026; it first closed below 0.50 on 12 June 2026, and on 23 October 2026 it closed at 0.09 USD. The fall from 0.95 to 0.50 took about nine months, with returns above each level before it was left for good. No arbitrage at par closes this gap, because redemption at 1 USD is not available: the depeg is a slow default, not a weekend dislocation.</p></details>
+</section><h2 class="sec" id="s-qr">Quantile Regression and the Lasso</h2>
+<section class="blk" id="check-loss">
+  <h3>The Check Loss</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l5_checkloss.jpg?v=20261031a" alt="Slide 10: The Check Loss" loading="lazy"></a>
+      <figcaption>Slide 10</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cl-t">Quantile level τ: <b id="cl-t-v"></b></label><input type="range" id="cl-t" min="0.01" max="0.99" step="0.01" value="0.05"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-rho"></div><div class="chart" id="cl-sum"></div></div><ul class="out" id="cl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With n = 20 and τ = 0.05 the total check loss is flat between −120 and −35 bp. The ▶ button raises τ. At τ = 0.10, which values of q minimise the total loss?</div>
+  <details><summary>Answer</summary><p>Every q from −35 to −12 bp, the second and third smallest observations: n τ = 2 is again an integer, so the loss is flat between two observations (total loss 148.10). Whenever 20 τ is an integer the minimiser is an interval; for other τ it is one observation (τ = 0.06: q = −35 bp). For τ = 0.5 the interval is [2, 3] bp, around the median of 2 bp quoted on the slide. In a 90-day window n τ = 4.5, so the 5% quantile is unique, but still set by five days.</p></details>
+</section>
+<section class="blk" id="lasso-path">
+  <h3>Worked Example: One Equation, USDC after SVB (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l5_lasso_path.jpg?v=20261031a" alt="Slide 13: Worked Example: One Equation, USDC after SVB (own)" loading="lazy"></a>
+      <figcaption>Slide 13</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="lp-k">Penalty λ (point of the 25-value grid): <b id="lp-k-v"></b></label><input type="range" id="lp-k" min="0" max="24" step="1" value="7"></div><button class="btn play" id="lp-play" type="button"></button></div><div class="charts "><div class="chart" id="lp-path"></div><div class="chart" id="lp-gacv"></div></div><ul class="out" id="lp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button lowers λ from λ<sub>max</sub> = 164.1 along the grid of 25 values. Does the number of active predictors grow at every step?</div>
+  <details><summary>Answer</summary><p>No. It goes 0, 1, 2, then back to 1 (at λ = 51.9 USDT leaves and only DAI is active), 2 up to λ = 5.2, then 3, 4, 5, 10, 12, 11, 12, 12 and 13. The Lasso path of a quantile regression is not monotone: a predictor can leave when others enter. At the selected λ̂ = 0.241 twelve of the 13 are active; the one left out is USDT, which is active at the neighbouring λ values.</p></details>
+</section><h2 class="sec" id="s-dpi">The De-pegging Pressure Index</h2>
+<section class="blk" id="dpi">
+  <h3>The DPI, April 2020 – October 2026 (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ba_l5_dpi.jpg?v=20261031a" alt="Slide 15: The DPI, April 2020 – October 2026 (own)" loading="lazy"></a>
+      <figcaption>Slide 15</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="dp-e">Trend sample ends: <b id="dp-e-v"></b></label><input type="range" id="dp-e" min="0" max="52" step="1" value="47"></div><button class="btn play" id="dp-play" type="button"></button></div><div class="charts "><div class="chart" id="dp-chart"></div></div><ul class="out" id="dp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the trend sample to 31 May 2026 the slope of ln DPI is +0.046 a year (p = 0.21). The ▶ button moves the end of the trend sample. With the sample ending on 31 December 2025, is a zero slope rejected at 5%?</div>
+  <details><summary>Answer</summary><p>Yes: +0.088 a year, HAC(90) standard error 0.032, p = 0.01, 95% interval [0.026, 0.151]. Adding the first five months of 2026, when the DPI was lower (annual median 0.32 against 0.52 in 2025), brings the slope to +0.046 and the p-value to 0.21; to 23 October 2026 it is +0.035 (p = 0.25). The test result depends on where the sample ends, which is one more reason to read the DPI in regimes, not as a trend.</p></details>
+</section>
+<section class="blk" id="events">
+  <h3>How Robust Are Event Responses?</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=18" target="_blank" rel="noopener"><img src="slides/ba_l5_events.jpg?v=20261031a" alt="Slide 17: How Robust Are Event Responses?" loading="lazy"></a>
+      <figcaption>Slide 17</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ev-h">Last day of the post-event window: <b id="ev-h-v"></b></label><input type="range" id="ev-h" min="1" max="30" step="1" value="30"></div><button class="btn play" id="ev-play" type="button"></button></div><div class="charts "><div class="chart" id="ev-chart"></div></div><ul class="out" id="ev-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the post-event window of days 0..30, three own responses are significant after the Holm correction: KuCoin, the China sell-off and Terra. With a window of days 0..10, which events have a Holm p-value below 0.05?</div>
+  <details><summary>Answer</summary><p>KuCoin (+49.6%), Terra (+23.5%) and the Iran–Hormuz shock (−34.8%, Holm p = 0.049); the China sell-off is no longer significant (−12.5%, Holm p = 0.123). The window length changes which events respond, and even the sign: the Iran–Hormuz response is −35% over 10 days and +2.4% over 30. Neither window gives FTX and SVB, the two events the paper finds significant. The narrow-λ-grid index on this page is re-estimated with the notebook (+94.9% for KuCoin and +158.6% for SVB at 30 days; the lecture reports +95.3% and +158.6%).</p></details>
+</section><h2 class="sec" id="s-links">Inside the Tail Links</h2>
+<section class="blk" id="links">
+  <h3>Who Is Linked to Whom? (own)</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l5_links.jpg?v=20261031a" alt="Slide 18: Who Is Linked to Whom? (own)" loading="lazy"></a>
+      <figcaption>Slide 18</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="lk-y">Period (0 = all days, then 2020 to 2026): <b id="lk-y-v"></b></label><input type="range" id="lk-y" min="0" max="7" step="1" value="0"></div><button class="btn play" id="lk-play" type="button"></button></div><div class="charts "><div class="chart" id="lk-chart"></div></div><ul class="out" id="lk-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Over all days the most often aligned link is USDC ← DAI (75 pp). The ▶ button steps through the calendar years 2020 to 2026. In how many of the seven years is USDC ← DAI the most often aligned link?</div>
+  <details><summary>Answer</summary><p>In 1 of the 7, 2023, the year of the SVB weekend (91 pp). In every other year another pair leads: USDT ← BUSD and USDP ← BUSD in 2020, TUSD ← BUSD in 2021, USDP ← TUSD in 2022, BUSD ← USDT in 2024 and 2026, TUSD ← USDT in 2025. The pooled ranking averages different years; the shares of aligned (44–51%) and inverse (29–37%) coefficients are more stable than the ranking of pairs. This matrix uses the notebook's Quantile Lasso; its pooled values agree with the slide to the unit (market variables: 18.3% here, 18.4% in the lecture).</p></details>
+</section>
+<section class="blk" id="active">
+  <h3>Sparser Models under Pressure</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l5_active.jpg?v=20261031a" alt="Slide 19: Sparser Models under Pressure" loading="lazy"></a>
+      <figcaption>Slide 19</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ac-g">Number of DPI groups: <b id="ac-g-v"></b></label><input type="range" id="ac-g" min="2" max="10" step="1" value="5"></div><button class="btn play" id="ac-play" type="button"></button></div><div class="charts "><div class="chart" id="ac-chart"></div></div><ul class="out" id="ac-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With quintiles of the DPI the mean active set falls from 10.96 in the lowest group to 9.68 in the highest. The ▶ button raises the number of groups from 2 to 10. With deciles, what happens to the gap between the lowest and the highest group?</div>
+  <details><summary>Answer</summary><p>It widens: 11.06 active predictors in the lowest decile against 9.51 in the highest, and the mean falls from each decile to the next. The Spearman correlation of the daily DPI with the mean active set is −0.73. Part of this is mechanical: the DPI is the mean selected λ, and a larger λ removes predictors by construction.</p></details>
+</section>
+<p class="src foot">Prices: EODHD daily closes of ten stablecoins, EUR/USD and gold (reference adjustment), January 2020 to 23 October 2026. DPI, selected penalties and active sets: the daily estimates of the lecture (10 coins, 90-day windows, 5% Quantile Lasso, λ chosen by GACV, 2,397 days). The narrow-grid DPI on the event windows and the link matrix use the Quantile Lasso of the lecture notebook. Event responses of the paper: Fan, Sha, Härdle and Pele (2026).</p>
+</main>
+</body>
+</html>

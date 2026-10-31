@@ -182,49 +182,49 @@
 
         chapters: [
             {
-                id: 'l1', num: 1, available: true, web: true, date: { en: 'Mon 23 Nov', ro: 'Luni 23 nov.' },
+                id: 'l1', num: 1, available: true, web: true, interactive: true, date: { en: 'Mon 23 Nov', ro: 'Luni 23 nov.' },
                 title: { en: 'Blockchains and Crypto Markets as Data', ro: 'Blockchain-urile și piețele cripto ca date' },
                 topics: { en: ['Proof-of-work arithmetic and the supply rule', 'Market concentration: the Herfindahl–Hirschman index (HHI)', 'Data-quality checks on prices and on-chain series', 'Log-linear trends with Newey–West standard errors'], ro: ['Aritmetica proof-of-work și regula de emisiune', 'Concentrarea pieței: indicele Herfindahl–Hirschman (HHI)', 'Verificarea calității datelor pentru prețuri și serii on-chain', 'Trenduri log-liniare cu erori standard Newey–West'] },
                 links: L(1, 'blockchains_as_data'),
                 quantinar: q('cryptosNfts', 'bcIntro', 'understanding')
             },
             {
-                id: 'l2', num: 2, available: true, web: true, date: { en: 'Mon 23 Nov', ro: 'Luni 23 nov.' },
+                id: 'l2', num: 2, available: true, web: true, interactive: true, date: { en: 'Mon 23 Nov', ro: 'Luni 23 nov.' },
                 title: { en: 'Stylized Facts, Efficiency and Bubbles', ro: 'Fapte stilizate, eficiență și bule' },
                 topics: { en: ['Moments and the Jarque–Bera test; ACF and Ljung–Box', 'Rolling correlations and variance-ratio tests', 'Drawdowns and the LPPL bubble model', "Metcalfe's law as a model of network value"], ro: ['Momente și testul Jarque–Bera; ACF și testul Ljung–Box', 'Corelații pe ferestre mobile și teste ale raportului varianțelor', 'Drawdown-uri și modelul de bulă LPPL', 'Legea lui Metcalfe ca model al valorii de rețea'] },
                 links: L(2, 'stylized_facts_efficiency_bubbles'),
                 quantinar: q('mechanism', 'returns')
             },
             {
-                id: 'l3', num: 3, available: true, web: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
+                id: 'l3', num: 3, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
                 title: { en: 'Volatility and Tail Risk', ro: 'Volatilitate și tail risk' },
                 topics: { en: ['EWMA and GARCH(1,1)-t by maximum likelihood; residual diagnostics', 'VaR and ES: Normal, historical, EWMA, GARCH-t', 'Kupiec and Christoffersen backtests; Basel traffic light', 'A short out-of-sample check'], ro: ['EWMA și GARCH(1,1)-t estimat prin verosimilitate maximă; diagnosticul reziduurilor', 'VaR și ES: Normal, istoric, EWMA, GARCH-t', 'Backtesturile Kupiec și Christoffersen; semaforul Basel', 'O verificare out-of-sample scurtă'] },
                 links: L(3, 'volatility_tail_risk'),
                 quantinar: q('robustMarkowitz')
             },
             {
-                id: 'l4', num: 4, available: true, web: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
+                id: 'l4', num: 4, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
                 title: { en: 'Stablecoins I: Measuring Depeg Risk and On-Chain Early Warning', ro: 'Stablecoin-uri I: riscul de depeg și avertizarea timpurie on-chain' },
                 topics: { en: ['Peg deviations in basis points, exceedance curves and episode counts', 'AMM price impact: constant product and StableSwap', 'Event-level early-warning utility', 'Case: the March 2023 USDC depeg'], ro: ['Abaterile de la paritate în puncte de bază, curbe de depășire și numărul de episoade', 'Impactul asupra prețului în AMM: produs constant și StableSwap', 'Utilitatea avertizării timpurii la nivel de eveniment', 'Studiu de caz: depeg-ul USDC din martie 2023'] },
                 links: L(4, 'stablecoins_depeg'),
                 quantinar: []
             },
             {
-                id: 'l5', num: 5, available: true, web: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
+                id: 'l5', num: 5, available: true, web: true, interactive: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
                 title: { en: 'Stablecoins II: Systemic Depegging Pressure and Portfolios', ro: 'Stablecoin-uri II: presiunea sistemică de depeg și portofolii' },
                 topics: { en: ['Reference-adjusted deviations; check loss and quantile regression', '5% Quantile Lasso with GACV selection', 'The De-pegging Pressure Index (DPI)', 'HAC event tests with Holm correction; out-of-sample check-loss skill'], ro: ['Abateri ajustate față de referință; funcția de pierdere check și regresia cuantilă', 'Quantile Lasso la 5%, cu parametrul ales prin GACV', 'De-pegging Pressure Index (DPI)', 'Teste de eveniment cu erori HAC și corecția Holm; performanța out-of-sample după pierderea check'] },
                 links: L(5, 'stablecoins_dpi'),
                 quantinar: q('frm')
             },
             {
-                id: 'l6', num: 6, available: true, web: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
+                id: 'l6', num: 6, available: true, web: true, interactive: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
                 title: { en: 'Networks, Sentiment and Asset Classes', ro: 'Rețele, sentiment și clase de active' },
                 topics: { en: ['Correlation distance, minimum spanning trees, absorption ratio', 'Diebold–Yilmaz spillovers', 'Factor analysis and k-means classification of asset classes', 'Market-model event study (CAR) and text sentiment'], ro: ['Distanța de corelație, arbori de acoperire minimi, absorption ratio', 'Spillover-uri Diebold–Yilmaz', 'Analiza factorială și clasificarea k-means a claselor de active', 'Studiu de eveniment cu modelul de piață (CAR) și sentimentul din text'] },
                 links: L(6, 'networks_sentiment_art'),
                 quantinar: q('networks', 'crossExchange', 'reddit', 'musk', 'dai')
             },
             {
-                id: 'l7', num: 7, available: true, web: true, date: { en: 'Thu 26 Nov', ro: 'Joi 26 nov.' },
+                id: 'l7', num: 7, available: true, web: true, interactive: true, date: { en: 'Thu 26 Nov', ro: 'Joi 26 nov.' },
                 title: { en: 'Machine Learning, AI and Their Limits; Exam Review', ro: 'Machine learning, AI și limitele lor; recapitulare pentru examen' },
                 topics: { en: ['Walk-forward evaluation; Brier score, AUC, Pesaran–Timmermann test', 'Overfitting, SHAP explanations, the deflated Sharpe ratio', 'VaR from GARCH, quantile regression, gradient-boosted trees and Chronos-2', 'Quantile score and Diebold–Mariano tests; look-ahead in pretrained models'], ro: ['Evaluare walk-forward; scorul Brier, AUC, testul Pesaran–Timmermann', 'Overfitting, explicații SHAP, deflated Sharpe ratio', 'VaR din GARCH, regresie cuantilă, gradient-boosted trees și Chronos-2', 'Scorul cuantil și testele Diebold–Mariano; look-ahead în modelele preantrenate'] },
                 links: L(7, 'ml_ai_limits'),
