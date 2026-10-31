@@ -1,12 +1,12 @@
 // ============================================================
 // Blockchain Applications course website - rendering (same layout as the MFM site)
-// Reads window.MFM_DATA (course-data.js). English only.
+// Reads window.MFM_DATA (course-data.js). Page language from window.MFM_LANG ('en' | 'ro'); the lectures are in English.
 // Lectures are referenced by their stable `id`; `num` is only the display order.
 // ============================================================
 (function () {
     'use strict';
 
-    const LANG = 'en';
+    const LANG = window.MFM_LANG === 'ro' ? 'ro' : 'en';
     const D = window.MFM_DATA;
     const T = D.ui[LANG];
     const $ = id => document.getElementById(id);
@@ -102,7 +102,7 @@
 
     // web lecture (web/lN.html) and interactive page (interactive/lN.html), after the slides, once a lecture has them
     function withInteractive(ch) {
-        const links = ch.links[LANG], s = links.find(l => l.type === 'slides');
+        const links = ch.links[LANG] || ch.links.en, s = links.find(l => l.type === 'slides');
         if (!s) return links;
         const i = links.indexOf(s), extra = [];
         if (ch.web) extra.push({ type: 'web', href: `web/l${ch.num}.html` });
@@ -123,7 +123,7 @@
     function renderChapters() {
         $('chapters-grid').innerHTML = D.chapters.map(ch => {
             const badge = (ch.available ? '' : `<span class="badge badge-soon">${T.comingSoon}</span>`) +
-                (ch.date ? `<span class="badge badge-date">${ch.date}</span>` : '');
+                (ch.date ? `<span class="badge badge-date">${ch.date[LANG] || ch.date}</span>` : '');
             const links = ch.available
                 ? linkRows(withInteractive(ch))
                 : PLACEHOLDER_LINKS.map(t => `<span class="btn disabled" aria-disabled="true">${T.links[t]}</span>`).join('');
@@ -165,8 +165,8 @@
     function renderProject() {
         $('seminar-intro').innerHTML = T.seminarIntro;
         $('seminar-table').innerHTML = `<table class="sessions"><tr><th>${T.colSession}</th><th>${T.colTopic}</th><th>${T.colPrep}</th></tr>` +
-            D.seminars.map(([s, t, p]) => `<tr><td class="c"><strong>${s}</strong></td><td>${t}</td><td>${p}</td></tr>`).join('') + '</table>';
-        $('project-cards').innerHTML = D.assessment.map(c =>
+            D.seminars[LANG].map(([s, t, p]) => `<tr><td class="c"><strong>${s}</strong></td><td>${t}</td><td>${p}</td></tr>`).join('') + '</table>';
+        $('project-cards').innerHTML = D.assessment[LANG].map(c =>
             `<div class="info-card"><h3>${c.h}</h3>${c.p.map(p => `<p>${p}</p>`).join('')}</div>`
         ).join('');
     }
