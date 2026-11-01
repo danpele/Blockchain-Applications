@@ -327,7 +327,7 @@
             { h: 'Attendance and policies', p: [
                 'Attendance is taken at every lecture of both parts with a QR code shown on the screen. It does not count towards the grade, but attending every lecture is strongly recommended.',
                 'AI tools may be used to study, to run the notebooks and for the project, with substantive AI assistance disclosed; they are not allowed during the exam.',
-                'Each Blockchain Analytics slide deck ends with an appendix for self-study; the appendix is not examined. The practice quizzes on this site help you prepare.'
+                'Each Blockchain Analytics slide deck ends with an appendix for self-study. The practice quizzes on this site help you prepare.'
             ] }
         ], ro: [
             { h: 'Proiectul de due diligence (Partea 1): 50%', p: [
@@ -347,7 +347,7 @@
             { h: 'Prezență și reguli', p: [
                 'Prezența se ia la fiecare curs, din ambele părți, cu un cod QR afișat pe ecran. Prezența nu intră în notă, dar participarea la toate cursurile este puternic recomandată.',
                 'Instrumentele AI pot fi folosite pentru studiu, pentru rularea notebook-urilor și pentru proiect, cu declararea asistenței AI substanțiale; nu sînt permise la examen.',
-                'Fiecare set de slide-uri Blockchain Analytics se încheie cu o anexă pentru studiu individual; anexa nu intră în examen. Quiz-urile de exersare de pe site vă ajută să vă pregătiți.'
+                'Fiecare set de slide-uri Blockchain Analytics se încheie cu o anexă pentru studiu individual. Quiz-urile de exersare de pe site vă ajută să vă pregătiți.'
             ] }
         ] },
 
