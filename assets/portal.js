@@ -16,13 +16,14 @@
     const TXT = {
         en: {
             title: 'Attendance and Exam',
-            intro: 'Sign in with your ASE Google account (@stud.ase.ro). Attendance: type the code shown in the room; it changes every minute. Attendance is recorded for every lecture of both parts of the course and does not count towards the grade.',
+            intro: 'Attendance: scan the QR code shown in the room with your phone and sign in with your ASE Google account (@stud.ase.ro); your attendance is then recorded. The QR code changes every minute. Attendance is recorded for every lecture of both parts of the course and does not count towards the grade.',
+            scan: 'Scan the QR code shown in the room to record your attendance.', signinQr: 'Sign in with your ASE account to record your attendance.',
             examLink: 'Open the exam page', examNote: 'The final exam (Friday 27 November 2026) is taken on this site, in the room, with the code shown there.',
             signin: 'Sign in with your ASE account to continue.', signedAs: 'Signed in as', logout: 'Sign out',
             wrongDomain: 'Please use your ASE account (@stud.ase.ro or @ase.ro).',
             code: 'Code shown in the room', send: 'Record my attendance', sending: 'Sending…',
             attOk: s => `Attendance recorded: ${s}.`, attAlready: s => `Already recorded: ${s}.`,
-            errCode: 'This code is not valid now. Check it on the screen (codes change every minute) and try again.',
+            errCode: 'This QR code has expired. Scan the code on the screen again.',
             errToken: 'Your sign-in has expired. Sign out and sign in again.', errNet: 'No connection to the server. Try again.',
             teacherBtn: 'Instructor access', teacherPrompt: 'Instructor sign-in:', teacherDenied: 'This account is not an instructor account.',
             session: 'Session', showCode: 'Show code', full: 'Full screen', changes: s => `New code in ${s} s`,
@@ -34,13 +35,14 @@
         },
         ro: {
             title: 'Prezență și examen',
-            intro: 'Autentificați-vă cu contul Google ASE (@stud.ase.ro). Prezența: introduceți codul afișat în sală; codul se schimbă în fiecare minut. Prezența se înregistrează la toate cursurile, din ambele părți ale disciplinei, și nu intră în notă.',
+            intro: 'Prezența: scanați cu telefonul codul QR afișat în sală și autentificați-vă cu contul Google ASE (@stud.ase.ro); prezența se înregistrează automat. Codul QR se schimbă în fiecare minut. Prezența se înregistrează la toate cursurile, din ambele părți ale disciplinei, și nu intră în notă.',
+            scan: 'Scanați codul QR afișat în sală pentru a vă înregistra prezența.', signinQr: 'Autentificați-vă cu contul ASE pentru a vă înregistra prezența.',
             examLink: 'Deschide pagina examenului', examNote: 'Examenul final (vineri, 27 noiembrie 2026) se dă pe acest site, în sală, cu codul afișat acolo.',
             signin: 'Autentificați-vă cu contul ASE pentru a continua.', signedAs: 'Autentificat ca', logout: 'Ieșire',
             wrongDomain: 'Folosiți contul ASE (@stud.ase.ro sau @ase.ro).',
             code: 'Codul afișat în sală', send: 'Înregistrează prezența', sending: 'Se trimite…',
             attOk: s => `Prezența a fost înregistrată: ${s}.`, attAlready: s => `Prezența era deja înregistrată: ${s}.`,
-            errCode: 'Codul nu este valabil acum. Verificați-l pe ecran (se schimbă în fiecare minut) și încercați din nou.',
+            errCode: 'Acest cod QR a expirat. Scanați din nou codul de pe ecran.',
             errToken: 'Autentificarea a expirat. Ieșiți și autentificați-vă din nou.', errNet: 'Nu există conexiune cu serverul. Încercați din nou.',
             teacherBtn: 'Acces profesor', teacherPrompt: 'Autentificare profesor:', teacherDenied: 'Acest cont nu este cont de profesor.',
             session: 'Ședința', showCode: 'Afișează codul', full: 'Ecran complet', changes: s => `Cod nou în ${s} s`,
@@ -119,11 +121,17 @@
     }
 
     // ---------------------------------------------------------- attendance box (index pages)
-    function renderAttendance() {
+    // Attendance only through the QR code shown in the room (as on the MFM site): the QR opens this page
+    // with ?att=<code>; after sign-in the attendance is sent automatically. There is no code field.
+    const QR_CODE = (new URLSearchParams(location.search).get('att') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
+    let qrSent = false;
+
+    function renderAttendance(result) {
         const box = $('att-box');
         const u = user('cred');
+        if (!QR_CODE && !result) { box.innerHTML = `<p>${TXT.scan}</p>`; return; }
         if (!u) {
-            box.innerHTML = `<p>${TXT.signin}</p><div class="g-btn"></div><p class="login-msg" aria-live="polite"></p>`;
+            box.innerHTML = `<p>${TXT.signinQr}</p><div class="g-btn"></div><p class="login-msg" aria-live="polite"></p>`;
             signInButton(box.querySelector('.g-btn'), cred => {
                 const p = decodeJwt(cred);
                 if (!p || !ALLOWED.includes(String(p.email).split('@')[1])) {
@@ -135,31 +143,18 @@
             });
             return;
         }
-        const pre = (new URLSearchParams(location.search).get('att') || '').toUpperCase().slice(0, 8);
         box.innerHTML = `<p>${TXT.signedAs} <strong>${esc(u.name)}</strong> (${esc(u.email)})
             <button class="btn btn-outline btn-sm" id="att-logout" type="button">${TXT.logout}</button></p>
-            <form class="att-form" id="att-form" autocomplete="off">
-              <label for="att-code">${TXT.code}</label>
-              <input id="att-code" class="code-input" maxlength="6" value="${esc(pre)}" autocapitalize="characters" spellcheck="false" required>
-              <button class="btn btn-primary" type="submit">${TXT.send}</button>
-            </form>
-            <p class="att-msg" id="att-msg" aria-live="polite"></p>`;
-        $('att-logout').onclick = () => { store.del('cred'); renderAttendance(); };
-        $('att-form').onsubmit = ev => {
-            ev.preventDefault();
-            const msg = $('att-msg');
-            msg.className = 'att-msg'; msg.textContent = TXT.sending;
-            api({ action: 'attend', credential: u.credential, code: $('att-code').value }).then(j => {
-                if (j.ok) {
-                    msg.className = 'att-msg ok';
-                    msg.textContent = j.already ? TXT.attAlready(j.session) : TXT.attOk(j.session);
-                    if (pre) history.replaceState(null, '', location.pathname + location.hash);
-                } else {
-                    msg.className = 'att-msg err';
-                    msg.textContent = j.error === 'token' ? TXT.errToken : j.error === 'code' ? TXT.errCode : TXT.errNet;
-                }
-            }).catch(() => { msg.className = 'att-msg err'; msg.textContent = TXT.errNet; });
-        };
+            <p class="att-msg ${result ? result.cls : ''}" id="att-msg" aria-live="polite">${result ? esc(result.text) : TXT.sending}</p>`;
+        $('att-logout').onclick = () => { store.del('cred'); renderAttendance(result); };
+        if (result || qrSent) return;
+        qrSent = true;
+        api({ action: 'attend', credential: u.credential, code: QR_CODE }).then(j => {
+            history.replaceState(null, '', location.pathname + location.hash);
+            if (j.ok) renderAttendance({ cls: 'ok', text: j.already ? TXT.attAlready(j.session) : TXT.attOk(j.session) });
+            else if (j.error === 'token') { store.del('cred'); qrSent = false; renderAttendance(); }
+            else renderAttendance({ cls: 'err', text: j.error === 'code' ? TXT.errCode : TXT.errNet });
+        }).catch(() => { qrSent = false; renderAttendance({ cls: 'err', text: TXT.errNet }); });
     }
 
     // ---------------------------------------------------------- instructor panel (index pages)

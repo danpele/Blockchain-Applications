@@ -10,5 +10,5 @@
 window.BA_CONFIG = {
     GOOGLE_CLIENT_ID: '1095360272769-rhjjncfor0gumhev6a0l6tnnrnmdrnna.apps.googleusercontent.com',
     BACKEND_URL: 'https://script.google.com/macros/s/AKfycbybDIg0xXJkBqRzqFcO46APRlmplmUxdBSqBrxm5bON4dilxZ4vgsxNZ9VfKgAUpGEm/exec',
-    INSTRUCTORS: ['danpele@ase.ro', 'ilan.alon@uni-corvinus.hu']
+    INSTRUCTORS: ['danpele@ase.ro', 'ilan.alon@uni-corvinus.hu', 'alonilan@gmail.com']
 };
