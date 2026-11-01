@@ -46,7 +46,7 @@
                 pageTitle: 'Blockchain Applications - Course Website',
                 courseTitle: 'Blockchain Applications',
                 subtitle: "Master's programme Blockchain for Business (MBB) | Faculty of Business Administration in Foreign Languages (FABIZ) | Bucharest University of Economic Studies",
-                nav: { home: 'Home', chapters: 'Lectures', project: 'Seminars &amp; Exam', quizzes: 'Quizzes', resources: 'Resources', contact: 'Contact' },
+                nav: { home: 'Home', chapters: 'Blockchain Analytics', project: 'Crypto Economics', assessment: 'Assessment', quizzes: 'Quizzes', resources: 'Resources', contact: 'Contact' },
                 quizzes: 'Practice Quizzes',
                 quizIntro: 'Each attempt draws 15 questions at random from the lecture bank and shuffles the answers. An answer is locked once selected. The quizzes are for practice: they do not count towards the grade and no score is stored.',
                 quizSoon: 'The quiz for this lecture is not published yet.',
@@ -57,10 +57,10 @@
                 colQ: 'Q', colQuestion: 'Question', colCorrect: 'Correct answer', colYours: 'Your answer', colResult: 'Result',
                 overview: 'Course Overview',
                 objectives: 'Learning Outcomes',
-                heroTag: 'Blockchain applications as data generators: every transaction, fee and transfer is public and time-stamped. Seven lectures turn that data into statistical evidence on real markets, with Colab notebooks.',
-                heroCta1: 'Explore the lectures',
-                heroCta2: 'Seminars and exam',
-                chapters: 'Lectures',
+                heroTag: 'One course in two parts. <strong>Crypto Economics</strong> asks how crypto applications create and capture value, through cases and a due-diligence project. <strong>Blockchain Analytics</strong> treats the same applications as data generators: every transaction, fee and transfer is public and time-stamped, and seven lectures turn that data into statistical evidence, with Colab notebooks.',
+                heroCta1: 'Part 1: Crypto Economics',
+                heroCta2: 'Part 2: Blockchain Analytics',
+                chapters: 'Part 2: Blockchain Analytics (Prof. Daniel Traian Pele)',
                 chapter: 'Lecture',
                 comingSoon: 'Coming soon',
                 quantinar: 'Video units on Quantinar',
@@ -69,17 +69,17 @@
                     slides: 'Slides', lectureNb: 'Notebook', quantlets: 'Quantlets', interactive: 'Interactive', web: 'Web page', colab: 'Open in Colab'
                 },
                 linkRows: { course: 'Lecture', code: 'Code' },
-                projectTitle: 'Seminars: Crypto Economics (Prof. Ilan Alon)',
-                seminarIntro: 'Fourteen seminar hours, every day from Monday 16 to Saturday 21 November 2026, the week before the lectures. The seminars use cases, readings, short videos and class debates; prepare the reading or video before each session. The lectures build on these sessions and do not repeat them.',
+                projectTitle: 'Part 1: Crypto Economics (Prof. Ilan Alon)',
+                seminarIntro: 'Prof. Ilan Alon examines blockchain, crypto economics and business strategy through five cases and a due-diligence project. Weekdays 17:30–19:00 and 19:10–20:40; the last hour of each weekday (19:40–20:40) is guided project work, with the instructor advising each team. Saturday 21 November, 09:10–15:40, is reserved for the team presentations. Prepare the reading, case or whitepaper before each day. Part 2 builds on these sessions and does not repeat them.',
                 assessmentTitle: 'Assessment',
-                colSession: 'Session', colTopic: 'Topic', colPrep: 'Preparation',
+                colSession: 'Day', colTopic: 'Focus', colPrep: 'Readings and case', colVideo: 'Videos', colProj: 'Project hour',
                 resources: 'Resources',
-                bibliography: 'Core texts',
+                bibliography: 'Core texts (Part 2)',
                 dataSources: 'Data sources',
                 contact: 'Contact',
-                instructor: 'Lectures and exam',
-                seminarCard: 'Seminars and seminar project',
-                seminarRole: 'University of Agder',
+                instructor: 'Part 2: Blockchain Analytics; exam',
+                seminarCard: 'Part 1: Crypto Economics; project',
+                seminarRole: 'Ariel University and Corvinus University of Budapest',
                 office: 'Questions',
                 officeText: 'By e-mail, or before and after class',
                 close: 'Close',
@@ -89,7 +89,7 @@
                 pageTitle: 'Blockchain Applications - Site-ul cursului',
                 courseTitle: 'Blockchain Applications',
                 subtitle: 'Masterul Blockchain for Business (MBB) | Facultatea de Administrarea Afacerilor, cu predare în limbi străine (FABIZ) | Academia de Studii Economice din București',
-                nav: { home: 'Acasă', chapters: 'Cursuri', project: 'Seminare și examen', quizzes: 'Quiz-uri', resources: 'Resurse', contact: 'Contact' },
+                nav: { home: 'Acasă', chapters: 'Blockchain Analytics', project: 'Crypto Economics', assessment: 'Evaluare', quizzes: 'Quiz-uri', resources: 'Resurse', contact: 'Contact' },
                 quizzes: 'Quiz-uri de exersare',
                 quizIntro: 'La fiecare încercare se extrag aleator 15 întrebări din banca de întrebări a cursului, iar variantele de răspuns sînt amestecate. Răspunsul se blochează după selectare. Quiz-urile sînt pentru exersare: nu intră în notă și scorul nu se salvează. Întrebările sînt în engleză, ca și cursurile.',
                 quizSoon: 'Quiz-ul acestui curs nu este publicat încă.',
@@ -100,10 +100,10 @@
                 colQ: 'Nr.', colQuestion: 'Întrebare', colCorrect: 'Răspuns corect', colYours: 'Răspunsul tău', colResult: 'Rezultat',
                 overview: 'Prezentarea cursului',
                 objectives: 'Rezultatele învățării',
-                heroTag: 'Aplicațiile blockchain generează date: fiecare tranzacție, comision și transfer este public și are o marcă de timp. Cele șapte cursuri transformă aceste date în dovezi statistice despre piețe reale, cu notebook-uri Colab.',
-                heroCta1: 'Vezi cursurile',
-                heroCta2: 'Seminare și examen',
-                chapters: 'Cursuri',
+                heroTag: 'O disciplină în două părți. <strong>Crypto Economics</strong> arată cum creează și captează valoare aplicațiile cripto, prin studii de caz și un proiect de due diligence. <strong>Blockchain Analytics</strong> tratează aceleași aplicații ca generatoare de date: fiecare tranzacție, comision și transfer este public și are o marcă de timp, iar șapte cursuri transformă aceste date în dovezi statistice, cu notebook-uri Colab.',
+                heroCta1: 'Partea 1: Crypto Economics',
+                heroCta2: 'Partea 2: Blockchain Analytics',
+                chapters: 'Partea 2: Blockchain Analytics (prof. Daniel Traian Pele)',
                 chapter: 'Cursul',
                 comingSoon: 'În curînd',
                 quantinar: 'Unități video pe Quantinar',
@@ -112,17 +112,17 @@
                     slides: 'Slide-uri', lectureNb: 'Notebook', quantlets: 'Quantlets', interactive: 'Interactiv', web: 'Pagina web', colab: 'Deschide în Colab'
                 },
                 linkRows: { course: 'Curs', code: 'Cod' },
-                projectTitle: 'Seminare: Crypto Economics (prof. Ilan Alon)',
-                seminarIntro: 'Paisprezece ore de seminar, în fiecare zi, de luni 16 pînă sîmbătă 21 noiembrie 2026, în săptămîna dinaintea cursurilor. Seminarele folosesc studii de caz, lecturi, videoclipuri scurte și dezbateri; pregătiți lectura sau videoclipul înaintea fiecărui seminar. Cursurile pornesc de la aceste seminare și nu le repetă.',
+                projectTitle: 'Partea 1: Crypto Economics (prof. Ilan Alon)',
+                seminarIntro: 'Prof. Ilan Alon analizează tehnologia blockchain, economia cripto și strategia de afaceri prin cinci studii de caz și un proiect de due diligence. În zilele lucrătoare 17:30–19:00 și 19:10–20:40; ultima oră din fiecare zi (19:40–20:40) este lucru ghidat la proiect, cu profesorul care consiliază fiecare echipă. Sîmbăta, 21 noiembrie, 09:10–15:40, este rezervată prezentărilor echipelor. Pregătiți lectura, studiul de caz sau whitepaper-ul înaintea fiecărei zile. Partea 2 pornește de la aceste întîlniri și nu le repetă.',
                 assessmentTitle: 'Evaluare',
-                colSession: 'Seminar', colTopic: 'Temă', colPrep: 'Pregătire',
+                colSession: 'Ziua', colTopic: 'Tema', colPrep: 'Lecturi și studiu de caz', colVideo: 'Videoclipuri', colProj: 'Ora de proiect',
                 resources: 'Resurse',
-                bibliography: 'Texte de bază',
+                bibliography: 'Texte de bază (Partea 2)',
                 dataSources: 'Surse de date',
                 contact: 'Contact',
-                instructor: 'Cursuri și examen',
-                seminarCard: 'Seminare și proiectul de seminar',
-                seminarRole: 'University of Agder',
+                instructor: 'Partea 2: Blockchain Analytics; examen',
+                seminarCard: 'Partea 1: Crypto Economics; proiect',
+                seminarRole: 'Ariel University și Corvinus University of Budapest',
                 office: 'Întrebări',
                 officeText: 'Pe e-mail sau înainte și după curs',
                 close: 'Închide',
@@ -132,41 +132,59 @@
 
         overview: {
             en: [
-                { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English'] },
-                { h: 'Lectures', p: ['7 lectures, Prof. Daniel Traian Pele', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)'] },
-                { h: 'Seminars', p: ['14 hours, Prof. Ilan Alon', 'Daily, Mon 16 – Sat 21 November 2026'] },
-                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes', 'Closed book, one A4 formula sheet'] },
-                { h: 'Approach', p: ['Each lecture pairs one application with one statistical method and one Colab notebook', 'Prerequisites: introductory statistics and econometrics; basic Python helps'] },
-                { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Students need only a Google account'] }
+                { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts'] },
+                { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)'] },
+                { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)'] },
+                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, on this site, in the room', 'Both parts; every student gets a personal paper'] },
+                { h: 'Grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
+                { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
             ],
             ro: [
-                { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză: slide-urile și notebook-urile sînt în engleză'] },
-                { h: 'Cursuri', p: ['7 cursuri, prof. Daniel Traian Pele', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)'] },
-                { h: 'Seminare', p: ['14 ore, prof. Ilan Alon', 'Zilnic, de luni 16 pînă sîmbătă 21 noiembrie 2026'] },
-                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute', 'Fără materiale, cu o foaie de formule A4'] },
-                { h: 'Abordare', p: ['Fiecare curs leagă o aplicație de o metodă statistică și de un notebook Colab', 'Cunoștințe necesare: statistică și econometrie introductive; Python la nivel de bază ajută'] },
-                { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Studenții au nevoie doar de un cont Google'] }
+                { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți'] },
+                { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)'] },
+                { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)'] },
+                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, pe acest site, în sală', 'Ambele părți; fiecare student primește un subiect personal'] },
+                { h: 'Nota', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
+                { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
             ]
         },
 
         objectives: {
             en: [
-                'Collect on-chain and market data from public sources (explorers, CoinGecko, DefiLlama, Dune) and describe it with the right summary statistics',
-                'Identify the stylized facts of crypto returns (heavy tails, volatility clustering, changing correlations) and explain why normal-distribution assumptions fail',
-                'Measure risk with GARCH volatility, Value-at-Risk and Expected Shortfall, and compare crypto with stocks and gold',
-                'Monitor and measure stablecoin depeg risk with on-chain and market indicators, including the De-pegging Pressure Index (DPI), using the 2022–2023 depeg episodes as cases',
-                "Test market efficiency and detect bubbles (variance ratios, LPPL), and judge network-value claims such as Metcalfe's law",
-                'Classify crypto assets and read their networks and sentiment: clustering, factor analysis, event studies',
-                'Assess machine learning and AI forecasting claims critically, with out-of-sample evaluation'
+                { h: 'Part 1: Crypto Economics', items: [
+                    'Explain blockchain and Web3, and when a blockchain is worth its cost',
+                    'Assess smart contracts and decentralised governance',
+                    'Analyse token incentives and value capture',
+                    'Evaluate crypto business models and digital assets',
+                    'Defend an evidence-based due-diligence recommendation'
+                ] },
+                { h: 'Part 2: Blockchain Analytics', items: [
+                    'Collect market and on-chain data from public sources (EODHD, DefiLlama, Coin Metrics, block explorers) and check its quality before any analysis',
+                    'Describe crypto returns with the right statistics and test their stylized facts (heavy tails, volatility clustering, changing correlations) against stocks and gold',
+                    "Test market efficiency, date bubbles and crashes with drawdowns and the LPPL model, and judge network-value claims such as Metcalfe's law",
+                    'Measure risk with EWMA and GARCH volatility, Value-at-Risk (VaR) and Expected Shortfall (ES), and backtest the forecasts',
+                    'Monitor stablecoin depeg risk and estimate systemic depegging pressure with quantile regression and the De-pegging Pressure Index (DPI)',
+                    'Map crypto markets as networks, classify crypto assets against traditional asset classes, and measure the effect of protocol upgrades and sentiment',
+                    'Evaluate machine-learning and AI forecasts out of sample, and detect overfitting and data snooping'
+                ] }
             ],
             ro: [
-                'Colectați date on-chain și de piață din surse publice (exploratoare de blockchain, CoinGecko, DefiLlama, Dune) și le descrieți cu statisticile potrivite',
-                'Identificați faptele stilizate ale randamentelor cripto (cozi groase, volatility clustering, corelații care se schimbă în timp) și explicați de ce ipoteza distribuției Normale nu se verifică',
-                'Măsurați riscul cu volatilitatea GARCH, Value-at-Risk și Expected Shortfall și comparați criptoactivele cu acțiunile și cu aurul',
-                'Monitorizați și măsurați riscul de depeg al stablecoin-urilor cu indicatori on-chain și de piață, inclusiv De-pegging Pressure Index (DPI), pe episoadele de depeg din 2022–2023',
-                'Testați eficiența pieței și detectați bulele (testul raportului varianțelor, LPPL) și evaluați afirmațiile despre valoarea de rețea, precum legea lui Metcalfe',
-                'Clasificați criptoactivele și interpretați rețelele și sentimentul lor: clustering, analiză factorială, studii de eveniment',
-                'Evaluați critic afirmațiile despre prognozele cu machine learning și AI, cu evaluare out-of-sample'
+                { h: 'Partea 1: Crypto Economics', items: [
+                    'Explicați tehnologia blockchain și Web3 și cînd un blockchain își justifică costul',
+                    'Evaluați smart contracts și guvernanța descentralizată',
+                    'Analizați stimulentele create de token-uri și captarea valorii (value capture)',
+                    'Evaluați modelele de afaceri cripto și activele digitale',
+                    'Susțineți o recomandare de due diligence bazată pe dovezi'
+                ] },
+                { h: 'Partea 2: Blockchain Analytics', items: [
+                    'Colectați date de piață și on-chain din surse publice (EODHD, DefiLlama, Coin Metrics, exploratoare de blockchain) și le verificați calitatea înainte de analiză',
+                    'Descrieți randamentele cripto cu statisticile potrivite și testați faptele lor stilizate (cozi groase, volatility clustering, corelații care se schimbă în timp) în comparație cu acțiunile și aurul',
+                    'Testați eficiența pieței, datați bulele și crahurile cu drawdown-uri și modelul LPPL și evaluați afirmațiile despre valoarea de rețea, precum legea lui Metcalfe',
+                    'Măsurați riscul cu volatilitatea EWMA și GARCH, Value-at-Risk (VaR) și Expected Shortfall (ES) și faceți backtesting prognozelor',
+                    'Monitorizați riscul de depeg al stablecoin-urilor și estimați presiunea sistemică de depeg cu regresia cuantilă și De-pegging Pressure Index (DPI)',
+                    'Reprezentați piețele cripto ca rețele, clasificați criptoactivele în raport cu clasele de active tradiționale și măsurați efectul actualizărilor de protocol și al sentimentului',
+                    'Evaluați out-of-sample prognozele cu machine learning și AI și depistați overfitting-ul și data snooping-ul'
+                ] }
             ]
         },
 
@@ -232,56 +250,119 @@
             }
         ],
 
-        seminars: { en: [
-            ['S1', 'Bitcoin and macroeconomics', 'Nakamoto (2008), <em>Bitcoin: a peer-to-peer electronic cash system</em>'],
-            ['S2', 'Costs and benefits of cryptocurrencies; crypto due-diligence review', 'Case: <em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>; Coin Bureau video; Alon video on tokenomics'],
-            ['S3–S4', 'Ethereum and smart contracts; debate: Bitcoin vs Ethereum', 'Ethereum white paper'],
-            ['S5', 'Polygon', 'Case: <em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em> (Ivey)'],
-            ['S6', 'Stablecoins', 'Coin Bureau video on CBDC updates'],
-            ['S7', 'Wallets', 'Coin Bureau video on wallets'],
-            ['S8', 'Tokenomics', 'Case: <em>The ripple effect: navigating an XRP investment</em> (The CASE Journal)'],
-            ['S9', 'Decentralised autonomous organisations (DAOs)', 'Case: <em>The DAO Hack: A Blockchain Dilemma</em> (Ivey)'],
-            ['S10', 'Decentralised finance (DeFi)', 'Case: KaspaCom; guest lecture'],
-            ['Final', 'Student presentations: due diligence of a crypto project', 'Team presentations']
-        ], ro: [
-            ['S1', 'Bitcoin și macroeconomia', 'Nakamoto (2008), <em>Bitcoin: a peer-to-peer electronic cash system</em>'],
-            ['S2', 'Costurile și beneficiile criptomonedelor; analiza due diligence a unui proiect cripto', 'Studiu de caz: <em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>; video Coin Bureau; video al prof. Alon despre tokenomics'],
-            ['S3–S4', 'Ethereum și smart contracts; dezbatere: Bitcoin sau Ethereum', 'White paper-ul Ethereum'],
-            ['S5', 'Polygon', 'Studiu de caz: <em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em> (Ivey)'],
-            ['S6', 'Stablecoin-uri', 'Video Coin Bureau despre noutățile privind CBDC'],
-            ['S7', 'Portofele (wallets)', 'Video Coin Bureau despre portofele'],
-            ['S8', 'Tokenomics', 'Studiu de caz: <em>The ripple effect: navigating an XRP investment</em> (The CASE Journal)'],
-            ['S9', 'Organizații autonome descentralizate (DAO)', 'Studiu de caz: <em>The DAO Hack: A Blockchain Dilemma</em> (Ivey)'],
-            ['S10', 'Finanțe descentralizate (DeFi)', 'Studiu de caz: KaspaCom; prelegerea unui invitat'],
-            ['Final', 'Prezentările studenților: due diligence pentru un proiect cripto', 'Prezentări în echipă']
-        ] },
+        seminars: (function () {
+            const a = (t, u) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+            const db = id => 'https://www.dropbox.com/scl/fi/' + id;
+            const doi = d => 'https://doi.org/' + d;
+            const art = (t, d, id) => `${t} (${a('DOI', doi(d))}, ${a('PDF', db(id))})`;
+            const V = {
+                btcMacro: a('Alon: Bitcoin and macroeconomics', 'https://www.youtube.com/watch?v=jgK4B21VZIU'),
+                ds: a('Demand and supply (playlist)', 'https://www.youtube.com/watch?v=qS0iYdmlbME&list=PL9mBWMaNgGO3oLMi9mxzaknxJeOmogReK'),
+                value: a('Alon: value and costs of cryptocurrencies', 'https://www.youtube.com/watch?v=TDQijy-jtUc'),
+                eth: a('Alon: Ethereum', 'https://www.youtube.com/watch?v=YVK8qTAsYdM'),
+                sc: a('Alon: smart contracts, NFTs and DAOs', 'https://www.youtube.com/watch?v=nYVjkKaqWSU'),
+                cbdc: a('Coin Bureau: CBDC updates', 'https://www.youtube.com/watch?v=qSrYJa5ZW_M'),
+                wallets: a('Coin Bureau: wallets', 'https://www.youtube.com/watch?v=MYh8XwS3Znc'),
+                tokCB: a('Coin Bureau: tokenomics and crypto analysis', 'https://www.youtube.com/watch?v=ftCaqG7wckg'),
+                tok: a('Alon: tokenomics', 'https://www.youtube.com/watch?v=VJPntzMXlzI'),
+                pitch: a('Analyst-style presentation example', 'https://www.youtube.com/watch?v=EfNlejjM1Cc')
+            };
+            const R = {
+                btc: a('Nakamoto (2008), Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf'),
+                ethWp: a('Ethereum whitepaper', 'https://ethereum.org/en/whitepaper'),
+                jrz: art('Jiang, Rodríguez &amp; Zhang (2023), <em>Macroeconomic fundamentals and cryptocurrency prices</em>, Financial Management', '10.1111/fima.12412', 'lbbsnflxz5fi8ntfbgm68'),
+                sgs: art('Singh, Gaur &amp; Singh (2024), <em>Blockchain-based governance</em>, British Journal of Management', '10.1111/1467-8551.12784', 'qvxvbzkjz7fj1owldqt7z'),
+                kamp: art('Kampakis (2018), <em>Three case studies in tokenomics</em>, J. British Blockchain Association', '10.31585/jbba-1-2-(7)2018', 'f2p6it10m5nagwbq4lesm'),
+                dao: `Alon, Klemetsen, Šilenskytė &amp; Gildin (2025), <em>New pathways for international business governance via blockchain-based DAOs</em>, Multinational Business Review (${a('DOI', doi('10.1108/MBR-07-2024-0132'))})`,
+                defi: art('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', 'ex9d6w2nlm4dlb0vigj1l'),
+                lm: art('Lo &amp; Medda (2020), <em>Assets on the blockchain: an empirical study of tokenomics</em>, Information Economics and Policy', '10.1016/j.infoecopol.2020.100881', 'b5hjhd6ziz3ndzyozj0tk'),
+                cGamble: a('<em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>', 'https://www.thecasecentre.org/products/view?id=169082'),
+                cPolygon: a('<em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em>', 'https://www.iveypublishing.ca/s/product/polygon-labs-scaling-web3-growth-with-cost-per-wallet-efficiency/01tOF00000AiwsAYAR') + ' (Ivey)',
+                cXrp: a('<em>The ripple effect: navigating an XRP investment</em>', 'https://www.emerald.com/tcj/article-abstract/22/1/142/1265701/The-ripple-effect-navigating-an-XRP-investment') + ' (The CASE Journal)',
+                cDao: a('<em>The DAO Hack: A Blockchain Dilemma</em>', 'https://www.iveypublishing.ca/s/product/the-dao-hack-a-blockchain-dilemma/01t5c00000Cwps9AAB') + ' (Ivey)',
+                cKaspa: '<em>KaspaCom: Capturing Value from the Kaspa Blockchain</em> (Ivey; course pack from the instructor)'
+            };
+            const rows = lang => {
+                const ro = lang === 'ro';
+                const C = ro ? 'Studiu de caz' : 'Case', P = ro ? 'Proiect' : 'Project';
+                return [
+                    [ro ? 'Luni 16 nov.' : 'Mon 16 Nov', ro ? 'Bitcoin și whitepaper-ul său: fundamentele blockchain, macroeconomia, cererea, oferta, efectele de rețea, costurile și valoarea Bitcoin' : 'Bitcoin and its whitepaper: blockchain foundations, macroeconomics, demand, supply, network effects, costs and value of Bitcoin',
+                        `${R.btc} (${ro ? 'integral, înainte de curs' : 'in full, before class'}); ${R.jrz}; ${C}: ${R.cGamble}`, `${V.btcMacro}; ${V.ds}; ${V.value}`,
+                        ro ? 'Formarea echipelor, alegerea proiectului, cazul de utilizare și propunerea de valoare economică' : 'Form teams, select the project, define its use case and economic value proposition'],
+                    [ro ? 'Marți 17 nov.' : 'Tue 17 Nov', ro ? 'Ethereum și smart contracts: conturi, tranziții de stare, gas; aplicații descentralizate, NFT, riscuri de execuție și de securitate' : 'Ethereum and smart contracts: accounts, state transitions, gas; decentralised applications, NFTs, execution and security risks',
+                        `${R.ethWp}; ${R.sgs}; ${C}: ${R.cPolygon}`, `${V.eth}; ${V.sc}`,
+                        ro ? 'Arhitectura blockchain a proiectului, funcțiile smart contracts, dependențe și riscuri' : 'Map the blockchain architecture, smart-contract functions, dependencies and risks'],
+                    [ro ? 'Miercuri 18 nov.' : 'Wed 18 Nov', ro ? 'Piețe financiare și tokenomics: stablecoin-uri, CBDC, portofele, custodie; oferta, deblocările, stimulentele și captarea valorii' : 'Financial markets and tokenomics: stablecoins, CBDCs, wallets, custody; supply, unlocks, incentives and value capture',
+                        `${R.kamp}; ${C}: ${R.cXrp}`, `${V.cbdc}; ${V.wallets}; ${V.tokCB}; ${V.tok}`,
+                        ro ? 'Tabelul ofertei și al alocării token-ului; riscurile de diluare și de custodie; scenarii bull și bear' : 'Token supply and allocation table; dilution and custody risks; bull and bear scenarios'],
+                    [ro ? 'Joi 19 nov.' : 'Thu 19 Nov', ro ? 'DAO și guvernanța descentralizată: vot, controlul trezoreriei, delegare, stimulentele părților interesate; etică și sustenabilitate' : 'DAOs and decentralised governance: voting, treasury control, delegation, stakeholder incentives; ethics and sustainability',
+                        `${R.dao}; ${C}: ${R.cDao}`, `${V.sc}; ${V.tok}`,
+                        ro ? 'Harta guvernanței și a modelului de afaceri; securitate, răspundere și riscurile părților interesate' : 'Map governance and the business model; security, accountability and stakeholder risks'],
+                    [ro ? 'Vineri 20 nov.' : 'Fri 20 Nov', ro ? 'DeFi, evaluare și lichiditate: DEX, AMM, creditare, colateral și lichidare; capitalizare, FDV, multipli, scenarii, slippage și ieșirea din poziție' : 'DeFi, valuation and liquidity: DEXs, AMMs, lending, collateral and liquidation; market cap, FDV, comparable ratios, scenarios, slippage and exit',
+                        `${R.defi}; ${C}: ${R.cKaspa}`, `${V.tok}; ${V.wallets}`,
+                        ro ? 'Evaluare prin comparație, scenarii bear / base / bull, lichiditate și riscul de ieșire' : 'Valuation comparables, bear / base / bull scenarios, liquidity and exit risk'],
+                    [ro ? 'Sîmbătă 21 nov.' : 'Sat 21 Nov', ro ? 'Prezentările de due diligence ale echipelor (patru blocuri de 90 de minute), feedback și sinteza cursului' : 'Team due-diligence presentations (four 90-minute blocks), feedback and course synthesis',
+                        `${R.lm}; ${ro ? 'whitepaper-ul sau documentația tehnică a proiectului ales' : 'the whitepaper or technical documentation of your project'}`, V.pitch,
+                        ro ? 'Slide-urile finale și jurnalul surselor, pînă la 09:10' : 'Final slides and source log due at 09:10']
+                ];
+            };
+            return { en: rows('en'), ro: rows('ro') };
+        })(),
 
         assessment: { en: [
-            { h: 'Seminar project: 40%', p: ['Prof. Ilan Alon. Pairs produce a YouTube-style analysis video answering “Should you buy XYZ?” for an assigned crypto project.', 'Four criteria, 25% each: investment thesis and crypto-economic analysis; research, evidence and analytical rigour; critical thinking and risk assessment; presentation quality, creativity and audience engagement.', 'The project is educational and analytical, not financial advice.'] },
-            { h: 'Written exam: 60%', p: ['Friday 27 November 2026, 90 minutes, closed book, one A4 formula sheet.', 'Part A (40%): 20 multiple-choice questions on concepts and on reading charts and model output.', 'Part B (60%): 3 short problems built on real output from the course notebooks, for example a GARCH table and a VaR backtest for Bitcoin. No calculations: you interpret the output and draw the conclusion.'] },
-            { h: 'Policies', p: ['The 40% / 60% split is a proposal, to be agreed with Prof. Alon and the programme coordinator.', 'The course runs over 4 days, so attending every lecture is strongly recommended. The exam covers all 7 lectures.', 'AI tools may be used to study and to run the notebooks; they are not allowed during the exam.', 'Each slide deck ends with an appendix for self-study; the appendix is not examined.'] }
+            { h: 'Due-diligence project (Part 1): 50%', p: [
+                'Prof. Ilan Alon. Teams of 4–5 students; each team analyses a different crypto asset, protocol or blockchain venture, chosen on Monday 16 November.',
+                'The question: should an informed investor or strategic partner Buy, Hold, Avoid or Watch it (Partner, Do Not Partner or Watch if there is no investable token)? Separate project quality from token investment quality.',
+                'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log, due at 09:10 on Saturday 21 November; a 10-minute boardroom-style presentation that day, also uploaded to YouTube.',
+                'Four criteria, 25% each: investment thesis and crypto-economic analysis; research and analytical rigour; critical thinking and risk assessment; presentation quality and engagement. Educational exercise, not financial advice.',
+                `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Assignment and student template</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Earlier due-diligence framework</a>`
+            ] },
+            { h: 'Exam: 50%', p: [
+                'Friday 27 November 2026, 90 minutes, on this site, in the room: sign in with your ASE Google account and type the exam code shown on the screen.',
+                'One exam of 56 multiple-choice questions, one point each, on both parts of the course: 28 on Crypto Economics and 28 on Blockchain Analytics, mixed together; the last 15 are about 3 short cases built on real output from the course notebooks. The score is the share of correct answers, out of 100.',
+                'Every student gets a personal paper: the questions are drawn from larger banks, with several variants of each question and case, and their order and options are shuffled. No calculations; a wrong answer costs nothing.',
+                'Closed book, one A4 formula sheet allowed. Answers are saved as you go; if the page closes, sign in again to resume.'
+            ] },
+            { h: 'Attendance and policies', p: [
+                'Attendance is recorded at every lecture of both parts: sign in on this site and type the code shown in the room (it changes every minute). It does not count towards the grade, but attending every lecture is strongly recommended.',
+                'AI tools may be used to study, to run the notebooks and for the project, with substantive AI assistance disclosed; they are not allowed during the exam.',
+                'Each Blockchain Analytics slide deck ends with an appendix for self-study; the appendix is not examined. The practice quizzes on this site help you prepare.'
+            ] }
         ], ro: [
-            { h: 'Proiectul de seminar: 40%', p: ['Prof. Ilan Alon. Studenții lucrează în perechi și realizează un video de analiză, în stil YouTube, care răspunde la întrebarea „Ar trebui să cumpărați XYZ?” pentru un proiect cripto primit.', 'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea, dovezile și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării, creativitatea și implicarea publicului.', 'Proiectul are scop educativ și analitic; nu este un sfat financiar.'] },
-            { h: 'Examen scris: 60%', p: ['Vineri, 27 noiembrie 2026, 90 de minute, fără materiale, cu o foaie de formule A4.', 'Partea A (40%): 20 de întrebări grilă despre concepte și despre citirea graficelor și a rezultatelor modelelor.', 'Partea B (60%): 3 probleme scurte construite pe rezultate reale din notebook-urile cursului, de exemplu un tabel GARCH și un backtest VaR pentru Bitcoin. Fără calcule: interpretați rezultatele și trageți concluzia.'] },
-            { h: 'Reguli', p: ['Împărțirea 40% / 60% este o propunere, care trebuie convenită cu prof. Alon și cu coordonatorul programului.', 'Cursul se desfășoară pe 4 zile, așa că participarea la toate cursurile este puternic recomandată. Examenul acoperă toate cele 7 cursuri.', 'Instrumentele AI pot fi folosite pentru studiu și pentru rularea notebook-urilor; nu sînt permise la examen.', 'Fiecare set de slide-uri se încheie cu o anexă pentru studiu individual; anexa nu intră în examen.'] }
+            { h: 'Proiectul de due diligence (Partea 1): 50%', p: [
+                'Prof. Ilan Alon. Echipe de 4–5 studenți; fiecare echipă analizează un alt activ cripto, protocol sau proiect blockchain, ales luni, 16 noiembrie.',
+                'Întrebarea: un investitor informat sau un partener strategic ar trebui să cumpere, să păstreze, să evite sau să urmărească activul (Buy, Hold, Avoid, Watch; Partner, Do Not Partner sau Watch dacă nu există un token investibil)? Separați calitatea proiectului de calitatea token-ului ca investiție.',
+                'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor, pînă sîmbătă, 21 noiembrie, la 09:10; în aceeași zi, o prezentare de 10 minute, în stil boardroom, încărcată și pe YouTube.',
+                'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării și implicarea publicului. Exercițiu educativ, nu sfat financiar.',
+                `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Cadrul anterior de due diligence</a>`
+            ] },
+            { h: 'Examenul: 50%', p: [
+                'Vineri, 27 noiembrie 2026, 90 de minute, pe acest site, în sală: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
+                'Un singur examen cu 56 de întrebări grilă, fiecare de un punct, din ambele părți ale disciplinei: 28 de Crypto Economics și 28 de Blockchain Analytics, amestecate; ultimele 15 se referă la 3 studii de caz scurte, construite pe rezultate reale din notebook-urile cursului. Nota este procentul de răspunsuri corecte, din 100.',
+                'Fiecare student primește un subiect personal: întrebările sînt extrase din bănci mai mari, cu mai multe variante pentru fiecare întrebare și studiu de caz, iar ordinea lor și a variantelor este amestecată. Fără calcule; un răspuns greșit nu se depunctează.',
+                'Fără materiale, cu o foaie de formule A4. Răspunsurile se salvează pe parcurs; dacă pagina se închide, vă autentificați din nou și continuați.'
+            ] },
+            { h: 'Prezență și reguli', p: [
+                'Prezența se înregistrează la fiecare curs, din ambele părți: vă autentificați pe acest site și introduceți codul afișat în sală (se schimbă în fiecare minut). Prezența nu intră în notă, dar participarea la toate cursurile este puternic recomandată.',
+                'Instrumentele AI pot fi folosite pentru studiu, pentru rularea notebook-urilor și pentru proiect, cu declararea asistenței AI substanțiale; nu sînt permise la examen.',
+                'Fiecare set de slide-uri Blockchain Analytics se încheie cu o anexă pentru studiu individual; anexa nu intră în examen. Quiz-urile de exersare de pe site vă ajută să vă pregătiți.'
+            ] }
         ] },
 
         resources: [
             { icon: '&#128187;', href: REPO, en: ['GitHub Repository', 'Slides, notebooks, Quantlets and data'], ro: ['Repository GitHub', 'Slide-uri, notebook-uri, Quantlets și date'] },
-            { icon: '&#127891;', img: 'logos/qr_logo.png', href: 'https://quantinar.com/coursecontent/695/blockchain', en: ['Blockchain Analytics on Quantinar', 'Video course: 23 units with slides and recorded lectures'], ro: ['Blockchain Analytics pe Quantinar', 'Curs video: 23 de unități cu slide-uri și prelegeri înregistrate'] },
+            { icon: '&#127891;', img: 'logos/qr_logo.png', href: 'https://quantinar.com/coursecontent/695/blockchain', en: ['Blockchain Analytics on Quantinar', 'Video course of the same name as Part 2: 23 units with slides and recorded lectures'], ro: ['Blockchain Analytics pe Quantinar', 'Cursul video cu același nume ca Partea 2: 23 de unități cu slide-uri și prelegeri înregistrate'] },
             { icon: '&#128190;', img: 'logos/ql_logo.png', href: 'https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets', en: ['Quantlets', 'One notebook for every course chart (Quantlet format)'], ro: ['Quantlets', 'Cîte un notebook pentru fiecare grafic al cursului (format Quantlet)'] },
             { icon: '&#128200;', href: 'https://thecrix.de', en: ['CRIX', 'CRypto IndeX'], ro: ['CRIX', 'CRypto IndeX'] },
             { icon: '&#127963;', img: 'logos/ida_square.png', href: 'https://theida.net', en: ['IDA', 'Institute for Digital Assets'], ro: ['IDA', 'Institute for Digital Assets'] }
         ],
 
         dataSources: [
-            { name: 'EODHD', href: 'https://eodhd.com', en: 'Daily and hourly prices of cryptos, stablecoins, stocks, indices, FX and gold (the files are in the repository, data/)', ro: 'Prețuri zilnice și orare pentru criptoactive, stablecoin-uri, acțiuni, indici, cursuri valutare și aur (fișierele sînt în repository, data/)' },
-            { name: 'CoinGecko', href: 'https://www.coingecko.com', en: 'Crypto prices and market capitalisation', ro: 'Prețuri și capitalizare de piață pentru criptoactive' },
-            { name: 'Yahoo Finance', href: 'https://finance.yahoo.com', en: 'Stock, index and gold prices', ro: 'Prețuri pentru acțiuni, indici și aur' },
-            { name: 'DefiLlama', href: 'https://defillama.com', en: 'Stablecoin supply and DeFi total value locked', ro: 'Oferta de stablecoin-uri și valoarea totală blocată (TVL) în DeFi' },
-            { name: 'Etherscan', href: 'https://etherscan.io', en: 'Ethereum on-chain activity', ro: 'Activitatea on-chain pe Ethereum' },
-            { name: 'Dune', href: 'https://dune.com', en: 'SQL queries on on-chain data', ro: 'Interogări SQL pe date on-chain' },
-            { name: 'CBECI', href: 'https://ccaf.io/cbnsi/cbeci', en: 'Cambridge Bitcoin Electricity Consumption Index', ro: 'Cambridge Bitcoin Electricity Consumption Index' }
+            { name: 'EODHD', href: 'https://eodhd.com', en: 'Daily and hourly prices of cryptos, stablecoins, stocks, indices, FX and gold, used in the lectures and notebooks (the files are in the repository, data/)', ro: 'Prețuri zilnice și orare pentru criptoactive, stablecoin-uri, acțiuni, indici, cursuri valutare și aur, folosite în cursuri și în notebook-uri (fișierele sînt în repository, data/)' },
+            { name: 'DefiLlama', href: 'https://defillama.com', en: 'Stablecoin supply and DeFi total value locked (TVL)', ro: 'Oferta de stablecoin-uri și valoarea totală blocată (TVL) în DeFi' },
+            { name: 'Coin Metrics', href: 'https://coinmetrics.io/community-network-data/', en: 'On-chain activity of Bitcoin and Ethereum (community data)', ro: 'Activitatea on-chain pentru Bitcoin și Ethereum (date comunitare)' },
+            { name: 'CBECI', href: 'https://ccaf.io/cbnsi/cbeci', en: 'Cambridge Bitcoin Electricity Consumption Index: mining energy and the geography of mining', ro: 'Cambridge Bitcoin Electricity Consumption Index: energia consumată de minerit și geografia mineritului' },
+            { name: 'CoinGecko, Etherscan, Dune', href: 'https://www.coingecko.com', en: 'Further public sources, useful for the due-diligence project: prices and market capitalisation, Ethereum transactions, SQL queries on on-chain data', ro: 'Alte surse publice, utile pentru proiectul de due diligence: prețuri și capitalizare, tranzacții Ethereum, interogări SQL pe date on-chain' }
         ],
 
         bibliography: [
@@ -296,7 +377,7 @@
             email: 'danpele@ase.ro',
             en: ['Bucharest University of Economic Studies', 'Department of Statistics and Econometrics'],
             ro: ['Academia de Studii Economice din București', 'Departamentul de Statistică și Econometrie'],
-            seminar: { name: 'Prof. Ilan Alon', email: 'ilan.alon@uia.no' }
+            seminar: { name: 'Prof. Ilan Alon', email: 'ilan.alon@uni-corvinus.hu' }
         },
 
         footerLogos: [

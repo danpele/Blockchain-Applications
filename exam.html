@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Applications - Final Exam</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="logos/ida_square.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site.css?v=20261101e">
+    <link rel="stylesheet" href="assets/ba.css?v=20261101e">
+    <script>window.MFM_LANG = 'en';</script>
+    <script src="assets/config.js?v=20261101e"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="assets/portal.js?v=20261101e"></script>
+    <script src="assets/exam.js?v=20261101e"></script>
+</head>
+<body class="exam-page">
+
+    <header>
+        <div class="header-inner">
+            <img class="header-logo" src="logos/ase_logo.png" alt="ASE">
+            <div class="header-title">
+                <h1>Blockchain Applications</h1>
+                <p>Final exam · Friday 27 November 2026 · Crypto Economics (Prof. Ilan Alon) and Blockchain Analytics (Prof. Daniel Traian Pele)</p>
+            </div>
+            <img class="header-logo" src="logos/ida_logo.png" alt="IDA">
+        </div>
+    </header>
+
+    <main class="exam-main">
+        <section class="exam-rules">
+            <h2>Instructions</h2>
+            <ul>
+                <li>90 minutes from the moment you start. The timer is shown at the top of the page; at zero your answers are submitted automatically.</li>
+                <li>56 multiple-choice questions, one correct answer each, one point each; a wrong answer costs nothing. The questions cover both parts of the course; the last 15 are about 3 short cases built on real output.</li>
+                <li>Your answers are saved on the server as you work. If the page closes, sign in again: the exam resumes where you left it, with the same deadline.</li>
+                <li>Closed book: one A4 formula sheet is allowed. No AI tools, no messaging, no other pages; leaving this page is recorded.</li>
+                <li>Your score is the share of correct answers, out of 100; the exam is 50% of the final grade.</li>
+            </ul>
+        </section>
+
+        <section class="quiz-login" id="exam-gate"></section>
+
+        <section id="exam-paper" hidden>
+            <div class="ex-bar">
+                <span id="ex-who"></span>
+                <span id="ex-progress"></span>
+                <span id="ex-save" class="ex-save"></span>
+                <strong id="ex-timer" class="ex-timer"></strong>
+            </div>
+            <div id="ex-body"></div>
+        </section>
+    </main>
+
+    <div class="ex-dialog" id="ex-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="ex-dialog-text">
+        <div class="ex-dialog-box">
+            <p id="ex-dialog-text"></p>
+            <div class="ex-dialog-btns">
+                <button class="btn btn-outline" id="ex-no" type="button"></button>
+                <button class="btn btn-primary" id="ex-yes" type="button"></button>
+            </div>
+        </div>
+    </div>
+
+    <noscript><p style="text-align:center;padding:1rem">This page needs JavaScript.</p></noscript>
+</body>
+</html>

@@ -61,7 +61,12 @@
         $('overview-cards').innerHTML = D.overview[LANG].map(c =>
             `<div class="info-card"><h3>${c.h}</h3>${c.p.map(p => `<p>${p}</p>`).join('')}</div>`
         ).join('');
-        $('objectives-list').innerHTML = D.objectives[LANG].map(o => `<li>${o}</li>`).join('');
+        // learning outcomes: a flat list, or groups { h, items } (one per part of the course)
+        const obj = D.objectives[LANG];
+        $('objectives-list').outerHTML = typeof obj[0] === 'string'
+            ? `<ul class="objectives" id="objectives-list">${obj.map(o => `<li>${o}</li>`).join('')}</ul>`
+            : `<div class="objective-groups" id="objectives-list">${obj.map(g =>
+                `<div><h4>${g.h}</h4><ul class="objectives">${g.items.map(o => `<li>${o}</li>`).join('')}</ul></div>`).join('')}</div>`;
     }
 
     // ------------------------------------------------------------
@@ -160,12 +165,13 @@
     }
 
     // ------------------------------------------------------------
-    // SEMINARS (Prof. Ilan Alon) AND ASSESSMENT
+    // PART 1: CRYPTO ECONOMICS (Prof. Ilan Alon) AND ASSESSMENT
     // ------------------------------------------------------------
     function renderProject() {
         $('seminar-intro').innerHTML = T.seminarIntro;
-        $('seminar-table').innerHTML = `<table class="sessions"><tr><th>${T.colSession}</th><th>${T.colTopic}</th><th>${T.colPrep}</th></tr>` +
-            D.seminars[LANG].map(([s, t, p]) => `<tr><td class="c"><strong>${s}</strong></td><td>${t}</td><td>${p}</td></tr>`).join('') + '</table>';
+        const cols = [T.colSession, T.colTopic, T.colPrep, T.colVideo, T.colProj].slice(0, D.seminars[LANG][0].length);
+        $('seminar-table').innerHTML = `<table class="sessions"><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>` +
+            D.seminars[LANG].map(([d, ...rest]) => `<tr><td class="c"><strong>${d}</strong></td>${rest.map(x => `<td>${x}</td>`).join('')}</tr>`).join('') + '</table>';
         $('project-cards').innerHTML = D.assessment[LANG].map(c =>
             `<div class="info-card"><h3>${c.h}</h3>${c.p.map(p => `<p>${p}</p>`).join('')}</div>`
         ).join('');
@@ -199,6 +205,8 @@
             `<a href="${href}" target="_blank" rel="noopener"><img src="${src}" alt="${alt}"></a>`
         ).join('');
         $('footer-text').innerHTML = `&copy; 2026 ${T.footer}`;
+        document.querySelector('.hero-inner').insertAdjacentHTML('afterbegin', `<figure class="motto"><blockquote lang="it">“Tristo è quel discepolo che non avanza il suo maestro.”</blockquote>` +
+            `<p>${LANG === 'ro' ? 'Trist este discipolul care nu își depășește maestrul.' : 'Poor is the pupil who does not surpass his master.'}</p><figcaption>— Leonardo da Vinci</figcaption></figure>`);
     }
 
     // ------------------------------------------------------------
