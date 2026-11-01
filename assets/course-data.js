@@ -303,7 +303,7 @@
                         ro ? 'Evaluare prin comparație, scenarii bear / base / bull, lichiditate și riscul de ieșire' : 'Valuation comparables, bear / base / bull scenarios, liquidity and exit risk'],
                     [ro ? 'Sîmbătă 21 nov.' : 'Sat 21 Nov', ro ? 'Prezentările de due diligence ale echipelor (patru blocuri de 90 de minute), feedback și sinteza cursului' : 'Team due-diligence presentations (four 90-minute blocks), feedback and course synthesis',
                         `${R.lm}; ${ro ? 'whitepaper-ul sau documentația tehnică a proiectului ales' : 'the whitepaper or technical documentation of your project'}`, V.pitch,
-                        ro ? 'Slide-urile finale și jurnalul surselor, pînă la 09:10' : 'Final slides and source log due at 09:10']
+                        '–']
                 ];
             };
             return { en: rows('en'), ro: rows('ro') };
@@ -313,7 +313,7 @@
             { h: 'Due-diligence project (Part 1): 50%', p: [
                 'Prof. Ilan Alon. Teams of 4–5 students; each team analyses a different crypto asset, protocol or blockchain venture, chosen on Monday 16 November.',
                 'The question: should an informed investor or strategic partner Buy, Hold, Avoid or Watch it (Partner, Do Not Partner or Watch if there is no investable token)? Separate project quality from token investment quality.',
-                'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log, due at 09:10 on Saturday 21 November; a 10-minute boardroom-style presentation that day, also uploaded to YouTube.',
+                'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log; a 10-minute boardroom-style presentation on Saturday 21 November, also uploaded to YouTube.',
                 'Four criteria, 25% each: investment thesis and crypto-economic analysis; research and analytical rigour; critical thinking and risk assessment; presentation quality and engagement. Educational exercise, not financial advice.',
                 `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Assignment and student template</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Earlier due-diligence framework</a>`
             ] },
@@ -332,7 +332,7 @@
             { h: 'Proiectul de due diligence (Partea 1): 50%', p: [
                 'Prof. Ilan Alon. Echipe de 4–5 studenți; fiecare echipă analizează un alt activ cripto, protocol sau proiect blockchain, ales luni, 16 noiembrie.',
                 'Întrebarea: un investitor informat sau un partener strategic ar trebui să cumpere, să păstreze, să evite sau să urmărească activul (Buy, Hold, Avoid, Watch; Partner, Do Not Partner sau Watch dacă nu există un token investibil)? Separați calitatea proiectului de calitatea token-ului ca investiție.',
-                'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor, pînă sîmbătă, 21 noiembrie, la 09:10; în aceeași zi, o prezentare de 10 minute, în stil boardroom, încărcată și pe YouTube.',
+                'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor; o prezentare de 10 minute, în stil boardroom, sîmbătă, 21 noiembrie, încărcată și pe YouTube.',
                 'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării și implicarea publicului. Exercițiu educativ, nu sfat financiar.',
                 `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Cadrul anterior de due diligence</a>`
             ] },
