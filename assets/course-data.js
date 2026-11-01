@@ -135,7 +135,7 @@
                 { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts'] },
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)'] },
                 { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)'] },
-                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, on this site, in the room', 'Both parts; every student gets a personal paper'] },
+                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, in the room', '56 multiple-choice questions on both parts of the course, answered on this website'] },
                 { h: 'Grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
             ],
@@ -143,7 +143,7 @@
                 { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți'] },
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)'] },
                 { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)'] },
-                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, pe acest site, în sală', 'Ambele părți; fiecare student primește un subiect personal'] },
+                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, în sală', '56 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
                 { h: 'Nota', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
             ]
