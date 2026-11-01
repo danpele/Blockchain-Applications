@@ -77,8 +77,8 @@
                 bibliography: 'Core texts (Part 2)',
                 dataSources: 'Data sources',
                 contact: 'Contact',
-                instructor: 'Part 2: Blockchain Analytics; exam',
-                seminarCard: 'Part 1: Crypto Economics; project',
+                instructor: 'Part 2: Blockchain Analytics and the exam',
+                seminarCard: 'Part 1: Crypto Economics and the project',
                 seminarRole: 'Ariel University and Corvinus University of Budapest',
                 office: 'Questions',
                 officeText: 'By e-mail, or before and after class',
@@ -120,8 +120,8 @@
                 bibliography: 'Texte de bază (Partea 2)',
                 dataSources: 'Surse de date',
                 contact: 'Contact',
-                instructor: 'Partea 2: Blockchain Analytics; examen',
-                seminarCard: 'Partea 1: Crypto Economics; proiect',
+                instructor: 'Partea 2: Blockchain Analytics și examenul',
+                seminarCard: 'Partea 1: Crypto Economics și proiectul',
                 seminarRole: 'Ariel University și Corvinus University of Budapest',
                 office: 'Întrebări',
                 officeText: 'Pe e-mail sau înainte și după curs',
@@ -136,7 +136,7 @@
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)'] },
                 { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)'] },
                 { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, in the room', '56 multiple-choice questions on both parts of the course, answered on this website'] },
-                { h: 'Grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
+                { h: 'Final grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
             ],
             ro: [
@@ -144,7 +144,7 @@
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)'] },
                 { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)'] },
                 { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, în sală', '56 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
-                { h: 'Nota', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
+                { h: 'Nota finală', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
             ]
         },
@@ -324,7 +324,7 @@
                 'Closed book, one A4 formula sheet allowed. Answers are saved as you go; if the page closes, sign in again to resume.'
             ] },
             { h: 'Attendance and policies', p: [
-                'Attendance is recorded at every lecture of both parts: sign in on this site and type the code shown in the room (it changes every minute). It does not count towards the grade, but attending every lecture is strongly recommended.',
+                'Attendance is taken at every lecture of both parts with a QR code shown in the room. It does not count towards the grade, but attending every lecture is strongly recommended.',
                 'AI tools may be used to study, to run the notebooks and for the project, with substantive AI assistance disclosed; they are not allowed during the exam.',
                 'Each Blockchain Analytics slide deck ends with an appendix for self-study; the appendix is not examined. The practice quizzes on this site help you prepare.'
             ] }
@@ -343,7 +343,7 @@
                 'Fără materiale, cu o foaie de formule A4. Răspunsurile se salvează pe parcurs; dacă pagina se închide, vă autentificați din nou și continuați.'
             ] },
             { h: 'Prezență și reguli', p: [
-                'Prezența se înregistrează la fiecare curs, din ambele părți: vă autentificați pe acest site și introduceți codul afișat în sală (se schimbă în fiecare minut). Prezența nu intră în notă, dar participarea la toate cursurile este puternic recomandată.',
+                'Prezența se ia la fiecare curs, din ambele părți, cu un cod QR afișat în sală. Prezența nu intră în notă, dar participarea la toate cursurile este puternic recomandată.',
                 'Instrumentele AI pot fi folosite pentru studiu, pentru rularea notebook-urilor și pentru proiect, cu declararea asistenței AI substanțiale; nu sînt permise la examen.',
                 'Fiecare set de slide-uri Blockchain Analytics se încheie cu o anexă pentru studiu individual; anexa nu intră în examen. Quiz-urile de exersare de pe site vă ajută să vă pregătiți.'
             ] }

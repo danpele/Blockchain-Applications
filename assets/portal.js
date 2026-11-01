@@ -16,9 +16,9 @@
     const TXT = {
         en: {
             title: 'Attendance and Exam',
-            intro: 'Attendance: scan the QR code shown in the room with your phone and sign in with your ASE Google account (@stud.ase.ro); your attendance is then recorded. The QR code changes every minute. Attendance is recorded for every lecture of both parts of the course and does not count towards the grade.',
+            intro: 'Attendance: scan the QR code shown in the room with your phone and sign in with your ASE Google account (@stud.ase.ro). Your attendance is then recorded.',
             scan: 'Scan the QR code shown in the room to record your attendance.', signinQr: 'Sign in with your ASE account to record your attendance.',
-            examLink: 'Open the exam page', examNote: 'The final exam (Friday 27 November 2026) is taken on this site, in the room, with the code shown there.',
+            examLink: 'Open the exam page', examNote: 'Final exam: Friday 27 November 2026, in the room.',
             signin: 'Sign in with your ASE account to continue.', signedAs: 'Signed in as', logout: 'Sign out',
             wrongDomain: 'Please use your ASE account (@stud.ase.ro or @ase.ro).',
             code: 'Code shown in the room', send: 'Record my attendance', sending: 'Sending…',
@@ -35,9 +35,9 @@
         },
         ro: {
             title: 'Prezență și examen',
-            intro: 'Prezența: scanați cu telefonul codul QR afișat în sală și autentificați-vă cu contul Google ASE (@stud.ase.ro); prezența se înregistrează automat. Codul QR se schimbă în fiecare minut. Prezența se înregistrează la toate cursurile, din ambele părți ale disciplinei, și nu intră în notă.',
+            intro: 'Prezența: scanați cu telefonul codul QR afișat în sală și autentificați-vă cu contul Google ASE (@stud.ase.ro). Prezența se înregistrează automat.',
             scan: 'Scanați codul QR afișat în sală pentru a vă înregistra prezența.', signinQr: 'Autentificați-vă cu contul ASE pentru a vă înregistra prezența.',
-            examLink: 'Deschide pagina examenului', examNote: 'Examenul final (vineri, 27 noiembrie 2026) se dă pe acest site, în sală, cu codul afișat acolo.',
+            examLink: 'Deschide pagina examenului', examNote: 'Examenul final: vineri, 27 noiembrie 2026, în sală.',
             signin: 'Autentificați-vă cu contul ASE pentru a continua.', signedAs: 'Autentificat ca', logout: 'Ieșire',
             wrongDomain: 'Folosiți contul ASE (@stud.ase.ro sau @ase.ro).',
             code: 'Codul afișat în sală', send: 'Înregistrează prezența', sending: 'Se trimite…',
@@ -129,7 +129,8 @@
     function renderAttendance(result) {
         const box = $('att-box');
         const u = user('cred');
-        if (!QR_CODE && !result) { box.innerHTML = `<p>${TXT.scan}</p>`; return; }
+        box.style.display = QR_CODE || result ? '' : 'none';   // nothing to show until a QR code is scanned
+        if (!QR_CODE && !result) return;
         if (!u) {
             box.innerHTML = `<p>${TXT.signinQr}</p><div class="g-btn"></div><p class="login-msg" aria-live="polite"></p>`;
             signInButton(box.querySelector('.g-btn'), cred => {
