@@ -311,7 +311,7 @@ window.MFM_DATA.quizzes['l6'] = {
             correct: 2,
             en: {
                 title: "BTC at the border",
-                text: "Pele et al. (2023) classify cryptos with 99.56% accuracy, and only BTC and USDT are misclassified. The own update for 2021–2026 groups BTC and ETH with traditional assets. Which conclusion fits both results?",
+                text: "Pele et al. (2023) classify cryptos with 99.56% accuracy, and only BTC and USDT are misclassified. The update in this course (EODHD data, 2021–2026) groups BTC and ETH with traditional assets. Which conclusion fits both results?",
                 options: [
                     "Cryptos are no longer a separate asset class, so the 2023 result was wrong",
                     "BTC behaves like a stock and should therefore be regulated as an equity",

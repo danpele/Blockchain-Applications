@@ -327,7 +327,7 @@ window.MFM_DATA.quizzes['l4'] = {
             correct: 3,
             en: {
                 title: "AUPRC baseline",
-                text: "In the paper, 5.9% of hours are followed by a breach within 24 hours. What area under the precision-recall curve (AUPRC) does a random score get?",
+                text: "In the working paper of Chaffard et al. (2026), 5.9% of hours are followed by a breach within 24 hours. What area under the precision-recall curve (AUPRC) does a random score get?",
                 options: [
                     "0.5, as for the area under the receiver operating characteristic (ROC) curve",
                     "0, since a random score detects nothing",
@@ -342,7 +342,7 @@ window.MFM_DATA.quizzes['l4'] = {
             correct: 0,
             en: {
                 title: "Labels against events",
-                text: "In the paper (Uniswap V3 USDC/USDT pool, hourly, January 2022 to May 2026), 2 227 hours are positive (5.9%), but there are only 107 events. Why does this matter for evaluation?",
+                text: "In the working paper of Chaffard et al. (2026) (Uniswap V3 USDC/USDT pool, hourly, January 2022 to May 2026), 2 227 hours are positive (5.9%), but there are only 107 events. Why does this matter for evaluation?",
                 options: [
                     "Hours cluster in few events: about 107 cases, not 2 227",
                     "It shows that most of the 2 227 labels are wrong",
@@ -402,7 +402,7 @@ window.MFM_DATA.quizzes['l4'] = {
             correct: 1,
             en: {
                 title: "AUC against recall",
-                text: "Paper, test fold: CatBoost has AUC 0.862, recall 0.723, 2.50 false alerts a month, utility 0.303; random forest has AUC 0.901, recall 0.410, 0.97 false alerts a month, utility 0.180. What does the comparison show?",
+                text: "Chaffard et al. (2026), working paper, test fold: CatBoost has AUC 0.862, recall 0.723, 2.50 false alerts a month, utility 0.303; random forest has AUC 0.901, recall 0.410, 0.97 false alerts a month, utility 0.180. What does the comparison show?",
                 options: [
                     "The random forest is better, since its AUC is higher",
                     "AUC misleads: the lower-AUC model detects far more events",

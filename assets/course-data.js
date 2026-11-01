@@ -366,10 +366,18 @@
         ],
 
         bibliography: [
+            'Bailey, D. H., &amp; López de Prado, M. (2014). <a href="https://doi.org/10.3905/jpm.2014.40.5.094" target="_blank" rel="noopener">The deflated Sharpe ratio: correcting for selection bias, backtest overfitting, and non-normality</a>. <em>The Journal of Portfolio Management</em>, 40(5), 94–107.',
+            'Bollerslev, T. (1986). <a href="https://doi.org/10.1016/0304-4076(86)90063-1" target="_blank" rel="noopener">Generalized autoregressive conditional heteroskedasticity</a>. <em>Journal of Econometrics</em>, 31(3), 307–327.',
+            'Christoffersen, P. F. (1998). <a href="https://doi.org/10.2307/2527341" target="_blank" rel="noopener">Evaluating interval forecasts</a>. <em>International Economic Review</em>, 39(4), 841–862.',
+            'Diebold, F. X., &amp; Yilmaz, K. (2012). <a href="https://doi.org/10.1016/j.ijforecast.2011.02.006" target="_blank" rel="noopener">Better to give than to receive: predictive directional measurement of volatility spillovers</a>. <em>International Journal of Forecasting</em>, 28(1), 57–66.',
+            'Gneiting, T., &amp; Resin, J. (2023). <a href="https://doi.org/10.1214/23-EJS2180" target="_blank" rel="noopener">Regression diagnostics meets forecast evaluation: conditional calibration, reliability diagrams, and coefficient of determination</a>. <em>Electronic Journal of Statistics</em>, 17(2), 3226–3286.',
             'Härdle, W. K., Harvey, C. R., &amp; Reule, R. C. G. (2020). <a href="https://doi.org/10.1093/jjfinec/nbz033" target="_blank" rel="noopener">Understanding cryptocurrencies</a>. <em>Journal of Financial Econometrics</em>, 18(2), 181–208.',
-            'Trimborn, S., &amp; Härdle, W. K. (2018). <a href="https://doi.org/10.1016/j.jempfin.2018.08.004" target="_blank" rel="noopener">CRIX an index for cryptocurrencies</a>. <em>Journal of Empirical Finance</em>, 49, 107–122.',
+            'Koenker, R., &amp; Bassett, G. (1978). <a href="https://doi.org/10.2307/1913643" target="_blank" rel="noopener">Regression quantiles</a>. <em>Econometrica</em>, 46(1), 33–50.',
+            'Lyons, R. K., &amp; Viswanath-Natraj, G. (2023). <a href="https://doi.org/10.1016/j.jimonfin.2022.102777" target="_blank" rel="noopener">What keeps stablecoins stable?</a> <em>Journal of International Money and Finance</em>, 131, 102777.',
+            'Makarov, I., &amp; Schoar, A. (2020). <a href="https://doi.org/10.1016/j.jfineco.2019.07.001" target="_blank" rel="noopener">Trading and arbitrage in cryptocurrency markets</a>. <em>Journal of Financial Economics</em>, 135(2), 293–319.',
             'Pele, D. T., Wesselhöfft, N., Härdle, W. K., Kolossiatis, M., &amp; Yatracos, Y. G. (2023). <a href="https://doi.org/10.1080/1351847X.2021.1960403" target="_blank" rel="noopener">Are cryptos becoming alternative assets?</a> <em>The European Journal of Finance</em>, 29(10), 1064–1105.',
-            'Lyons, R. K., &amp; Viswanath-Natraj, G. (2023). <a href="https://doi.org/10.1016/j.jimonfin.2022.102777" target="_blank" rel="noopener">What keeps stablecoins stable?</a> <em>Journal of International Money and Finance</em>, 131, 102777.'
+            'Trimborn, S., &amp; Härdle, W. K. (2018). <a href="https://doi.org/10.1016/j.jempfin.2018.08.004" target="_blank" rel="noopener">CRIX an index for cryptocurrencies</a>. <em>Journal of Empirical Finance</em>, 49, 107–122.',
+            'Urquhart, A. (2016). <a href="https://doi.org/10.1016/j.econlet.2016.09.019" target="_blank" rel="noopener">The inefficiency of Bitcoin</a>. <em>Economics Letters</em>, 148, 80–82.'
         ],
 
         contact: {

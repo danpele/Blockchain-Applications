@@ -72,7 +72,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "Does the data source matter?",
-                text: "Median $|d|$ of USDC is 1.3 bp from EOD Historical Data (EODHD) and 4.11 bp in the paper (CoinGecko); the share of days at least 100 bp below the peg is 0.09% for USDT in both. What follows?",
+                text: "Median $|d|$ of USDC is 1.3 bp from EOD Historical Data (EODHD) and 4.11 bp in the working paper of Fan et al. (2026) (CoinGecko); the share of days at least 100 bp below the peg is 0.09% for USDT in both. What follows?",
                 options: [
                     "One of the two data sources must be wrong",
                     "Levels depend on the source; the ranking does not",
@@ -244,7 +244,7 @@ window.MFM_DATA.quizzes['l5'] = {
                     "As the share of coins that are depegged",
                     "As the average of $\\hat\\lambda_{j,t}$ over the coins"
                 ],
-                correctExplanation: "$\\mathrm{DPI}_t = J^{-1}\\sum_j \\hat\\lambda_{j,t}$: one number per day summarising lower-tail pressure across the system (own replication: 10 coins, 23 970 equations).",
+                correctExplanation: "$\\mathrm{DPI}_t = J^{-1}\\sum_j \\hat\\lambda_{j,t}$: one number per day summarising lower-tail pressure across the system (replication in this course on EODHD data: 10 coins, 23 970 equations).",
                 incorrectExplanation: "The index is the cross-sectional mean of the selected penalties of all coin equations on that day."
             }
         },
@@ -252,7 +252,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "DPI over time",
-                text: "Own replication, annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and which coin carried it?",
+                text: "Replication in this course (EODHD data), annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and which coin carried it?",
                 options: [
                     "2020, during the pandemic market crash",
                     "2025, carried mostly by BUSD, a thinly traded coin",
@@ -281,8 +281,8 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 3,
             en: {
-                title: "Paper and replication",
-                text: "The paper estimates a DPI trend of $-0.004$ per year (p 0.78); the own replication $+0.046$ (p 0.21). In what sense do they agree?",
+                title: "Working paper and replication",
+                text: "The working paper estimates a DPI trend of $-0.004$ per year (p 0.78); the replication in this course $+0.046$ (p 0.21). In what sense do they agree?",
                 options: [
                     "Both find a significant upward trend",
                     "Both find a significant downward trend",
@@ -342,7 +342,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 0,
             en: {
                 title: "USDC and DAI",
-                text: "Own replication: the cell USDC $\\leftarrow$ DAI is 75 pp, and DAI $\\leftarrow$ USDC is 60 pp. How do you read the first number?",
+                text: "Replication in this course (EODHD data): the cell USDC $\\leftarrow$ DAI is 75 pp, and DAI $\\leftarrow$ USDC is 60 pp. How do you read the first number?",
                 options: [
                     "Net share of USDC equations with a positive DAI slope",
                     "A 1 bp fall of DAI lowers USDC's 5% quantile by 75 bp",
@@ -357,7 +357,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "Aligned or inverse",
-                text: "Own replication: 47.4% of coin coefficients are aligned (positive) and 33.1% inverse (negative); the paper finds 39.6% and 23.9%. What do the two data sets agree on?",
+                text: "Replication in this course (EODHD data): 47.4% of coin coefficients are aligned (positive) and 33.1% inverse (negative); the working paper finds 39.6% and 23.9%. What do the two data sets agree on?",
                 options: [
                     "Inverse links dominate in both data sets",
                     "Aligned links are more common than inverse ones",
@@ -372,7 +372,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 3,
             en: {
                 title: "Sparser under pressure",
-                text: "Own replication: average active predictors fall from 10.96 (of 13) in the lowest DPI quintile to 9.68 in the highest; paper: 10.11 to 9.00 (of 15). Which interpretation is supported?",
+                text: "Replication in this course (EODHD data): average active predictors fall from 10.96 (of 13) in the lowest DPI quintile to 9.68 in the highest; working paper: 10.11 to 9.00 (of 15). Which interpretation is supported?",
                 options: [
                     "A few strong links dominate, as the chart proves",
                     "The result holds in one data source only, not in the paper",
@@ -402,7 +402,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 1,
             en: {
                 title: "Fit is not forecast",
-                text: "Paper, skill relative to an intercept-only model: the joint model (coins and macro) has in-window GACV skill 37.0% but a fully lagged out-of-sample forecast skill of $-38.6\\%$. What does this show?",
+                text: "Fan et al. (2026), working paper, skill relative to an intercept-only model: the joint model (coins and macro) has in-window GACV skill 37.0% but a fully lagged out-of-sample forecast skill of $-38.6\\%$. What does this show?",
                 options: [
                     "The joint model is the best forecaster of the three",
                     "The best in-window fit is the worst lagged forecast",
@@ -417,7 +417,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 2,
             en: {
                 title: "Selected but not useful",
-                text: "Paper: on-chain variables (Curve, Uniswap) enter 91% of the Quantile Lasso equations, yet do not reduce held-out loss significantly. What is the lesson?",
+                text: "Fan et al. (2026), working paper: on-chain variables (Curve, Uniswap) enter 91% of the Quantile Lasso equations, yet do not reduce held-out loss significantly. What is the lesson?",
                 options: [
                     "On-chain data should be removed from all models",
                     "The Lasso is selecting at random",
@@ -432,7 +432,7 @@ window.MFM_DATA.quizzes['l5'] = {
             correct: 0,
             en: {
                 title: "Concentration and the DPI",
-                text: "Paper, regression of $\\ln \\mathrm{DPI}_t$ on lagged concentration with year effects: $+1$ standard deviation of the Herfindahl-Hirschman index (HHI) goes with $-1.52\\%$ DPI, 95% interval $[-4.24\\%, 1.27\\%]$, Holm p 0.38. What follows?",
+                text: "Fan et al. (2026), working paper, regression of $\\ln \\mathrm{DPI}_t$ on lagged concentration with year effects: $+1$ standard deviation of the Herfindahl-Hirschman index (HHI) goes with $-1.52\\%$ DPI, 95% interval $[-4.24\\%, 1.27\\%]$, Holm p 0.38. What follows?",
                 options: [
                     "No evidence of an effect; use it for scenarios and limits",
                     "Higher concentration lowers depegging pressure",

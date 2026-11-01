@@ -36,9 +36,9 @@
 <p class="toc"><a href="#s-anchors">Comparing Different Anchors</a> · <a href="#s-qr">Quantile Regression and the Lasso</a> · <a href="#s-dpi">The De-pegging Pressure Index</a> · <a href="#s-links">Inside the Tail Links</a></p>
 <h2 class="sec" id="s-anchors">Comparing Different Anchors</h2>
 <section class="blk" id="peg-quality">
-  <h3>Two Tiers of Peg Quality (own)</h3>
+  <h3>Two Tiers of Peg Quality</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l5_pegquality.jpg?v=20261031a" alt="Slide 10: Two Tiers of Peg Quality (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l5_pegquality.jpg?v=20261031a" alt="Slide 10: Two Tiers of Peg Quality" loading="lazy"></a>
       <figcaption>Slide 10</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="pq-e">Sample ends: <b id="pq-e-v"></b></label><input type="range" id="pq-e" min="0" max="69" step="1" value="64"></div><button class="btn play" id="pq-play" type="button"></button></div><div class="charts "><div class="chart" id="pq-chart"></div></div><ul class="out" id="pq-out"></ul></div>
   </div>
@@ -46,9 +46,9 @@
   <details><summary>Answer</summary><p>It roughly doubles, to 3,929 bp, while the median rises only from 56.3 to 62.1 bp and the share of days at least 100 bp below the peg from 26.0% to 30.3%. The 145 added days are the collapse of sUSD to 0.09 USD: they are 6% of the sample, but they fill the upper tail. The other nine coins change much less, and the two tiers keep the same members.</p></details>
 </section>
 <section class="blk" id="susd">
-  <h3>A Persistent Depeg: sUSD (own)</h3>
+  <h3>A Persistent Depeg: sUSD</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l5_susd.jpg?v=20261031a" alt="Slide 11: A Persistent Depeg: sUSD (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l5_susd.jpg?v=20261031a" alt="Slide 11: A Persistent Depeg: sUSD" loading="lazy"></a>
       <figcaption>Slide 11</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="su-c">Threshold price: <b id="su-c-v"></b></label><input type="range" id="su-c" min="0.1" max="0.99" step="0.01" value="0.99"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-chart"></div></div><ul class="out" id="su-out"></ul></div>
   </div>
@@ -66,9 +66,9 @@
   <details><summary>Answer</summary><p>Every q from −35 to −12 bp, the second and third smallest observations: n τ = 2 is again an integer, so the loss is flat between two observations (total loss 148.10). Whenever 20 τ is an integer the minimiser is an interval; for other τ it is one observation (τ = 0.06: q = −35 bp). For τ = 0.5 the interval is [2, 3] bp, around the median of 2 bp quoted on the slide. In a 90-day window n τ = 4.5, so the 5% quantile is unique, but still set by five days.</p></details>
 </section>
 <section class="blk" id="rollq">
-  <h3>The 5% Quantile Counts Ranks, Not Depth (own)</h3>
+  <h3>The 5% Quantile Counts Ranks, Not Depth</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l5_rollq.jpg?v=20261031a" alt="Slide 14: The 5% Quantile Counts Ranks, Not Depth (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l5_rollq.jpg?v=20261031a" alt="Slide 14: The 5% Quantile Counts Ranks, Not Depth" loading="lazy"></a>
       <figcaption>Slide 14</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rq-w">Window length W (days): <b id="rq-w-v"></b></label><input type="range" id="rq-w" min="20" max="365" step="1" value="90"></div><button class="btn play" id="rq-play" type="button"></button></div><div class="charts "><div class="chart" id="rq-chart"></div></div><ul class="out" id="rq-out"></ul></div>
   </div>
@@ -76,9 +76,9 @@
   <details><summary>Answer</summary><p>From W = 20 days down. The 5% quantile of W values is the value of rank ⌊0.05 (W − 1)⌋ + 1 from the bottom; it is the lowest value only while 0.05 (W − 1) < 1, that is W ≤ 20. With W = 21 to 30 it is the second lowest of the window to 11 March (−5.21 bp, the close of 10 March), and from 15 March the second SVB close, −79.3 bp. A short window gives a quantile that jumps with single days; a long window gives one that ignores how deep the worst day was.</p></details>
 </section>
 <section class="blk" id="lasso-path">
-  <h3>Worked Example: One Equation, USDC after SVB (own)</h3>
+  <h3>Worked Example: One Equation, USDC after SVB</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l5_lasso_path.jpg?v=20261031a" alt="Slide 16: Worked Example: One Equation, USDC after SVB (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l5_lasso_path.jpg?v=20261031a" alt="Slide 16: Worked Example: One Equation, USDC after SVB" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lp-k">Penalty λ (point of the 25-value grid): <b id="lp-k-v"></b></label><input type="range" id="lp-k" min="0" max="24" step="1" value="7"></div><button class="btn play" id="lp-play" type="button"></button></div><div class="charts "><div class="chart" id="lp-path"></div><div class="chart" id="lp-gacv"></div></div><ul class="out" id="lp-out"></ul></div>
   </div>
@@ -86,9 +86,9 @@
   <details><summary>Answer</summary><p>No. It goes 0, 1, 2, then back to 1 (at λ = 51.9 USDT leaves and only DAI is active), 2 up to λ = 5.2, then 3, 4, 5, 10, 12, 11, 12, 12 and 13. The Lasso path of a quantile regression is not monotone: a predictor can leave when others enter. At the selected λ̂ = 0.241 twelve of the 13 are active; the one left out is USDT, which is active at the neighbouring λ values.</p></details>
 </section><h2 class="sec" id="s-dpi">The De-pegging Pressure Index</h2>
 <section class="blk" id="dpi">
-  <h3>The DPI, April 2020 – October 2026 (own)</h3>
+  <h3>The DPI, April 2020 – October 2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l5_dpi.jpg?v=20261031a" alt="Slide 18: The DPI, April 2020 – October 2026 (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l5_dpi.jpg?v=20261031a" alt="Slide 18: The DPI, April 2020 – October 2026" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dp-e">Trend sample ends: <b id="dp-e-v"></b></label><input type="range" id="dp-e" min="0" max="52" step="1" value="47"></div><button class="btn play" id="dp-play" type="button"></button></div><div class="charts "><div class="chart" id="dp-chart"></div></div><ul class="out" id="dp-out"></ul></div>
   </div>
@@ -96,9 +96,9 @@
   <details><summary>Answer</summary><p>Yes: +0.088 a year, HAC(90) standard error 0.032, p = 0.01, 95% interval [0.026, 0.151]. Adding the first five months of 2026, when the DPI was lower (annual median 0.32 against 0.52 in 2025), brings the slope to +0.046 and the p-value to 0.21; to 23 October 2026 it is +0.035 (p = 0.25). The test result depends on where the sample ends, which is one more reason to read the DPI in regimes, not as a trend.</p></details>
 </section>
 <section class="blk" id="dpi-coins">
-  <h3>Which Coins Carry the DPI? (own)</h3>
+  <h3>Which Coins Carry the DPI?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=21" target="_blank" rel="noopener"><img src="slides/ba_l5_dpi_coins.jpg?v=20261031a" alt="Slide 20: Which Coins Carry the DPI? (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=21" target="_blank" rel="noopener"><img src="slides/ba_l5_dpi_coins.jpg?v=20261031a" alt="Slide 20: Which Coins Carry the DPI?" loading="lazy"></a>
       <figcaption>Slide 20</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dc-c">Coin left out of the right panel</label><select id="dc-c"><option value="">none</option><option value="USDT">USDT</option><option value="USDC">USDC</option><option value="DAI">DAI</option><option value="TUSD">TUSD</option><option value="USDP">USDP</option><option value="GUSD">GUSD</option><option value="BUSD" selected>BUSD</option><option value="SUSD">sUSD</option><option value="PAXG">PAXG</option><option value="EURS">EURS</option></select></div><button class="btn play" id="dc-play" type="button"></button></div><div class="charts "><div class="chart" id="dc-share"></div><div class="chart" id="dc-ann"></div></div><ul class="out" id="dc-out"></ul></div>
   </div>
@@ -116,9 +116,9 @@
   <details><summary>Answer</summary><p>KuCoin (+49.6%), Terra (+23.5%) and the Iran–Hormuz shock (−34.8%, Holm p = 0.049); the China sell-off is no longer significant (−12.5%, Holm p = 0.123). The window length changes which events respond, and even the sign: the Iran–Hormuz response is −35% over 10 days and +2.4% over 30. Neither window gives FTX and SVB, the two events the paper finds significant. The narrow-λ-grid index on this page is re-estimated with the notebook (+94.9% for KuCoin and +158.6% for SVB at 30 days; the lecture reports +95.3% and +158.6%).</p></details>
 </section><h2 class="sec" id="s-links">Inside the Tail Links</h2>
 <section class="blk" id="links">
-  <h3>Who Is Linked to Whom? (own)</h3>
+  <h3>Who Is Linked to Whom?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l5_links.jpg?v=20261031a" alt="Slide 25: Who Is Linked to Whom? (own)" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_dpi.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l5_links.jpg?v=20261031a" alt="Slide 25: Who Is Linked to Whom?" loading="lazy"></a>
       <figcaption>Slide 25</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lk-y">Period (0 = all days, then 2020 to 2026): <b id="lk-y-v"></b></label><input type="range" id="lk-y" min="0" max="7" step="1" value="0"></div><button class="btn play" id="lk-play" type="button"></button></div><div class="charts "><div class="chart" id="lk-chart"></div></div><ul class="out" id="lk-out"></ul></div>
   </div>
