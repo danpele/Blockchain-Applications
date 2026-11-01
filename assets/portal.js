@@ -16,12 +16,12 @@
     const TXT = {
         en: {
             title: 'Attendance and Exam',
-            intro: 'Attendance: scan the QR code shown in the room with your phone and sign in with your ASE Google account (@stud.ase.ro). Your attendance is then recorded.',
-            scan: 'Scan the QR code shown in the room to record your attendance.', signinQr: 'Sign in with your ASE account to record your attendance.',
-            examLink: 'Open the exam page', examNote: 'Final exam: Friday 27 November 2026, in the room.',
+            intro: 'Attendance: scan the QR code shown on the screen with your phone and sign in with your ASE Google account (@stud.ase.ro). Your attendance is then recorded.',
+            scan: 'Scan the QR code shown on the screen to record your attendance.', signinQr: 'Sign in with your ASE account to record your attendance.',
+            examLink: 'Open the exam page', examNote: 'Final exam: Friday 27 November 2026, on this website.',
             signin: 'Sign in with your ASE account to continue.', signedAs: 'Signed in as', logout: 'Sign out',
             wrongDomain: 'Please use your ASE account (@stud.ase.ro or @ase.ro).',
-            code: 'Code shown in the room', send: 'Record my attendance', sending: 'Sending…',
+            code: 'Code shown on the screen', send: 'Record my attendance', sending: 'Sending…',
             attOk: s => `Attendance recorded: ${s}.`, attAlready: s => `Already recorded: ${s}.`,
             errCode: 'This QR code has expired. Scan the code on the screen again.',
             errToken: 'Your sign-in has expired. Sign out and sign in again.', errNet: 'No connection to the server. Try again.',
@@ -35,12 +35,12 @@
         },
         ro: {
             title: 'Prezență și examen',
-            intro: 'Prezența: scanați cu telefonul codul QR afișat în sală și autentificați-vă cu contul Google ASE (@stud.ase.ro). Prezența se înregistrează automat.',
-            scan: 'Scanați codul QR afișat în sală pentru a vă înregistra prezența.', signinQr: 'Autentificați-vă cu contul ASE pentru a vă înregistra prezența.',
-            examLink: 'Deschide pagina examenului', examNote: 'Examenul final: vineri, 27 noiembrie 2026, în sală.',
+            intro: 'Prezența: scanați cu telefonul codul QR afișat pe ecran și autentificați-vă cu contul Google ASE (@stud.ase.ro). Prezența se înregistrează automat.',
+            scan: 'Scanați codul QR afișat pe ecran pentru a vă înregistra prezența.', signinQr: 'Autentificați-vă cu contul ASE pentru a vă înregistra prezența.',
+            examLink: 'Deschide pagina examenului', examNote: 'Examenul final: vineri, 27 noiembrie 2026, pe acest site.',
             signin: 'Autentificați-vă cu contul ASE pentru a continua.', signedAs: 'Autentificat ca', logout: 'Ieșire',
             wrongDomain: 'Folosiți contul ASE (@stud.ase.ro sau @ase.ro).',
-            code: 'Codul afișat în sală', send: 'Înregistrează prezența', sending: 'Se trimite…',
+            code: 'Codul afișat pe ecran', send: 'Înregistrează prezența', sending: 'Se trimite…',
             attOk: s => `Prezența a fost înregistrată: ${s}.`, attAlready: s => `Prezența era deja înregistrată: ${s}.`,
             errCode: 'Acest cod QR a expirat. Scanați din nou codul de pe ecran.',
             errToken: 'Autentificarea a expirat. Ieșiți și autentificați-vă din nou.', errNet: 'Nu există conexiune cu serverul. Încercați din nou.',
@@ -121,7 +121,7 @@
     }
 
     // ---------------------------------------------------------- attendance box (index pages)
-    // Attendance only through the QR code shown in the room (as on the MFM site): the QR opens this page
+    // Attendance only through the QR code shown on the screen (as on the MFM site): the QR opens this page
     // with ?att=<code>; after sign-in the attendance is sent automatically. There is no code field.
     const QR_CODE = (new URLSearchParams(location.search).get('att') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
     let qrSent = false;
