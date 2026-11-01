@@ -135,7 +135,7 @@
                 { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts'] },
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)'] },
                 { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)'] },
-                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, in the room', '56 multiple-choice questions on both parts of the course, answered on this website'] },
+                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes, in the room', '30 multiple-choice questions on both parts of the course, answered on this website'] },
                 { h: 'Final grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
             ],
@@ -143,7 +143,7 @@
                 { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți'] },
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)'] },
                 { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)'] },
-                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, în sală', '56 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
+                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute, în sală', '30 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
                 { h: 'Nota finală', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
             ]
@@ -319,9 +319,9 @@
             ] },
             { h: 'Exam: 50%', p: [
                 'Friday 27 November 2026, 90 minutes, on this site, in the room: sign in with your ASE Google account and type the exam code shown on the screen.',
-                'One exam of 56 multiple-choice questions, one point each, on both parts of the course: 28 on Crypto Economics and 28 on Blockchain Analytics, mixed together; the last 15 are about 3 short cases built on real output from the course notebooks. The score is the share of correct answers, out of 100.',
-                'Every student gets a personal paper: the questions are drawn from larger banks, with several variants of each question and case, and their order and options are shuffled. No calculations; a wrong answer costs nothing.',
-                'Closed book, one A4 formula sheet allowed. Answers are saved as you go; if the page closes, sign in again to resume.'
+                'One exam of 30 multiple-choice questions, one point each: 15 on Crypto Economics and 15 on Blockchain Analytics, mixed together. The last 5 questions are about a short case built on real output from the course notebooks. The score is the share of correct answers, out of 100.',
+                'Each student gets a different set of questions on the screen, drawn from larger question banks, in a different order. No calculations; a wrong answer costs nothing.',
+                'Closed book; you may bring one A4 formula sheet. Answers are saved as you go; if the page closes, sign in again to continue.'
             ] },
             { h: 'Attendance and policies', p: [
                 'Attendance is taken at every lecture of both parts with a QR code shown in the room. It does not count towards the grade, but attending every lecture is strongly recommended.',
@@ -338,9 +338,9 @@
             ] },
             { h: 'Examenul: 50%', p: [
                 'Vineri, 27 noiembrie 2026, 90 de minute, pe acest site, în sală: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
-                'Un singur examen cu 56 de întrebări grilă, fiecare de un punct, din ambele părți ale disciplinei: 28 de Crypto Economics și 28 de Blockchain Analytics, amestecate; ultimele 15 se referă la 3 studii de caz scurte, construite pe rezultate reale din notebook-urile cursului. Nota este procentul de răspunsuri corecte, din 100.',
-                'Fiecare student primește un subiect personal: întrebările sînt extrase din bănci mai mari, cu mai multe variante pentru fiecare întrebare și studiu de caz, iar ordinea lor și a variantelor este amestecată. Fără calcule; un răspuns greșit nu se depunctează.',
-                'Fără materiale, cu o foaie de formule A4. Răspunsurile se salvează pe parcurs; dacă pagina se închide, vă autentificați din nou și continuați.'
+                'Un singur examen cu 30 de întrebări grilă, fiecare de un punct: 15 de Crypto Economics și 15 de Blockchain Analytics, amestecate. Ultimele 5 întrebări se referă la un studiu de caz scurt, construit pe rezultate reale din notebook-urile cursului. Nota este procentul de răspunsuri corecte, din 100.',
+                'Fiecare student primește pe ecran alt set de întrebări, extrase din bănci mai mari de întrebări, în altă ordine. Fără calcule; un răspuns greșit nu se depunctează.',
+                'Fără materiale; puteți avea o foaie de formule A4. Răspunsurile se salvează pe parcurs; dacă pagina se închide, vă autentificați din nou și continuați.'
             ] },
             { h: 'Prezență și reguli', p: [
                 'Prezența se ia la fiecare curs, din ambele părți, cu un cod QR afișat în sală. Prezența nu intră în notă, dar participarea la toate cursurile este puternic recomandată.',
