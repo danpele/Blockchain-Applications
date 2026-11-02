@@ -252,11 +252,10 @@
 
         seminars: (function () {
             const a = (t, u) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
-            const db = id => 'https://www.dropbox.com/scl/fi/' + id;
             const doi = d => 'https://doi.org/' + d;
             const drv = id => 'https://drive.google.com/file/d/' + id + '/view';
             const ase = t => `${t} <span class="note">(PDF copy for enrolled students: sign in with your ASE Google account)</span>`;
-            const art = (t, d, id) => `${t} (${a('DOI', doi(d))}, ${a('PDF', db(id))})`;
+            const art = (t, d, id) => `${t} (${a('DOI', doi(d))}, ${a('PDF', drv(id))}<span class="note">, ASE Google account</span>)`;
             const V = {
                 btcMacro: a('Alon: Bitcoin and macroeconomics', 'https://www.youtube.com/watch?v=jgK4B21VZIU'),
                 ds: a('Demand and supply (playlist)', 'https://www.youtube.com/watch?v=qS0iYdmlbME&list=PL9mBWMaNgGO3oLMi9mxzaknxJeOmogReK'),
@@ -272,12 +271,12 @@
             const R = {
                 btc: a('Nakamoto (2008), Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf'),
                 ethWp: a('Ethereum whitepaper', 'https://ethereum.org/en/whitepaper'),
-                jrz: art('Jiang, Rodríguez &amp; Zhang (2023), <em>Macroeconomic fundamentals and cryptocurrency prices</em>, Financial Management', '10.1111/fima.12412', 'lbbsnflxz5fi8ntfbgm68'),
-                sgs: art('Singh, Gaur &amp; Singh (2024), <em>Blockchain-based governance</em>, British Journal of Management', '10.1111/1467-8551.12784', 'qvxvbzkjz7fj1owldqt7z'),
-                kamp: art('Kampakis (2018), <em>Three case studies in tokenomics</em>, J. British Blockchain Association', '10.31585/jbba-1-2-(7)2018', 'f2p6it10m5nagwbq4lesm'),
+                jrz: art('Jiang, Rodríguez &amp; Zhang (2023), <em>Macroeconomic fundamentals and cryptocurrency prices</em>, Financial Management', '10.1111/fima.12412', '1Q7AOcjBdZD_pqjoE6tCr-gp_SY4ipH4a'),
+                sgs: art('Singh, Gaur &amp; Singh (2024), <em>Blockchain-based governance</em>, British Journal of Management', '10.1111/1467-8551.12784', '1SyybGIfjEuVyCzqzqyANabCa48oYzSYJ'),
+                kamp: art('Kampakis (2018), <em>Three case studies in tokenomics</em>, J. British Blockchain Association', '10.31585/jbba-1-2-(7)2018', '15vrKvk2z3YxKqgP-Q7iJSee3huzA6IBt'),
                 dao: `Alon, Klemetsen, Šilenskytė &amp; Gildin (2025), <em>New pathways for international business governance via blockchain-based DAOs</em>, Multinational Business Review (${a('DOI', doi('10.1108/MBR-07-2024-0132'))})`,
-                defi: art('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', 'ex9d6w2nlm4dlb0vigj1l'),
-                lm: art('Lo &amp; Medda (2020), <em>Assets on the blockchain: an empirical study of tokenomics</em>, Information Economics and Policy', '10.1016/j.infoecopol.2020.100881', 'b5hjhd6ziz3ndzyozj0tk'),
+                defi: art('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', '18ulOXI8PsgF8gZMME8v3Yc-fKmCsKegL'),
+                lm: art('Lo &amp; Medda (2020), <em>Assets on the blockchain: an empirical study of tokenomics</em>, Information Economics and Policy', '10.1016/j.infoecopol.2020.100881', '1iLrGQs71np3NS9A_Pj0gZ2SEI6RuT4q7'),
                 cGamble: ase(a('<em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>', drv('1Z9gx5UtoMZp7zffS3u4EZNrRTHI8oDQT'))),
                 cPolygon: ase(a('<em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em>', drv('1emciQ971OCZ7N3cV12160Rej7XKUraGf')) + ' (Ivey)'),
                 cXrp: ase(a('<em>The ripple effect: navigating an XRP investment</em>', drv('11ZFyO_1J-EKncA-lYN5l2vNwCRHl_3jo')) + ' (The CASE Journal)'),
