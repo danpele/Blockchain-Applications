@@ -70,7 +70,7 @@
                 },
                 linkRows: { course: 'Lecture', code: 'Code' },
                 projectTitle: 'Part 1: Crypto Economics (Prof. Ilan Alon)',
-                seminarIntro: 'Prof. Ilan Alon examines blockchain, crypto economics and business strategy through five cases and a due-diligence project. Weekdays 17:30–19:00 and 19:10–20:40; the last hour of each weekday (19:40–20:40) is guided project work, with the instructor advising each team. Saturday 21 November, 09:10–15:40, is reserved for the team presentations. Prepare the reading, case or whitepaper before each day. Part 2 builds on these sessions and does not repeat them.',
+                seminarIntro: 'Prof. Ilan Alon examines blockchain, crypto economics and business strategy through five cases and a due-diligence project. Weekdays 17:30–19:00 and 19:10–20:40; the last hour of each weekday (19:40–20:40) is guided project work, with the instructor advising each team. Saturday 21 November, 09:10–15:40, is reserved for the team presentations in the classroom: 20 minutes per team plus 10 minutes of questions. Prepare the reading, case or whitepaper before each day. The five cases are provided as PDF copies for enrolled students: open them with your ASE Google account. Part 2 builds on these sessions and does not repeat them.',
                 assessmentTitle: 'Assessment',
                 colSession: 'Day', colTopic: 'Focus', colPrep: 'Readings and case', colVideo: 'Videos', colProj: 'Project hour',
                 resources: 'Resources',
@@ -113,7 +113,7 @@
                 },
                 linkRows: { course: 'Curs', code: 'Cod' },
                 projectTitle: 'Partea 1: Crypto Economics (prof. Ilan Alon)',
-                seminarIntro: 'Prof. Ilan Alon analizează tehnologia blockchain, economia cripto și strategia de afaceri prin cinci studii de caz și un proiect de due diligence. În zilele lucrătoare 17:30–19:00 și 19:10–20:40; ultima oră din fiecare zi (19:40–20:40) este lucru ghidat la proiect, cu profesorul care consiliază fiecare echipă. Sîmbăta, 21 noiembrie, 09:10–15:40, este rezervată prezentărilor echipelor. Pregătiți lectura, studiul de caz sau whitepaper-ul înaintea fiecărei zile. Partea 2 pornește de la aceste întîlniri și nu le repetă.',
+                seminarIntro: 'Prof. Ilan Alon analizează tehnologia blockchain, economia cripto și strategia de afaceri prin cinci studii de caz și un proiect de due diligence. În zilele lucrătoare 17:30–19:00 și 19:10–20:40; ultima oră din fiecare zi (19:40–20:40) este lucru ghidat la proiect, cu profesorul care consiliază fiecare echipă. Sîmbăta, 21 noiembrie, 09:10–15:40, este rezervată prezentărilor echipelor, în sala de curs: 20 de minute pentru fiecare echipă și 10 minute de întrebări. Pregătiți lectura, studiul de caz sau whitepaper-ul înaintea fiecărei zile. Cele cinci studii de caz sînt disponibile în PDF pentru studenții înscriși: deschideți-le cu contul Google ASE. Partea 2 pornește de la aceste întîlniri și nu le repetă.',
                 assessmentTitle: 'Evaluare',
                 colSession: 'Ziua', colTopic: 'Tema', colPrep: 'Lecturi și studiu de caz', colVideo: 'Videoclipuri', colProj: 'Ora de proiect',
                 resources: 'Resurse',
@@ -254,6 +254,8 @@
             const a = (t, u) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
             const db = id => 'https://www.dropbox.com/scl/fi/' + id;
             const doi = d => 'https://doi.org/' + d;
+            const drv = id => 'https://drive.google.com/file/d/' + id + '/view';
+            const ase = t => `${t} <span class="note">(PDF copy for enrolled students: sign in with your ASE Google account)</span>`;
             const art = (t, d, id) => `${t} (${a('DOI', doi(d))}, ${a('PDF', db(id))})`;
             const V = {
                 btcMacro: a('Alon: Bitcoin and macroeconomics', 'https://www.youtube.com/watch?v=jgK4B21VZIU'),
@@ -276,11 +278,11 @@
                 dao: `Alon, Klemetsen, Šilenskytė &amp; Gildin (2025), <em>New pathways for international business governance via blockchain-based DAOs</em>, Multinational Business Review (${a('DOI', doi('10.1108/MBR-07-2024-0132'))})`,
                 defi: art('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', 'ex9d6w2nlm4dlb0vigj1l'),
                 lm: art('Lo &amp; Medda (2020), <em>Assets on the blockchain: an empirical study of tokenomics</em>, Information Economics and Policy', '10.1016/j.infoecopol.2020.100881', 'b5hjhd6ziz3ndzyozj0tk'),
-                cGamble: a('<em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>', 'https://www.thecasecentre.org/products/view?id=169082'),
-                cPolygon: a('<em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em>', 'https://www.iveypublishing.ca/s/product/polygon-labs-scaling-web3-growth-with-cost-per-wallet-efficiency/01tOF00000AiwsAYAR') + ' (Ivey)',
-                cXrp: a('<em>The ripple effect: navigating an XRP investment</em>', 'https://www.emerald.com/tcj/article-abstract/22/1/142/1265701/The-ripple-effect-navigating-an-XRP-investment') + ' (The CASE Journal)',
-                cDao: a('<em>The DAO Hack: A Blockchain Dilemma</em>', 'https://www.iveypublishing.ca/s/product/the-dao-hack-a-blockchain-dilemma/01t5c00000Cwps9AAB') + ' (Ivey)',
-                cKaspa: '<em>KaspaCom: Capturing Value from the Kaspa Blockchain</em> (Ivey; course pack from the instructor)'
+                cGamble: ase(a('<em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>', drv('1Z9gx5UtoMZp7zffS3u4EZNrRTHI8oDQT'))),
+                cPolygon: ase(a('<em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em>', drv('1emciQ971OCZ7N3cV12160Rej7XKUraGf')) + ' (Ivey)'),
+                cXrp: ase(a('<em>The ripple effect: navigating an XRP investment</em>', drv('11ZFyO_1J-EKncA-lYN5l2vNwCRHl_3jo')) + ' (The CASE Journal)'),
+                cDao: ase(a('<em>The DAO Hack: A Blockchain Dilemma</em>', drv('1OyQlijq6Oh4P7MZ6MyUW4Mpbx02nQUwU')) + ' (Ivey)'),
+                cKaspa: ase(a('<em>KaspaCom: Capturing Value from the Kaspa Blockchain</em>', drv('1LJ2OeMqMzwmeTo6Eey7FxHhMP_od9mEU')) + ' (Ivey)')
             };
             const rows = lang => {
                 const ro = lang === 'ro';
@@ -301,7 +303,7 @@
                     [ro ? 'Vineri 20 nov.' : 'Fri 20 Nov', ro ? 'DeFi, evaluare și lichiditate: DEX, AMM, creditare, colateral și lichidare; capitalizare, FDV, multipli, scenarii, slippage și ieșirea din poziție' : 'DeFi, valuation and liquidity: DEXs, AMMs, lending, collateral and liquidation; market cap, FDV, comparable ratios, scenarios, slippage and exit',
                         `${R.defi}; ${C}: ${R.cKaspa}`, `${V.tok}; ${V.wallets}`,
                         ro ? 'Evaluare prin comparație, scenarii bear / base / bull, lichiditate și riscul de ieșire' : 'Valuation comparables, bear / base / bull scenarios, liquidity and exit risk'],
-                    [ro ? 'Sîmbătă 21 nov.' : 'Sat 21 Nov', ro ? 'Prezentările de due diligence ale echipelor (patru blocuri de 90 de minute), feedback și sinteza cursului' : 'Team due-diligence presentations (four 90-minute blocks), feedback and course synthesis',
+                    [ro ? 'Sîmbătă 21 nov.' : 'Sat 21 Nov', ro ? 'Prezentările de due diligence ale echipelor, în sala de curs: 20 de minute și 10 minute de întrebări pentru fiecare echipă (patru blocuri de 90 de minute); feedback și sinteza cursului' : 'Team due-diligence presentations in the classroom: 20 minutes plus 10 minutes of questions per team (four 90-minute blocks); feedback and course synthesis',
                         `${R.lm}; ${ro ? 'whitepaper-ul sau documentația tehnică a proiectului ales' : 'the whitepaper or technical documentation of your project'}`, V.pitch,
                         '–']
                 ];
@@ -313,7 +315,7 @@
             { h: 'Due-diligence project (Part 1): 50%', p: [
                 'Prof. Ilan Alon. Teams of 4–5 students; each team analyses a different crypto asset, protocol or blockchain venture, chosen on Monday 16 November.',
                 'The question: should an informed investor or strategic partner Buy, Hold, Avoid or Watch it (Partner, Do Not Partner or Watch if there is no investable token)? Separate project quality from token investment quality.',
-                'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log; a 10-minute boardroom-style presentation on Saturday 21 November, also uploaded to YouTube.',
+                'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log; a 20-minute boardroom-style presentation in the classroom on Saturday 21 November, followed by 10 minutes of questions; the presentation is also uploaded to YouTube.',
                 'Four criteria, 25% each: investment thesis and crypto-economic analysis; research and analytical rigour; critical thinking and risk assessment; presentation quality and engagement. Educational exercise, not financial advice.',
                 `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Assignment and student template</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Earlier due-diligence framework</a>`
             ] },
@@ -333,7 +335,7 @@
             { h: 'Proiectul de due diligence (Partea 1): 50%', p: [
                 'Prof. Ilan Alon. Echipe de 4–5 studenți; fiecare echipă analizează un alt activ cripto, protocol sau proiect blockchain, ales luni, 16 noiembrie.',
                 'Întrebarea: un investitor informat sau un partener strategic ar trebui să cumpere, să păstreze, să evite sau să urmărească activul (Buy, Hold, Avoid, Watch; Partner, Do Not Partner sau Watch dacă nu există un token investibil)? Separați calitatea proiectului de calitatea token-ului ca investiție.',
-                'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor; o prezentare de 10 minute, în stil boardroom, sîmbătă, 21 noiembrie, încărcată și pe YouTube.',
+                'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor; o prezentare de 20 de minute, în stil boardroom, în sala de curs, sîmbătă, 21 noiembrie, urmată de 10 minute de întrebări; prezentarea se încarcă și pe YouTube.',
                 'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării și implicarea publicului. Exercițiu educativ, nu sfat financiar.',
                 `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Cadrul anterior de due diligence</a>`
             ] },
@@ -380,7 +382,8 @@
             'Makarov, I., &amp; Schoar, A. (2020). <a href="https://doi.org/10.1016/j.jfineco.2019.07.001" target="_blank" rel="noopener">Trading and arbitrage in cryptocurrency markets</a>. <em>Journal of Financial Economics</em>, 135(2), 293–319.',
             'Pele, D. T., Wesselhöfft, N., Härdle, W. K., Kolossiatis, M., &amp; Yatracos, Y. G. (2023). <a href="https://doi.org/10.1080/1351847X.2021.1960403" target="_blank" rel="noopener">Are cryptos becoming alternative assets?</a> <em>The European Journal of Finance</em>, 29(10), 1064–1105.',
             'Trimborn, S., &amp; Härdle, W. K. (2018). <a href="https://doi.org/10.1016/j.jempfin.2018.08.004" target="_blank" rel="noopener">CRIX an index for cryptocurrencies</a>. <em>Journal of Empirical Finance</em>, 49, 107–122.',
-            'Urquhart, A. (2016). <a href="https://doi.org/10.1016/j.econlet.2016.09.019" target="_blank" rel="noopener">The inefficiency of Bitcoin</a>. <em>Economics Letters</em>, 148, 80–82.'
+            'Urquhart, A. (2016). <a href="https://doi.org/10.1016/j.econlet.2016.09.019" target="_blank" rel="noopener">The inefficiency of Bitcoin</a>. <em>Economics Letters</em>, 148, 80–82.',
+            'Zouari, M., Alon, I., &amp; Shtudiner, Z. (2026). <a href="https://doi.org/10.1016/j.jeconbus.2026.106344" target="_blank" rel="noopener">How fast can a run be? Crisis speed across stablecoins, banks, and money market funds</a>. <em>Journal of Economics and Business</em>, 106344 (open access).'
         ],
 
         contact: {
