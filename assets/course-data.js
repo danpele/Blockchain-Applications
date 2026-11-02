@@ -255,6 +255,8 @@
             const doi = d => 'https://doi.org/' + d;
             const drv = id => 'https://drive.google.com/file/d/' + id + '/view';
             const ase = t => `${t} <span class="note">(PDF copy for enrolled students: sign in with your ASE Google account)</span>`;
+            const pdf = f => 'pdfjs/web/viewer.html?file=' + encodeURIComponent('../../EN/Readings/' + f);
+            const oa = (t, d, f) => `${t} (${a('DOI', doi(d))}, ${a('PDF', pdf(f))})`;
             const art = (t, d, id) => `${t} (${a('DOI', doi(d))}, ${a('PDF', drv(id))}<span class="note">, ASE Google account</span>)`;
             const V = {
                 btcMacro: a('Alon: Bitcoin and macroeconomics', 'https://www.youtube.com/watch?v=jgK4B21VZIU'),
@@ -272,10 +274,10 @@
                 btc: a('Nakamoto (2008), Bitcoin whitepaper', 'https://bitcoin.org/bitcoin.pdf'),
                 ethWp: a('Ethereum whitepaper', 'https://ethereum.org/en/whitepaper'),
                 jrz: art('Jiang, Rodríguez &amp; Zhang (2023), <em>Macroeconomic fundamentals and cryptocurrency prices</em>, Financial Management', '10.1111/fima.12412', '1Q7AOcjBdZD_pqjoE6tCr-gp_SY4ipH4a'),
-                sgs: art('Singh, Gaur &amp; Singh (2024), <em>Blockchain-based governance</em>, British Journal of Management', '10.1111/1467-8551.12784', '1SyybGIfjEuVyCzqzqyANabCa48oYzSYJ'),
-                kamp: art('Kampakis (2018), <em>Three case studies in tokenomics</em>, J. British Blockchain Association', '10.31585/jbba-1-2-(7)2018', '15vrKvk2z3YxKqgP-Q7iJSee3huzA6IBt'),
+                sgs: oa('Singh, Gaur &amp; Singh (2024), <em>Blockchain-based governance</em>, British Journal of Management', '10.1111/1467-8551.12784', 'Singh_Gaur_Singh_2024_Blockchain_Governance.pdf'),
+                kamp: oa('Kampakis (2018), <em>Three case studies in tokenomics</em>, J. British Blockchain Association', '10.31585/jbba-1-2-(7)2018', 'Kampakis_2018_Tokenomics_Case_Studies.pdf'),
                 dao: `Alon, Klemetsen, Šilenskytė &amp; Gildin (2025), <em>New pathways for international business governance via blockchain-based DAOs</em>, Multinational Business Review (${a('DOI', doi('10.1108/MBR-07-2024-0132'))})`,
-                defi: art('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', '18ulOXI8PsgF8gZMME8v3Yc-fKmCsKegL'),
+                defi: oa('Piñeiro-Chousa et al. (2022), <em>A preliminary assessment of the performance of DeFi cryptocurrencies</em>, Technological Forecasting and Social Change', '10.1016/j.techfore.2022.121740', 'Pineiro-Chousa_2022_DeFi_Cryptocurrencies.pdf'),
                 lm: art('Lo &amp; Medda (2020), <em>Assets on the blockchain: an empirical study of tokenomics</em>, Information Economics and Policy', '10.1016/j.infoecopol.2020.100881', '1iLrGQs71np3NS9A_Pj0gZ2SEI6RuT4q7'),
                 cGamble: ase(a('<em>Cryptocurrencies: Investment, Money, or Gamble? (A)</em>', drv('1Z9gx5UtoMZp7zffS3u4EZNrRTHI8oDQT'))),
                 cPolygon: ase(a('<em>Polygon Labs: Scaling Web3 Growth with Cost per Wallet Efficiency</em>', drv('1emciQ971OCZ7N3cV12160Rej7XKUraGf')) + ' (Ivey)'),
@@ -316,7 +318,7 @@
                 'The question: should an informed investor or strategic partner Buy, Hold, Avoid or Watch it (Partner, Do Not Partner or Watch if there is no investable token)? Separate project quality from token investment quality.',
                 'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log; a 20-minute boardroom-style presentation in the classroom on Saturday 21 November, followed by 10 minutes of questions; the presentation is also uploaded to YouTube.',
                 'Four criteria, 25% each: investment thesis and crypto-economic analysis; research and analytical rigour; critical thinking and risk assessment; presentation quality and engagement. Educational exercise, not financial advice.',
-                `<a href="https://drive.google.com/file/d/1imN4dQt_aVXy6ulwOKS1lweZJNwtNaqO/view" target="_blank" rel="noopener">Assignment and student template</a> <span class="note">(sign in with your ASE Google account)</span>`
+                `<a href="pdfjs/web/viewer.html?file=..%2F..%2FEN%2FReadings%2FCrypto_Due_Diligence_Assignment.pdf" target="_blank" rel="noopener">Assignment and student template</a> (<a href="EN/Readings/Crypto_Due_Diligence_Assignment.docx">Word</a>)`
             ] },
             { h: 'Exam: 50%', p: [
                 'Friday 27 November 2026, 60 minutes, on this site: sign in with your ASE Google account and type the exam code shown on the screen.',
@@ -336,7 +338,7 @@
                 'Întrebarea: un investitor informat sau un partener strategic ar trebui să cumpere, să păstreze, să evite sau să urmărească activul (Buy, Hold, Avoid, Watch; Partner, Do Not Partner sau Watch dacă nu există un token investibil)? Separați calitatea proiectului de calitatea token-ului ca investiție.',
                 'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor; o prezentare de 20 de minute, în stil boardroom, în sala de curs, sîmbătă, 21 noiembrie, urmată de 10 minute de întrebări; prezentarea se încarcă și pe YouTube.',
                 'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării și implicarea publicului. Exercițiu educativ, nu sfat financiar.',
-                `<a href="https://drive.google.com/file/d/1imN4dQt_aVXy6ulwOKS1lweZJNwtNaqO/view" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> <span class="note">(autentificare cu contul Google ASE)</span>`
+                `<a href="pdfjs/web/viewer.html?file=..%2F..%2FEN%2FReadings%2FCrypto_Due_Diligence_Assignment.pdf" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> (<a href="EN/Readings/Crypto_Due_Diligence_Assignment.docx">Word</a>)`
             ] },
             { h: 'Examenul: 50%', p: [
                 'Vineri, 27 noiembrie 2026, 60 de minute, pe acest site: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
