@@ -316,7 +316,7 @@
                 'The question: should an informed investor or strategic partner Buy, Hold, Avoid or Watch it (Partner, Do Not Partner or Watch if there is no investable token)? Separate project quality from token investment quality.',
                 'Deliverables: 10–12 slides with the eight required exhibits (project snapshot, market map, token unlock chart, value-capture diagram, valuation comparables, governance map, risk heatmap, final recommendation) and a source log; a 20-minute boardroom-style presentation in the classroom on Saturday 21 November, followed by 10 minutes of questions; the presentation is also uploaded to YouTube.',
                 'Four criteria, 25% each: investment thesis and crypto-economic analysis; research and analytical rigour; critical thinking and risk assessment; presentation quality and engagement. Educational exercise, not financial advice.',
-                `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Assignment and student template</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Earlier due-diligence framework</a>`
+                `<a href="https://drive.google.com/file/d/1imN4dQt_aVXy6ulwOKS1lweZJNwtNaqO/view" target="_blank" rel="noopener">Assignment and student template</a> <span class="note">(sign in with your ASE Google account)</span>`
             ] },
             { h: 'Exam: 50%', p: [
                 'Friday 27 November 2026, 60 minutes, on this site: sign in with your ASE Google account and type the exam code shown on the screen.',
@@ -336,7 +336,7 @@
                 'Întrebarea: un investitor informat sau un partener strategic ar trebui să cumpere, să păstreze, să evite sau să urmărească activul (Buy, Hold, Avoid, Watch; Partner, Do Not Partner sau Watch dacă nu există un token investibil)? Separați calitatea proiectului de calitatea token-ului ca investiție.',
                 'Livrabile: 10–12 slide-uri cu cele opt exhibite cerute (fișa proiectului, harta pieței, graficul deblocărilor de token-uri, diagrama captării valorii, evaluarea prin comparație, harta guvernanței, harta riscurilor, recomandarea finală) și jurnalul surselor; o prezentare de 20 de minute, în stil boardroom, în sala de curs, sîmbătă, 21 noiembrie, urmată de 10 minute de întrebări; prezentarea se încarcă și pe YouTube.',
                 'Patru criterii, fiecare de 25%: teza de investiție și analiza cripto-economică; documentarea și rigoarea analizei; gîndirea critică și evaluarea riscurilor; calitatea prezentării și implicarea publicului. Exercițiu educativ, nu sfat financiar.',
-                `<a href="https://www.dropbox.com/scl/fi/cobdpft0j4585rxydkawj" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> · <a href="https://www.dropbox.com/scl/fi/lwctodc0e0navahf437ft" target="_blank" rel="noopener">Cadrul anterior de due diligence</a>`
+                `<a href="https://drive.google.com/file/d/1imN4dQt_aVXy6ulwOKS1lweZJNwtNaqO/view" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> <span class="note">(autentificare cu contul Google ASE)</span>`
             ] },
             { h: 'Examenul: 50%', p: [
                 'Vineri, 27 noiembrie 2026, 60 de minute, pe acest site: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
