@@ -390,8 +390,8 @@
         contact: {
             name: 'Prof. dr. Daniel Traian Pele',
             email: 'danpele@ase.ro',
-            en: ['Bucharest University of Economic Studies', 'Department of Statistics and Econometrics'],
-            ro: ['Academia de Studii Economice din București', 'Departamentul de Statistică și Econometrie'],
+            en: ['Bucharest University of Economic Studies', 'Department of Statistics and Econometrics', 'Romanian Academy, Institute for Economic Forecasting'],
+            ro: ['Academia de Studii Economice din București', 'Departamentul de Statistică și Econometrie', 'Academia Română, Institutul de Prognoză Economică'],
             seminar: { name: 'Prof. Ilan Alon', email: 'ilan.alon@uni-corvinus.hu' }
         },
 
