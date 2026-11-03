@@ -75,3 +75,8 @@ table.sessions tr:nth-child(even) td { background: var(--light-gray); }
 .objective-groups h4 { color: var(--main-blue); margin-bottom: 0.4rem; }
 math { font-size: 1.05em; }
 .ex-case th { white-space: normal; vertical-align: bottom; min-width: 4.5rem; }
+
+.project-categories { margin-top: 2rem; }
+.project-categories h3 { color: var(--main-blue); margin-bottom: 0.4rem; }
+.project-categories td:first-child { min-width: 9rem; color: var(--main-blue); }
+.project-categories td:nth-child(2) { min-width: 11rem; }

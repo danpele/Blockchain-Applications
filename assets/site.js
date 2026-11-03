@@ -172,6 +172,9 @@
         const cols = [T.colSession, T.colTopic, T.colPrep, T.colVideo, T.colProj].slice(0, D.seminars[LANG][0].length);
         $('seminar-table').innerHTML = `<table class="sessions"><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>` +
             D.seminars[LANG].map(([d, ...rest]) => `<tr><td class="c"><strong>${d}</strong></td>${rest.map(x => `<td>${x}</td>`).join('')}</tr>`).join('') + '</table>';
+        const pc = (D.projectCategories || {})[LANG], box = $('project-categories');
+        if (pc && box) box.innerHTML = `<h3>${pc.h}</h3><p class="section-intro">${pc.intro}</p><div class="table-wrap"><table class="sessions"><tr>${pc.cols.map(c => `<th>${c}</th>`).join('')}</tr>` +
+            pc.rows.map(([c, k, f]) => `<tr><td><strong>${c}</strong></td><td>${k}</td><td>${f}</td></tr>`).join('') + '</table></div>';
         $('project-cards').innerHTML = D.assessment[LANG].map(c =>
             `<div class="info-card"><h3>${c.h}</h3>${c.p.map(p => `<p>${p}</p>`).join('')}</div>`
         ).join('');
