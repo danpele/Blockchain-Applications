@@ -80,3 +80,10 @@ math { font-size: 1.05em; }
 .project-categories h3 { color: var(--main-blue); margin-bottom: 0.4rem; }
 .project-categories td:first-child { min-width: 9rem; color: var(--main-blue); }
 .project-categories td:nth-child(2) { min-width: 11rem; }
+
+.guest-box { margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-left: 3px solid var(--accent-red, #c8102e); background: #fff7f7; border-radius: 4px; }
+.guest-box h4 { margin: 0 0 0.3rem; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--main-blue); }
+.guest-box .guest-t { margin: 0 0 0.2rem; font-weight: 600; }
+.guest-box .guest-who { margin: 0; font-size: 0.88rem; }
+.guest-bio summary { cursor: pointer; color: var(--main-blue); font-weight: 600; }
+.guest-bio { font-size: 0.92rem; }
