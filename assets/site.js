@@ -397,7 +397,7 @@
         const links = [...aside.querySelectorAll('a')];
         const mark = () => {
             let cur = secs[0];
-            for (const s of secs) if (!s.hidden && s.getBoundingClientRect().top < 160) cur = s;
+            for (const s of secs) if (!s.hidden && s.getBoundingClientRect().top < 200) cur = s;
             links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur.id));
         };
         window.addEventListener('scroll', mark, { passive: true });
