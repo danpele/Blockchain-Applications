@@ -88,4 +88,17 @@ math { font-size: 1.05em; }
 .guest-card .guest-role { margin: 0.1rem 0 0.7rem; color: #555; }
 .guest-card .guest-bio { margin: 0; line-height: 1.6; }
 .guest-card .badge-date { background: var(--main-blue); color: #fff; border-color: var(--main-blue); }
-@media (min-width: 901px) { nav ul { flex-wrap: wrap; row-gap: 0.2rem; } nav a { white-space: nowrap; padding-left: 0.75rem; padding-right: 0.75rem; } }
+@media (min-width: 901px) { nav ul { flex-wrap: wrap; row-gap: 0.2rem; max-width: 1320px; gap: 0.2rem; } nav a { white-space: nowrap; padding-left: 0.65rem; padding-right: 0.65rem; } }
+
+/* left sidebar with the page sections (wide screens only) */
+.side-toc { display: none; }
+@media (min-width: 1180px) {
+    main.with-side-toc { max-width: 1440px; display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 2rem; }
+    main.with-side-toc > section { grid-column: 2; min-width: 0; }
+    main.with-side-toc > .side-toc { display: block; grid-column: 1; grid-row: 1 / span 40; align-self: start; position: sticky; top: 90px; }
+}
+.side-toc-h { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7280; margin: 0 0 0.5rem; }
+.side-toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid #e3e7ee; }
+.side-toc li a { display: block; padding: 0.35rem 0 0.35rem 0.8rem; margin-left: -2px; border-left: 2px solid transparent; color: #374151; text-decoration: none; font-size: 0.9rem; line-height: 1.3; }
+.side-toc li a:hover { color: var(--main-blue); }
+.side-toc li a.on { color: var(--main-blue); font-weight: 600; border-left-color: var(--accent-red, #c8102e); }
