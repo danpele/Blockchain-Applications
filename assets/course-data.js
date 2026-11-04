@@ -46,7 +46,7 @@
                 pageTitle: 'Blockchain Applications - Course Website',
                 courseTitle: 'Blockchain Applications',
                 subtitle: "Master's programme Blockchain for Business (MBB) | Faculty of Business Administration in Foreign Languages (FABIZ) | Bucharest University of Economic Studies",
-                nav: { home: 'Home', chapters: 'Blockchain Analytics', project: 'Crypto Economics', assessment: 'Assessment', quizzes: 'Quizzes', resources: 'Resources', contact: 'Contact' },
+                nav: { home: 'Home', chapters: 'Blockchain Analytics', guest: 'Guest lecture', project: 'Crypto Economics', assessment: 'Assessment', quizzes: 'Quizzes', resources: 'Resources', contact: 'Contact' },
                 quizzes: 'Practice Quizzes',
                 quizIntro: 'Each attempt draws 15 questions at random from the lecture bank and shuffles the answers. An answer is locked once selected. The quizzes are for practice: they do not count towards the grade and no score is stored.',
                 quizSoon: 'The quiz for this lecture is not published yet.',
@@ -69,6 +69,7 @@
                     slides: 'Slides', lectureNb: 'Notebook', quantlets: 'Quantlets', interactive: 'Interactive', web: 'Web page', colab: 'Open in Colab'
                 },
                 linkRows: { course: 'Lecture', code: 'Code' },
+                guestTitle: 'Guest lecture',
                 projectTitle: 'Part 1: Crypto Economics (Prof. Ilan Alon)',
                 seminarIntro: 'Prof. Ilan Alon examines blockchain, crypto economics and business strategy through five cases and a due-diligence project. Weekdays 17:30–19:00 and 19:10–20:40; the last hour of each weekday (19:40–20:40) is guided project work, with the instructor advising each team. Saturday 21 November, 09:10–15:40, is reserved for the team presentations in the classroom: 20 minutes per team plus 10 minutes of questions. Prepare the reading, case or whitepaper before each day. The five cases are provided as PDF copies for enrolled students: open them with your ASE Google account. Part 2 builds on these sessions and does not repeat them.',
                 assessmentTitle: 'Assessment',
@@ -89,7 +90,7 @@
                 pageTitle: 'Blockchain Applications - Site-ul cursului',
                 courseTitle: 'Blockchain Applications',
                 subtitle: 'Masterul Blockchain for Business (MBB) | Facultatea de Administrarea Afacerilor, cu predare în limbi străine (FABIZ) | Academia de Studii Economice din București',
-                nav: { home: 'Acasă', chapters: 'Blockchain Analytics', project: 'Crypto Economics', assessment: 'Evaluare', quizzes: 'Quiz-uri', resources: 'Resurse', contact: 'Contact' },
+                nav: { home: 'Acasă', chapters: 'Blockchain Analytics', guest: 'Invitat', project: 'Crypto Economics', assessment: 'Evaluare', quizzes: 'Quiz-uri', resources: 'Resurse', contact: 'Contact' },
                 quizzes: 'Quiz-uri de exersare',
                 quizIntro: 'La fiecare încercare se extrag aleator 15 întrebări din banca de întrebări a cursului, iar variantele de răspuns sînt amestecate. Răspunsul se blochează după selectare. Quiz-urile sînt pentru exersare: nu intră în notă și scorul nu se salvează. Întrebările sînt în engleză, ca și cursurile.',
                 quizSoon: 'Quiz-ul acestui curs nu este publicat încă.',
@@ -112,6 +113,7 @@
                     slides: 'Slide-uri', lectureNb: 'Notebook', quantlets: 'Quantlets', interactive: 'Interactiv', web: 'Pagina web', colab: 'Deschide în Colab'
                 },
                 linkRows: { course: 'Curs', code: 'Cod' },
+                guestTitle: 'Prelegere invitată',
                 projectTitle: 'Partea 1: Crypto Economics (prof. Ilan Alon)',
                 seminarIntro: 'Prof. Ilan Alon analizează tehnologia blockchain, economia cripto și strategia de afaceri prin cinci studii de caz și un proiect de due diligence. În zilele lucrătoare 17:30–19:00 și 19:10–20:40; ultima oră din fiecare zi (19:40–20:40) este lucru ghidat la proiect, cu profesorul care consiliază fiecare echipă. Sîmbăta, 21 noiembrie, 09:10–15:40, este rezervată prezentărilor echipelor, în sala de curs: 20 de minute pentru fiecare echipă și 10 minute de întrebări. Pregătiți lectura, studiul de caz sau whitepaper-ul înaintea fiecărei zile. Cele cinci studii de caz sînt disponibile în PDF pentru studenții înscriși: deschideți-le cu contul Google ASE. Partea 2 pornește de la aceste întîlniri și nu le repetă.',
                 assessmentTitle: 'Evaluare',
@@ -130,12 +132,16 @@
             }
         },
 
+        guest: {
+            en: { date: 'Tuesday 24 November 2026', title: 'Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania', name: 'Alex-Mihai Sima', role: 'National Bank of Romania (NBR), Financial Stability Department; PhD student, Bucharest University of Economic Studies (ASE)', bio: 'Alex-Mihai Sima is a second-year PhD student at the Doctoral School of International Business and Economics, Bucharest University of Economic Studies (ASE), and works in the Financial Stability Department of the National Bank of Romania (NBR), on systemic risk monitoring. His work covers the authorisation of issuers of e-money tokens (EMTs) under the EU Markets in Crypto-Assets Regulation (MiCAR), the digital euro, and cyber and AI-related risks. His doctoral research studies how new technologies are reshaping the architecture of the global financial system; his paper “<a href="https://doi.org/10.2478/picbe-2026-0052" target="_blank" rel="noopener">Integrating Crypto-Market Proxies as Financial Stability Drivers: A Random Forest Approach</a>” was presented at the International Conference on Business Excellence 2026.' },
+            ro: { date: 'Marți, 24 noiembrie 2026', title: 'Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania', name: 'Alex-Mihai Sima', role: 'Banca Națională a României (BNR), Direcția Stabilitate Financiară; doctorand, Academia de Studii Economice din București (ASE)', bio: 'Alex-Mihai Sima este doctorand în anul al II-lea la Școala Doctorală Economie și Afaceri Internaționale a Academiei de Studii Economice din București (ASE) și lucrează în Direcția Stabilitate Financiară a Băncii Naționale a României (BNR), în monitorizarea riscului sistemic. Se ocupă de autorizarea emitenților de token-uri de monedă electronică (EMT) conform Regulamentului UE privind piețele criptoactivelor (MiCAR), de euro digital și de riscurile cibernetice și cele legate de AI. Cercetarea sa doctorală studiază felul în care noile tehnologii schimbă arhitectura sistemului financiar global; lucrarea sa „<a href="https://doi.org/10.2478/picbe-2026-0052" target="_blank" rel="noopener">Integrating Crypto-Market Proxies as Financial Stability Drivers: A Random Forest Approach</a>” a fost prezentată la International Conference on Business Excellence 2026.' }
+        },
+
         overview: {
             en: [
                 { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Course syllabus (PDF)</a>'] },
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
                 { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
-                { h: 'Guest lecture, Tue 24 Nov', p: ['<strong>Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania</strong>', 'Alex-Mihai Sima, National Bank of Romania (NBR), Financial Stability Department', '<details class="guest-bio"><summary>About the speaker</summary>Alex-Mihai Sima is a second-year PhD student at the Doctoral School of International Business and Economics, Bucharest University of Economic Studies (ASE), and works in the Financial Stability Department of the National Bank of Romania (NBR), on systemic risk monitoring. His work covers the authorisation of issuers of e-money tokens (EMTs) under the EU Markets in Crypto-Assets Regulation (MiCAR), the digital euro, and cyber and AI-related risks. His doctoral research studies how new technologies are reshaping the architecture of the global financial system; his paper “<a href="https://doi.org/10.2478/picbe-2026-0052" target="_blank" rel="noopener">Integrating Crypto-Market Proxies as Financial Stability Drivers: A Random Forest Approach</a>” was presented at the International Conference on Business Excellence 2026.</details>'] },
                 { h: 'Exam', p: ['Friday 27 November 2026, 60 minutes', '30 multiple-choice questions on both parts of the course, answered on this website'] },
                 { h: 'Final grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
@@ -144,7 +150,6 @@
                 { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Syllabus (PDF, în engleză)</a>'] },
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
                 { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
-                { h: 'Prelegere invitată, marți 24 nov.', p: ['<strong>Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania</strong>', 'Alex-Mihai Sima, Banca Națională a României (BNR), Direcția Stabilitate Financiară', '<details class="guest-bio"><summary>Despre invitat</summary>Alex-Mihai Sima este doctorand în anul al II-lea la Școala Doctorală Economie și Afaceri Internaționale a Academiei de Studii Economice din București (ASE) și lucrează în Direcția Stabilitate Financiară a Băncii Naționale a României (BNR), în monitorizarea riscului sistemic. Se ocupă de autorizarea emitenților de token-uri de monedă electronică (EMT) conform Regulamentului UE privind piețele criptoactivelor (MiCAR), de euro digital și de riscurile cibernetice și cele legate de AI. Cercetarea sa doctorală studiază felul în care noile tehnologii schimbă arhitectura sistemului financiar global; lucrarea sa „<a href="https://doi.org/10.2478/picbe-2026-0052" target="_blank" rel="noopener">Integrating Crypto-Market Proxies as Financial Stability Drivers: A Random Forest Approach</a>” a fost prezentată la International Conference on Business Excellence 2026.</details>'] },
                 { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 60 de minute', '30 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
                 { h: 'Nota finală', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
@@ -224,7 +229,6 @@
             },
             {
                 id: 'l4', num: 4, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
-                guest: { en: { h: 'Guest lecture', t: 'Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania', who: 'Alex-Mihai Sima, National Bank of Romania (NBR)' }, ro: { h: 'Prelegere invitată', t: 'Crypto-assets and stablecoins: adoption, holdings and implications for financial stability – from global trends to Romania', who: 'Alex-Mihai Sima, Banca Națională a României (BNR)' } },
                 title: { en: 'Stablecoins I: Measuring Depeg Risk and On-Chain Early Warning', ro: 'Stablecoin-uri I: riscul de depeg și avertizarea timpurie on-chain' },
                 topics: { en: ['Peg deviations in basis points, exceedance curves and episode counts', 'AMM price impact: constant product and StableSwap', 'Event-level early-warning utility', 'Case: the March 2023 USDC depeg'], ro: ['Abaterile de la paritate în puncte de bază, curbe de depășire și numărul de episoade', 'Impactul asupra prețului în AMM: produs constant și StableSwap', 'Utilitatea avertizării timpurii la nivel de eveniment', 'Studiu de caz: depeg-ul USDC din martie 2023'] },
                 links: L(4, 'stablecoins_depeg'),

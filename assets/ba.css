@@ -81,9 +81,11 @@ math { font-size: 1.05em; }
 .project-categories td:first-child { min-width: 9rem; color: var(--main-blue); }
 .project-categories td:nth-child(2) { min-width: 11rem; }
 
-.guest-box { margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-left: 3px solid var(--accent-red, #c8102e); background: #fff7f7; border-radius: 4px; }
-.guest-box h4 { margin: 0 0 0.3rem; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--main-blue); }
-.guest-box .guest-t { margin: 0 0 0.2rem; font-weight: 600; }
-.guest-box .guest-who { margin: 0; font-size: 0.88rem; }
-.guest-bio summary { cursor: pointer; color: var(--main-blue); font-weight: 600; }
-.guest-bio { font-size: 0.92rem; }
+
+.guest-card { background: var(--light-gray, #f4f4f4); border-left: 4px solid var(--main-blue); border-radius: 8px; padding: 1.2rem 1.4rem; max-width: 900px; }
+.guest-card h3 { margin: 0.6rem 0 0.5rem; color: var(--main-blue); font-size: 1.2rem; line-height: 1.35; }
+.guest-card .guest-name { margin: 0; font-size: 1.05rem; }
+.guest-card .guest-role { margin: 0.1rem 0 0.7rem; color: #555; }
+.guest-card .guest-bio { margin: 0; line-height: 1.6; }
+.guest-card .badge-date { background: var(--main-blue); color: #fff; border-color: var(--main-blue); }
+@media (min-width: 901px) { nav ul { flex-wrap: wrap; row-gap: 0.2rem; } nav a { white-space: nowrap; padding-left: 0.75rem; padding-right: 0.75rem; } }

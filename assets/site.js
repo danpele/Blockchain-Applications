@@ -125,6 +125,14 @@
         }).join('');
     }
 
+    // guest lecture: its own section, between the lectures and the assessment
+    function renderGuest() {
+        const g = (D.guest || {})[LANG], box = $('guest-card'), sec = $('guest');
+        if (!g || !box) { if (sec) sec.hidden = true; return; }
+        box.innerHTML = `<div class="guest-card"><span class="badge badge-date">${g.date}</span><h3>${esc(g.title)}</h3>`+
+            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p></div>`;
+    }
+
     function renderChapters() {
         $('chapters-grid').innerHTML = D.chapters.map(ch => {
             const badge = (ch.available ? '' : `<span class="badge badge-soon">${T.comingSoon}</span>`) +
@@ -132,8 +140,6 @@
             const links = ch.available
                 ? linkRows(withInteractive(ch))
                 : PLACEHOLDER_LINKS.map(t => `<span class="btn disabled" aria-disabled="true">${T.links[t]}</span>`).join('');
-            const g = ch.guest && ch.guest[LANG];
-            const guest = g ? `<div class="guest-box"><h4>${g.h}</h4><p class="guest-t">${esc(g.t)}</p><p class="guest-who">${esc(g.who)}</p></div>` : '';
             const qn = (ch.quantinar || []).length
                 ? `<div class="quantinar-box"><h4><img src="logos/qr_logo.png" alt="">${T.quantinar}</h4><ul>` +
                   ch.quantinar.map(c => `<li><a href="${c.url}" target="_blank" rel="noopener">${esc(c.title)}</a></li>`).join('') +
@@ -157,7 +163,6 @@
                     <ul>${ch.topics[LANG].map(t => `<li>${t}</li>`).join('')}</ul>
                     ${formulas}
                     <div class="chapter-links">${links}</div>
-                    ${guest}
                     ${qn}
                 </div>
             </div>`;
@@ -367,6 +372,7 @@
         renderOverview();
         initLightbox();
         renderChapters();
+        renderGuest();
         renderProject();
         renderResources();
         renderContact();
