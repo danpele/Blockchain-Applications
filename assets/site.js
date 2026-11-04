@@ -129,8 +129,10 @@
     function renderGuest() {
         const g = (D.guest || {})[LANG], box = $('guest-card'), sec = $('guest');
         if (!g || !box) { if (sec) sec.hidden = true; return; }
-        box.innerHTML = `<div class="guest-card"><span class="badge badge-date">${g.date}</span><h3>${esc(g.title)}</h3>`+
-            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p></div>`;
+        box.innerHTML = `<div class="guest-card${g.photo ? ' has-photo' : ''}">` +
+            (g.photo ? `<img class="guest-photo" src="${g.photo}" alt="${esc(g.name)}" loading="lazy">` : '') +
+            `<div class="guest-text"><span class="badge badge-date">${g.date}</span><h3>${esc(g.title)}</h3>` +
+            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p></div></div>`;
     }
 
     function renderChapters() {
