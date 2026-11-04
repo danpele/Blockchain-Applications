@@ -206,13 +206,13 @@
 
     function renderContact() {
         const c = D.contact;
-        $('contact-cards').innerHTML =
-            `<div class="info-card"><h3>${T.instructor}</h3><p><strong>${c.name}</strong></p>` +
+        const instr = `<div class="info-card"><h3>${T.instructor}</h3><p><strong>${c.name}</strong></p>` +
             c[LANG].map(p => `<p>${p}</p>`).join('') +
             `<p style="margin-top:0.6rem"><a href="mailto:${c.email}">${c.email}</a></p>` +
-            `<p style="margin-top:0.8rem"><a class="btn btn-primary" href="https://danpele.github.io/${LANG === 'ro' ? 'index_ro.html' : ''}" target="_blank" rel="noopener">${LANG === 'ro' ? 'Site-ul personal' : 'Personal website'}</a></p></div>` +
-            (c.seminar ? `<div class="info-card"><h3>${T.seminarCard}</h3><p><strong>${c.seminar.name}</strong></p><p>${T.seminarRole}</p>` + (c.seminar.email ? `<p style="margin-top:0.6rem"><a href="mailto:${c.seminar.email}">${c.seminar.email}</a></p>` : '') + `</div>` : '') +
-            `<div class="info-card"><h3>${T.office}</h3><p>${T.officeText}</p></div>`;
+            `<p style="margin-top:0.8rem"><a class="btn btn-primary" href="https://danpele.github.io/${LANG === 'ro' ? 'index_ro.html' : ''}" target="_blank" rel="noopener">${LANG === 'ro' ? 'Site-ul personal' : 'Personal website'}</a></p></div>`;
+        const sem = c.seminar ? `<div class="info-card"><h3>${T.seminarCard}</h3><p><strong>${c.seminar.name}</strong></p><p>${T.seminarRole}</p>` + (c.seminar.email ? `<p style="margin-top:0.6rem"><a href="mailto:${c.seminar.email}">${c.seminar.email}</a></p>` : '') + `</div>` : '';
+        // Part 1 (Crypto Economics) first, then Part 2 (Blockchain Analytics and the exam)
+        $('contact-cards').innerHTML = sem + instr + `<div class="info-card"><h3>${T.office}</h3><p>${T.officeText}</p></div>`;
         $('footer-logos').innerHTML = D.footerLogos.map(([href, src, alt]) =>
             `<a href="${href}" target="_blank" rel="noopener"><img src="${src}" alt="${alt}"></a>`
         ).join('');
