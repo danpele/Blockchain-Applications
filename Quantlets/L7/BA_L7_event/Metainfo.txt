@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_event'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Market-model event study of Ether (ETH) around the formal schedule and implementation dates of 13 Ethereum upgrade families (Istanbul 2019 to Fusaka 2025): cumulative abnormal returns from day -10 to +10 against an equal-weighted index of 11 other coins, estimation window [-250, -31] days, with cross-sectional, BMP and sign tests (EODHD daily closes to October 2026).'
+
+Keywords: 'event study, cumulative abnormal return, market model, Ethereum upgrades, Merge, BMP test, sign test'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l7_event.pdf'

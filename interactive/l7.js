@@ -1,15 +1,12 @@
-// Lecture 7 interactive page: one block per chart slide, computed in the browser from l7_data.js
-// (walk-forward probabilities, rule Sharpe ratios and VaR forecasts of the course; nothing is retrained here).
+// Lecture 7 interactive page: one block per chart slide, computed in the browser from l7_data.js.
 (function () {
 'use strict';
 const D = window.L7_DATA;
-const { C, sum, mean, sdev, nf, $, AX, layout, ttl, plot, out, vline, hline, Player, range, predict, exitTicket } = window.MFMI;
+const { C, sum, mean, sdev, solve, nf, $, AX, layout, ttl, plot, out, vline, Player, range, predict, exitTicket } = window.MFMI;
 const T = window.L7_TEXT;
 
-// ---------------------------------------------------------------- colours (Slides/code/l7_ml.py, l7_var.py)
-const BA = { btc: '#E8913A', blue: '#1A3A6E', red: '#CD0000', green: '#2E7D32', eth: '#9B59B6', gold: '#B8860B' };
-const MCOL = { 'Logit': BA.blue, 'Random forest': BA.green, 'XGBoost': BA.eth, 'Buy and hold': BA.btc };
-const VCOL = { 'HS': BA.blue, 'EWMA-N': BA.gold, 'GARCH-t': '#1F77B4', 'QReg': BA.green, 'QGBM': '#8C564B', 'Chronos-2': BA.eth };
+// ---------------------------------------------------------------- colours (Slides/code/l7_networks.py, l7_event.py)
+const BA = { btc: '#E8913A', eth: '#9B59B6', blue: '#1A3A6E', gold: '#B5853F', red: '#CD0000', green: '#2E7D32', teal: '#17A2B8' };
 
 // ---------------------------------------------------------------- helpers (as in l1.js)
 const days = x => {
@@ -19,227 +16,376 @@ const days = x => {
 };
 const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const longDate = s => `${+s.slice(8, 10)} ${MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
-const longMonth = s => `${MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
-const sgn = (x, d) => (x >= 0 ? '+' : '−') + nf(Math.abs(x), d);
+const shortDate = s => `${+s.slice(8, 10)} ${MON[+s.slice(5, 7) - 1].slice(0, 3)} ${s.slice(0, 4)}`;
+const sgn = (x, d) => (x >= 0 ? '+' : '') + nf(x, d);
 const tall = (id, h) => { $(id).style.height = h + 'px'; };
 const legendBelow = (y, extra) => Object.assign({ orientation: 'h', x: 0, xanchor: 'left', y: y, yanchor: 'top', traceorder: 'normal', bgcolor: 'rgba(0,0,0,0)', font: { size: 11 } }, extra || {});
-const pv = p => (p < 0.001 ? '< 0.001' : nf(p, p < 0.01 ? 3 : 2));
 
-// ---------------------------------------------------------------- Normal distribution
-function erfc(x) {                 // complementary error function (Numerical Recipes, relative error < 1.2e-7)
-  const z = Math.abs(x), t = 1 / (1 + 0.5 * z);
-  const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 + t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
-  return x >= 0 ? r : 2 - r;
+// ---------------------------------------------------------------- statistics
+function lgamma(x) {               // Lanczos approximation
+  const g = [676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if (x < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * x)) - lgamma(1 - x);
+  x -= 1; let a = 0.99999999999980993; const t = x + 7.5;
+  for (let i = 0; i < 8; i++) a += g[i] / (x + i + 1);
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
 }
-const Phi = x => 0.5 * erfc(-x / Math.SQRT2);
-function PhiInv(p) {               // Acklam's rational approximation and one Newton step
-  const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
-  const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
-  const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
-  const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
-  let x;
-  if (p < 0.02425) { const q = Math.sqrt(-2 * Math.log(p)); x = (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
-  else if (p > 1 - 0.02425) { const q = Math.sqrt(-2 * Math.log(1 - p)); x = -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
-  else { const q = p - 0.5, r = q * q; x = (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1); }
-  const e = Phi(x) - p, u = e * Math.sqrt(2 * Math.PI) * Math.exp(x * x / 2);
-  return x - u / (1 + x * u / 2);
+function betacf(a, b, x) {
+  let qab = a + b, qap = a + 1, qam = a - 1, c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < 1e-300) d = 1e-300; d = 1 / d; let h = d;
+  for (let m = 1; m <= 300; m++) {
+    const m2 = 2 * m; let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300; c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300; c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d;
+    const del = d * c; h *= del; if (Math.abs(del - 1) < 1e-15) break;
+  }
+  return h;
 }
-const chi2sf1 = x => (x <= 0 ? 1 : erfc(Math.sqrt(x / 2)));        // chi-square(1) upper tail
-
-// ================================================================= 1. overfitting: in-sample and out-of-sample accuracy
-const ML = D.ml, MD = days(ML.dates), NT = MD.length, MS = ML.models, NO = ML.block.length;
-const blockOf = k => ({ b0: ML.block[k], b1: k + 1 < NO ? ML.block[k + 1] : NT });
-function accuracy(k) {             // k = origin index, or NO for all origins
-  const { b0, b1 } = k < NO ? blockOf(k) : { b0: 0, b1: NT }, idx = []; for (let t = b0; t < b1; t++) idx.push(t);
-  const base = mean(idx.map(t => ML.y[t]));
-  const res = MS.map(m => ({ m, ins: k < NO ? ML.acc_in[m][k] : mean(ML.acc_in[m]), oos: mean(idx.map(t => +((ML.p[m][t] > 0.5) === (ML.y[t] === 1)))) }));
-  return { b0, b1, base, res };
+function ibeta(x, a, b) {         // regularised incomplete beta I_x(a, b)
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
 }
-function overfit() {
-  const k = +$('oa-k').value, A = accuracy(k);
-  $('oa-k-v').textContent = k < NO ? `origin ${k + 1} of ${NO}: predict ${longDate(MD[A.b0])} – ${longDate(MD[A.b1 - 1])}` : `all ${NO} origins (as on the slide)`;
-  const x = MS;
-  plot('oa-acc', [
-    { x, y: A.res.map(r => 100 * r.ins), type: 'bar', name: 'in-sample accuracy', marker: { color: BA.blue }, hovertemplate: '%{x}, in-sample: %{y:.1f}%<extra></extra>' },
-    { x, y: A.res.map(r => 100 * r.oos), type: 'bar', name: 'out-of-sample accuracy', marker: { color: BA.btc }, hovertemplate: '%{x}, out-of-sample: %{y:.1f}%<extra></extra>' },
-    { x: [-0.5, 2.5], y: [100 * A.base, 100 * A.base], xaxis: 'x2', mode: 'lines', name: 'always predict up', line: { color: BA.red, dash: 'dash', width: 1.5 }, hoverinfo: 'skip' }],
-    layout({ title: ttl(k < NO ? `Origin ${k + 1}: fit to ${longDate(MD[A.b0 - 1] || '2019-12-31')}, next ${A.b1 - A.b0} days` : 'Walk-forward, 40 origins, test 2020 – October 2026'),
-      barmode: 'group', xaxis: AX(''), xaxis2: { overlaying: 'x', range: [-0.5, 2.5], visible: false }, yaxis: AX('%', { range: [30, 90] }), legend: legendBelow(-0.14) }));
-  out('oa-out', [T.oa0(k < NO ? `${longDate(MD[A.b0])} – ${longDate(MD[A.b1 - 1])} (${A.b1 - A.b0} days)` : `${longDate(MD[0])} – ${longDate(MD[NT - 1])} (${NT} days)`, nf(100 * A.base, 1)),
-    ...A.res.map(r => T.oa(r.m, nf(100 * r.ins, 1), nf(100 * r.oos, 1), sgn(100 * (r.ins - r.oos), 1)))]);
-  return A;
-}
-function shapChart() {
-  const e = Object.entries(ML.shap);       // ascending, as in the slide
-  plot('oa-shap', [{ y: e.map(([k]) => ML.lab[k]), x: e.map(([, v]) => v), type: 'bar', orientation: 'h', marker: { color: BA.eth }, showlegend: false,
-    hovertemplate: '%{y}: mean |SHAP| %{x:.4f}<extra></extra>' }],
-    layout({ title: ttl('What the model uses: XGBoost, last fit, last 400 test days'), xaxis: AX('mean |SHAP| (log-odds)'), yaxis: AX('', { tickfont: { size: 10, color: C.navy } }), margin: { l: 150, r: 12, t: 30, b: 40 } }));
+const tP2 = (t, df) => ibeta(df / (df + t * t), df / 2, 0.5);        // two-sided p-value of a Student t statistic
+function binomP2(k, n) {           // two-sided exact binomial test, p = 0.5 (scipy binomtest)
+  const pmf = i => Math.exp(lgamma(n + 1) - lgamma(i + 1) - lgamma(n - i + 1) - n * Math.log(2));
+  const pk = pmf(k); let s = 0;
+  for (let i = 0; i <= n; i++) if (pmf(i) <= pk * (1 + 1e-7)) s += pmf(i);
+  return Math.min(1, s);
 }
 
-// ================================================================= 2. trading the signals
-function perf(pos, cost) {         // the notebook's perf(): net daily log returns after costs, SR, drawdown
-  const g = pos.map((p, t) => p * ML.ret[t] - cost * Math.abs(p - (t ? pos[t - 1] : 0)));
-  let eq = 0, pk = 0, dd = 0; const cum = g.map(v => { eq += v; pk = Math.max(pk, eq); dd = Math.max(dd, pk - eq); return eq; });
-  let ch = 0; pos.forEach((p, t) => { ch += Math.abs(p - (t ? pos[t - 1] : 0)); });
-  return { cum, sr: mean(g) / sdev(g) * Math.sqrt(365), dlog: dd, mdd: 100 * (1 - Math.exp(-dd / 100)), long: mean(pos), turn: ch / NT * 365 };
+// ================================================================= returns of the 19 coins
+const RT = D.ret, COINS = RT.coins, NC = COINS.length, RD = days(RT.dates), NR = RD.length;
+const RET = COINS.map(c => RT.r[c]);
+function corrOf(i0, i1) {          // Pearson correlation matrix of the coins over days i0..i1-1
+  const n = i1 - i0, m = RET.map(a => { let s = 0; for (let t = i0; t < i1; t++) s += a[t]; return s / n; });
+  const Z = RET.map((a, k) => { const z = new Float64Array(n); for (let t = 0; t < n; t++) z[t] = a[i0 + t] - m[k]; return z; });
+  const S = Z.map(() => new Array(NC).fill(0));
+  for (let a = 0; a < NC; a++) for (let b = a; b < NC; b++) { let s = 0; const x = Z[a], y = Z[b]; for (let t = 0; t < n; t++) s += x[t] * y[t]; S[a][b] = S[b][a] = s; }
+  return S.map((r, a) => r.map((v, b) => v / Math.sqrt(S[a][a] * S[b][b])));
 }
-function trading() {
-  const cost = +$('eq-c').value / 100, c = +$('eq-t').value;
-  $('eq-c-v').textContent = nf(100 * cost, 0) + ' bp'; $('eq-t-v').textContent = nf(c, 2);
-  const res = [['Buy and hold', perf(new Array(NT).fill(1), cost)]].concat(MS.map(m => [m, perf(ML.p[m].map(p => +(p > c)), cost)]));
-  plot('eq-chart', res.map(([m, r]) => ({ x: MD, y: r.cum, mode: 'lines', name: m, line: { color: MCOL[m], width: 1.4 }, hovertemplate: m + ' %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' })),
-    layout({ title: ttl(`Long when p > ${nf(c, 2)}, otherwise cash; ${nf(100 * cost, 0)} bp per change of position`), xaxis: AX('', { type: 'date' }),
-      yaxis: AX('cumulative log return (%), after costs'), shapes: [hline(0, BA.blue)], legend: legendBelow(-0.12) }));
-  out('eq-out', res.map(([m, r]) => T.eq(m, nf(r.sr, 2), nf(r.mdd, 1), nf(r.dlog, 0), nf(100 * r.long, 0), nf(r.turn, r.turn < 10 ? 1 : 0))));
-  return res;
+const meanOff = Cm => { let s = 0, k = 0; for (let a = 0; a < Cm.length; a++) for (let b = a + 1; b < Cm.length; b++) { s += Cm[a][b]; k++; } return s / k; };
+
+// ================================================================= 1. correlation matrix and MST
+function mstOf(Cm) {               // Prim on the Mantegna distance d = sqrt(2 (1 - rho))
+  const n = Cm.length, d = Cm.map(r => r.map(v => Math.sqrt(Math.max(2 * (1 - v), 0)))), inT = new Array(n).fill(false), best = new Array(n).fill(Infinity), par = new Array(n).fill(-1), E = [];
+  best[0] = 0;
+  for (let it = 0; it < n; it++) {
+    let u = -1; for (let v = 0; v < n; v++) if (!inT[v] && (u < 0 || best[v] < best[u])) u = v;
+    inT[u] = true; if (par[u] >= 0) E.push([par[u], u, d[par[u]][u]]);
+    for (let v = 0; v < n; v++) if (!inT[v] && d[u][v] < best[v]) { best[v] = d[u][v]; par[v] = u; }
+  }
+  return E;
+}
+function treeLayout(E, n) {        // stress layout on the tree's path distances (as Kamada-Kawai with weight d)
+  const G = Array.from({ length: n }, () => new Array(n).fill(Infinity));
+  for (let i = 0; i < n; i++) G[i][i] = 0;
+  E.forEach(([a, b, w]) => { G[a][b] = G[b][a] = w; });
+  for (let k = 0; k < n; k++) for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) if (G[i][k] + G[k][j] < G[i][j]) G[i][j] = G[i][k] + G[k][j];
+  const X = Array.from({ length: n }, (_, i) => [Math.cos(2 * Math.PI * i / n), Math.sin(2 * Math.PI * i / n)]);
+  const pairs = []; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) pairs.push([i, j]);
+  const wmin = 1 / Math.max(...pairs.map(([i, j]) => G[i][j] ** 2)), wmax = 1 / Math.min(...pairs.map(([i, j]) => G[i][j] ** 2));
+  const iters = 60, emax = 1 / wmin, emin = 0.01 / wmax, lam = Math.log(emax / emin) / (iters - 1);
+  for (let t = 0; t < iters; t++) {
+    const eta = emax * Math.exp(-lam * t);
+    pairs.forEach(([i, j], k) => {
+      const [a, b] = (k + t) % 2 ? [i, j] : [j, i], dij = G[a][b], w = 1 / (dij * dij), mu = Math.min(w * eta, 1);
+      const dx = X[a][0] - X[b][0], dy = X[a][1] - X[b][1], m = Math.hypot(dx, dy) || 1e-9, r = mu * (m - dij) / 2 / m;
+      X[a][0] -= r * dx; X[a][1] -= r * dy; X[b][0] += r * dx; X[b][1] += r * dy;
+    });
+  }
+  return X;
+}
+const YEARS = ['2021', '2022', '2023', '2024', '2025', '2026'];
+const periodOf = k => {
+  if (k >= YEARS.length) return { i0: 0, i1: NR, lab: 'January 2021 – October 2026', short: 'Jan 2021 - Oct 2026' };
+  const y = YEARS[k], i0 = RD.findIndex(d => d.startsWith(y)); let i1 = i0; while (i1 < NR && RD[i1].startsWith(y)) i1++;
+  return { i0, i1, lab: y + (y === '2026' ? ' (to ' + longDate(RD[NR - 1]).replace(' 2026', '') + ')' : ''), short: y };
+};
+const HEAT = [[0, '#053061'], [0.2, '#2166AC'], [0.4, '#92C5DE'], [0.5, '#F7F7F7'], [0.6, '#F4A582'], [0.8, '#B2182B'], [1, '#67001F']];
+function mst() {
+  const k = +$('ms-p').value, p = periodOf(k), Cm = corrOf(p.i0, p.i1), E = mstOf(Cm);
+  $('ms-p-v').textContent = p.lab;
+  plot('ms-heat', [{ z: Cm, x: COINS, y: COINS, type: 'heatmap', zmin: -1, zmax: 1, colorscale: HEAT, colorbar: { thickness: 10, len: 0.9, tickfont: { size: 10 } },
+    hovertemplate: '%{y}–%{x}: ρ = %{z:.3f}<extra></extra>' }],
+    layout({ title: ttl('Correlation of daily log returns, ' + p.short), xaxis: AX('', { tickangle: -90, tickfont: { size: 9, color: C.navy } }),
+      yaxis: AX('', { autorange: 'reversed', tickfont: { size: 9, color: C.navy } }), margin: { l: 50, r: 10, t: 30, b: 50 } }));
+  const deg = new Array(NC).fill(0), nb = COINS.map(() => []);
+  E.forEach(([a, b]) => { deg[a]++; deg[b]++; nb[a].push(COINS[b]); nb[b].push(COINS[a]); });
+  const X = treeLayout(E, NC);
+  const tr = E.map(([a, b]) => ({ x: [X[a][0], X[b][0]], y: [X[a][1], X[b][1]], mode: 'lines', showlegend: false, hoverinfo: 'skip',
+    line: { color: BA.blue, width: Math.max(0.6, 1 + 4 * (Cm[a][b] - 0.5)) } }));
+  const node = (idx, name, color) => ({ x: idx.map(i => X[i][0]), y: idx.map(i => X[i][1]), mode: 'markers+text', name, text: idx.map(i => COINS[i]),
+    textposition: 'middle center', textfont: { size: 8, color: '#FFFFFF' }, marker: { color, size: idx.map(i => 24 + 4 * deg[i]), line: { width: 0 } },
+    customdata: idx.map(i => [deg[i], nb[i].join(', ')]), hovertemplate: '%{text}: degree %{customdata[0]} (%{customdata[1]})<extra></extra>' });
+  const all = COINS.map((_, i) => i);
+  tr.push(node(all.filter(i => i < 2), 'BTC, ETH', BA.red), node(all.filter(i => i >= 2), 'other coins (size = MST degree)', BA.teal));
+  plot('ms-tree', tr, layout({ title: ttl('Minimum spanning tree, ' + p.short), xaxis: { visible: false }, yaxis: { visible: false, scaleanchor: 'x' },
+    margin: { l: 10, r: 10, t: 30, b: 10 }, legend: legendBelow(-0.02) }));
+  let mn = [2, 0, 0]; for (let a = 0; a < NC; a++) for (let b = a + 1; b < NC; b++) if (Cm[a][b] < mn[0]) mn = [Cm[a][b], a, b];
+  const cb = all.slice(1).map(i => [Cm[0][i], COINS[i]]).sort((u, v) => u[0] - v[0]);
+  const md = Math.max(...deg), hubs = all.filter(i => deg[i] === md);
+  out('ms-out', [T.ms1(p.lab, p.i1 - p.i0, nf(meanOff(Cm), 2), nf(mn[0], 2), COINS[mn[1]] + '–' + COINS[mn[2]]),
+    T.ms2(nf(cb[0][0], 2), cb[0][1], nf(cb[cb.length - 1][0], 2), cb[cb.length - 1][1]),
+    T.ms3(hubs.map(i => `${COINS[i]} (degree ${md}: ${nb[i].join(', ')})`).join('; '), nb[0].join(' and '))]);
+  return { Cm, E, deg, nb };
 }
 
-// ================================================================= 3. data snooping
-const SN = D.snoop, NRULE = SN.sr_in.length, NS = [2, 5, 10, 25, 50, 100, 250, 500, 810];
-const EM = 0.5772156649;
-function dsr(N) {
-  const sr0 = Math.sqrt(SN.v_sr) * ((1 - EM) * PhiInv(1 - 1 / N) + EM * PhiInv(1 - 1 / (N * Math.E)));
-  const den = Math.sqrt(1 - SN.g3 * SN.sr + (SN.g4 - 1) / 4 * SN.sr ** 2);
-  return { sr0, sr0a: sr0 * Math.sqrt(365), dsr: Phi((SN.sr - sr0) * Math.sqrt(SN.T - 1) / den), psr: Phi(SN.sr * Math.sqrt(SN.T - 1) / den) };
+// ================================================================= 2. rolling connectedness
+function lambda1(Cm) {             // largest eigenvalue by power iteration (positive correlation matrix)
+  let v = new Array(Cm.length).fill(1 / Math.sqrt(Cm.length)), lam = 0;
+  for (let it = 0; it < 500; it++) {
+    const w = Cm.map(r => r.reduce((s, x, j) => s + x * v[j], 0)), nw = Math.sqrt(sum(w.map(x => x * x)));
+    v = w.map(x => x / nw); if (Math.abs(nw - lam) < 1e-13) { lam = nw; break; } lam = nw;
+  }
+  return lam;
 }
-function ranks(a) {                // average ranks, ascending
-  const o = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]), r = new Array(a.length);
-  for (let i = 0; i < o.length;) { let j = i; while (j + 1 < o.length && o[j + 1][0] === o[i][0]) j++; for (let k = i; k <= j; k++) r[o[k][1]] = (i + j) / 2 + 1; i = j + 1; }
-  return r;
+const rollCache = {};
+function rolling(W) {
+  if (rollCache[W]) return rollCache[W];
+  const x = [], mc = [], ar = [];
+  for (let k = W; k <= NR; k += 5) { const Cm = corrOf(k - W, k); x.push(RD[k - 1]); mc.push(meanOff(Cm)); ar.push(lambda1(Cm) / NC); }
+  return (rollCache[W] = { x, mc, ar });
 }
-const pearson = (x, y) => { const mx = mean(x), my = mean(y); let a = 0, b = 0, c = 0; x.forEach((v, i) => { a += (v - mx) * (y[i] - my); b += (v - mx) ** 2; c += (y[i] - my) ** 2; }); return a / Math.sqrt(b * c); };
-function snoop() {
-  const N = NS[+$('sn-n').value], R = dsr(N), b = SN.best;
-  $('sn-n-v').textContent = N + (N === NRULE ? ' (all rules, as on the slide)' : '');
-  plot('sn-scatter', [
-    { x: SN.sr_in, y: SN.sr_out, mode: 'markers', name: 'one rule', marker: { color: BA.blue, size: 4, opacity: 0.5 }, text: SN.rules, hovertemplate: '%{text}: SR %{x:.2f} (2018–2022), %{y:.2f} (2023–2026)<extra></extra>' },
-    { x: [SN.sr_in[b]], y: [SN.sr_out[b]], mode: 'markers', name: 'best in-sample rule', marker: { color: BA.red, size: 11 }, text: [SN.rules[b]], hovertemplate: '%{text}: SR %{x:.2f} (2018–2022), %{y:.2f} (2023–2026)<extra></extra>' },
-    { x: [Math.min(...SN.sr_in), Math.max(...SN.sr_in)], y: [SN.bh_out, SN.bh_out], mode: 'lines', name: 'buy and hold, 2023–2026', line: { color: BA.btc, dash: 'dash', width: 1.5 }, hoverinfo: 'skip' }],
-    layout({ title: ttl('810 rules: selection and evaluation Sharpe ratios'), xaxis: AX('Sharpe ratio, 2018–2022 (selection)'), yaxis: AX('Sharpe ratio, 2023–2026 (evaluation)'), legend: legendBelow(-0.2) }));
-  plot('sn-hist', [
-    { x: SN.mx, type: 'histogram', nbinsx: 30, name: 'max Sharpe over all rules, permuted returns', marker: { color: BA.green }, hovertemplate: '%{x}: %{y} permutations<extra></extra>' }],
-    layout({ title: ttl('Best of 810 rules when returns are permuted (200 permutations)'), xaxis: AX('maximum in-sample Sharpe ratio'), yaxis: AX('count'),
-      shapes: [vline(SN.sr_in[b], BA.red), vline(R.sr0a, C.navy, 'dash')], legend: legendBelow(-0.2),
-      annotations: [{ x: SN.sr_in[b], y: 1, yref: 'paper', text: 'best rule ' + nf(SN.sr_in[b], 2), showarrow: false, xanchor: 'left', font: { size: 10, color: BA.red } },
-        { x: R.sr0a, y: 0.9, yref: 'paper', text: `SR₀ for N = ${N}: ${nf(R.sr0a, 2)}`, showarrow: false, xanchor: 'right', font: { size: 10, color: C.navy } }] }));
-  const ro = ranks(SN.sr_out.map(v => -v)), sp = pearson(ranks(SN.sr_in), ranks(SN.sr_out)), beat = mean(SN.sr_out.map(v => +(v > SN.bh_out)));
-  const pn = mean(SN.mx.map(v => +(v >= SN.sr_in[b])));
-  out('sn-out', [T.sn1(SN.rules[b], nf(SN.sr_in[b], 2), nf(SN.bh_in, 2), nf(SN.sr_out[b], 2), nf(SN.bh_out, 2), Math.round(ro[b]), NRULE),
-    T.sn2(nf(mean(SN.mx), 2), nf(SN.mx.slice().sort((x, y) => x - y)[Math.floor(0.95 * (SN.mx.length - 1))], 2), nf(pn, 3), nf(SN.rc_p, 2)),
-    T.sn3(N, nf(R.sr0a, 2), nf(R.psr, 2), nf(R.dsr, 2)), T.sn4(nf(sp, 2), nf(100 * beat, 0))]);
-  return { R, rank: ro[b], sp, beat, pn };
+function connect() {
+  const W = +$('cn-w').value, R = rolling(W), n = R.x.length;
+  $('cn-w-v').textContent = W + ' days';
+  plot('cn-chart', [
+    { x: R.x, y: R.mc, mode: 'lines', name: `mean pairwise correlation, ${W}-day window (19 coins)`, line: { color: BA.blue, width: 1.4 }, hovertemplate: 'window ending %{x|%d %b %Y}: mean correlation %{y:.3f}<extra></extra>' },
+    { x: R.x, y: R.ar, mode: 'lines', name: 'absorption ratio λ₁ / Σλₖ (first principal component)', line: { color: BA.btc, width: 1.4 }, hovertemplate: 'window ending %{x|%d %b %Y}: absorption ratio %{y:.3f}<extra></extra>' }],
+    layout({ title: ttl(`${W}-day windows of daily log returns, one every 5 days`), xaxis: AX('', { type: 'date' }), yaxis: AX('', { range: [0, 1] }), legend: legendBelow(-0.12) }));
+  let lo = 0, hi = 0; R.mc.forEach((v, j) => { if (v < R.mc[lo]) lo = j; if (v > R.mc[hi]) hi = j; });
+  out('cn-out', [T.cn1(nf(R.mc[lo], 2), longDate(R.x[lo]), nf(R.mc[hi], 2), longDate(R.x[hi]), nf(R.mc[n - 1], 2), longDate(R.x[n - 1])),
+    T.cn2(nf(mean(R.ar), 2), nf(R.ar[n - 1], 2), n)]);
+  return R;
 }
 
-// ================================================================= 4-5. VaR forecasts of six models
-const VR = D.var, VD = days(VR.dates), NV = VD.length, VM = VR.models;
-const qsOf = (y, q, a) => (y - q) * (a - (y < q ? 1 : 0));
-function kupiecP(h, a) {
-  const n = h.length, x = sum(h), p = x / n;
-  const ll0 = (n - x) * Math.log(1 - a) + x * Math.log(a), ll1 = (n - x) * Math.log(1 - p) + (x > 0 ? x * Math.log(p) : 0);
-  return chi2sf1(2 * (ll1 - ll0));
+// ================================================================= 1b. eigenvalue spectrum and the equicorrelation benchmark
+function eigen() {
+  const k = +$('eg-p').value, p = periodOf(k), Cm = corrOf(p.i0, p.i1), ev = eigVec(Cm).val, rb = meanOff(Cm);
+  $('eg-p-v').textContent = p.lab;
+  const kk = ev.map((_, i) => i + 1), eq = kk.map(i => (i === 1 ? 1 + (NC - 1) * rb : 1 - rb));
+  plot('eg-chart', [
+    { x: kk, y: ev, type: 'bar', name: `eigenvalue λₖ of the 19-coin correlation matrix, ${p.short}`, marker: { color: BA.blue }, hovertemplate: 'λ%{x} = %{y:.2f}<extra></extra>' },
+    { x: kk, y: eq, mode: 'markers', name: `equicorrelation benchmark, ρ = ${nf(rb, 2)}`, marker: { color: BA.btc, size: 8 }, hovertemplate: 'benchmark λ%{x} = %{y:.2f}<extra></extra>' }],
+    layout({ title: ttl('Eigenvalues of the correlation matrix of daily log returns, ' + p.short), xaxis: AX('component k', { dtick: 1 }), yaxis: AX('eigenvalue λₖ', { range: [0, 15] }), legend: legendBelow(-0.16) }));
+  const ar = ev[0] / NC, fo = (1 + (NC - 1) * rb) / NC;
+  out('eg-out', [T.eg1(p.lab, nf(ev[0], 2), nf(ev[1], 2), ev.filter(v => v > 1).length), T.eg2(nf(rb, 3), nf(1 + (NC - 1) * rb, 2), nf(1 - rb, 2)), T.eg3(nf(ar, 3), nf(fo, 3), nf(Math.abs(ar - fo), 3))]);
+  return { ev, rb, ar, fo };
 }
-function christP(h) {
-  let n00 = 0, n01 = 0, n10 = 0, n11 = 0;
-  for (let t = 1; t < h.length; t++) { if (!h[t - 1] && !h[t]) n00++; else if (!h[t - 1]) n01++; else if (!h[t]) n10++; else n11++; }
-  const p01 = n01 / (n00 + n01), p11 = n10 + n11 ? n11 / (n10 + n11) : 0, p = (n01 + n11) / (n00 + n01 + n10 + n11);
-  const L = (x, k) => (k ? k * Math.log(x) : 0);
-  return chi2sf1(2 * (L(1 - p01, n00) + L(p01, n01) + L(1 - p11, n10) + L(p11, n11) - L(1 - p, n00 + n10) - L(p, n01 + n11)));
+
+// ================================================================= 3. Diebold-Yilmaz spillovers
+const SUB = D.sub, SI = SUB.map(c => COINS.indexOf(c)), K = SUB.length;
+function varFit(i0, i1, p) {       // VAR(p) with constant by OLS on days i0..i1-1: lag matrices and residual covariance
+  const Y = SI.map(k => RET[k].slice(i0, i1)), n = i1 - i0, m = 1 + K * p, N = n - p;
+  const XtX = Array.from({ length: m }, () => new Array(m).fill(0)), XtY = Array.from({ length: m }, () => new Array(K).fill(0)), rows = [];
+  for (let t = p; t < n; t++) {
+    const x = [1]; for (let l = 1; l <= p; l++) for (let j = 0; j < K; j++) x.push(Y[j][t - l]);
+    rows.push(x);
+    for (let a = 0; a < m; a++) { for (let b = a; b < m; b++) XtX[a][b] += x[a] * x[b]; for (let j = 0; j < K; j++) XtY[a][j] += x[a] * Y[j][t]; }
+  }
+  for (let a = 0; a < m; a++) for (let b = 0; b < a; b++) XtX[a][b] = XtX[b][a];
+  const B = SUB.map((_, j) => solve(XtX, XtY.map(r => r[j])));            // B[j] = coefficients of equation j
+  const E = rows.map((x, s) => B.map((b, j) => Y[j][s + p] - x.reduce((u, v, q) => u + v * b[q], 0)));
+  const S = SUB.map((_, a) => SUB.map((_, b) => sum(E.map(e => e[a] * e[b])) / (N - m)));
+  const Phi = Array.from({ length: p }, (_, l) => SUB.map((_, i) => SUB.map((_, j) => B[i][1 + l * K + j])));
+  return { Phi, S };
 }
-function dmP(dl) {                 // Diebold-Mariano, Newey-West long-run variance, two-sided
-  const n = dl.length, lag = Math.floor(4 * (n / 100) ** (2 / 9)), m = mean(dl), u = dl.map(v => v - m);
-  let lrv = sum(u.map(v => v * v)) / n;
-  for (let k = 1; k <= lag; k++) { let s = 0; for (let t = k; t < n; t++) s += u[t] * u[t - k]; lrv += 2 * (1 - k / (lag + 1)) * s / n; }
-  const t = m / Math.sqrt(lrv / n);
-  return { t, p: erfc(Math.abs(t) / Math.SQRT2), lo: m - 1.96 * Math.sqrt(lrv / n), hi: m + 1.96 * Math.sqrt(lrv / n), m };
+const mm = (A, B) => A.map(r => B[0].map((_, j) => r.reduce((s, v, k) => s + v * B[k][j], 0)));
+function gfevd(f, H) {             // generalised FEVD (Pesaran-Shin), rows normalised to 1
+  const p = f.Phi.length, A = [SUB.map((_, i) => SUB.map((_, j) => (i === j ? 1 : 0)))];
+  for (let h = 1; h < H; h++) {
+    let M = SUB.map(() => new Array(K).fill(0));
+    for (let l = 1; l <= Math.min(h, p); l++) { const P = mm(f.Phi[l - 1], A[h - l]); M = M.map((r, i) => r.map((v, j) => v + P[i][j])); }
+    A.push(M);
+  }
+  const S = f.S, th = SUB.map(() => new Array(K).fill(0));
+  for (let i = 0; i < K; i++) {
+    let den = 0; const num = new Array(K).fill(0);
+    for (let h = 0; h < H; h++) {
+      const a = A[h][i], aS = S[0].map((_, j) => a.reduce((s, v, k) => s + v * S[k][j], 0));
+      den += aS.reduce((s, v, k) => s + v * a[k], 0);
+      for (let j = 0; j < K; j++) num[j] += aS[j] * aS[j];
+    }
+    for (let j = 0; j < K; j++) th[i][j] = num[j] / S[j][j] / den;
+    const rs = sum(th[i]); for (let j = 0; j < K; j++) th[i][j] /= rs;
+  }
+  return th;
 }
-function scores(a, i1) {           // test days 0..i1-1
-  const as = a === 0.01 ? '0.01' : '0.05', y = VR.r.slice(0, i1), base = y.map((v, t) => qsOf(v, VR.q['GARCH-t|' + as][t], a));
-  return VM.map(m => {
-    const q = VR.q[m + '|' + as].slice(0, i1), h = y.map((v, t) => +(v < q[t])), l = y.map((v, t) => qsOf(v, q[t], a));
-    return { m, n: sum(h), br: 100 * mean(h), kp: kupiecP(h, a), cp: christP(h), qs: mean(l), dm: m === 'GARCH-t' ? null : dmP(l.map((v, t) => v - base[t])) };
+const totalOf = th => 100 * (sum(th.map(r => sum(r))) - sum(th.map((r, i) => r[i]))) / K;
+const spillCache = {};
+function spillRoll(W, H) {
+  const key = W + '|' + H; if (spillCache[key]) return spillCache[key];
+  const x = [], y = [];
+  for (let k = W; k <= NR; k += 10) { x.push(RD[k - 1]); y.push(totalOf(gfevd(varFit(k - W, k, 2), H))); }
+  return (spillCache[key] = { x, y });
+}
+let fullVar = null;
+function spill() {
+  const H = +$('sp-h').value, W = +$('sp-w').value, R = spillRoll(W, H), n = R.x.length;
+  $('sp-h-v').textContent = H + (H === 1 ? ' day' : ' days'); $('sp-w-v').textContent = W + ' days';
+  fullVar = fullVar || varFit(0, NR, D.check.var_lag);
+  const th = gfevd(fullVar, H), to = SUB.map((_, j) => 100 * (sum(th.map(r => r[j])) - th[j][j])), fr = SUB.map((_, i) => 100 * (sum(th[i]) - th[i][i]));
+  const net = to.map((v, i) => v - fr[i]), S = totalOf(th);
+  const ev = [['2022-05-09', 'Terra'], ['2022-11-08', 'FTX'], ['2024-01-11', 'spot ETFs']];
+  plot('sp-roll', [{ x: R.x, y: R.y, mode: 'lines', name: `total spillover index (%), VAR(2), ${W}-day windows, H = ${H}`, line: { color: BA.blue, width: 1.5 },
+    hovertemplate: 'window ending %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' }],
+    layout({ title: ttl('Total spillover index S, rolling windows, one every 10 days'), xaxis: AX('', { type: 'date' }), yaxis: AX('%'),
+      shapes: ev.map(([d]) => vline(d, BA.eth, 'dot')), legend: legendBelow(-0.12),
+      annotations: ev.map(([d, l], j) => ({ x: d, y: 1, yref: 'paper', text: l, showarrow: false, font: { size: 10, color: BA.eth }, yanchor: 'bottom', xanchor: j === 0 ? 'right' : 'left' })) }));
+  plot('sp-net', [
+    { y: SUB, x: net, type: 'bar', orientation: 'h', marker: { color: net.map(v => (v > 0 ? BA.green : BA.red)) }, showlegend: false, customdata: SUB.map((_, i) => [to[i], fr[i]]),
+      hovertemplate: '%{y}: NET %{x:+.1f} (TO %{customdata[0]:.1f}, FROM %{customdata[1]:.1f})<extra></extra>' },
+    { y: [SUB[0]], x: [0], type: 'bar', orientation: 'h', marker: { color: BA.green }, name: 'net transmitter', hoverinfo: 'skip' },
+    { y: [SUB[0]], x: [0], type: 'bar', orientation: 'h', marker: { color: BA.red }, name: 'net receiver', hoverinfo: 'skip' }],
+    layout({ title: ttl(`Full sample, VAR(${D.check.var_lag}), H = ${H}`), xaxis: AX('net spillover TO − FROM (pp)', { zeroline: true, zerolinecolor: BA.blue }),
+      yaxis: AX('', { autorange: 'reversed' }), barmode: 'overlay', legend: legendBelow(-0.2) }));
+  let lo = 0, hi = 0; R.y.forEach((v, j) => { if (v < R.y[lo]) lo = j; if (v > R.y[hi]) hi = j; });
+  const ord = SUB.map((c, i) => [net[i], c]).sort((a, b) => b[0] - a[0]);
+  out('sp-out', [T.sp1(W, H, nf(R.y[lo], 1), longDate(R.x[lo]), nf(R.y[hi], 1), longDate(R.x[hi]), nf(R.y[n - 1], 1), longDate(R.x[n - 1])),
+    T.sp2(D.check.var_lag, H, nf(S, 1), ord[0][1], sgn(ord[0][0], 1), ord[1][1], sgn(ord[1][0], 1), ord[K - 1][1], sgn(ord[K - 1][0], 1))]);
+  return { R, S, net };
+}
+
+// ================================================================= 4. map of assets: PCA and k-means of six features
+const AS = D.assets, NA = AS.names.length, FE = AS.feats;
+function eigVec(A) {               // Jacobi rotations: eigenvalues (decreasing) and eigenvectors (columns)
+  const n = A.length, M = A.map(r => [...r]), V = A.map((_, i) => A.map((_, j) => (i === j ? 1 : 0)));
+  for (let sweep = 0; sweep < 100; sweep++) {
+    let off = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) off += M[i][j] * M[i][j];
+    if (off < 1e-24) break;
+    for (let p = 0; p < n; p++) for (let q = p + 1; q < n; q++) {
+      if (Math.abs(M[p][q]) < 1e-18) continue;
+      const th = (M[q][q] - M[p][p]) / (2 * M[p][q]), t = Math.sign(th || 1) / (Math.abs(th) + Math.sqrt(th * th + 1)), c = 1 / Math.sqrt(t * t + 1), s = t * c;
+      for (let k = 0; k < n; k++) { const a = M[k][p], b = M[k][q]; M[k][p] = c * a - s * b; M[k][q] = s * a + c * b; }
+      for (let k = 0; k < n; k++) { const a = M[p][k], b = M[q][k]; M[p][k] = c * a - s * b; M[q][k] = s * a + c * b; }
+      for (let k = 0; k < n; k++) { const a = V[k][p], b = V[k][q]; V[k][p] = c * a - s * b; V[k][q] = s * a + c * b; }
+    }
+  }
+  const idx = M.map((_, i) => i).sort((a, b) => M[b][b] - M[a][a]);
+  return { val: idx.map(i => M[i][i]), vec: idx.map(i => V.map(r => r[i])) };
+}
+function seeded(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const d2 = (a, b) => a.reduce((s, v, i) => s + (v - b[i]) ** 2, 0);
+function kmeans(Z, k, ninit) {     // Lloyd with k-means++ starts; best of ninit by inertia
+  const u = seeded(12345); let best = null;
+  for (let r = 0; r < ninit; r++) {
+    const cen = [Z[Math.floor(u() * Z.length)]];
+    while (cen.length < k) {
+      const dd = Z.map(z => Math.min(...cen.map(c => d2(z, c)))), tot = sum(dd); let x = u() * tot, j = 0;
+      while (j < Z.length - 1 && (x -= dd[j]) > 0) j++;
+      cen.push(Z[j]);
+    }
+    let lab = new Array(Z.length).fill(-1), C0 = cen.map(c => [...c]);
+    for (let it = 0; it < 300; it++) {
+      const nl = Z.map(z => { let b = 0; C0.forEach((c, j) => { if (d2(z, c) < d2(z, C0[b])) b = j; }); return b; });
+      const same = nl.every((v, i) => v === lab[i]); lab = nl; if (same) break;
+      C0 = C0.map((c, j) => { const m = Z.filter((_, i) => lab[i] === j); return m.length ? c.map((_, q) => mean(m.map(z => z[q]))) : c; });
+    }
+    const inertia = sum(Z.map((z, i) => d2(z, C0[lab[i]])));
+    if (!best || inertia < best.inertia - 1e-12) best = { lab, inertia };
+  }
+  return best.lab;
+}
+function assetMap(w, k) {
+  const cols = FE.map(f => AS.F[f]);
+  const Z0 = cols.map(c => { const m = mean(c), s = Math.sqrt(sum(c.map(v => (v - m) ** 2)) / c.length); return c.map(v => (v - m) / s); });
+  const Z = AS.names.map((_, i) => Z0.map((c, j) => c[i] * (FE[j] === 'vol' ? w : 1)));
+  const Cv = FE.map((_, a) => FE.map((_, b) => sum(Z.map(z => z[a] * z[b])) / (NA - 1)));
+  const E = eigVec(Cv), tot = sum(E.val);
+  const vec = E.vec.map(v => { let m = 0; v.forEach((x, i) => { if (Math.abs(x) > Math.abs(v[m])) m = i; }); return v[m] < 0 ? v.map(x => -x) : v; });   // sklearn sign rule
+  const S = Z.map(z => [0, 1].map(c => z.reduce((s, v, q) => s + v * vec[c][q], 0)));
+  return { evr: E.val.map(v => v / tot), vec, S, lab: kmeans(Z, k, 50) };
+}
+const CLC = { crypto: BA.btc, equity: BA.blue, bond: BA.green, commodity: BA.gold, FX: BA.eth };
+const SYM = ['circle', 'square', 'diamond', 'triangle-up', 'x'];
+function classes() {
+  const w = +$('cl-w').value, k = +$('cl-k').value, M = assetMap(w, k);
+  $('cl-w-v').textContent = nf(w, 2) + (w === 1 ? ' (all six features, as on the slide)' : w === 0 ? ' (shape only)' : '');
+  const tr = Object.entries(CLC).map(([cl, col]) => {
+    const idx = AS.names.map((_, i) => i).filter(i => AS.cls[i] === cl);
+    return { x: idx.map(i => M.S[i][0]), y: idx.map(i => M.S[i][1]), mode: 'markers+text', name: cl, text: idx.map(i => AS.names[i]), textposition: 'top right',
+      textfont: { size: 9, color: C.navy }, marker: { color: col, size: 9, symbol: idx.map(i => SYM[M.lab[i]]) }, customdata: idx.map(i => M.lab[i] + 1),
+      hovertemplate: '%{text}: PC1 %{x:.2f}, PC2 %{y:.2f}, k-means group %{customdata}<extra></extra>' };
   });
-}
-const MEND = VD.map((d, i) => (i === NV - 1 || VD[i + 1].slice(0, 7) !== d.slice(0, 7) ? i : -1)).filter(i => i >= 0);
-function varModels() {
-  const a = +$('vm-a').value, e = +$('vm-e').value, i1 = MEND[e] + 1, S = scores(a, i1);
-  $('vm-e-v').textContent = longDate(VD[i1 - 1]) + (e === MEND.length - 1 ? ' (as on the slide)' : '');
-  const qv = S.map(s => s.qs);
-  plot('vm-br', [...S.map(s => ({ x: [s.m], y: [s.br], type: 'bar', name: s.m, marker: { color: VCOL[s.m] }, customdata: [s.n], hovertemplate: s.m + ': %{y:.2f}% (%{customdata} breaches)<extra></extra>' })),
-    { x: [VM[0], VM[VM.length - 1]], y: [100 * a, 100 * a], mode: 'lines', name: `target ${nf(100 * a, 0)}%`, line: { color: BA.red, dash: 'dash', width: 1.5 }, hoverinfo: 'skip' }],
-    layout({ title: ttl(`Breach rate, VaR ${nf(100 * a, 0)}%, ${i1} test days`), xaxis: AX('', { showticklabels: false }), yaxis: AX('breach rate (%)', { rangemode: 'tozero' }), showlegend: false }));
-  plot('vm-qs', S.map(s => ({ x: [s.m], y: [s.qs], type: 'bar', name: s.m, marker: { color: VCOL[s.m] }, hovertemplate: s.m + ': mean QS %{y:.4f}<extra></extra>' })),
-    layout({ title: ttl('Mean quantile score (lower is better)'), xaxis: AX('', { showticklabels: false }), yaxis: AX('mean quantile score', { range: [Math.min(...qv) * 0.9, Math.max(...qv) * 1.03] }), showlegend: false }));
-  // shared legend: the colours of the six models, under both charts
-  const lg = $('vm-leg'); if (lg) lg.innerHTML = VM.map(m => `<span style="display:inline-flex;align-items:center;margin-right:0.9rem"><span style="width:12px;height:12px;background:${VCOL[m]};display:inline-block;margin-right:0.3rem"></span>${m}</span>`).join('') + `<span style="display:inline-flex;align-items:center"><span style="width:16px;border-top:2px dashed ${BA.red};display:inline-block;margin-right:0.3rem"></span>target ${nf(100 * a, 0)}%</span>`;
-  const near = S.slice().sort((u, v) => Math.abs(u.br - 100 * a) - Math.abs(v.br - 100 * a)), low = S.slice().sort((u, v) => u.qs - v.qs);
-  out('vm-out', [T.vm0(longDate(VD[0]), longDate(VD[i1 - 1]), i1, nf(a * i1, 1), nf(100 * a, 0)),
-    ...S.map(s => T.vm(s.m, nf(s.br, 2), s.n, pv(s.kp), pv(s.cp), nf(s.qs, 4), s.dm ? pv(s.dm.p) : null)),
-    T.vm1(near.slice(0, 3).map(s => s.m).join(', '), low.slice(0, 3).map(s => s.m).join(', '))]);
-  return S;
-}
-const BREL = VD.findIndex(d => d > VR.release);
-function varPaths() {
-  const i = +$('vp-t').value, ref = $('vp-ref').value, a = '0.01', y = VR.r;
-  $('vp-t-v').textContent = longDate(VD[i]);
-  const qr = VR.q[ref + '|' + a], hb = VD.map((_, t) => t).filter(t => y[t] < qr[t]);
-  const shown = ['GARCH-t', 'QGBM', 'Chronos-2'].includes(ref) ? ['GARCH-t', 'QGBM', 'Chronos-2'] : ['GARCH-t', 'QGBM', 'Chronos-2', ref];
-  const PC = { 'GARCH-t': BA.blue, 'QGBM': BA.green, 'Chronos-2': BA.eth, 'HS': '#1F77B4', 'EWMA-N': BA.gold, 'QReg': '#8C564B' };
-  const lo = VR.q['QGBM|0.01'].reduce((k, v, t, A) => (v < A[k] ? t : k), 0);
-  plot('vp-chart', [
-    { x: VD, y, type: 'bar', name: 'BTC daily log return (%)', marker: { color: BA.btc }, hovertemplate: 'return %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' },
-    ...shown.map(m => ({ x: VD, y: VR.q[m + '|' + a], mode: 'lines', name: `1% return quantile q (VaR 1% = −q): ${m}`, line: { color: PC[m], width: 1.2 }, hovertemplate: m + ' %{x|%d %b %Y}: q = %{y:.1f}%<extra></extra>' })),
-    { x: hb.map(t => VD[t]), y: hb.map(t => y[t]), mode: 'markers', name: `breach: return below the ${ref} quantile`, marker: { color: BA.red, size: 7 }, hovertemplate: 'breach %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' }],
-    layout({ title: ttl('Bitcoin, test period 1 January 2024 – 23 October 2026'), xaxis: AX('', { type: 'date' }), yaxis: AX('%', { range: [-20, 13] }), bargap: 0,
-      shapes: [vline(VR.release, BA.gold, 'dot'), vline(VD[i], C.navy, 'dash')], legend: legendBelow(-0.12),
-      annotations: [{ x: VD[lo], y: -19.5, ax: 60, ay: -10, text: `QGBM: q = ${nf(VR.q['QGBM|0.01'][lo], 1)}% (VaR ${nf(-VR.q['QGBM|0.01'][lo], 1)}%)`, font: { size: 10, color: BA.green }, arrowcolor: BA.green, showarrow: true, xanchor: 'left' },
-        { x: VR.release, y: 12, text: 'Chronos-2 release (20 Oct 2025)', showarrow: false, xanchor: 'right', font: { size: 10, color: BA.gold } }] }));
-  const v = m => nf(-VR.q[m + '|' + a][i], 1), pre = hb.filter(t => t < BREL).length, post = hb.length - pre;
-  const inp = i >= 2 ? T.vp0(longDate(VD[i - 1]), longDate(VD[i - 2]), sgn(y[i - 2], 1), longDate(VD[i - 1]), sgn(y[i - 1], 1), sgn(VR.dvol[i - 1], 0)) : '';
-  out('vp-out', [T.vp1(longDate(VD[i]), sgn(y[i], 1), inp),
-    T.vp2(VM.map(m => `${m} ${v(m)}%`).join(', ')),
-    T.vp3(ref, hb.length, nf(0.01 * NV, 1), pre, nf(0.01 * BREL, 1), post, nf(0.01 * (NV - BREL), 1))]);
-  return { hb, lo };
+  plot('cl-chart', tr, layout({ title: ttl('33 assets, daily log returns 2021–2026; marker shape = k-means group'),
+    xaxis: AX(`PC1 (${nf(100 * M.evr[0], 0)}% of variance)`), yaxis: AX(`PC2 (${nf(100 * M.evr[1], 0)}%)`), legend: legendBelow(-0.16) }));
+  const sp = AS.names.indexOf('S&P 500'), g0 = M.lab[sp];
+  const joined = AS.names.filter((n, i) => AS.cls[i] === 'crypto' && M.lab[i] === g0);
+  const trad = AS.names.filter((n, i) => AS.cls[i] !== 'crypto' && M.lab[i] === g0).length;
+  const others = [...new Set(M.lab)].filter(g => g !== g0).map(g => AS.names.filter((_, i) => M.lab[i] === g));
+  const LAB = { vol: 'vol', skew: 'skew', log_kurt: 'kurtosis', tail_index: 'tail index', acf_abs: 'ACF|r|', q01_sd: '1% quantile' };
+  out('cl-out', [T.cl1(nf(100 * M.evr[0], 1), nf(100 * M.evr[1], 1), FE.map((f, j) => LAB[f] + ' ' + nf(M.vec[0][j], 2)).join(', ')),
+    T.cl2(trad, joined.length ? joined.join(', ') : 'none'),
+    T.cl3(others.map(g => (g.length > 6 ? `${g.length} assets` : g.join(', ')) + (g.length > 6 ? ` (${g.slice(0, 3).join(', ')} …)` : '')).join('; '))]);
+  return M;
 }
 
-// ================================================================= rolling quantile-score difference against GARCH-t
-function qsRoll() {
-  const W = +$('qr-w').value, a = 0.01, y = VR.r, base = y.map((v, t) => qsOf(v, VR.q['GARCH-t|0.01'][t], a));
-  $('qr-w-v').textContent = W + ' days' + (W === 365 ? ' (as on the slide)' : '');
-  const res = [], tr = [];
-  VM.filter(m => m !== 'GARCH-t').forEach(m => {
-    const d = y.map((v, t) => qsOf(v, VR.q[m + '|0.01'][t], a) - base[t]), cs = [0];
-    d.forEach(v => cs.push(cs[cs.length - 1] + v));
-    const x = [], z = [];
-    for (let t = W; t <= NV; t++) { x.push(VD[t - 1]); z.push(1000 * (cs[t] - cs[t - W]) / W); }
-    res.push({ m, last: z[z.length - 1], ahead: 100 * mean(z.map(v => +(v < 0))), n: z.length, x0: x[0] });
-    tr.push({ x, y: z, mode: 'lines', name: `${m} minus GARCH-t`, line: { color: VCOL[m], width: m === 'Chronos-2' ? 2.2 : 1.4 }, hovertemplate: `${m}, window ending %{x|%d %b %Y}: %{y:.1f}<extra></extra>` });
+// ================================================================= 5. event study: CARs around 13 upgrades
+const EV = D.event, STAGES = ['schedule', 'implementation'];
+function carStats(stage, a, b) {   // window [a, b] in event days; arrays hold days -10..+10
+  const ev = EV.filter(e => e.stage === stage), L = b - a + 1, n = ev.length;
+  const car = ev.map(e => sum(e.ar.slice(a + 10, b + 11))), sc = car.map((c, i) => c / ev[i].sd / Math.sqrt(L));
+  const tcs = mean(car) / (sdev(car) / Math.sqrt(n)), tb = mean(sc) / (sdev(sc) / Math.sqrt(n)), np = car.filter(c => c > 0).length;
+  return { car, mean: mean(car), tcs, pcs: tP2(tcs, n - 1), tb, pb: tP2(tb, n - 1), np, psign: binomP2(np, n), big: sc.filter(s => Math.abs(s) > 1.96).length, names: ev.map(e => e.name) };
+}
+function carBands() {
+  let a = +$('cb-a').value, b = +$('cb-b').value;
+  if (a > b) { if (document.activeElement === $('cb-a')) b = a; else a = b; $('cb-a').value = a; $('cb-b').value = b; }
+  $('cb-a-v').textContent = String(a).replace('-', '−'); $('cb-b-v').textContent = (b > 0 ? '+' : '') + b;
+  const L = b - a + 1, fam = EV.filter(e => e.stage === 'schedule').map(e => e.name), outs = [];
+  const tr = STAGES.map((st, k) => {
+    const ev = EV.filter(e => e.stage === st), car = ev.map(e => sum(e.ar.slice(a + 10, b + 11))), band = ev.map(e => 1.96 * e.sd * Math.sqrt(L));
+    car.forEach((c, i) => { if (Math.abs(c) > band[i]) outs.push(`${ev[i].name} ${st} (${sgn(c, 1)}%)`); });
+    return { x: fam, y: car, type: 'bar', name: `CAR[${String(a).replace('-', '−')}, ${(b > 0 ? '+' : '') + b}] of ETH, ${st} date`, marker: { color: k ? BA.eth : BA.blue }, offsetgroup: st,
+      error_y: { type: 'data', symmetric: true, array: band, color: BA.red, thickness: 1.2, width: 3 },
+      customdata: band, hovertemplate: `%{x}, ${st}: CAR %{y:.1f}%, 5% band ±%{customdata:.1f}%<extra></extra>` };
   });
-  plot('qr-chart', tr, layout({ title: ttl(`Mean 1% quantile score minus that of GARCH-t over the last ${W} days (× 10⁻³); below zero = better than GARCH-t`),
-    xaxis: AX('', { type: 'date' }), yaxis: AX('QS difference (× 10⁻³)'), shapes: [hline(0, '#1F77B4'), vline(VR.release, BA.gold, 'dot')], legend: legendBelow(-0.12) }));
-  out('qr-out', [T.qr0(W, res[0].n, longDate(res[0].x0)), ...res.map(r_ => T.qr(r_.m, sgn(r_.last, 1), nf(r_.ahead, 0)))]);
-  return res;
+  plot('cb-chart', tr, layout({ title: ttl('CAR of ETH; whiskers: CAR ± 1.96 σ̂ᵤ √L. A whisker that does not cross zero marks a CAR outside its 5% band'), barmode: 'group',
+    xaxis: AX('', { tickfont: { size: 10, color: C.navy } }), yaxis: AX('cumulative abnormal return (%)'), legend: legendBelow(-0.2) }));
+  out('cb-out', [T.cb1(String(a).replace('-', '−'), (b > 0 ? '+' : '') + b, L, outs.length, nf(0.05 * 2 * fam.length, 1)), T.cb2(outs.length ? outs.join('; ') : 'none')]);
+  return { outs };
+}
+function event() {
+  let a = +$('ev-a').value, b = +$('ev-b').value;
+  if (a > b) { if (document.activeElement === $('ev-a')) b = a; else a = b; $('ev-a').value = a; $('ev-b').value = b; }
+  $('ev-a-v').textContent = a; $('ev-b-v').textContent = sgn(b, 0).replace('+0', '0');
+  const dd = Array.from({ length: 21 }, (_, i) => i - 10);
+  STAGES.forEach((st, k) => {
+    const ev = EV.filter(e => e.stage === st), paths = ev.map(e => { let s = 0; return e.ar.map(v => (s += v)); });
+    const tr = paths.map((p, i) => ({ x: dd, y: p, mode: 'lines', name: 'one upgrade family', legendgroup: 'one', showlegend: i === 0 && k === 0, line: { color: BA.eth, width: 0.9 }, opacity: 0.55,
+      hovertemplate: ev[i].name + ', day %{x}: %{y:.1f}%<extra></extra>' }));
+    tr.push({ x: dd, y: dd.map((_, j) => mean(paths.map(p => p[j]))), mode: 'lines', name: 'mean CAR across 13 families', showlegend: k === 0, line: { color: BA.red, width: 2.5 },
+      hovertemplate: 'mean, day %{x}: %{y:.2f}%<extra></extra>' });
+    plot('ev-' + st.slice(0, 3), tr, layout({ title: ttl(st + ' date'), xaxis: AX('event day', { dtick: 2, range: [-10.5, 10.5] }), yaxis: AX(k === 0 ? 'cumulative abnormal return of ETH (%)' : '', { range: [-35, 35] }),
+      shapes: [vline(0, BA.blue, 'dot'), { type: 'rect', xref: 'x', yref: 'paper', x0: a - 0.5, x1: b + 0.5, y0: 0, y1: 1, fillcolor: 'rgba(26,58,110,0.10)', line: { width: 0 } }],
+      showlegend: k === 0, legend: legendBelow(-0.2), margin: { l: 66, r: 8, t: 30, b: 100, autoexpand: false } }));
+  });
+  const S = carStats('schedule', a, b), I = carStats('implementation', a, b), dl = I.car.map((c, i) => c - S.car[i]);
+  const tp = mean(dl) / (sdev(dl) / Math.sqrt(dl.length));
+  const L = (s, x) => T.ev(s, String(a).replace('-', '−'), (b > 0 ? '+' : '') + b, sgn(x.mean, 2), nf(x.tcs, 2), nf(x.pcs, 2), nf(x.tb, 2), nf(x.pb, 2), x.np, nf(x.psign, 2), x.big);
+  out('ev-out', [L('Implementation dates', I), L('Schedule dates', S), T.ev2(sgn(mean(dl), 2), nf(tp, 2), nf(tP2(tp, dl.length - 1), 2))]);
+  return { S, I };
 }
 
 // ================================================================= wiring
 function init() {
   const on = (ids, f) => ids.forEach(id => $(id).addEventListener('input', f));
   const players = {}, P = (btn, id, vals, ms) => (players[btn] = new Player(btn, $(id), vals, ms));
-  tall('oa-shap', 380); tall('oa-acc', 380);
-  $('oa-k').max = NO; $('oa-k').value = NO; on(['oa-k'], overfit); P('oa-play', 'oa-k', range(0, NO, 1), 450);
-  tall('eq-chart', 400); on(['eq-c', 'eq-t'], trading); P('eq-play', 'eq-c', range(0, 50, 5), 700);
-  on(['sn-n'], snoop); P('sn-play', 'sn-n', range(0, NS.length - 1, 1), 900);
-  const vmEnd = MEND.length - 1; $('vm-e').max = vmEnd; $('vm-e').value = vmEnd;
-  on(['vm-a', 'vm-e'], varModels); P('vm-play', 'vm-e', range(0, vmEnd, 1), 450);
-  $('vp-t').max = NV - 1; $('vp-t').value = VD.indexOf('2024-01-14'); tall('vp-chart', 430);
-  on(['vp-t', 'vp-ref'], varPaths);
-  P('vp-play', 'vp-t', range(0, 30, 1).concat(range(35, NV - 1, 7)).concat([NV - 1]), 220);
-  tall('qr-chart', 400); on(['qr-w'], qsRoll); P('qr-play', 'qr-w', [60, 90, 120, 180, 240, 300, 365, 420, 480, 540, 600, 660, 720], 800);
-  const PFX = { 'overfitting': 'oa', 'trading': 'eq', 'snooping': 'sn', 'var-models': 'vm', 'var-paths': 'vp', 'qs-roll': 'qr' };
+  tall('ms-heat', 430); tall('ms-tree', 430);
+  on(['ms-p'], mst); P('ms-play', 'ms-p', [0, 1, 2, 3, 4, 5, 6], 1300);
+  tall('cn-chart', 380); on(['cn-w'], connect); P('cn-play', 'cn-w', range(30, 360, 30), 600);
+  on(['sp-h', 'sp-w'], spill); P('sp-play', 'sp-h', [1, 2, 3, 5, 7, 10, 15, 20], 900);
+  tall('cl-chart', 440); on(['cl-w', 'cl-k'], classes); P('cl-play', 'cl-w', range(0, 1, 0.05), 350);
+  tall('eg-chart', 380); on(['eg-p'], eigen); P('eg-play', 'eg-p', [0, 1, 2, 3, 4, 5, 6], 1300);
+  tall('cb-chart', 420); on(['cb-a', 'cb-b'], carBands); P('cb-play', 'cb-b', range(0, 10, 1), 700);
+  tall('ev-sch', 420); tall('ev-imp', 420); on(['ev-a', 'ev-b'], event); P('ev-play', 'ev-b', range(0, 10, 1), 600);
+  const PFX = { 'mst': 'ms', 'eigenvalues': 'eg', 'car-bands': 'cb', 'connectedness': 'cn', 'spillovers': 'sp', 'asset-map': 'cl', 'event-paths': 'ev' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
   if (T.ticket && exitTicket) exitTicket(T.ticket);
-  shapChart(); overfit(); trading(); snoop(); varModels(); varPaths(); qsRoll();
+  mst(); eigen(); connect(); spill(); classes(); carBands(); event();
 }
-window.L7 = { accuracy, perf, dsr, scores, MEND, days, PhiInv, Phi, ranks, pearson, kupiecP, christP, dmP, overfit, trading, snoop, varModels, varPaths, qsRoll };
+window.L7 = { eigen, carBands, corrOf, mstOf, periodOf, rolling, varFit, gfevd, totalOf, spillRoll, assetMap, carStats, tP2, binomP2, days, mst, connect, spill, classes, event };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

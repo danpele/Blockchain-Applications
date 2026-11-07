@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_news_impact'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'News impact curves of GJR-GARCH(1,1) models with Student-t errors for the S&P 500 and Bitcoin, estimated on daily log returns from 2018 to 18 September 2026: today’s volatility as a function of yesterday’s shock, with a symmetric curve of the same average reaction for comparison.'
+
+Keywords: 'GJR-GARCH, leverage effect, news impact curve, asymmetric volatility, Bitcoin, S&P 500'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_news_impact.pdf'

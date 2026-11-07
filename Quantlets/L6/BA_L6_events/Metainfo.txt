@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_events'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Change of the mean De-pegging Pressure Index (DPI) over days 0 to 30 after six stress events relative to days -60 to -8, with heteroskedasticity and autocorrelation consistent (HAC) tests and the Holm correction, for two penalty grids of the Quantile Lasso, against the values reported by Fan, Sha, Härdle & Pele (2026); daily DPI from EODHD data in the event windows.'
+
+Keywords: 'stablecoins, De-pegging Pressure Index, quantile regression, Lasso, tail dependence, event study, Holm correction, robustness'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield; paper values typed from Fan, Sha, Härdle & Pele (2026)'
+
+Output: 'ba_l6_events.pdf'

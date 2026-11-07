@@ -1,320 +1,292 @@
-// Lecture 3 interactive page: one block per chart slide, computed in the browser from l3_data.js.
+// Lecture 3 interactive page: one block per chart slide, computed in the browser from l3_data.js (Slides/interactive_src/export_l3.py).
 (function () {
 'use strict';
 const D = window.L3_DATA;
-const { C, sum, mean, sdev, nf, pct, $, AX, layout, ttl, plot, out, vline, hline, Player, range, predict, exitTicket } = window.MFMI;
+const { C, sum, mean, sdev, nf, $, AX, layout, ttl, plot, out, Player, range, predict } = window.MFMI;
 const T = window.L3_TEXT;
 
 // ---------------------------------------------------------------- colours (same as the slides)
 const BA = { btc: '#E8913A', eth: '#9B59B6', blue: '#1A3A6E', gold: '#B5853F', red: '#CD0000', green: '#2E7D32', orange: '#E67E22', purple: '#8E44AD', teal: '#17A2B8' };
-const COL = { btc: BA.btc, eth: BA.eth, sp500: BA.blue, gold: BA.gold };
-const NAME = { btc: 'Bitcoin', eth: 'Ethereum', sp500: 'S&P 500', gold: 'Gold' };
 
 // ---------------------------------------------------------------- helpers
-const days = x => {                 // daily calendar {d0, n} or a list of dates
-  if (Array.isArray(x)) return x;
-  const t0 = Date.parse(x.d0 + 'T00:00:00Z');
-  return Array.from({ length: x.n }, (_, i) => new Date(t0 + i * 864e5).toISOString().slice(0, 10));
-};
+const days = (d0, n) => { const t0 = Date.parse(d0 + 'T00:00:00Z'); return Array.from({ length: n }, (_, i) => new Date(t0 + i * 864e5).toISOString().slice(0, 10)); };
 const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const longDate = s => `${+s.slice(8, 10)} ${MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
 const shortDate = s => `${+s.slice(8, 10)} ${MON[+s.slice(5, 7) - 1].slice(0, 3)} ${s.slice(0, 4)}`;
 const gnum = (x, d = 0) => { const s = Math.abs(x).toFixed(d).split('.'); s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); return (x < 0 ? '−' : '') + s.join('.'); };
 const finite = v => v !== null && v !== undefined && isFinite(v);
-const tall = (id, h) => { $(id).style.height = h + 'px'; };
-const median = a => { const b = a.filter(finite).sort((x, y) => x - y), n = b.length; return n % 2 ? b[(n - 1) / 2] : (b[n / 2 - 1] + b[n / 2]) / 2; };
-const argmax = a => { let k = -1; a.forEach((v, j) => { if (finite(v) && (k < 0 || v > a[k])) k = j; }); return k; };
-function acf(x, L) { const m = mean(x), e = x.map(v => v - m), den = sum(e.map(v => v * v)), res = []; for (let k = 1; k <= L; k++) { let s = 0; for (let t = k; t < e.length; t++) s += e[t] * e[t - k]; res.push(s / den); } return res; }
-function quantile(a, p) {           // pandas Series.quantile (linear interpolation)
-  const b = [...a].sort((x, y) => x - y), h = (b.length - 1) * p, lo = Math.floor(h);
-  return b[lo] + (h - lo) * ((b[lo + 1] === undefined ? b[lo] : b[lo + 1]) - b[lo]);
-}
-const pc = x => String(+x.toFixed(2));            // 1 -> '1', 2.5 -> '2.5', 0.25 -> '0.25'
-const pfmt = p => (p < 0.001 ? '< 0.001' : nf(p, 3));
+const corr = (x, y) => { const mx = mean(x), my = mean(y); let a = 0, b = 0, c = 0; for (let i = 0; i < x.length; i++) { a += (x[i] - mx) * (y[i] - my); b += (x[i] - mx) ** 2; c += (y[i] - my) ** 2; } return a / Math.sqrt(b * c); };
+const ols = (x, y) => { const mx = mean(x), my = mean(y); let a = 0, b = 0; for (let i = 0; i < x.length; i++) { a += (x[i] - mx) * (y[i] - my); b += (x[i] - mx) ** 2; } const s = a / b; return { slope: s, icpt: my - s * mx }; };
+const LOGY = t => AX(t, { type: 'log', dtick: 1 });
+const lr = (p, i) => (finite(p[i]) && finite(p[i - 1]) ? 100 * Math.log(p[i] / p[i - 1]) : null);
 
-// ---------------------------------------------------------------- distributions
-function erfc(x) {                  // Numerical Recipes erfcc, fractional error < 1.2e-7
-  const z = Math.abs(x), t = 1 / (1 + 0.5 * z);
-  const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 + t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
-  return x >= 0 ? r : 2 - r;
+// ---------------------------------------------------------------- coins: prices on a daily calendar, supply on month-ends and first days
+const PXD = days(D.px.d0, D.px.n), PXI = Object.fromEntries(PXD.map((d, i) => [d, i]));
+const SUPI = Object.fromEntries(D.sup.dates.map((d, i) => [d, i]));
+const price = (c, d) => D.px.p[c][PXI[d]];
+const supply = (c, d) => D.sup.s[c][SUPI[d]];
+const mval = (c, d) => { const p = price(c, d), s = supply(c, d); return finite(p) && finite(s) ? p * s : null; };
+const ENDR = D.endr;
+
+// ---------------------------------------------------------------- CRIX, VCRIX, Bitcoin on the CRIX calendar
+const CD = days(D.crix.d0, D.crix.n), CI = Object.fromEntries(CD.map((d, i) => [d, i]));
+const CRIX = D.crix.c, VCRIX = D.crix.v, BTCP = D.crix.b, OFF = D.official;
+const RC = CRIX.map((_, i) => (i ? lr(CRIX, i) : null));                       // CRIX log returns (%), consecutive days only
+const ART = d => d >= '2026-05-14' && d <= '2026-07-08';                     // CRIX gap and the 30 days after it
+const VOK = VCRIX.map((v, i) => (ART(CD[i]) ? null : v));
+
+// ================================================================= 1. survivorship
+function survPaths(t0, N, how) {
+  const t1 = ENDR, avail = D.coins.filter(c => finite(mval(c, t0)));
+  const top = d => [...avail].sort((a, b) => mval(b, d) - mval(a, d)).slice(0, N);
+  const ante = top(t0), post = top(t1);
+  const path = mem => {
+    const tot = sum(mem.map(c => mval(c, t0))), w = mem.map(c => (how === 'cap' ? mval(c, t0) / tot : 1 / mem.length));
+    const u = mem.map((c, j) => 100 * w[j] / price(c, t0)), i0 = PXI[t0], i1 = PXI[t1], x = [], y = [];
+    for (let i = i0; i <= i1; i++) { x.push(PXD[i]); y.push(sum(mem.map((c, j) => u[j] * D.px.p[c][i]))); }
+    return { x, y };
+  };
+  const yrs = (Date.parse(t1) - Date.parse(t0)) / 864e5 / 365.25;
+  const a = path(ante), b = path(post), ea = a.y[a.y.length - 1], eb = b.y[b.y.length - 1];
+  return { ante, post, a, b, ea, eb, ca: 100 * ((ea / 100) ** (1 / yrs) - 1), cb: 100 * ((eb / 100) ** (1 / yrs) - 1), rank0: avail.length };
 }
-const normCdf = x => 1 - 0.5 * erfc(x / Math.SQRT2);
-const normPdf = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
-function bisect(f, lo, hi, it = 200) { for (let i = 0; i < it; i++) { const m = (lo + hi) / 2; if (f(m) < 0) lo = m; else hi = m; } return (lo + hi) / 2; }
-const normPpf = p => bisect(x => normCdf(x) - p, -40, 40);
-function lgamma(x) {                // Lanczos
-  const g = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
-  let y = x, tmp = x + 5.5; tmp -= (x + 0.5) * Math.log(tmp); let ser = 1.000000000190015;
-  for (let j = 0; j < 6; j++) ser += g[j] / ++y;
-  return -tmp + Math.log(2.5066282746310005 * ser / x);
+function survivorship() {
+  const t0 = $('sv-t').value, N = +$('sv-n').value, how = $('sv-w').value;
+  $('sv-n-v').textContent = N;
+  const S = survPaths(t0, N, how), wl = how === 'cap' ? 'market-value weights' : 'equal weights';
+  plot('sv-chart', [
+    { x: S.a.x, y: S.a.y, mode: 'lines', name: `top ${N} of ${shortDate(t0)} (ex ante): ${S.ante.join(', ')}`, line: { color: BA.blue, width: 1.4 }, hovertemplate: '%{x|%d %b %Y}: %{y:,.0f} USD<extra></extra>' },
+    { x: S.b.x, y: S.b.y, mode: 'lines', name: `top ${N} of ${shortDate(ENDR)} (ex post): ${S.post.join(', ')}`, line: { color: BA.red, width: 1.4 }, hovertemplate: '%{x|%d %b %Y}: %{y:,.0f} USD<extra></extra>' }],
+    layout({ title: ttl(`Value of 100 USD bought on ${shortDate(t0)}, ${wl}`), xaxis: AX('', { type: 'date' }), yaxis: LOGY('USD (log scale)') }));
+  out('sv-out', [T.sv1(N, longDate(t0), S.ante.join(', '), gnum(S.ea), nf(S.ca, 1)), T.sv2(N, longDate(ENDR), S.post.join(', '), gnum(S.eb), nf(S.cb, 1)),
+    T.sv3(nf(S.cb - S.ca, 1), S.ante.filter(c => S.post.includes(c)).length, N)]);
 }
-function betacf(a, b, x) {          // continued fraction of the incomplete beta function (Numerical Recipes)
-  const FP = 1e-300; let qab = a + b, qap = a + 1, qam = a - 1, c = 1, d = 1 - qab * x / qap;
-  if (Math.abs(d) < FP) d = FP; d = 1 / d; let h = d;
-  for (let m = 1; m <= 300; m++) {
-    const m2 = 2 * m; let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
-    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d; h *= d * c;
-    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
-    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d; const del = d * c; h *= del;
-    if (Math.abs(del - 1) < 1e-15) break;
+
+// ================================================================= 2. AIC rule
+function aicRule() {
+  const j = +$('ar-q').value, s = D.sel[j], ks = s.aic.map((_, i) => i + 1);
+  $('ar-q-v').textContent = longDate(s.q);
+  const mk = (k, col, nm, sym) => ({ x: [k], y: [s.aic[k - 1]], mode: 'markers', name: nm, marker: { size: 13, color: 'rgba(0,0,0,0)', line: { color: col, width: 2.5 }, symbol: sym }, hoverinfo: 'skip' });
+  plot('ar-chart', [
+    { x: ks, y: s.aic, mode: 'lines+markers', name: `AIC(k), 90 days to ${shortDate(s.q)}`, line: { color: BA.blue, width: 1.6 }, marker: { size: 7, color: BA.blue }, hovertemplate: 'k = %{x}: AIC %{y:.1f}<extra></extra>' },
+    mk(s.ke, BA.red, `first rise of the AIC: k = ${s.ke}`, 'circle'), mk(s.kf, BA.orange, `global minimum: k = ${s.kf}`, 'square'),
+    { x: [s.kc, s.kc], y: [Math.min(...s.aic), Math.max(...s.aic)], mode: 'lines', name: `CTDC-type rule: k = ${s.kc}`, line: { color: BA.purple, width: 1.5, dash: 'dash' }, hoverinfo: 'skip' }],
+    layout({ title: ttl('Decision curve of the quarterly reselection'), xaxis: AX('number of constituents k', { dtick: 1 }), yaxis: AX('AIC') }));
+  const gain = ks.slice(1).map(k => s.aic[k - 2] - s.aic[k - 1]);
+  out('ar-out', [T.ar1(longDate(s.q), s.order.length, s.order.join(', '), s.excl.length ? s.excl.join(', ') : 'none', nf(s.thr, 1)),
+    T.ar2(s.ke, s.kf, s.kc, s.order.slice(0, s.ke).join(', ')),
+    T.ar3(nf(gain[0], 1), gain.length > 1 ? nf(gain[gain.length - 1], 1) : '–')]);
+}
+
+// ================================================================= 3. replica against CRIX
+const isMonthEnd = d => new Date(Date.parse(d + 'T00:00:00Z') + 864e5).toISOString().slice(8, 10) === '01';
+function schedule(rule) {             // [tau, members] at every month-end; members chosen at each quarter end
+  const sch = [];
+  D.sel.forEach((s, j) => {
+    const nxt = j + 1 < D.sel.length ? D.sel[j + 1].q : ENDR;
+    const k = rule === 'e' ? s.ke : rule === 'f' ? s.kf : rule === 'c' ? s.kc : rule === 'tmi' ? s.order.length : Math.min(+rule, s.order.length);
+    const mem = s.order.slice(0, k);
+    for (let i = PXI[s.q]; i < PXI[nxt]; i++) if (PXD[i] === s.q || isMonthEnd(PXD[i])) sch.push([PXD[i], mem]);
+  });
+  return sch;
+}
+function laspeyres(sch, cap) {
+  const lev = new Array(PXD.length).fill(null), wts = [];
+  let I = 1000; lev[PXI[sch[0][0]]] = 1000;
+  sch.forEach(([tau, mem], j) => {
+    const end = j + 1 < sch.length ? sch[j + 1][0] : ENDR, mvs = mem.map(c => mval(c, tau)), tot = sum(mvs);
+    let w = mvs.map(v => v / tot);
+    if (cap && w.length > 1) for (let it = 0; it < 50; it++) {
+      const over = w.map(v => v > cap); if (!over.some(Boolean)) break;
+      const ex = sum(w.filter((v, i) => over[i]).map(v => v - cap)), rest = sum(w.filter((v, i) => !over[i]));
+      w = w.map((v, i) => (over[i] ? cap : v + ex * v / rest));
+    }
+    const q = mem.map((c, i) => w[i] * tot / price(c, tau)), D0 = sum(mem.map((c, i) => price(c, tau) * q[i])) / I;
+    for (let i = PXI[tau] + 1; i <= PXI[end]; i++) lev[i] = sum(mem.map((c, k) => D.px.p[c][i] * q[k])) / D0;
+    I = lev[PXI[end]]; wts.push({ tau, mem, w, D: D0 });
+  });
+  return { lev, wts };
+}
+function trackStats(lev, start) {      // daily log returns against CRIX on common consecutive days, start -> ENDR
+  const x = [], y = [], dd = [];
+  for (let i = PXI[start] + 1; i <= PXI[ENDR]; i++) {
+    const d = PXD[i], ci = CI[d], rc = ci !== undefined ? RC[ci] : null, rr = finite(lev[i]) && finite(lev[i - 1]) ? 100 * Math.log(lev[i] / lev[i - 1]) : null;
+    if (finite(rc) && finite(rr)) { x.push(rc); y.push(rr); dd.push(d); }
   }
-  return h;
+  const diff = x.map((v, i) => v - y[i]);
+  return { n: x.length, corr: corr(x, y), te: sdev(diff) * Math.sqrt(365), x, y, d: dd };
 }
-function betai(a, b, x) {
-  if (x <= 0) return 0; if (x >= 1) return 1;
-  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
-  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
-}
-const tCdf = (x, nu) => { const p = 0.5 * betai(nu / 2, 0.5, nu / (nu + x * x)); return x > 0 ? 1 - p : p; };
-const tPdf = (x, nu) => Math.exp(lgamma((nu + 1) / 2) - lgamma(nu / 2)) / Math.sqrt(nu * Math.PI) * (1 + x * x / nu) ** (-(nu + 1) / 2);
-const tPpf = (p, nu) => bisect(x => tCdf(x, nu) - p, -1e3, 1e3);
-const esFactor = (q, p, nu) => tPdf(q, nu) / p * (nu + q * q) / (nu - 1);   // ES multiplier of the standard Student-t
-function gammq(a, x) {              // regularised upper incomplete gamma Q(a, x)
-  if (x <= 0) return 1;
-  if (x < a + 1) { let ap = a, s = 1 / a, del = s; for (let n = 0; n < 500; n++) { ap++; del *= x / ap; s += del; if (Math.abs(del) < Math.abs(s) * 1e-15) break; } return 1 - s * Math.exp(-x + a * Math.log(x) - lgamma(a)); }
-  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d;
-  for (let i = 1; i < 500; i++) { const an = -i * (i - a); b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300; c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d; const del = d * c; h *= del; if (Math.abs(del - 1) < 1e-15) break; }
-  return Math.exp(-x + a * Math.log(x) - lgamma(a)) * h;
-}
-const chi2Sf = (x, k) => gammq(k / 2, x / 2);
-
-// ---------------------------------------------------------------- data
-const RET = {}; Object.entries(D.ret).forEach(([k, v]) => { RET[k] = { d: days(v.dates), r: v.r }; });
-const G = D.garch, A = D.A, LAM = D.check.lam;
-function garchFilter(r, p, alpha, beta) {   // arch's GARCH(1,1) recursion, backcast = 0.94-weighted mean of the first 75 squared residuals
-  const e = r.map(v => v - p.mu), tau = Math.min(75, e.length);
-  let w = 0, bc = 0; for (let i = 0; i < tau; i++) { const wi = 0.94 ** i; w += wi; bc += wi * e[i] * e[i]; } bc /= w;
-  const s2 = new Array(e.length); s2[0] = p.omega + alpha * bc + beta * bc;
-  for (let t = 1; t < e.length; t++) s2[t] = p.omega + alpha * e[t - 1] ** 2 + beta * s2[t - 1];
-  return { s2, next: p.omega + alpha * e[e.length - 1] ** 2 + beta * s2[e.length - 1] };
-}
-const FILT = {}; Object.keys(G).forEach(k => { FILT[k] = garchFilter(RET[k].r, G[k], G[k].alpha, G[k].beta); });
-function ewmaNext(r, lam) { let v = sdev(r.slice(0, 250)) ** 2; r.forEach(x => { v = lam * v + (1 - lam) * x * x; }); return v; }   // the notebook's EWMA forecast for 19 September 2026
-
-// ================================================================= 1.1 volatility clustering, again
-const RB = RET.btc.r, RB_D = RET.btc.d, NB = RB.length, ABS_SORT = RB.map(Math.abs).sort((a, b) => b - a);
-function clustering() {
-  const k = +$('cl-k').value, cap = ABS_SORT[k], x = RB.map(v => Math.max(-cap, Math.min(cap, v))), band = 1.96 / Math.sqrt(NB), lags = range(1, 30, 1);
-  $('cl-k-v').textContent = k === 0 ? 'none' : k + (k === 1 ? ' day' : ' days') + ' (|r| capped at ' + nf(cap, 1) + '%)';
-  const a1 = acf(x, 30), a2 = acf(x.map(Math.abs), 30), a3 = acf(x.map(v => v * v), 30);
-  plot('cl-ret', [{ x: RB_D, y: x, mode: 'lines', name: 'Bitcoin daily log return (%)' + (k ? ', capped' : ''), line: { color: BA.btc, width: 0.6 }, hovertemplate: '%{x|%d %b %Y}: %{y:.2f}%<extra></extra>' }],
-    layout({ title: ttl('Bitcoin daily log returns, 2018 – 18 Sep 2026'), xaxis: AX('', { type: 'date' }), yaxis: AX('daily log return (%)', { range: [-50, 25] }) }));
-  const bar = (y, c, name, dx) => ({ x: lags.map(l => l + dx), y, type: 'bar', width: 0.27, name, marker: { color: c }, hovertemplate: name + ', lag %{x:.0f}: %{y:.3f}<extra></extra>' });
-  plot('cl-acf', [bar(a1, BA.blue, 'autocorrelation of r<sub>t</sub>', -0.27), bar(a2, BA.eth, 'autocorrelation of |r<sub>t</sub>|', 0), bar(a3, BA.red, 'autocorrelation of r<sub>t</sub><sup>2</sup>', 0.27),
-    { x: [0.5, 30.5], y: [band, band], mode: 'lines', name: '±1.96/√n', line: { color: BA.green, width: 1, dash: 'dash' }, hoverinfo: 'skip' },
-    { x: [0.5, 30.5], y: [-band, -band], mode: 'lines', showlegend: false, line: { color: BA.green, width: 1, dash: 'dash' }, hoverinfo: 'skip' }],
-    layout({ title: ttl('Autocorrelations, lags 1–30'), xaxis: AX('lag (days)'), yaxis: AX('autocorrelation', { range: [-0.06, 0.2] }), barmode: 'overlay' }));
-  const o1 = a1.filter(v => Math.abs(v) > band).length, o2 = a2.filter(v => v > band).length, o3 = a3.filter(v => v > band).length;
-  out('cl-out', [T.cl0(gnum(NB), nf(band, 3)), T.cl1(o1, o2, nf(Math.min(...a2), 2), nf(Math.max(...a2), 2), o3, nf(Math.max(...a3), 2)),
-    k === 0 ? T.cl2(nf(Math.min(...RB), 1)) : T.cl3(RB.filter(v => Math.abs(v) > cap).length, nf(cap, 1))]);
+const RULE_NAME = { e: 'first rise of the AIC (ECRIX)', f: 'global minimum of the AIC (EFCRIX)', c: 'CTDC-type polynomial rule', tmi: 'all eligible coins (TMI)' };
+function replica() {
+  const rule = $('rp-r').value, cap = $('rp-c').value === 'cap' ? 0.4999 : null;
+  const sch = schedule(rule), L = laspeyres(sch, cap), start = sch[0][0], S = trackStats(L.lev, start);
+  const i0 = PXI[start], i1 = PXI[ENDR], x = PXD.slice(i0, i1 + 1), c0 = CRIX[CI[start]];
+  const crixN = x.map(d => (CI[d] !== undefined && finite(CRIX[CI[d]]) ? 1000 * CRIX[CI[d]] / c0 : null));
+  const nm = RULE_NAME[rule] || `top ${rule} coins`;
+  plot('rp-chart', [
+    { x, y: crixN, mode: 'lines', name: 'Royalton CRIX (thecrix.de)', line: { color: BA.red, width: 1.4 }, connectgaps: false, hovertemplate: 'CRIX %{x|%d %b %Y}: %{y:,.0f}<extra></extra>' },
+    { x, y: L.lev.slice(i0, i1 + 1), mode: 'lines', name: `replica: ${nm}${cap ? ', capped below 50%' : ''}`, line: { color: BA.blue, width: 1.2 }, hovertemplate: 'replica %{x|%d %b %Y}: %{y:,.0f}<extra></extra>' }],
+    layout({ title: ttl(`1000 on ${shortDate(start)} (log scale)`), xaxis: AX('', { type: 'date' }), yaxis: LOGY('index level') }));
+  const ks = sch.filter((_, j) => j === 0 || sch[j][1] !== sch[j - 1][1]).map(s => s[1].length);
+  const last = L.wts[L.wts.length - 1], wb = last.mem.indexOf('BTC');
+  out('rp-out', [T.rp1(gnum(S.n), nf(S.corr, 3), nf(S.te, 1)), T.rp2(nf(mean(ks), 1), Math.min(...ks), Math.max(...ks), gnum(crixN[crixN.length - 1] || crixN.filter(finite).slice(-1)[0]), gnum(L.lev[i1])),
+    T.rp3(shortDate(last.tau), last.mem.map((c, i) => `${c} ${nf(100 * last.w[i], 1)}%`).join(', '), wb >= 0 ? nf(100 * last.w[wb], 1) : '0')]);
 }
 
-// ================================================================= 1.3 how EWMA weights the past
-const W2020 = RB_D.map((d, i) => i).filter(i => RB_D[i] >= '2020-02-01' && RB_D[i] <= '2020-05-31');
-function ewmaWeights() {
-  const lam = +$('ew-l').value, j = range(1, 60, 1);
-  $('ew-l-v').textContent = nf(lam, 2);
-  plot('ew-w', [
-    { x: j.map(v => v - 0.2), y: j.map(v => (1 - lam) * lam ** (v - 1)), type: 'bar', width: 0.4, name: 'EWMA weight, lambda = ' + nf(lam, 2), marker: { color: BA.btc }, hovertemplate: 'lag %{x:.0f}: %{y:.4f}<extra></extra>' },
-    { x: j.map(v => v + 0.2), y: j.map(v => 0.03 * 0.97 ** (v - 1)), type: 'bar', width: 0.4, name: 'EWMA weight, lambda = 0.97', marker: { color: BA.blue }, hovertemplate: 'lag %{x:.0f}: %{y:.4f}<extra></extra>' },
-    { x: j, y: j.map(v => (v <= 30 ? 1 / 30 : 0)), mode: 'lines', name: 'equal weights, 30-day window', line: { color: BA.red, width: 1.2, dash: 'dash', shape: 'hv' }, hoverinfo: 'skip' }],
-    layout({ title: ttl('Weight on the squared return j days ago'), xaxis: AX('lag j (days)'), yaxis: AX('weight on squared return', { rangemode: 'tozero' }), barmode: 'overlay' }));
-  // Bitcoin around 12 March 2020: EWMA estimate at the end of each day and the 30-day equal-weight standard deviation, annualised
-  let v = sdev(RB.slice(0, 250)) ** 2; const ew = RB.map(x => (v = lam * v + (1 - lam) * x * x));
-  const roll = RB.map((_, i) => (i >= 29 ? sdev(RB.slice(i - 29, i + 1)) : null));
-  const xd = W2020.map(i => RB_D[i]), an = s => Math.sqrt(365) * s;
-  const crash = RB_D.indexOf('2020-03-12'), drop = crash + 30;
-  plot('ew-btc', [
-    { x: xd, y: W2020.map(i => an(Math.sqrt(ew[i]))), mode: 'lines', name: 'EWMA, lambda = ' + nf(lam, 2), line: { color: BA.btc, width: 1.6 }, hovertemplate: 'EWMA %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' },
-    { x: xd, y: W2020.map(i => an(roll[i])), mode: 'lines', name: '30-day equal-weight standard deviation', line: { color: BA.red, width: 1.4, dash: 'dash' }, hovertemplate: '30-day %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' }],
-    layout({ title: ttl('Bitcoin volatility around 12 March 2020, % a year'), xaxis: AX('', { type: 'date' }), yaxis: AX('volatility (% a year)', { rangemode: 'tozero' }),
-      shapes: [vline('2020-03-12', C.navy, 'dot'), vline(RB_D[drop], BA.red, 'dot')] }));
-  out('ew-out', [T.ew1(nf(lam, 2), nf(100 * (1 - lam), 1), nf(100 * (1 - lam) * lam ** 29, 2), nf(100 * (1 - lam ** 30), 0), nf(1 / (1 - lam), 1)),
-    T.ew2(longDate(RB_D[drop]), nf(an(roll[drop - 1]), 0), nf(an(roll[drop]), 0), nf(an(Math.sqrt(ew[drop - 1])), 0), nf(an(Math.sqrt(ew[drop])), 0))]);
+// ================================================================= 4. CRIX path and statistics
+function annStats(p, d, a, b) {        // CAGR, annualised volatility of consecutive-day log returns, maximum drawdown
+  const idx = []; for (let i = 0; i < p.length; i++) if (d[i] >= a && d[i] <= b && finite(p[i])) idx.push(i);
+  const i0 = idx[0], i1 = idx[idx.length - 1], yrs = (Date.parse(d[i1]) - Date.parse(d[i0])) / 864e5 / 365.25;
+  const r = []; for (const i of idx) if (i > i0) { const v = lr(p, i); if (finite(v)) r.push(v); }
+  let pk = -Infinity, mdd = 0, pkd = '', trd = '', cur = '';
+  for (const i of idx) { if (p[i] > pk) { pk = p[i]; cur = d[i]; } const dd = p[i] / pk - 1; if (dd < mdd) { mdd = dd; trd = d[i]; pkd = cur; } }
+  return { cagr: 100 * ((p[i1] / p[i0]) ** (1 / yrs) - 1), vol: sdev(r) * Math.sqrt(365), mdd: 100 * mdd, pkd, trd, n: r.length, d0: d[i0], d1: d[i1] };
+}
+function crixPath() {
+  const a = $('cp-a').value, b = $('cp-b').value;
+  const sc = annStats(CRIX, CD, a, b), sb = annStats(BTCP, CD, a, b);
+  const i0 = CI[sc.d0], i1 = CI[b] !== undefined ? CI[b] : CD.length - 1, x = CD.slice(i0, i1 + 1);
+  const b0 = BTCP[CI[sb.d0]], c0 = CRIX[i0];
+  plot('cp-chart', [
+    { x, y: CRIX.slice(i0, i1 + 1).map(v => (finite(v) ? 100 * v / c0 : null)), mode: 'lines', name: 'Royalton CRIX', line: { color: BA.red, width: 1.4 }, hovertemplate: 'CRIX %{x|%d %b %Y}: %{y:,.1f}<extra></extra>' },
+    { x, y: BTCP.slice(i0, i1 + 1).map(v => (finite(v) ? 100 * v / b0 : null)), mode: 'lines', name: 'Bitcoin (EODHD close)', line: { color: BA.btc, width: 1.1 }, hovertemplate: 'Bitcoin %{x|%d %b %Y}: %{y:,.1f}<extra></extra>' }],
+    layout({ title: ttl(`100 on ${shortDate(sc.d0)} (log scale)`), xaxis: AX('', { type: 'date' }), yaxis: LOGY('level') }));
+  out('cp-out', [T.cp1('CRIX', shortDate(sc.d0), shortDate(sc.d1), nf(sc.cagr, 1), nf(sc.vol, 1), nf(sc.mdd, 1), shortDate(sc.pkd), shortDate(sc.trd)),
+    T.cp1('Bitcoin', shortDate(sb.d0), shortDate(sb.d1), nf(sb.cagr, 1), nf(sb.vol, 1), nf(sb.mdd, 1), shortDate(sb.pkd), shortDate(sb.trd)),
+    sc.d0 < OFF ? T.cp2() : T.cp3(gnum(sc.n))]);
 }
 
-// ================================================================= 2.2 heavy tails after filtering (Bitcoin standardised residuals)
-const ZB = RB.map((r, i) => (r - G.btc.mu) / Math.sqrt(FILT.btc.s2[i])), NZ = ZB.length, NU_B = G.btc.nu, SC_B = Math.sqrt((NU_B - 2) / NU_B);
-const ZABS = ZB.map(Math.abs).sort((a, b) => b - a);
-const above = c => { let k = 0; while (k < ZABS.length && ZABS[k] > c) k++; return k; };
-const sci = x => { if (x >= 0.01) return nf(x, x < 1 ? 2 : 1); const e = Math.floor(Math.log10(x)), m = x / 10 ** e; return nf(m, 1) + ' × 10<sup>' + e + '</sup>'; };
-const ZBIN = (() => { const w = 0.25, lo = -14, nb = 92, cnt = new Array(nb).fill(0); ZB.forEach(z => { const k = Math.floor((z - lo) / w); if (k >= 0 && k < nb) cnt[k]++; });
-  return { x: cnt.map((_, k) => lo + (k + 0.5) * w), y: cnt.map(v => (v ? v / (NZ * w) : null)), w }; })();
-function tails() {
-  const c = +$('tl-c').value;
-  $('tl-c-v').textContent = nf(c, 2);
-  const xx = range(-14, 9, 0.05), CG = range(2, 8, 0.05);
-  plot('tl-hist', [
-    { x: ZBIN.x, y: ZBIN.y, type: 'bar', width: ZBIN.w, name: 'Bitcoin standardised residuals ẑ<sub>t</sub>', marker: { color: BA.btc + 'BF' }, hovertemplate: 'ẑ ≈ %{x:.2f}: density %{y:.2e}<extra></extra>' },
-    { x: xx, y: xx.map(normPdf), mode: 'lines', name: 'Normal, variance 1', line: { color: BA.blue, width: 1.4 }, hoverinfo: 'skip' },
-    { x: xx, y: xx.map(v => tPdf(v / SC_B, NU_B) / SC_B), mode: 'lines', name: 'Student-t, ν = ' + nf(NU_B, 2) + ', variance 1', line: { color: BA.red, width: 1.4 }, hoverinfo: 'skip' }],
-    layout({ title: ttl('Density of ẑ<sub>t</sub> (horizontal), log scale; dotted: ±c'), xaxis: AX('', { range: [-14, 9] }), yaxis: AX('density (log scale)', { type: 'log', range: [-5, 0], exponentformat: 'power' }), bargap: 0,
-      shapes: [vline(-c, C.navy, 'dot'), vline(c, C.navy, 'dot')] }));
-  plot('tl-count', [
-    { x: CG, y: CG.map(above), mode: 'lines', name: 'observed days', line: { color: BA.btc, width: 2, shape: 'hv' }, hovertemplate: 'c = %{x:.2f}: %{y} days<extra></extra>' },
-    { x: CG, y: CG.map(v => NZ * 2 * (1 - normCdf(v))), mode: 'lines', name: 'expected, Normal', line: { color: BA.blue, width: 1.4 }, hovertemplate: 'Normal, c = %{x:.2f}: %{y:.2e}<extra></extra>' },
-    { x: CG, y: CG.map(v => NZ * 2 * (1 - tCdf(v / SC_B, NU_B))), mode: 'lines', name: 'expected, Student-t', line: { color: BA.red, width: 1.4 }, hovertemplate: 'Student-t, c = %{x:.2f}: %{y:.1f}<extra></extra>' }],
-    layout({ title: ttl('Days with |ẑ<sub>t</sub>| > c, log scale; horizontal: c'), xaxis: AX(''), yaxis: AX('days (log scale)', { type: 'log', range: [-2, 2.7], exponentformat: 'power' }), shapes: [vline(c, C.navy, 'dot')] }));
-  const jmin = ZB.reduce((b, z, i) => (z < ZB[b] ? i : b), 0);
-  out('tl-out', [T.tl1(gnum(NZ), nf(NU_B, 2)), T.tl2(nf(c, 2), above(c), sci(NZ * 2 * (1 - normCdf(c))), sci(NZ * 2 * (1 - tCdf(c / SC_B, NU_B)))),
-    T.tl3(nf(ZB[jmin], 1), longDate(RB_D[jmin]))]);
+// ================================================================= 5. drawdowns
+function ddSeries(p, d, last) {
+  const x = [], y = []; let pk = -Infinity;
+  for (let i = 0; i < p.length; i++) if (finite(p[i]) && d[i] <= last) { pk = Math.max(pk, p[i]); x.push(d[i]); y.push(100 * (p[i] / pk - 1)); }
+  return { x, y };
+}
+function episodes(p, d, depth) {       // falls deeper than depth (%): peak, trough, recovery
+  const outE = []; let pv = null, pd = null, tv = null, td = null, inDD = false;
+  for (let i = 0; i < p.length; i++) {
+    if (!finite(p[i])) continue;
+    const v = p[i];
+    if (pv === null || v >= pv) {
+      if (inDD && tv / pv - 1 <= -depth / 100) outE.push({ pk: pd, tr: td, depth: 100 * (tv / pv - 1), rec: d[i] });
+      pv = v; pd = d[i]; inDD = false; tv = null;
+    } else { inDD = true; if (tv === null || v < tv) { tv = v; td = d[i]; } }
+  }
+  if (inDD && tv / pv - 1 <= -depth / 100) outE.push({ pk: pd, tr: td, depth: 100 * (tv / pv - 1), rec: null });
+  return outE;
+}
+const DDC = ddSeries(CRIX, CD, '9999'), DDB = ddSeries(BTCP, CD, '2026-10-31');
+function drawdowns() {
+  const thr = +$('dd-d').value; $('dd-d-v').textContent = thr + '%';
+  plot('dd-chart', [
+    { x: DDC.x, y: DDC.y, mode: 'lines', fill: 'tozeroy', name: 'CRIX drawdown', line: { color: BA.red, width: 0.8 }, fillcolor: 'rgba(205,0,0,0.25)', hovertemplate: 'CRIX %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' },
+    { x: DDB.x, y: DDB.y, mode: 'lines', name: 'Bitcoin drawdown', line: { color: BA.btc, width: 1 }, hovertemplate: 'Bitcoin %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' },
+    { x: [DDC.x[0], DDC.x[DDC.x.length - 1]], y: [-thr, -thr], mode: 'lines', name: `${thr}% below the record`, line: { color: BA.blue, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' }],
+    layout({ title: ttl('% below the last record'), xaxis: AX('', { type: 'date' }), yaxis: AX('%', { range: [-100, 0] }) }));
+  const sh = s => 100 * s.y.filter(v => v < -thr).length / s.y.length;
+  const E = episodes(CRIX, CD, thr);
+  out('dd-out', [T.dd1(thr, nf(sh(DDC), 1), nf(sh(DDB), 1)), T.dd2(thr, E.length, E.map(e => `${shortDate(e.pk)} → ${shortDate(e.tr)} (${nf(e.depth, 1)}%${e.rec ? ', record again ' + shortDate(e.rec) : ', not yet recovered'})`).join('; ') || '–')]);
 }
 
-// ================================================================= 2.2 conditional volatility
-function condVol() {
-  const f = +$('cv-a').value;
-  $('cv-a-v').textContent = '× ' + nf(f, 2);
-  const tr = [], rows = [];
-  ['btc', 'eth', 'sp500'].forEach(k => {
-    const p = G[k], pers = p.alpha + p.beta, al = Math.min(f * p.alpha, pers), be = pers - al;
-    const s = (f === 1 ? FILT[k] : garchFilter(RET[k].r, p, al, be)).s2.map(v => Math.sqrt(A[k] * v)), j = argmax(s);
-    tr.push({ x: RET[k].d, y: s, mode: 'lines', name: NAME[k] + ', GARCH(1,1)-t, annualised', line: { color: COL[k], width: 0.9 }, hovertemplate: NAME[k] + ' %{x|%d %b %Y}: %{y:.1f}%<extra></extra>' });
-    rows.push(T.cv1(NAME[k], nf(al, 3), nf(be, 3), nf(s[j], 1), longDate(RET[k].d[j]), nf(s[s.length - 1], 1), nf(median(s), 1)));
-  });
-  plot('cv-chart', tr, layout({ title: ttl('Conditional volatility σ<sub>t</sub>√A, α × ' + nf(f, 2) + ', α + β at the estimate'), xaxis: AX('', { type: 'date' }), yaxis: AX('volatility (% a year)', { rangemode: 'tozero' }) }));
-  out('cv-out', rows);
+// ================================================================= 6. VCRIX against realised volatility
+function rv(w) {                       // sqrt(365 * mean of r^2 over the last w consecutive-day returns), % a year
+  const res = new Array(RC.length).fill(null);
+  let s = 0, cnt = 0;
+  for (let i = 0; i < RC.length; i++) {
+    if (finite(RC[i])) { s += RC[i] ** 2; cnt++; } else { s = 0; cnt = 0; continue; }
+    if (cnt > w) { s -= RC[i - w] ** 2; cnt = w; }
+    if (cnt === w) res[i] = Math.sqrt(365 * s / w);
+  }
+  return res;
+}
+function vcrixRV() {
+  const w = +$('vr-w').value, lag = +$('vr-l').value; $('vr-w-v').textContent = w + ' days';
+  const R = rv(w), x = [], y = [], dd = [];
+  for (let i = lag; i < CD.length; i++) if (CD[i] <= '2026-05-13' && finite(VOK[i]) && finite(R[i - lag])) { x.push(R[i - lag]); y.push(VOK[i]); dd.push(CD[i]); }
+  const c = corr(x, y), f = ols(x, y);
+  plot('vr-chart', [
+    { x: CD, y: VCRIX, mode: 'lines', name: 'VCRIX (left axis)', line: { color: BA.purple, width: 1.1 }, hovertemplate: 'VCRIX %{x|%d %b %Y}: %{y:,.0f}<extra></extra>' },
+    { x: CD, y: R, mode: 'lines', name: `CRIX realised volatility, ${w} days (% a year, right axis)`, yaxis: 'y2', line: { color: BA.teal, width: 1 }, hovertemplate: 'RV %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' }],
+    layout({ title: ttl('VCRIX and the realised volatility of CRIX'), xaxis: AX('', { type: 'date' }), yaxis: AX('VCRIX'),
+      yaxis2: AX('% a year', { overlaying: 'y', side: 'right', showgrid: false }), margin: { l: 56, r: 56, t: 30, b: 40 },
+      shapes: [{ type: 'rect', xref: 'x', yref: 'paper', x0: '2026-05-14', x1: '2026-07-08', y0: 0, y1: 1, fillcolor: 'rgba(244,199,195,0.6)', line: { width: 0 } }] }));
+  out('vr-out', [T.vr1(w, lag, gnum(x.length), nf(c, 3)), T.vr2(nf(f.icpt, 1), nf(f.slope, 2), w, gnum(f.icpt + 50 * f.slope)), T.vr3()]);
 }
 
-// ================================================================= 2.3 after a shock: forecasts by horizon
-function termStructure() {
-  const s = +$('ts-s').value, h = +$('ts-h').value, hz = range(1, 250, 1);
-  $('ts-s-v').textContent = '× ' + nf(s, 2); $('ts-h-v').textContent = h + (h === 1 ? ' day' : ' days');
-  const left = [], rows = [];
-  ['sp500', 'gold'].forEach(k => {
-    const p = G[k], pers = p.alpha + p.beta, path = hz.map(x => 1 + pers ** (x - 1) * (s - 1)), hl = Math.log(0.5) / Math.log(pers);
-    left.push({ x: hz, y: path, mode: 'lines', name: NAME[k] + ': persistence ' + nf(pers, 3), line: { color: COL[k], width: 1.5 }, hovertemplate: NAME[k] + ', h = %{x}: %{y:.3f}<extra></extra>' });
-    rows.push(T.ts1(NAME[k], nf(pers, 3), nf(hl, 1), h, nf(path[h - 1], 3), nf(path[249], 3)));
-  });
-  left.push({ x: [1, 250], y: [1, 1], mode: 'lines', name: 'long-run variance', line: { color: BA.red, width: 1, dash: 'dash' }, hoverinfo: 'skip' });
-  plot('ts-left', left, layout({ title: ttl('Stationary GARCH: shock = ' + nf(s, 2) + ' × long-run variance'), xaxis: AX('horizon h (days)'),
-    yaxis: AX('forecast variance / long-run'), shapes: [vline(h, C.navy, 'dot')] }));
-  const p = G.btc, pers = p.alpha + p.beta, s1 = FILT.btc.next, fb = [s1];
-  for (let i = 1; i < 250; i++) fb.push(p.omega + pers * fb[i - 1]);
-  const ew = ewmaNext(RB, LAM), an = v => Math.sqrt(365 * v);
-  plot('ts-right', [
-    { x: hz, y: fb.map(an), mode: 'lines', name: 'Bitcoin GARCH-t: alpha + beta = 1, omega > 0', line: { color: BA.btc, width: 1.6 }, hovertemplate: 'GARCH-t, h = %{x}: %{y:.1f}%<extra></extra>' },
-    { x: hz, y: hz.map(() => an(ew)), mode: 'lines', name: 'Bitcoin EWMA (omega = 0): flat', line: { color: BA.eth, width: 1.4, dash: 'dash' }, hovertemplate: 'EWMA: %{y:.1f}%<extra></extra>' }],
-    layout({ title: ttl('Bitcoin, forecasts made on 18 Sep 2026'), xaxis: AX('horizon h (days)'), yaxis: AX('forecast volatility (% a year)', { rangemode: 'tozero' }), shapes: [vline(h, C.navy, 'dot')] }));
-  rows.push(T.ts2(nf(p.omega, 3), nf(an(fb[0]), 1), h, nf(an(fb[h - 1]), 1), nf(an(fb[249]), 1), nf(an(ew), 1)));
-  out('ts-out', rows);
+// ================================================================= 7. VCRIX after falls and rises
+function vcrixReturns() {
+  const thr = +$('vl-t').value; $('vl-t-v').textContent = nf(thr, 1) + '%';
+  const xs = [], ys = [];
+  for (let i = 2; i < CD.length; i++) {
+    if (CD[i] < OFF || CD[i] > '2026-05-13') continue;
+    const dv = finite(VOK[i]) && finite(VOK[i - 1]) ? 100 * Math.log(VOK[i] / VOK[i - 1]) : null, r1 = RC[i - 1], r0 = RC[i];
+    if (finite(dv) && finite(r1) && finite(r0)) { xs.push(r1); ys.push(dv); }
+  }
+  const dn = ys.filter((_, i) => xs[i] < -thr), up = ys.filter((_, i) => xs[i] > thr), mid = ys.filter((_, i) => Math.abs(xs[i]) <= thr);
+  plot('vl-chart', [
+    { x: xs, y: ys, mode: 'markers', name: 'days, 16 Mar 2018 – 13 May 2026', marker: { size: 4, color: 'rgba(142,68,173,0.35)' }, hovertemplate: 'return %{x:.1f}%: ΔlnVCRIX %{y:.1f}%<extra></extra>' },
+    { x: [-thr, -thr], y: [-60, 120], mode: 'lines', name: `return of ±${nf(thr, 1)}%`, line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' },
+    { x: [thr, thr], y: [-60, 120], mode: 'lines', showlegend: false, line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' }],
+    layout({ title: ttl('Change of ln VCRIX on day t against the CRIX return on day t−1'), xaxis: AX('CRIX log return on day t−1 (%)'), yaxis: AX('change of ln VCRIX (%)', { range: [-60, 120] }) }));
+  const m = a => (a.length ? nf(mean(a), 1) : '–');
+  out('vl-out', [T.vl1(gnum(xs.length), nf(corr(xs, ys), 3)), T.vl2(nf(thr, 1), dn.length, m(dn), up.length, m(up), mid.length, m(mid))]);
 }
 
-// ================================================================= 3.2 VaR and ES on the forecast density
-const NU_LIST = [30, 20, 15, 10, 8, 6, 5, 4, 3.5, G.btc.nu, 3, 2.75, 2.5, 2.4, 2.3, 2.2, 2.1, 2.05], NU_EST = 9;
-function densityVar() {
-  const nu = NU_LIST[+$('dv-n').value], g = G.btc, mu = g.mu, sf = Math.sqrt(FILT.btc.next), sc = Math.sqrt((nu - 2) / nu);
-  $('dv-n-v').textContent = nf(nu, 2) + (+$('dv-n').value === NU_EST ? ' (estimate)' : '');
-  const vt = -(mu + sf * sc * tPpf(0.01, nu)), q25 = tPpf(0.025, nu), et = -mu + sf * sc * esFactor(q25, 0.025, nu);
-  const vn = -(mu + sf * normPpf(0.01)), en = -mu + sf * normPdf(normPpf(0.025)) / 0.025;
-  const xx = range(-16, 12, 0.05), ft = xx.map(x => tPdf((x - mu) / (sf * sc), nu) / (sf * sc)), fn = xx.map(x => normPdf((x - mu) / sf) / sf);
-  const tl = { x: xx, y: ft, mode: 'lines', name: 'GARCH(1,1)-t forecast density, ν = ' + nf(nu, 2), line: { color: BA.btc, width: 1.8 }, hovertemplate: '%{x:.2f}%: %{y:.4f}<extra></extra>' };
-  const nl = { x: xx, y: fn, mode: 'lines', name: 'Normal with the same mean and σ', line: { color: BA.blue, width: 1.4, dash: 'dash' }, hovertemplate: '%{x:.2f}%: %{y:.4f}<extra></extra>' };
-  plot('dv-dens', [tl, nl], layout({ title: ttl('Return on 19 Sep 2026 (%), σ = ' + nf(sf, 2) + '% a day'), xaxis: AX('', { range: [-12, 12] }), yaxis: AX('density', { rangemode: 'tozero' }) }));
-  const cut = xx.map((x, i) => (x <= -vt ? ft[i] : null));
-  plot('dv-tail', [Object.assign({}, tl, { showlegend: false }), Object.assign({}, nl, { showlegend: false }),
-    { x: xx, y: cut, mode: 'lines', fill: 'tozeroy', name: 'Student-t: the 1% left tail', line: { color: BA.btc, width: 0 }, fillcolor: BA.btc + '59', hoverinfo: 'skip' },
-    { x: [-vt, -vt], y: [0, 0.03], mode: 'lines', name: 'Student-t: −VaR 1% (solid), −ES 2.5% (dotted)', line: { color: BA.btc, width: 2 }, hoverinfo: 'skip' },
-    { x: [-et, -et], y: [0, 0.03], mode: 'lines', showlegend: false, line: { color: BA.btc, width: 2, dash: 'dot' }, hoverinfo: 'skip' },
-    { x: [-vn, -vn], y: [0, 0.03], mode: 'lines', name: 'Normal: −VaR 1% (solid), −ES 2.5% (dotted)', line: { color: BA.blue, width: 2 }, hoverinfo: 'skip' },
-    { x: [-en, -en], y: [0, 0.03], mode: 'lines', showlegend: false, line: { color: BA.blue, width: 2, dash: 'dot' }, hoverinfo: 'skip' }],
-    layout({ title: ttl('The left tail, return (%)'), xaxis: AX('', { range: [-16, -3] }), yaxis: AX('density', { range: [0, 0.03] }) }));
-  const gp = p => sc * tPpf(p, nu) - normPpf(p), ps = range(-5, Math.log10(0.49), 0.05).map(e => 10 ** e);
-  let cross = null; for (let i = 1; i < ps.length && cross === null; i++) if (Math.sign(gp(ps[i - 1])) !== Math.sign(gp(ps[i]))) { const sg = gp(ps[i - 1]) < 0 ? 1 : -1; cross = bisect(p => sg * gp(p), ps[i - 1], ps[i], 60); }
-  out('dv-out', [T.dv1(nf(nu, 2), nf(vt, 2), nf(vn, 2), nf(et, 2), nf(en, 2)), T.dv2(nf(100 * tCdf((-vn - mu) / (sf * sc), nu), 2)),
-    cross === null ? T.dv4 : T.dv3(nf(100 * cross, 2))]);
+// ================================================================= 8. VCRIX, GARCH and realised volatility: who leads?
+const GF = D.garch.f1, RV30 = rv(30);
+function garchVcrix() {
+  const k = +$('gv-k').value; $('gv-k-v').textContent = (k > 0 ? '+' : '') + k + ' days';
+  const pair = (S) => { const x = [], y = []; for (let i = 0; i < CD.length; i++) { const j = i + k; if (CD[i] < OFF || CD[i] > '2026-05-13' || j < 0 || j >= CD.length || CD[j] > '2026-05-13') continue; if (finite(VOK[i]) && finite(S[j]) && finite(GF[i]) && finite(RV30[i])) { x.push(VOK[i]); y.push(S[j]); } } return x.length > 30 ? corr(x, y) : NaN; };
+  const cg = pair(GF), cr = pair(RV30);
+  const sel = CD.map((d, i) => d >= OFF && d <= '2026-05-13' ? i : -1).filter(i => i >= 0);
+  plot('gv-chart', [
+    { x: sel.map(i => CD[i]), y: sel.map(i => GF[i]), mode: 'lines', name: 'GARCH(1,1)-t volatility of CRIX (% a year, left axis)', line: { color: BA.blue, width: 0.9 }, hovertemplate: 'GARCH %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' },
+    { x: sel.map(i => CD[i]), y: sel.map(i => RV30[i]), mode: 'lines', name: 'realised volatility, 30 days (% a year, left axis)', line: { color: BA.teal, width: 0.9 }, hovertemplate: 'RV %{x|%d %b %Y}: %{y:.0f}%<extra></extra>' },
+    { x: sel.map(i => CD[i]), y: sel.map(i => VOK[i]), mode: 'lines', name: 'VCRIX (right axis)', yaxis: 'y2', line: { color: BA.purple, width: 1 }, hovertemplate: 'VCRIX %{x|%d %b %Y}: %{y:,.0f}<extra></extra>' }],
+    layout({ title: ttl('VCRIX, GARCH and realised volatility'), xaxis: AX('', { type: 'date' }), yaxis: AX('% a year'),
+      yaxis2: AX('VCRIX', { overlaying: 'y', side: 'right', showgrid: false }), margin: { l: 56, r: 56, t: 30, b: 40 } }));
+  const G = D.garch, pers = G.alpha + G.beta;
+  out('gv-out', [T.gv1(k, nf(cg, 3), nf(cr, 3)), T.gv2(nf(G.alpha, 3), nf(G.beta, 3), nf(pers, 4), gnum(Math.log(0.5) / Math.log(pers)))]);
 }
 
-// ================================================================= 3.4 VaR and ES by method
-const METH = ['Normal, 2018-2026', 'Historical simulation, 500 days', 'EWMA, lambda 0.94, Normal', 'GARCH(1,1)-t'];
-function varAll(p1) {               // VaR at p1 and ES at 2.5 p1, Bitcoin, forecasts for 19 September 2026 (the notebook's formulas)
-  const p2 = 2.5 * p1, r = RB, mu = mean(r), s = sdev(r), z1 = normPpf(p1), z2 = normPpf(p2), h = r.slice(-500);
-  const q1h = quantile(h, p1), q2h = quantile(h, p2), tail = h.filter(v => v <= q2h);
-  const sew = Math.sqrt(ewmaNext(r, LAM)), g = G.btc, sf = Math.sqrt(FILT.btc.next), sc = Math.sqrt((g.nu - 2) / g.nu), tq1 = tPpf(p1, g.nu), tq2 = tPpf(p2, g.nu);
-  return [[-(mu + s * z1), -mu + s * normPdf(z2) / p2], [-q1h, -mean(tail)], [-sew * z1, sew * normPdf(z2) / p2],
-    [-(g.mu + sf * sc * tq1), -g.mu + sf * sc * esFactor(tq2, p2, g.nu)]];
-}
-function varMethods() {
-  const p = +$('vm-p').value / 100, V = varAll(p), lab = ['Normal<br>2018-2026', 'Historical<br>500 days', 'EWMA<br>Normal', 'GARCH(1,1)-t'];
-  $('vm-p-v').textContent = 'VaR ' + pc(100 * p) + '%, ES ' + pc(250 * p) + '%';
-  plot('vm-chart', [
-    { x: lab, y: V.map(v => v[0]), type: 'bar', name: 'VaR ' + pc(100 * p) + '% (%)', marker: { color: BA.blue }, hovertemplate: '%{x}: VaR %{y:.2f}%<extra></extra>' },
-    { x: lab, y: V.map(v => v[1]), type: 'bar', name: 'ES ' + pc(250 * p) + '% (%)', marker: { color: BA.btc }, hovertemplate: '%{x}: ES %{y:.2f}%<extra></extra>' }],
-    layout({ title: ttl('Bitcoin, one-day horizon, forecasts for 19 September 2026'), xaxis: AX(''), yaxis: AX('1-day loss (%)', { rangemode: 'tozero' }), barmode: 'group' }));
-  const usd = v => gnum(1e6 * (1 - Math.exp(-v / 100)));
-  const vs = V.map(v => v[0]);
-  out('vm-out', METH.map((m, i) => T.vm1(m, pc(100 * p), nf(V[i][0], 2), pc(250 * p), nf(V[i][1], 2), nf(V[i][1] / V[i][0], 2), usd(V[i][0])))
-    .concat([T.vm2(pc(100 * p), nf(Math.max(...vs) / Math.min(...vs), 2))]));
-}
-
-// ================================================================= 4.4 violations through time
-const BT = D.bt, BT_D = days(BT.dates), BT_M = Object.keys(BT.var), NT = BT_D.length;
-const HIT = {}; BT_M.forEach(m => { HIT[m] = BT.r.map((x, i) => (x < -BT.var[m][i] ? 1 : 0)); });
-function kupiec(I, p) { const n = I.length, x = sum(I), ph = x / n, l0 = (n - x) * Math.log(1 - p) + x * Math.log(p), l1 = (n - x) * Math.log(1 - ph) + (x > 0 ? x * Math.log(ph) : 0), LR = -2 * (l0 - l1); return { x, ph, LR, p: chi2Sf(LR, 1) }; }
-function christoffersen(I) {
-  let n00 = 0, n01 = 0, n10 = 0, n11 = 0;
-  for (let t = 1; t < I.length; t++) { const a = I[t - 1], b = I[t]; if (!a && !b) n00++; else if (!a && b) n01++; else if (a && !b) n10++; else n11++; }
-  const p01 = n00 + n01 ? n01 / (n00 + n01) : 0, p11 = n10 + n11 ? n11 / (n10 + n11) : 0, pp = (n01 + n11) / (n00 + n01 + n10 + n11);
-  const ll = (p, k0, k1) => (k0 ? k0 * Math.log(1 - p) : 0) + (k1 && p > 0 ? k1 * Math.log(p) : 0);
-  const LR = -2 * (ll(pp, n00 + n10, n01 + n11) - ll(p01, n00, n01) - ll(p11, n10, n11));
-  return { LR, p: chi2Sf(LR, 1) };
-}
-const zone = h => (h <= 4 ? 'green' : h <= 9 ? 'amber' : 'red');
-const ROLL = {}; BT_M.forEach(m => { const c = [0]; HIT[m].forEach(v => c.push(c[c.length - 1] + v)); ROLL[m] = BT_D.map((_, e) => (e >= 249 ? c[e + 1] - c[e - 249] : null)); });
-const MLAB = { 'Normal 250': 'Normal, 250 days', 'HS 500': 'historical simulation (500 days)', 'EWMA': 'EWMA, Normal', 'GARCH-t': 'GARCH(1,1)-t' };
-const MCOL = { 'Normal 250': BA.red, 'HS 500': BA.blue, 'EWMA': BA.green, 'GARCH-t': BA.btc };
-function backtest() {
-  const e = +$('bt-e').value, m = $('bt-m').value, s = e - 249;
-  $('bt-e-v').textContent = longDate(BT_D[e]);
-  const lines = ['HS 500', 'GARCH-t'].concat(['HS 500', 'GARCH-t'].includes(m) ? [] : [m]);
-  const viol = BT_D.map((_, i) => i).filter(i => HIT[m][i]);
-  plot('bt-chart', [{ x: BT_D, y: BT.r, type: 'bar', name: 'Bitcoin daily log return (%)', marker: { color: BA.eth + '80' }, hovertemplate: '%{x|%d %b %Y}: %{y:.2f}%<extra></extra>' }]
-    .concat(lines.map(k => ({ x: BT_D, y: BT.var[k].map(v => -v), mode: 'lines', name: '−VaR 1%, ' + MLAB[k], line: { color: MCOL[k], width: 0.9 }, hovertemplate: '−VaR ' + k + ' %{x|%d %b %Y}: %{y:.2f}%<extra></extra>' })))
-    .concat([{ x: viol.map(i => BT_D[i]), y: viol.map(i => BT.r[i]), mode: 'markers', name: 'violation of ' + MLAB[m] + ' VaR', marker: { color: BA.red, size: 6 }, hovertemplate: 'violation %{x|%d %b %Y}: %{y:.2f}%<extra></extra>' }]),
-    layout({ title: ttl('Bitcoin, 1-day VaR 1%, 2020 – 18 Sep 2026; shaded: the 250 days to ' + shortDate(BT_D[e])), xaxis: AX('', { type: 'date' }), yaxis: AX('%', { range: [-50, 20] }), bargap: 0,
-      shapes: [{ type: 'rect', xref: 'x', yref: 'paper', x0: BT_D[s], x1: BT_D[e], y0: 0, y1: 1, fillcolor: 'rgba(26,58,110,0.08)', line: { width: 0 } }] }));
-  const rows = [T.bt0(shortDate(BT_D[s]), shortDate(BT_D[e]), BT_M.map(k => `${k} ${ROLL[k][e]} (${zone(ROLL[k][e])})`).join(', '))];
-  BT_M.forEach(k => { const K = kupiec(HIT[k], 0.01), Ci = christoffersen(HIT[k]), z = ROLL[k].filter(finite), am = z.filter(v => v >= 5).length;
-    rows.push(T.bt1(k, K.x, nf(100 * K.ph, 2), nf(K.LR, 2), pfmt(K.p), nf(Ci.LR, 2), pfmt(Ci.p), nf(100 * am / z.length, 0))); });
-  out('bt-out', [T.btn(gnum(NT), nf(0.01 * NT, 1))].concat(rows));
-}
-
-// ================================================================= 5.4 Bitcoin VaR, rolled forward
-const OV = D.oos, OV_D = days(OV.dates), OV_M = Object.keys(OV.var), NO = OV_D.length;
-const OCOL = { 'Normal (2018-)': BA.red, 'HS 500': BA.blue, 'EWMA': BA.green, 'GARCH-t': BA.eth };
-function oosVar() {
-  const d = +$('ov-d').value;
-  $('ov-d-v').textContent = d + (d === 1 ? ' day' : ' days') + ', to ' + shortDate(OV_D[d - 1]);
-  plot('ov-chart', [{ x: OV_D, y: OV.r, type: 'bar', name: 'Bitcoin daily log return (%)', marker: { color: OV_D.map((_, i) => (i < d ? BA.btc + 'A6' : BA.btc + '33')) }, hovertemplate: '%{x|%d %b}: %{y:+.2f}%<extra></extra>' }]
-    .concat(OV_M.map(k => ({ x: OV_D, y: OV.var[k].map(v => -v), mode: 'lines', name: '−VaR 1%, ' + k, line: { color: OCOL[k], width: 1.4, dash: k === 'EWMA' ? 'dash' : 'solid' }, hovertemplate: '−VaR ' + k + ' %{x|%d %b}: %{y:.2f}%<extra></extra>' }))),
-    layout({ title: ttl('Bitcoin, 19 September – 23 October 2026: returns and −VaR 1% rolled forward'), xaxis: AX('', { type: 'date' }), yaxis: AX('%'),
-      shapes: [vline(OV_D[d - 1], C.navy, 'dot')] }));
-  const rows = OV_M.map(k => { const v = OV.var[k].slice(0, d), h = OV.r.slice(0, d).filter((x, i) => x < -v[i]).length;
-    return T.ov1(k, nf(mean(v), 2), gnum(mean(v.map(x => 1e6 * (1 - Math.exp(-x / 100))))), h); });
-  const lr = -2 * d * Math.log(0.99), wi = OV.r.slice(0, d).reduce((b, x, i) => (x < OV.r[b] ? i : b), 0);
-  out('ov-out', [T.ov0(d, nf(0.01 * d, 2))].concat(rows).concat([T.ov2(d, nf(0.99 ** d, 3), nf(0.98 ** d, 3), nf(lr, 2), nf(chi2Sf(lr, 1), 2)),
-    T.ov3(shortDate(OV_D[wi]), nf(OV.r[wi], 2), nf(-OV.r[wi] / OV.var['GARCH-t'][wi], 2))]));
+// ================================================================= 9. a spot Bitcoin ETF against Bitcoin
+const ETF = D.etf;
+function etf() {
+  const clk = $('et-c').value, j0 = +$('et-s').value, B = clk === '16' ? ETF.b16 : ETF.b00;
+  $('et-s-v').textContent = shortDate(ETF.dates[j0]);
+  const d = ETF.dates.slice(j0), ib = ETF.ib.slice(j0), b = B.slice(j0);
+  const diff = []; for (let i = 1; i < d.length; i++) diff.push(100 * Math.log(ib[i] / ib[i - 1]) - 100 * Math.log(b[i] / b[i - 1]));
+  const ratio = ib.map((v, i) => v / b[i]), t = d.map(s => (Date.parse(s) - Date.parse(d[0])) / 864e5 / 365.25), f = ols(t, ratio.map(Math.log));
+  plot('et-ratio', [
+    { x: d, y: ratio.map(v => 100 * (v / ratio[0] - 1)), mode: 'lines', name: 'IBIT / Bitcoin, change since start (%)', line: { color: BA.blue, width: 1 }, hovertemplate: '%{x|%d %b %Y}: %{y:.2f}%<extra></extra>' },
+    { x: d, y: t.map(v => 100 * (Math.exp(f.slope * v) - 1)), mode: 'lines', name: `trend: ${nf(100 * f.slope, 2)}% a year`, line: { color: BA.red, width: 1.2, dash: 'dash' }, hoverinfo: 'skip' }],
+    layout({ title: ttl('Tracking difference'), xaxis: AX('', { type: 'date' }), yaxis: AX('%') }));
+  plot('et-hist', [{ x: diff.map(v => Math.max(-6, Math.min(6, v))), type: 'histogram', xbins: { start: -6, end: 6, size: 0.1 }, name: 'IBIT return minus Bitcoin return (percentage points)', marker: { color: clk === '16' ? BA.blue : BA.orange }, hovertemplate: '%{x}: %{y} days<extra></extra>' }],
+    layout({ title: ttl('Daily return differences'), xaxis: AX('percentage points', { range: [-6, 6] }), yaxis: AX('days'), bargap: 0 }));
+  out('et-out', [T.et1(clk === '16' ? '16:00 New York' : '24:00 UTC', shortDate(d[0]), shortDate(d[d.length - 1]), diff.length, nf(sdev(diff), 3), nf(sdev(diff) * Math.sqrt(252), 1)),
+    T.et2(nf(100 * f.slope, 2), nf(100 * (ratio[ratio.length - 1] / ratio[0] - 1), 2))]);
 }
 
 // ================================================================= wiring
 function init() {
   const on = (ids, f) => ids.forEach(id => $(id).addEventListener('input', f));
   const players = {}, P = (btn, id, vals, ms) => (players[btn] = new Player(btn, $(id), vals, ms));
-  on(['cl-k'], clustering); P('cl-play', 'cl-k', [0, 1, 2, 3, 5, 7, 10, 15, 20, 25, 30], 700);
-  on(['ew-l'], ewmaWeights); P('ew-play', 'ew-l', range(0.8, 0.99, 0.01), 400);
-  on(['tl-c'], tails); P('tl-play', 'tl-c', range(2, 8, 0.25), 350);
-  $('dv-n').value = NU_EST; on(['dv-n'], densityVar); P('dv-play', 'dv-n', range(0, NU_LIST.length - 1, 1), 600);
-  on(['cv-a'], condVol); P('cv-play', 'cv-a', range(0.25, 2.5, 0.25), 700);
-  on(['ts-s', 'ts-h'], termStructure); P('ts-play', 'ts-s', range(0.25, 4, 0.25), 500);
-  on(['vm-p'], varMethods); P('vm-play', 'vm-p', [0.1, 0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5], 700);
-  $('bt-e').max = NT - 1; $('bt-e').value = NT - 1; on(['bt-e', 'bt-m'], backtest); P('bt-play', 'bt-e', range(249, NT - 1, 21).concat([NT - 1]), 160);
-  $('ov-d').max = NO; $('ov-d').value = NO; on(['ov-d'], oosVar); P('ov-play', 'ov-d', range(1, NO, 1), 300);
-  tall('bt-chart', 400);
-  const PFX = { 'clustering': 'cl', 'ewma-weights': 'ew', 'tails': 'tl', 'conditional-volatility': 'cv', 'term-structure': 'ts', 'density-var': 'dv', 'var-methods': 'vm', 'violations': 'bt', 'oos-var': 'ov' };
+  on(['sv-t', 'sv-n', 'sv-w'], survivorship); P('sv-play', 'sv-n', range(2, 8, 1), 800);
+  $('ar-q').max = D.sel.length - 1; $('ar-q').value = D.sel.length - 1; on(['ar-q'], aicRule); P('ar-play', 'ar-q', range(0, D.sel.length - 1, 1), 450);
+  on(['rp-r', 'rp-c'], replica);
+  on(['cp-a', 'cp-b'], crixPath);
+  on(['dd-d'], drawdowns); P('dd-play', 'dd-d', range(10, 90, 5), 450);
+  on(['vr-w', 'vr-l'], vcrixRV); P('vr-play', 'vr-w', [7, 10, 14, 21, 30, 45, 60, 90], 700);
+  on(['vl-t'], vcrixReturns); P('vl-play', 'vl-t', range(1, 12, 1), 500);
+  on(['gv-k'], garchVcrix); P('gv-play', 'gv-k', range(-10, 10, 1), 450);
+  $('et-s').max = ETF.dates.length - 60; on(['et-c', 'et-s'], etf);
+  const PFX = { survivorship: 'sv', 'aic-rule': 'ar', replica: 'rp', 'crix-path': 'cp', drawdowns: 'dd', vcrix: 'vr', 'vcrix-returns': 'vl', 'garch-vcrix': 'gv', 'etf-tracking': 'et' };
   const VEIL_CHART = new Set(T.veilCharts || []);
   if (T.predict && predict) Object.entries(T.predict).forEach(([b, sp]) => predict(b, Object.assign({ player: players[PFX[b] + '-play'], veil: { out: true, charts: VEIL_CHART.has(b) } }, sp)));
-  if (T.ticket && exitTicket) exitTicket(T.ticket);
-  clustering(); ewmaWeights(); tails(); condVol(); termStructure(); densityVar(); varMethods(); backtest(); oosVar();
+  survivorship(); aicRule(); replica(); crixPath(); drawdowns(); vcrixRV(); vcrixReturns(); garchVcrix(); etf();
 }
-window.L3 = { RET, G, FILT, garchFilter, ewmaNext, varAll, tPpf, tCdf, normPpf, kupiec, christoffersen, HIT, ROLL, BT_D, acf, days };
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+window.L3 = { survPaths, schedule, laspeyres, trackStats, annStats, episodes, ddSeries, rv, corr, ols, CD, CRIX, BTCP, VOK, RC, OFF, ETF, GF, RV30, PXD, PXI };
+if (typeof document !== 'undefined' && document.getElementById && document.getElementById('sv-chart')) {
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+}
 })();

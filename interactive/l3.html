@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lecture 3 · Volatility and Tail Risk</title>
+<title>Lecture 3 · Crypto Indices: CRIX, VCRIX and Investible Index Funds</title>
 <link rel="icon" href="../logos/ida_square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,111 +21,111 @@
 <header>
   <div class="header-inner">
     <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
-    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 3 · Volatility and Tail Risk</p></div>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 3 · Crypto Indices: CRIX, VCRIX and Investible Index Funds</p></div>
     <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
   </div>
 </header>
 <nav><ul>
   <li><a href="../index.html#chapters">← Course site</a></li>
-  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
   <li><a href="../web/l3.html">Web lecture</a></li>
   <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L3" target="_blank" rel="noopener">Quantlets</a></li>
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-models">Volatility Models</a> · <a href="#s-estimates">Estimates</a> · <a href="#s-var">Value-at-Risk and Expected Shortfall</a> · <a href="#s-backtest">Backtesting</a> · <a href="#s-oos">Out of Sample: 19 September – 23 October 2026</a></p>
-<h2 class="sec" id="s-models">Volatility Models</h2>
-<section class="blk" id="clustering">
-  <h3>Volatility Clustering, Again</h3>
+<p class="toc"><a href="#s-why">Why a Crypto Index?</a> · <a href="#s-construct">Constructing CRIX</a> · <a href="#s-replica">Our Replication on Real Data</a> · <a href="#s-crix">The Real CRIX, 2017–2026</a> · <a href="#s-vcrix">VCRIX: A Volatility Index</a> · <a href="#s-product">From Index to Investible Product</a></p>
+<h2 class="sec" id="s-why">Why a Crypto Index?</h2>
+<section class="blk" id="survivorship">
+  <h3>Today's Winners, Bought in 2018</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=7" target="_blank" rel="noopener"><img src="slides/ba_l3_clustering.jpg?v=20261031a" alt="Slide 6: Volatility Clustering, Again" loading="lazy"></a>
-      <figcaption>Slide 6</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="cl-k">Largest absolute returns capped: <b id="cl-k-v"></b></label><input type="range" id="cl-k" min="0" max="30" step="1" value="0"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-ret"></div><div class="chart" id="cl-acf"></div></div><ul class="out" id="cl-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l3_survivorship.jpg?v=20261031a" alt="Slide 10: Today's Winners, Bought in 2018" loading="lazy"></a>
+      <figcaption>Slide 10</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="sv-t">Purchase date (ex-ante selection on that day)</label><select id="sv-t"><option value="2018-01-01" selected>1 January 2018</option><option value="2019-01-01">1 January 2019</option><option value="2020-01-01">1 January 2020</option><option value="2021-01-01">1 January 2021</option><option value="2022-01-01">1 January 2022</option><option value="2023-01-01">1 January 2023</option><option value="2024-01-01">1 January 2024</option></select></div><div class="ctl"><label for="sv-n">Number of coins N: <b id="sv-n-v"></b></label><input type="range" id="sv-n" min="2" max="8" step="1" value="5"></div><div class="ctl"><label for="sv-w">Weights</label><select id="sv-w"><option value="eq" selected>equal weights</option><option value="cap">market-value weights</option></select></div><button class="btn play" id="sv-play" type="button"></button></div><div class="charts "><div class="chart" id="sv-chart"></div></div><ul class="out" id="sv-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> Without capping, 8 of the 30 autocorrelations of squared returns lie above the band. Cap only the largest absolute return, the −46.5% of 12 March 2020, at the second largest (18.5%). How many of the 30 lie above the band?</div>
-  <details><summary>Answer</summary><p>26, and 28 to 30 when more days are capped; the largest autocorrelation rises from 0.11 to 0.15. The squared return of that day, 46.5² = 2,162, dominates the sum of squares in the denominator of every autocorrelation, so one day hides the dependence that the other 3,182 days show. Absolute returns do not have this problem: all 30 lags lie above the band with or without capping. For returns the count stays at 2 of 30.</p></details>
-</section>
-<section class="blk" id="ewma-weights">
-  <h3>How EWMA Weights the Past</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Switch the purchase date to 1 January 2024, with five coins and equal weights. How large is the gap between the ex-post and the ex-ante basket?</div>
+  <details><summary>Answer</summary><p>Very large: the ex-ante top 5 of 1 January 2024 (BTC, ETH, ADA, DOGE, LTC) returned −3.0% a year to 30 October 2026, the ex-post top 5 (BTC, ETH, ZEC, DOGE, XMR) 129.8% a year. The shorter the period, the more an ex-post list is made of the recent winners: Zcash enters the top 3 only after its rise in 2025–2026. From 1 January 2018 the gap is 17.6% against 7.1% a year; with N = 2 it disappears, because Bitcoin and Ethereum are the top two at both dates.</p></details>
+</section><h2 class="sec" id="s-construct">Constructing CRIX</h2>
+<section class="blk" id="aic-rule">
+  <h3>The Decision Curve on Our Data</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l3_ewma_weights.jpg?v=20261031a" alt="Slide 8: How EWMA Weights the Past" loading="lazy"></a>
-      <figcaption>Slide 8</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ew-l">λ: <b id="ew-l-v"></b></label><input type="range" id="ew-l" min="0.8" max="0.99" step="0.01" value="0.94"></div><button class="btn play" id="ew-play" type="button"></button></div><div class="charts "><div class="chart" id="ew-w"></div><div class="chart" id="ew-btc"></div></div><ul class="out" id="ew-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> With λ = 0.94 the last 30 days carry 84% of the weight. The ▶ button raises λ from 0.80 to 0.99. What happens to that share?</div>
-  <details><summary>Answer</summary><p>It falls: 1 − λ³⁰ is 99.9% at λ = 0.80, 60% at λ = 0.97 and 26% at λ = 0.99; a higher λ spreads the weight over a longer past (effective memory 1/(1 − λ) from 5 to 100 days). λ is the weight of yesterday's variance estimate, not of yesterday's return, whose weight is 1 − λ: 20% at λ = 0.80, 1% at λ = 0.99. On 11 April 2020, when the crash of 12 March leaves a 30-day window, the equal-weight volatility drops from 197% to 106% a year; the EWMA with λ = 0.94 only from 124% to 121%.</p></details>
-</section><h2 class="sec" id="s-estimates">Estimates</h2>
-<section class="blk" id="tails">
-  <h3>Heavy Tails after Filtering: Bitcoin's Standardised Residuals</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l3_tails.jpg?v=20261031a" alt="Slide 14: Heavy Tails after Filtering: Bitcoin's Standardised Residuals" loading="lazy"></a>
-      <figcaption>Slide 14</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="tl-c">Threshold c for |ẑ<sub>t</sub>|: <b id="tl-c-v"></b></label><input type="range" id="tl-c" min="2" max="8" step="0.25" value="4"></div><button class="btn play" id="tl-play" type="button"></button></div><div class="charts "><div class="chart" id="tl-hist"></div><div class="chart" id="tl-count"></div></div><ul class="out" id="tl-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> At c = 4 the fitted Student-t expects 19.2 days with |ẑ| above c and 18 are observed. The ▶ button raises c from 2 to 8. At c = 6, 3 days are observed. How many does the Student-t expect?</div>
-  <details><summary>Answer</summary><p>About 5.7, almost twice the 3 observed. Up to c ≈ 4 the fitted Student-t (estimated ν = 3.13) matches the counts; beyond about 4.5 it expects more extreme days than occurred: 9.9 against 5 at c = 5, and 2.3 against 2 at c = 8. The Normal expects 6.3 × 10⁻⁶ days beyond 6 in this sample, about one such day in 1.4 million years of daily data; the largest observed, 12 March 2020, has ẑ = −13.3. Both counts beyond 5 rest on a handful of days, so the excess of the Student-t is a weak signal.</p></details>
-</section>
-<section class="blk" id="conditional-volatility">
-  <h3>Conditional Volatility</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l3_condvol.jpg?v=20261031a" alt="Slide 16: Conditional Volatility" loading="lazy"></a>
-      <figcaption>Slide 16</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="cv-a">α as a multiple of its estimate (α + β and ω kept): <b id="cv-a-v"></b></label><input type="range" id="cv-a" min="0.25" max="2.5" step="0.05" value="1"></div><button class="btn play" id="cv-play" type="button"></button></div><div class="charts "><div class="chart" id="cv-chart"></div></div><ul class="out" id="cv-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin's conditional volatility peaks at 253.5% a year on 13 March 2020. The ▶ button sets α from 0.25 to 2.5 times its estimate, keeping α + β = 1 and ω. What happens to the peak?</div>
-  <details><summary>Answer</summary><p>It rises with α: 148.6% at 0.25 times the estimate (α = 0.019), 253.5% at the estimate (α = 0.076) and 392.6% at 2.5 times (α = 0.190). α is the weight of yesterday's squared shock, so a larger α turns the crash of 12 March 2020 into a larger jump of the next day's variance; the persistence α + β decides how long a shock lasts, not how large the jump is. The median moves the other way, from 78.6% to 52.6% a year.</p></details>
-</section>
-<section class="blk" id="term-structure">
-  <h3>After a Shock: Volatility Forecasts by Horizon</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_term_structure.jpg?v=20261031a" alt="Slide 18: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_aic_curve.jpg?v=20261031a" alt="Slide 18: The Decision Curve on Our Data" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ts-s">Variance after the shock, multiple of the long-run variance: <b id="ts-s-v"></b></label><input type="range" id="ts-s" min="0.25" max="4" step="0.25" value="2"></div><div class="ctl"><label for="ts-h">Horizon h for the readout: <b id="ts-h-v"></b></label><input type="range" id="ts-h" min="1" max="250" step="1" value="10"></div><button class="btn play" id="ts-play" type="button"></button></div><div class="charts "><div class="chart" id="ts-left"></div><div class="chart" id="ts-right"></div></div><ul class="out" id="ts-out"></ul></div>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ar-q">Quarterly reselection: <b id="ar-q-v"></b></label><input type="range" id="ar-q" min="0" max="34" step="1" value="34"></div><button class="btn play" id="ar-play" type="button"></button></div><div class="charts "><div class="chart" id="ar-chart"></div></div><ul class="out" id="ar-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> After a shock that doubles the variance, a volatility shock of the S&amp;P 500 has a half-life of 36.1 days. The ▶ button raises the shock from 0.25 to 4 times the long-run variance. What happens to the half-life?</div>
-  <details><summary>Answer</summary><p>It stays at 36.1 days (gold: 90.0 days). The gap between the forecast and the long-run variance is multiplied by the estimated α + β = 0.981 each day, whatever its size, so it halves in ln 0.5 / ln 0.981 = 36.1 days for every shock, also for a variance below the long run (0.25 times), from which the forecast rises. After 250 days the ratio is 1.025 for the largest shock and 0.994 for the smallest. Bitcoin has no half-life: with estimated α + β = 1 the forecast variance rises by ω = 0.144 a day, from 52.7% a year at h = 1 to 126% at h = 250.</p></details>
-</section><h2 class="sec" id="s-var">Value-at-Risk and Expected Shortfall</h2>
-<section class="blk" id="density-var">
-  <h3>VaR and ES on the Forecast Density</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button runs through the 35 quarterly reselections, March 2018 to September 2026. How often does the first rise of the AIC choose only two constituents?</div>
+  <details><summary>Answer</summary><p>In 9 of 35 quarters; 3 constituents in 13, 4 in 11, 5 and 6 once each (mean 3.2). The curve always falls steeply from k = 1 to k = 2 (adding Ethereum) and is almost flat after that, so the choice between 2, 3 and 4 moves from quarter to quarter. The CTDC-type polynomial rule chooses 3 in 30 of the 35 quarters: smoothing over six months makes the number of constituents more stable.</p></details>
+</section><h2 class="sec" id="s-replica">Our Replication on Real Data</h2>
+<section class="blk" id="replica">
+  <h3>The Replica against the Real CRIX</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=23" target="_blank" rel="noopener"><img src="slides/ba_l3_density_var.jpg?v=20261031a" alt="Slide 22: VaR and ES on the Forecast Density" loading="lazy"></a>
-      <figcaption>Slide 22</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="dv-n">Degrees of freedom ν of the Student-t (σ kept): <b id="dv-n-v"></b></label><input type="range" id="dv-n" min="0" max="17" step="1" value="9"></div><button class="btn play" id="dv-play" type="button"></button></div><div class="charts "><div class="chart" id="dv-dens"></div><div class="chart" id="dv-tail"></div></div><ul class="out" id="dv-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l3_replica_vs_crix.jpg?v=20261031a" alt="Slide 27: The Replica against the Real CRIX" loading="lazy"></a>
+      <figcaption>Slide 27</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="rp-r">Number of constituents</label><select id="rp-r"><option value="e" selected>first rise of the AIC (ECRIX), as in the slides</option><option value="f">global minimum of the AIC (EFCRIX)</option><option value="c">CTDC-type polynomial rule</option><option value="tmi">all eligible coins (TMI)</option><option value="1">fixed: top 1 coin</option><option value="2">fixed: top 2 coins</option><option value="3">fixed: top 3 coins</option><option value="4">fixed: top 4 coins</option><option value="5">fixed: top 5 coins</option><option value="6">fixed: top 6 coins</option><option value="7">fixed: top 7 coins</option></select></div><div class="ctl"><label for="rp-c">Weights</label><select id="rp-c"><option value="none" selected>market-value weights</option><option value="cap">capped below 50%</option></select></div></div><div class="charts "><div class="chart" id="rp-chart"></div></div><ul class="out" id="rp-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> With the estimated ν = 3.13, the Student-t VaR 1% (7.23%) is above the Normal VaR 1% with the same σ (6.37%). The ▶ button lowers ν towards 2, even heavier tails, keeping σ. What happens to the Student-t VaR 1%?</div>
-  <details><summary>Answer</summary><p>It falls: 7.18% at ν = 3, 6.55% at ν = 2.5, below the Normal's 6.37% once ν < 2.44, and 2.85% at ν = 2.05. With σ fixed, a Student-t with ν close to 2 puts its variance into extremely rare, very large losses and concentrates the rest near zero, so its 1% quantile shrinks. Raising ν from the estimate the other way, the VaR first rises to about 7.28% near ν = 3.5 and then falls towards the Normal value (6.50% at ν = 30). ES 2.5% falls below the Normal value (6.40%) once ν < 2.23. Heavier tails do not always mean a larger VaR at a given level; the crossing level of the two VaR curves moves from 1.92% to 0.12%.</p></details>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Change the number of constituents: the AIC rules, the TMI, or a fixed top 1 to 7. Which choice tracks the published CRIX best, and by how much?</div>
+  <details><summary>Answer</summary><p>All choices with 3 to 7 coins are close: tracking error 9.0% (top 5) to 9.4% (top 3) a year, correlation 0.989–0.990; the AIC rules give 9.3%. Bitcoin alone (top 1) has 15.6% and correlation 0.971; the top 2 has 10.0%. Capping the weights below 50% raises the tracking error of the ECRIX replica from 9.3% to 14.5%. Beyond the first two or three coins the remaining gap comes from coins outside our ten-coin universe, not from the rule.</p></details>
+</section><h2 class="sec" id="s-crix">The Real CRIX, 2017–2026</h2>
+<section class="blk" id="crix-path">
+  <h3>CRIX, 2017–2026</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=31" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_path.jpg?v=20261031a" alt="Slide 30: CRIX, 2017–2026" loading="lazy"></a>
+      <figcaption>Slide 30</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cp-a">From</label><select id="cp-a"><option value="2017-09-06">6 September 2017 (first value)</option><option value="2018-03-16" selected>16 March 2018 (official history)</option><option value="2019-01-01">1 January 2019</option><option value="2020-01-01">1 January 2020</option><option value="2021-01-01">1 January 2021</option><option value="2022-01-01">1 January 2022</option><option value="2023-01-01">1 January 2023</option><option value="2024-01-01">1 January 2024</option><option value="2025-01-01">1 January 2025</option></select></div><div class="ctl"><label for="cp-b">To</label><select id="cp-b"><option value="2018-12-31">31 December 2018</option><option value="2019-12-31">31 December 2019</option><option value="2020-12-31">31 December 2020</option><option value="2021-12-31">31 December 2021</option><option value="2022-12-31">31 December 2022</option><option value="2023-12-31">31 December 2023</option><option value="2024-12-31">31 December 2024</option><option value="2025-12-31">31 December 2025</option><option value="2026-10-31" selected>31 October 2026</option></select></div></div><div class="charts "><div class="chart" id="cp-chart"></div></div><ul class="out" id="cp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Choose the period 1 January 2023 – 31 October 2026. Did the broad index CRIX beat Bitcoin?</div>
+  <details><summary>Answer</summary><p>No: CAGR 40.4% for CRIX against 49.3% for Bitcoin, with volatility 47.4% against 46.1% and maximum drawdowns of −56.1% against −53.1%. Over the official history (16 March 2018 – 31 October 2026) the picture is the same: 24.0% against 29.4% a year. In this period Bitcoin's share of the market rose, so a market-value index of many coins grew more slowly and was not less volatile.</p></details>
 </section>
-<section class="blk" id="var-methods">
-  <h3>VaR and ES by Method</h3>
+<section class="blk" id="drawdowns">
+  <h3>Drawdowns of CRIX and Bitcoin</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l3_var_methods.jpg?v=20261031a" alt="Slide 25: VaR and ES by Method" loading="lazy"></a>
-      <figcaption>Slide 25</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="vm-p">Tail level p (%): <b id="vm-p-v"></b></label><input type="range" id="vm-p" min="0.1" max="5" step="0.05" value="1"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-chart"></div></div><ul class="out" id="vm-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=34" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_drawdown.jpg?v=20261031a" alt="Slide 33: Drawdowns of CRIX and Bitcoin" loading="lazy"></a>
+      <figcaption>Slide 33</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="dd-d">Threshold below the record: <b id="dd-d-v"></b></label><input type="range" id="dd-d" min="10" max="90" step="5" value="50"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> At p = 1% the Normal VaR (7.75%) is above the GARCH-t VaR (7.23%). The ▶ button moves p from 0.1% to 5%. At p = 0.1%, which of the two is larger?</div>
-  <details><summary>Answer</summary><p>GARCH-t, by far: 15.90% against 10.31% for the Normal. The Student-t with estimated ν = 3.13 has much heavier tails, so its quantile grows faster as p falls; at p = 1% the larger σ of the Normal (3.35% a day over 2018–2026, against a GARCH-t forecast of 2.76% for 19 September 2026) still dominates. At p = 5% the Normal is higher again, 5.46% against 3.78%. Historical simulation at 0.1% takes the worst returns of the last 500 days: 11.24%.</p></details>
-</section><h2 class="sec" id="s-backtest">Backtesting</h2>
-<section class="blk" id="violations">
-  <h3>Violations Through Time</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> At 50%, CRIX spent 48.8% of the days more than 50% below its record, Bitcoin 39.9%. What are the shares at 70%?</div>
+  <details><summary>Answer</summary><p>17.5% of the days for CRIX and 9.5% for Bitcoin. CRIX has two falls deeper than 70%: 2018 (−87.1%, record again on 31 December 2020) and 2021–2022 (−77.4%, record again on 11 November 2024). The broad index stays deeper under water for longer than Bitcoin, because the smaller coins fall more in crypto winters.</p></details>
+</section><h2 class="sec" id="s-vcrix">VCRIX: A Volatility Index</h2>
+<section class="blk" id="vcrix">
+  <h3>VCRIX, 2018–2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l3_backtest.jpg?v=20261031a" alt="Slide 32: Violations Through Time" loading="lazy"></a>
-      <figcaption>Slide 32</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="bt-e">Last day of the 250-day Basel window: <b id="bt-e-v"></b></label><input type="range" id="bt-e" min="249" max="2452" step="1" value="2452"></div><div class="ctl"><label for="bt-m">Method whose violations are marked</label><select id="bt-m"><option value="GARCH-t" selected>GARCH(1,1)-t</option><option value="HS 500">Historical simulation, 500 days</option><option value="Normal 250">Normal, 250 days</option><option value="EWMA">EWMA, Normal</option></select></div><button class="btn play" id="bt-play" type="button"></button></div><div class="charts "><div class="chart" id="bt-chart"></div></div><ul class="out" id="bt-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> Over 2020–2026 no test rejects GARCH-t, and its last 250 days are in the green zone (2 hits). The ▶ button moves the 250-day Basel window through the test period. Is GARCH-t in the green zone in every window?</div>
-  <details><summary>Answer</summary><p>No. GARCH-t has 5 to 7 hits, the amber zone, in 23% of the 250-day windows (among them the windows ending between June 2022 and February 2023); it never reaches the red zone. A model can pass the full-period tests (28 hits against 24.5 expected) and still spend long periods in amber. EWMA is amber or red in 76% of the windows and reaches 10 hits in 2026; the Normal in 50%, with 10 hits in August 2024; historical simulation in 11%.</p></details>
-</section><h2 class="sec" id="s-oos">Out of Sample: 19 September – 23 October 2026</h2>
-<section class="blk" id="oos-var">
-  <h3>Bitcoin VaR, Rolled Forward</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_volatility_tail_risk.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261031a" alt="Slide 38: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_path.jpg?v=20261031a" alt="Slide 38: VCRIX, 2018–2026" loading="lazy"></a>
       <figcaption>Slide 38</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ov-d">Days of the window: <b id="ov-d-v"></b></label><input type="range" id="ov-d" min="1" max="35" step="1" value="35"></div><button class="btn play" id="ov-play" type="button"></button></div><div class="charts "><div class="chart" id="ov-chart"></div></div><ul class="out" id="ov-out"></ul></div>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vr-w">Window of the realised volatility: <b id="vr-w-v"></b></label><input type="range" id="vr-w" min="5" max="120" step="1" value="30"></div><div class="ctl"><label for="vr-l">Realised volatility of</label><select id="vr-l"><option value="1" selected>the previous day (t − 1)</option><option value="0">the same day (t)</option></select></div><button class="btn play" id="vr-play" type="button"></button></div><div class="charts "><div class="chart" id="vr-chart"></div></div><ul class="out" id="vr-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> No method had a VaR hit in the 35 days. If a method's true hit rate were 2%, twice the promised 1%, what was the probability of no hit in 35 days?</div>
-  <details><summary>Answer</summary><p>0.98³⁵ = 0.493, against 0.99³⁵ = 0.703 for a correct 1% VaR. No hit is almost as likely for the wrong model as for the right one, so these five weeks cannot separate them: the Kupiec statistic for no hit is 0.70 (p-value 0.40). Telling a 2% from a 1% hit rate with power 0.8 at the 5% level needs about 905 days.</p></details>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button changes the window of the realised volatility from 7 to 90 days. For which window does VCRIX correlate most with the realised volatility of the previous day?</div>
+  <details><summary>Answer</summary><p>At exactly 30 days: correlation 0.943 (21 days 0.873, 45 days 0.839, 90 days 0.657); a scan of every window from 5 to 120 days peaks at 30. This is consistent with the construction of VCRIX on a 30-day realised volatility (Kim, Trimborn and Härdle, 2021). With the same-day volatility the correlation is lower, 0.930: VCRIX on day t reflects the returns up to day t − 1.</p></details>
 </section>
-<p class="src foot">Prices: EODHD daily closes of Bitcoin, Ethereum, the S&amp;P 500 and gold; estimation sample 1 January 2018 – 18 September 2026, out-of-sample window 19 September – 23 October 2026. GARCH(1,1)-t parameters and the 2020–2026 VaR forecasts (GARCH-t re-estimated every 21 days) come from the lecture notebook; the variance filter, VaR, ES and the backtest statistics are computed in the browser.</p>
+<section class="blk" id="vcrix-returns">
+  <h3>Volatility after Falls and Rises</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=41" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_leverage.jpg?v=20261031a" alt="Slide 40: Volatility after Falls and Rises" loading="lazy"></a>
+      <figcaption>Slide 40</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vl-t">Threshold of a large move: <b id="vl-t-v"></b></label><input type="range" id="vl-t" min="1" max="12" step="0.5" value="5"></div><button class="btn play" id="vl-play" type="button"></button></div><div class="charts "><div class="chart" id="vl-chart"></div></div><ul class="out" id="vl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Raise the threshold of a large move to 10%. What happens to VCRIX the day after a fall of more than 10%, and after a rise of more than 10%?</div>
+  <details><summary>Answer</summary><p>After the 35 falls of more than 10% the log of VCRIX rises by 21.6% on average, after the 19 rises of more than 10% by 18.3%; on the other days it falls slightly (−0.4%). Large moves in either direction raise the volatility index; the effect after falls is somewhat larger, as the leverage effect suggests, but rises also raise it, because VCRIX is built from squared returns.</p></details>
+</section>
+<section class="blk" id="garch-vcrix">
+  <h3>VCRIX against GARCH and Realised Volatility</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=43" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_garch.jpg?v=20261031a" alt="Slide 42: VCRIX against GARCH and Realised Volatility" loading="lazy"></a>
+      <figcaption>Slide 42</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="gv-k">Shift k: VCRIX on day t against the other measure on day t + k: <b id="gv-k-v"></b></label><input type="range" id="gv-k" min="-10" max="10" step="1" value="0"></div><button class="btn play" id="gv-play" type="button"></button></div><div class="charts "><div class="chart" id="gv-chart"></div></div><ul class="out" id="gv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button shifts the GARCH and realised volatility series against VCRIX by k = −10 to +10 days. At which shift is the correlation of VCRIX with the realised volatility highest?</div>
+  <details><summary>Answer</summary><p>At k = −1: 0.931, against 0.916 at k = 0, i.e. VCRIX on day t matches the 30-day realised volatility of day t − 1. For the GARCH one-day-ahead volatility the maximum is at k = 0 (0.844), since it is already a forecast made on day t − 1. For positive k the correlations fall (GARCH 0.53 at k = +10): VCRIX does not anticipate future volatility better than the two models.</p></details>
+</section><h2 class="sec" id="s-product">From Index to Investible Product</h2>
+<section class="blk" id="etf-tracking">
+  <h3>A Spot Bitcoin Fund against Bitcoin</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=47" target="_blank" rel="noopener"><img src="slides/ba_l3_etf_tracking.jpg?v=20261031a" alt="Slide 46: A Spot Bitcoin Fund against Bitcoin" loading="lazy"></a>
+      <figcaption>Slide 46</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="et-c">Bitcoin price used as the benchmark</label><select id="et-c"><option value="16" selected>16:00 New York (IBIT closing time)</option><option value="00">24:00 UTC (daily close)</option></select></div><div class="ctl"><label for="et-s">Start of the period: <b id="et-s-v"></b></label><input type="range" id="et-s" min="0" max="637" step="1" value="0"></div></div><div class="charts "><div class="chart" id="et-ratio"></div><div class="chart" id="et-hist"></div></div><ul class="out" id="et-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Move the start of the period to July 2025 and switch the benchmark clock. What happens to the tracking error and to the tracking difference?</div>
+  <details><summary>Answer</summary><p>With Bitcoin at 16:00 New York the tracking error falls to 1.7% a year (from 3.5% since January 2024), with Bitcoin at 24:00 UTC it is still 16.1%: most of the latter is the time gap between the two prices, not the fund. The tracking difference with synchronous prices stays near −0.26% a year, close to the sponsor fee of 0.25%; with midnight prices it is a noisy −0.06%.</p></details>
+</section>
+<p class="src foot">Royalton CRIX and VCRIX: daily values from the chart data of <a href="https://www.thecrix.de" target="_blank" rel="noopener">thecrix.de</a> (CRIX 6 September 2017 – 6 November 2026, VCRIX from 4 January 2018; no values on 22 March, 14 May – 7 June, 31 August and 5 November 2026). Coins: EODHD daily closes and volumes to 30 October 2026, current supply from the Coin Metrics Community API; market value = price × supply. IBIT: EODHD adjusted close; Bitcoin at 16:00 New York from EODHD hourly prices. Replica rules and GARCH estimates: Slides/code/l3_indices.py.</p>
 </main>
 </body>
 </html>

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_crix_drawdown'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Drawdowns of CRIX and Bitcoin from their running maxima, 2017 to 2026, with the episodes deeper than 50% and three shocks (COVID-19, Terra/Luna, FTX).'
+
+Keywords: 'drawdown, crypto winter, CRIX, Bitcoin, crashes'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices); EODHD Bitcoin daily close'
+
+Output: 'ba_l3_crix_drawdown.pdf'

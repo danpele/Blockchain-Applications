@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_vcrix_har'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'HAR model for the realised volatility of CRIX over the next 30 days, estimated on 2018-2023 and tested on 2024 to February 2026 against the naive forecast.'
+
+Keywords: 'HAR model, realised volatility, forecasting, CRIX, VCRIX'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices)'
+
+Output: 'ba_l3_vcrix_har.pdf'

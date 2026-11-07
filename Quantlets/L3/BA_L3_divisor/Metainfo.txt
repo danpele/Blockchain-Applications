@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_divisor'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The replica index (1000 on 31 March 2018) and its divisor, reset at each monthly rebalancing; the worked example of the rebalancing of 30 September 2026.'
+
+Keywords: 'Laspeyres index, divisor, rebalancing, CRIX, market value'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_divisor.pdf'

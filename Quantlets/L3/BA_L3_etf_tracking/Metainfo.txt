@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_etf_tracking'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'IBIT against Bitcoin, 12 January 2024 to 30 October 2026: tracking difference (trend of IBIT per Bitcoin) and tracking error with Bitcoin at 16:00 New York and at 24:00 UTC.'
+
+Keywords: 'ETF, tracking error, tracking difference, IBIT, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices of IBIT and hourly Bitcoin prices (data/market, data/hourly)'
+
+Output: 'ba_l3_etf_tracking.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_active'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean number of active predictors (of 13) in the 5% Quantile Lasso equations of 10 stablecoins by quintile of the De-pegging Pressure Index (DPI), EODHD data, April 2020 - October 2026. Every 7th day by default; FULL_DAILY = True for all days as in the lecture.'
+
+Keywords: 'stablecoins, Quantile Lasso, active set, sparsity, De-pegging Pressure Index, quintiles'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield'
+
+Output: 'ba_l6_active.pdf'

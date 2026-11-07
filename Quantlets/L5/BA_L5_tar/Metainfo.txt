@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_tar'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Threshold autoregression (TAR) of the hourly change of USDC priced in USDT on its lagged deviation, January 2022 to 23 October 2026: band estimated by least squares, heteroskedasticity-consistent Wald profile and the Hansen (1996) fixed-regressor bootstrap of sup W. Data: EODHD hourly prices.'
+
+Keywords: 'threshold autoregression, arbitrage band, mean reversion, half-life, Hansen bootstrap, Wald test, USDC/USDT'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD hourly prices in the course repository (data/hourly)'
+
+Output: 'ba_l5_tar.pdf'

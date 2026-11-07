@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_paper_t2'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean CRPS and mean threshold-weighted CRPS (twCRPS) of 24-hour distributional forecasts of the USDC/USDT deviation, January 2025 to May 2026: the proposed model against TimeXer, TiDE, GARCH, ARIMA and a naive forecast; values from Table 2 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper.'
+
+Keywords: 'CRPS, twCRPS, distributional forecast, GARCH, ARIMA, TiDE, TimeXer, depeg'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Table 2 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper (values typed in the notebook)'
+
+Output: 'ba_l5_paper_t2.pdf'

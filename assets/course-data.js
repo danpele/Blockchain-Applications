@@ -28,8 +28,8 @@
 
     // links of lecture n: slides, lecture notebook (GitHub + Colab), Quantlets
     // lectures whose notebook / Quantlets are already in the repo
-    const NB_READY = [1, 2, 3, 4, 5, 6, 7];
-    const QL_READY = [1, 2, 3, 4, 5, 6, 7];
+    const NB_READY = [1, 2, 3, 4, 5, 6, 7, 8];
+    const QL_READY = [1, 2, 3, 4, 5, 6, 7, 8];
     const L = (n, base) => ({
         en: [
             { type: 'slides', href: `EN/Lectures/lecture${n}_${base}.pdf` },
@@ -141,7 +141,7 @@
             en: [
                 { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Course syllabus (PDF)</a>'] },
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
-                { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
+                { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 8 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7–L8)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
                 { h: 'Exam', p: ['Friday 27 November 2026, 60 minutes', '30 multiple-choice questions on both parts of the course, answered on this website'] },
                 { h: 'Final grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
@@ -149,7 +149,7 @@
             ro: [
                 { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Syllabus (PDF, în engleză)</a>'] },
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
-                { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 7 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
+                { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 8 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7–C8)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
                 { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 60 de minute', '30 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
                 { h: 'Nota finală', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
@@ -169,6 +169,7 @@
                     'Collect market and on-chain data from public sources (EODHD, DefiLlama, Coin Metrics, block explorers) and check its quality before any analysis',
                     'Describe crypto returns with the right statistics and test their stylized facts (heavy tails, volatility clustering, changing correlations) against stocks and gold',
                     "Test market efficiency, date bubbles and crashes with drawdowns and the LPPL model, and judge network-value claims such as Metcalfe's law",
+                    'Build and evaluate a crypto market index such as CRIX (constituents, divisor, tracking error) and read the VCRIX volatility index',
                     'Measure risk with EWMA and GARCH volatility, Value-at-Risk (VaR) and Expected Shortfall (ES), and backtest the forecasts',
                     'Monitor stablecoin depeg risk and estimate systemic depegging pressure with quantile regression and the De-pegging Pressure Index (DPI)',
                     'Map crypto markets as networks, classify crypto assets against traditional asset classes, and measure the effect of protocol upgrades and sentiment',
@@ -187,6 +188,7 @@
                     'Colectați date de piață și on-chain din surse publice (EODHD, DefiLlama, Coin Metrics, exploratoare de blockchain) și le verificați calitatea înainte de analiză',
                     'Descrieți randamentele cripto cu statisticile potrivite și testați faptele lor stilizate (cozi groase, volatility clustering, corelații care se schimbă în timp) în comparație cu acțiunile și aurul',
                     'Testați eficiența pieței, datați bulele și crahurile cu drawdown-uri și modelul LPPL și evaluați afirmațiile despre valoarea de rețea, precum legea lui Metcalfe',
+                    'Construiți și evaluați un indice al pieței cripto precum CRIX (componente, divizor, eroare de urmărire) și interpretați indicele de volatilitate VCRIX',
                     'Măsurați riscul cu volatilitatea EWMA și GARCH, Value-at-Risk (VaR) și Expected Shortfall (ES) și faceți backtesting prognozelor',
                     'Monitorizați riscul de depeg al stablecoin-urilor și estimați presiunea sistemică de depeg cu regresia cuantilă și De-pegging Pressure Index (DPI)',
                     'Reprezentați piețele cripto ca rețele, clasificați criptoactivele în raport cu clasele de active tradiționale și măsurați efectul actualizărilor de protocol și al sentimentului',
@@ -198,11 +200,12 @@
         chapterCharts: {
             l1: { src: 'charts/ba_l1_value_activity.png', en: 'Bitcoin market value against on-chain activity, monthly, 2014–2025', ro: 'Valoarea de piață a Bitcoin față de activitatea on-chain, lunar, 2014–2025' },
             l2: { src: 'charts/ba_l2_lppl_btc2017.png', en: 'LPPL fit to the 2017 Bitcoin bubble and its estimated critical time', ro: 'Modelul LPPL estimat pe bula Bitcoin din 2017 și momentul critic estimat' },
-            l3: { src: 'charts/ba_l3_var_methods.png', en: 'One-day VaR 1% and ES 2.5% of Bitcoin under four methods', ro: 'VaR 1% și ES 2,5% pe o zi pentru Bitcoin, cu patru metode' },
-            l4: { src: 'charts/ba_l4_svb.png', en: 'USDC, DAI and USDT around the March 2023 SVB depeg, in basis points', ro: 'USDC, DAI și USDT în jurul depeg-ului din martie 2023 (SVB), în puncte de bază' },
-            l5: { src: 'charts/ba_l5_dpi.png', en: 'De-pegging Pressure Index (DPI), 2020–2026, coloured by quintile', ro: 'De-pegging Pressure Index (DPI), 2020–2026, colorat pe quintile' },
-            l6: { src: 'charts/ba_l6_mst.png', en: 'Correlations of daily returns and the minimum spanning tree of 19 crypto assets', ro: 'Corelațiile randamentelor zilnice și arborele de acoperire minim (minimum spanning tree) pentru 19 criptoactive' },
-            l7: { src: 'charts/ba_l7_var_models.png', en: 'Bitcoin VaR 1%: breach rates and quantile scores of six models, including Chronos-2', ro: 'VaR 1% pentru Bitcoin: rata depășirilor și scorul cuantil pentru șase modele, inclusiv Chronos-2' }
+            l3: { src: 'charts/ba_l3_replica_vs_crix.png', en: 'Ten-coin CRIX replica against the published Royalton CRIX, 2018–2026', ro: 'Replica CRIX pe zece monede comparată cu indicele Royalton CRIX publicat, 2018–2026' },
+            l4: { src: 'charts/ba_l4_var_methods.png', en: 'One-day VaR 1% and ES 2.5% of Bitcoin under four methods', ro: 'VaR 1% și ES 2,5% pe o zi pentru Bitcoin, cu patru metode' },
+            l5: { src: 'charts/ba_l5_svb.png', en: 'USDC, DAI and USDT around the March 2023 SVB depeg, in basis points', ro: 'USDC, DAI și USDT în jurul depeg-ului din martie 2023 (SVB), în puncte de bază' },
+            l6: { src: 'charts/ba_l6_dpi.png', en: 'De-pegging Pressure Index (DPI), 2020–2026, coloured by quintile', ro: 'De-pegging Pressure Index (DPI), 2020–2026, colorat pe quintile' },
+            l7: { src: 'charts/ba_l7_mst.png', en: 'Correlations of daily returns and the minimum spanning tree of 19 crypto assets', ro: 'Corelațiile randamentelor zilnice și arborele de acoperire minim (minimum spanning tree) pentru 19 criptoactive' },
+            l8: { src: 'charts/ba_l8_var_models.png', en: 'Bitcoin VaR 1%: breach rates and quantile scores of six models, including Chronos-2', ro: 'VaR 1% pentru Bitcoin: rata depășirilor și scorul cuantil pentru șase modele, inclusiv Chronos-2' }
         },
 
         chapters: [
@@ -222,37 +225,44 @@
             },
             {
                 id: 'l3', num: 3, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
-                title: { en: 'Volatility and Tail Risk', ro: 'Volatilitate și tail risk' },
-                topics: { en: ['EWMA and GARCH(1,1)-t by maximum likelihood; residual diagnostics', 'VaR and ES: Normal, historical, EWMA, GARCH-t', 'Kupiec and Christoffersen backtests; Basel traffic light', 'A short out-of-sample check'], ro: ['EWMA și GARCH(1,1)-t estimat prin verosimilitate maximă; diagnosticul reziduurilor', 'VaR și ES: Normal, istoric, EWMA, GARCH-t', 'Backtesturile Kupiec și Christoffersen; semaforul Basel', 'O verificare out-of-sample scurtă'] },
-                links: L(3, 'volatility_tail_risk'),
-                quantinar: q('robustMarkowitz')
-            },
-            {
-                id: 'l4', num: 4, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
-                title: { en: 'Stablecoins I: Measuring Depeg Risk and On-Chain Early Warning', ro: 'Stablecoin-uri I: riscul de depeg și avertizarea timpurie on-chain' },
-                topics: { en: ['Peg deviations in basis points, exceedance curves and episode counts', 'AMM price impact: constant product and StableSwap', 'Event-level early-warning utility', 'Case: the March 2023 USDC depeg'], ro: ['Abaterile de la paritate în puncte de bază, curbe de depășire și numărul de episoade', 'Impactul asupra prețului în AMM: produs constant și StableSwap', 'Utilitatea avertizării timpurii la nivel de eveniment', 'Studiu de caz: depeg-ul USDC din martie 2023'] },
-                links: L(4, 'stablecoins_depeg'),
+                title: { en: 'Crypto Indices: CRIX, VCRIX and Investible Index Funds', ro: 'Indici cripto: CRIX, VCRIX și fonduri investibile pe indici' },
+                topics: { en: ['Index construction (Laspeyres, divisor, AIC choice of constituents)', 'The CRIX family and the VCRIX volatility index', 'From index to investible fund: Royalton CRIX and US Patent 12,784,107'], ro: ['Construcția indicelui (Laspeyres, divizor, alegerea constituenților după AIC)', 'Familia CRIX și indicele de volatilitate VCRIX', 'De la indice la fond investibil: Royalton CRIX și brevetul SUA 12,784,107'] },
+                links: L(3, 'crypto_indices'),
                 quantinar: []
             },
             {
+                id: 'l4', num: 4, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
+                title: { en: 'Volatility and Tail Risk', ro: 'Volatilitate și tail risk' },
+                topics: { en: ['EWMA and GARCH(1,1)-t by maximum likelihood; residual diagnostics', 'VaR and ES: Normal, historical, EWMA, GARCH-t', 'Kupiec and Christoffersen backtests; Basel traffic light', 'A short out-of-sample check'], ro: ['EWMA și GARCH(1,1)-t estimat prin verosimilitate maximă; diagnosticul reziduurilor', 'VaR și ES: Normal, istoric, EWMA, GARCH-t', 'Backtesturile Kupiec și Christoffersen; semaforul Basel', 'O verificare out-of-sample scurtă'] },
+                links: L(4, 'volatility_tail_risk'),
+                quantinar: q('robustMarkowitz')
+            },
+            {
                 id: 'l5', num: 5, available: true, web: true, interactive: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
-                title: { en: 'Stablecoins II: Systemic Depegging Pressure and Portfolios', ro: 'Stablecoin-uri II: presiunea sistemică de depeg și portofolii' },
-                topics: { en: ['Reference-adjusted deviations; check loss and quantile regression', '5% Quantile Lasso with GACV selection', 'The De-pegging Pressure Index (DPI)', 'HAC event tests with Holm correction; out-of-sample check-loss skill'], ro: ['Abateri ajustate față de referință; funcția de pierdere check și regresia cuantilă', 'Quantile Lasso la 5%, cu parametrul ales prin GACV', 'De-pegging Pressure Index (DPI)', 'Teste de eveniment cu erori HAC și corecția Holm; performanța out-of-sample după pierderea check'] },
-                links: L(5, 'stablecoins_dpi'),
-                quantinar: q('frm')
+                title: { en: 'Stablecoins I: Measuring Depeg Risk and On-Chain Early Warning', ro: 'Stablecoin-uri I: riscul de depeg și avertizarea timpurie on-chain' },
+                topics: { en: ['Peg deviations in basis points, exceedance curves and episode counts', 'AMM price impact: constant product and StableSwap', 'Event-level early-warning utility', 'Case: the March 2023 USDC depeg'], ro: ['Abaterile de la paritate în puncte de bază, curbe de depășire și numărul de episoade', 'Impactul asupra prețului în AMM: produs constant și StableSwap', 'Utilitatea avertizării timpurii la nivel de eveniment', 'Studiu de caz: depeg-ul USDC din martie 2023'] },
+                links: L(5, 'stablecoins_depeg'),
+                quantinar: []
             },
             {
                 id: 'l6', num: 6, available: true, web: true, interactive: true, date: { en: 'Wed 25 Nov', ro: 'Miercuri 25 nov.' },
-                title: { en: 'Networks, Sentiment and Asset Classes', ro: 'Rețele, sentiment și clase de active' },
-                topics: { en: ['Correlation distance, minimum spanning trees, absorption ratio', 'Diebold–Yilmaz spillovers', 'Factor analysis and k-means classification of asset classes', 'Market-model event study (CAR) and text sentiment'], ro: ['Distanța de corelație, arbori de acoperire minimi, absorption ratio', 'Spillover-uri Diebold–Yilmaz', 'Analiza factorială și clasificarea k-means a claselor de active', 'Studiu de eveniment cu modelul de piață (CAR) și sentimentul din text'] },
-                links: L(6, 'networks_sentiment_art'),
-                quantinar: q('networks', 'crossExchange', 'reddit', 'musk', 'dai')
+                title: { en: 'Stablecoins II: Systemic Depegging Pressure and Portfolios', ro: 'Stablecoin-uri II: presiunea sistemică de depeg și portofolii' },
+                topics: { en: ['Reference-adjusted deviations; check loss and quantile regression', '5% Quantile Lasso with GACV selection', 'The De-pegging Pressure Index (DPI)', 'HAC event tests with Holm correction; out-of-sample check-loss skill'], ro: ['Abateri ajustate față de referință; funcția de pierdere check și regresia cuantilă', 'Quantile Lasso la 5%, cu parametrul ales prin GACV', 'De-pegging Pressure Index (DPI)', 'Teste de eveniment cu erori HAC și corecția Holm; performanța out-of-sample după pierderea check'] },
+                links: L(6, 'stablecoins_dpi'),
+                quantinar: q('frm')
             },
             {
                 id: 'l7', num: 7, available: true, web: true, interactive: true, date: { en: 'Thu 26 Nov', ro: 'Joi 26 nov.' },
+                title: { en: 'Networks, Sentiment and Asset Classes', ro: 'Rețele, sentiment și clase de active' },
+                topics: { en: ['Correlation distance, minimum spanning trees, absorption ratio', 'Diebold–Yilmaz spillovers', 'Factor analysis and k-means classification of asset classes', 'Market-model event study (CAR) and text sentiment'], ro: ['Distanța de corelație, arbori de acoperire minimi, absorption ratio', 'Spillover-uri Diebold–Yilmaz', 'Analiza factorială și clasificarea k-means a claselor de active', 'Studiu de eveniment cu modelul de piață (CAR) și sentimentul din text'] },
+                links: L(7, 'networks_sentiment_art'),
+                quantinar: q('networks', 'crossExchange', 'reddit', 'musk', 'dai')
+            },
+            {
+                id: 'l8', num: 8, available: true, web: true, interactive: true, date: { en: 'Thu 26 Nov', ro: 'Joi 26 nov.' },
                 title: { en: 'Machine Learning, AI and Their Limits; Exam Review', ro: 'Machine learning, AI și limitele lor; recapitulare pentru examen' },
                 topics: { en: ['Walk-forward evaluation; Brier score, AUC, Pesaran–Timmermann test', 'Overfitting, SHAP explanations, the deflated Sharpe ratio', 'VaR from GARCH, quantile regression, gradient-boosted trees and Chronos-2', 'Quantile score and Diebold–Mariano tests; look-ahead in pretrained models'], ro: ['Evaluare walk-forward; scorul Brier, AUC, testul Pesaran–Timmermann', 'Overfitting, explicații SHAP, deflated Sharpe ratio', 'VaR din GARCH, regresie cuantilă, gradient-boosted trees și Chronos-2', 'Scorul cuantil și testele Diebold–Mariano; look-ahead în modelele preantrenate'] },
-                links: L(7, 'ml_ai_limits'),
+                links: L(8, 'ml_ai_limits'),
                 quantinar: q('aiBlockchain', 'p2p')
             }
         ],

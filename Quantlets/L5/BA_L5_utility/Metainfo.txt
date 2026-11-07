@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_utility'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Credit v(l) given to the first valid alert as a function of its lead time l in hours before a depeg event, as in the event-level utility U of the stablecoin early-warning protocol, with a worked example of four events. Analytical, no data.'
+
+Keywords: 'early warning, event-level evaluation, utility, lead time, false alerts, depeg, alarm design'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none (analytical computation)'
+
+Output: 'ba_l5_utility.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_checkloss'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The asymmetric check loss of quantile regression for three quantile levels, and the total check loss of 20 illustrative daily peg deviations as a function of the candidate quantile: the 5% quantile is not unique when n times tau is an integer.'
+
+Keywords: 'quantile regression, check loss, Koenker and Bassett, quantile, non-uniqueness'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none: 20 illustrative deviations typed in the notebook'
+
+Output: 'ba_l6_checkloss.pdf'

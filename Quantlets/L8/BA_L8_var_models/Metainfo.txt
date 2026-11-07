@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L8_var_models'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Breach rate and mean quantile score of one-day Bitcoin VaR 1% forecasts from historical simulation, EWMA-Normal, GARCH(1,1)-t, quantile regression, gradient-boosted quantile trees and (optionally) the pretrained Chronos-2 model, with Kupiec, Christoffersen and Diebold-Mariano tests. EODHD daily Bitcoin data, test period 1 January 2024 - 23 October 2026.'
+
+Keywords: 'Value-at-Risk, quantile score, backtesting, quantile regression, gradient boosting, Chronos-2, Diebold-Mariano test, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l8_var_models.pdf'

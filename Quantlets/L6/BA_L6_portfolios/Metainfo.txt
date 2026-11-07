@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_portfolios'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Annualised volatility and 5% expected shortfall of three long-only stablecoin portfolios (equal weight, global minimum variance, linear lambda from the De-pegging Pressure Index penalties), rebalanced weekly, 30 June 2020 - 31 May 2026 (EODHD data), against the values reported by Fan, Sha, Härdle & Pele (2026).'
+
+Keywords: 'stablecoins, portfolio, global minimum variance, expected shortfall, backtesting, Quantile Lasso'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield; paper values typed from Fan, Sha, Härdle & Pele (2026)'
+
+Output: 'ba_l6_portfolios.pdf'

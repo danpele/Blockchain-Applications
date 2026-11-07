@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_entropy'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Shannon entropy of the normalised balances of the Curve 3pool (DAI, USDC, USDT) as a function of the share of one token, for a pool where the other two split the rest equally and for a two-token pool; worked examples. Analytical, no data.'
+
+Keywords: 'Curve 3pool, entropy, pool imbalance, stablecoins, DeFi liquidity, early warning'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none (analytical computation)'
+
+Output: 'ba_l5_entropy.pdf'

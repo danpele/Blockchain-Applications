@@ -1,5 +1,6 @@
 // ============================================================
-// Practice quiz bank for Lecture 6: Networks, Sentiment and Asset Classes (EN)
+// Practice quiz bank for Lecture 6: Stablecoins II – Systemic Depegging
+// Pressure and Portfolios (EN)
 // correct = index (0-3) of the right option in the original order.
 // incorrectExplanation must not name a letter: the engine prepends
 // "The correct answer is X) ..." after shuffling the options.
@@ -10,451 +11,451 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 2,
             en: {
-                title: "Correlation distance",
-                text: "Mantegna (1999) turns the Pearson correlation $\\rho_{ij}$ of two coins into the distance $d_{ij} = \\sqrt{2(1-\\rho_{ij})}$. What distance do two coins with uncorrelated returns ($\\rho_{ij} = 0$) have?",
+                title: "What the DPI is",
+                text: "On 12 March 2023 the De-pegging Pressure Index (DPI), estimated on the 90 days to 11 March, was 0.52. Which reading is right?",
                 options: [
-                    "$d = 0$, the same distance as for two identical coins",
-                    "$d = 1$, half of the largest possible distance",
-                    "$d = \\sqrt{2} \\approx 1.41$",
-                    "$d = 2$, the largest distance the formula allows"
+                    "A 52% probability of a depeg within the next 24 hours",
+                    "USDC was 52 basis points (bp) below the dollar",
+                    "A unitless penalty measuring lower-tail co-movement",
+                    "52% of the stablecoins were depegged on that day"
                 ],
-                correctExplanation: "With $\\rho = 0$ the formula gives $\\sqrt{2 \\cdot 1} = \\sqrt 2$. The distance is 0 for $\\rho = 1$ and reaches its maximum of 2 only for $\\rho = -1$.",
-                incorrectExplanation: "Substitute $\\rho = 0$: $d = \\sqrt{2(1 - 0)} = \\sqrt 2$. Distance 0 needs $\\rho = 1$ and distance 2 needs $\\rho = -1$."
-            }
-        },
-        {
-            correct: 1,
-            en: {
-                title: "Distance of BTC and ETH",
-                text: "Daily log returns of Bitcoin (BTC) and Ether (ETH), January 2021 to October 2026, have correlation $\\rho = 0.823$. What is their correlation distance $d = \\sqrt{2(1-\\rho)}$?",
-                options: [
-                    "0.177, the gap $1 - \\rho$ between the correlation and one",
-                    "0.595",
-                    "0.354, which is $2(1-\\rho)$ before the square root",
-                    "1.141, the distance of a weakly correlated pair"
-                ],
-                correctExplanation: "$d = \\sqrt{2 \\cdot 0.177} = \\sqrt{0.354} = 0.595$: a short distance, as expected for the most correlated pair with BTC.",
-                incorrectExplanation: "The distance is the square root of $2(1-\\rho) = 0.354$, which is 0.595. The value 1.141 belongs to the weakest pair, DOGE–TRX ($\\rho = 0.349$)."
+                correctExplanation: "The DPI averages selected Quantile Lasso penalties. It is neither an observed depeg in bp nor a probability; the value 0.52 lay in the fourth of five quintiles.",
+                incorrectExplanation: "The observed depeg is a price fact in bp and an alarm gives a probability; the DPI is a third object, a unitless measure of lower-tail co-movement."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Hubs of the minimum spanning tree",
-                text: "The minimum spanning tree (MST) of 19 coins, built from correlation distances of daily log returns (January 2021 to October 2026), is described on the slides. Which statement matches it?",
+                title: "Reference-adjusted deviation",
+                text: "EURS, a euro stablecoin, trades at 1.1194 USD while EUR/USD is 1.1202. What is its reference-adjusted deviation $d = 10^4\\,(P/B - 1)$?",
                 options: [
-                    "ETH and DOT, six edges each; BTC links only to ETH and XMR",
-                    "BTC is the single hub, linked directly to all 18 other coins of the tree",
-                    "Every coin has exactly two edges, so the tree is a chain with no hubs",
-                    "DOGE is the hub, since its low correlations put it at the centre of the tree"
+                    "About $-7.1$ bp",
+                    "About $+1\\,194$ bp",
+                    "About $-0.07$ bp",
+                    "About $-8.0$ bp"
                 ],
-                correctExplanation: "ETH (degree 6: BTC, BNB, SOL, LTC, LINK, ETC) and DOT (degree 6: ADA, ATOM, FIL, ALGO, TRX, LINK) are the hubs; BTC has degree 2.",
-                incorrectExplanation: "A hub is a coin with many MST edges. In this tree the hubs are ETH and DOT with six edges each, while BTC connects only to ETH and XMR."
+                correctExplanation: "$1.1194/1.1202 = 0.99929$, so $d = 10^4 \\times (-0.00071) \\approx -7.1$ bp: EURS is slightly below the euro.",
+                incorrectExplanation: "Divide the token price by the dollar value of its reference: $1.1194/1.1202 - 1 \\approx -0.00071$, i.e. $-7.1$ bp."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Few MST links, large influence",
-                text: "In the minimum spanning tree (MST) of 19 coins, BTC has only two edges while ETH has six. In the Diebold–Yilmaz spillover table of 8 coins (2021–2026), BTC has NET $= +11.0$, the second largest. How should the two facts be reconciled?",
+                title: "Why adjust for the reference",
+                text: "Why must the dollar price of a euro or gold token be divided by the dollar value of its reference asset before measuring a depeg?",
                 options: [
-                    "They contradict each other, so one of the two estimates must be wrong and re-run",
-                    "A coin with only two MST edges must have a NET spillover close to zero",
-                    "The MST shows BTC matters little, so the spillover table should be ignored",
-                    "The MST keeps only the $N-1$ strongest links; low degree is not low transmission"
+                    "Because euro and gold tokens are always more volatile than dollar ones",
+                    "Because the dollar price is not available for them",
+                    "Because the Quantile Lasso requires positive data",
+                    "Otherwise a 1% euro move would look like a 100 bp depeg"
                 ],
-                correctExplanation: "The MST discards all but $N - 1$ links, so BTC's many strong correlations with other coins are routed through ETH. The spillover table measures shock transmission directly and shows BTC as a large net transmitter.",
-                incorrectExplanation: "MST degree and spillovers measure different things: the tree keeps only the strongest links, so a coin with few edges can still transmit much forecast-error variance."
+                correctExplanation: "EURS tracks the euro, PAXG one ounce of gold; their dollar prices move with the reference. The adjustment puts all tokens on one economic scale before any model sees them.",
+                incorrectExplanation: "A token's deviation is measured against what it promises; without the adjustment, currency or gold moves are mistaken for depegs."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Absorption ratio",
-                text: "For a correlation matrix of $N$ coins with eigenvalues $\\lambda_1 \\geq \\dots \\geq \\lambda_N$, what does the absorption ratio (AR) measure?",
+                title: "Two tiers of peg quality",
+                text: "Median absolute deviation $|d|$, January 2020 to May 2026 (EOD Historical Data): USDC 1.3 bp, USDT 3.6 bp, GUSD 17.7 bp, EURS 50.9 bp, sUSD 56.3 bp. What pattern do these numbers show?",
                 options: [
-                    "The average pairwise correlation of the $N$ coins in the window",
-                    "The first principal component's share of total variance, $\\lambda_1/N$",
-                    "The number of principal components needed to explain 80% of the variance",
-                    "The share of each coin's forecast-error variance that comes from the other coins"
+                    "All stablecoins hold their pegs about equally well, within a few bp",
+                    "Two tiers: large dollar tokens tight, the others loose",
+                    "Euro tokens are the most stable of all tokens",
+                    "Only crypto-collateralised tokens deviate at all"
                 ],
-                correctExplanation: "$\\mathrm{AR} = \\lambda_1 / \\sum_k \\lambda_k = \\lambda_1/N$, since the eigenvalues of a correlation matrix sum to $N$. It is $1/N$ with no common factor and 1 when one factor explains everything.",
-                incorrectExplanation: "The absorption ratio is the variance share of the first principal component, $\\lambda_1/N$. The forecast-error variance share is the Diebold–Yilmaz spillover, a different measure."
+                correctExplanation: "The large dollar coins sit within a few bp; GUSD, PAXG, EURS and sUSD are tens of bp off and have deep lower tails (5% quantile of sUSD $-1\\,883$ bp).",
+                incorrectExplanation: "The medians split into a tight group of large dollar tokens and a loose group of small, non-dollar or crypto-collateralised tokens."
+            }
+        },
+        {
+            correct: 1,
+            en: {
+                title: "Does the data source matter?",
+                text: "Median $|d|$ of USDC is 1.3 bp from EOD Historical Data (EODHD) and 4.11 bp in the working paper of Fan et al. (2026) (CoinGecko); the share of days at least 100 bp below the peg is 0.09% for USDT in both. What follows?",
+                options: [
+                    "One of the two data sources must be wrong",
+                    "Levels depend on the source; the ranking does not",
+                    "The source changes the ranking of coins completely",
+                    "The source matters only for non-dollar tokens"
+                ],
+                correctExplanation: "EODHD medians are lower than CoinGecko's, but the ordering of coins and the rates of large downside deviations agree closely (sUSD 26.0% against 25.0%).",
+                incorrectExplanation: "Different aggregation gives different levels of small deviations; the ranking and the frequency of large depegs are robust to the source."
+            }
+        },
+        {
+            correct: 3,
+            en: {
+                title: "A persistent depeg",
+                text: "sUSD (Synthetix, crypto-collateralised) was below 0.99 USD on 607 of 661 days since January 2025 and at 0.09 USD on 23 October 2026. Why did arbitrage not close the gap, as after the Silicon Valley Bank (SVB) failure?",
+                options: [
+                    "Arbitrageurs did not notice the low price in time",
+                    "sUSD trades only on a few small venues at weekends",
+                    "The gap was too small to make arbitrage profitable",
+                    "There is no redemption at par, so no arbitrage"
+                ],
+                correctExplanation: "USDC recovered after two days because redemption at par returned. sUSD has no such channel, so the market price can drift down for months.",
+                incorrectExplanation: "Peg arbitrage needs a way to redeem at par; when that channel is missing, a discount can persist and deepen."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Absorption ratio: worked example",
-                text: "Take $N = 19$ coins with every pairwise correlation equal to $\\rho = 0.60$. Then $\\lambda_1 = 1 + (N-1)\\rho$. What is the absorption ratio $\\mathrm{AR} = \\lambda_1/N$?",
+                title: "The check loss at the 5% quantile",
+                text: "The check loss is $\\rho_\\tau(e) = e\\,(\\tau - \\mathbb 1\\{e < 0\\})$. With $\\tau = 0.05$, how are residuals below and above the fitted line weighted?",
                 options: [
-                    "0.62, from $\\lambda_1 = 11.8$",
-                    "0.60, the common correlation itself",
-                    "0.86, from $\\lambda_1 = 16.3$",
-                    "0.05, the value $1/N$ of no common factor"
+                    "Below: $0.95|e|$; above: $0.05|e|$",
+                    "Below: $0.05|e|$; above: $0.95|e|$",
+                    "Both: $|e|$, as for the median",
+                    "Both: $e^2$, as for least squares"
                 ],
-                correctExplanation: "$\\lambda_1 = 1 + 18 \\cdot 0.60 = 11.8$ and $\\mathrm{AR} = 11.8/19 = 0.62$.",
-                incorrectExplanation: "Compute $\\lambda_1 = 1 + 18 \\cdot 0.60 = 11.8$, then divide by 19. The value 0.86 corresponds to $\\rho = 0.85$ and 0.05 to $\\rho = 0$."
+                correctExplanation: "For $e < 0$, $\\rho_{0.05}(e) = e(0.05 - 1) = 0.95|e|$; for $e > 0$ it is $0.05\\,e$. Points below the line are expensive, so only about 5% of them end up there.",
+                incorrectExplanation: "Substitute into $\\rho_\\tau$: a negative residual is weighted by $1 - \\tau = 0.95$, a positive one by $\\tau = 0.05$."
             }
         },
         {
             correct: 2,
             en: {
-                title: "A rising absorption ratio",
-                text: "The absorption ratio (AR) of a group of coins rises from 0.45 to 0.85. What happens to the benefit of holding ten coins instead of one?",
+                title: "A non-unique quantile",
+                text: "Twenty daily deviations, $\\tau = 0.05$: the total check loss equals 116.55 for every $q$ between $-120$ bp and $-35$ bp, the smallest and second-smallest observations. What does this mean?",
                 options: [
-                    "It grows, because the portfolio now explains a larger share of the total variance",
-                    "It is unchanged, because the absorption ratio does not depend on the coins' correlations",
-                    "It shrinks: one common factor drives most variance, so ten coins remove little risk",
-                    "It cannot be judged without knowing the price and market value of each coin"
+                    "The data contain a recording error",
+                    "The 5% quantile is the midpoint of the two lowest values, $-77.5$ bp",
+                    "Any value between the two lowest is a valid 5% quantile",
+                    "No 5% quantile exists for 20 observations"
                 ],
-                correctExplanation: "A high AR means one common factor absorbs most of the variance. Coins then move together, and diversification across coins buys little.",
-                incorrectExplanation: "The AR is the variance share of the first common factor. When it rises towards 1, the coins behave like one asset and diversification across them weakens."
+                correctExplanation: "When $n\\tau$ is an integer, the check loss is flat between two order statistics; every point in between minimises it.",
+                incorrectExplanation: "The loss is flat over the interval, so the minimiser is a whole interval; choosing its midpoint is a convention, not a property of the estimator."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Connectedness through time",
-                text: "On 90-day rolling windows of daily log returns of 19 coins (last window ending 22 October 2026), the mean pairwise correlation ranges from 0.36 (April 2021) to 0.85 (mid-August 2021), and the absorption ratio (AR) averages 0.68 over all windows. Which reading is correct?",
+                title: "The 5% quantile in a 90-day window",
+                text: "The DPI uses 90-day windows and $\\tau = 0.05$, so $n\\tau = 4.5$. What defines the estimated 5% quantile, and what follows?",
                 options: [
-                    "Correlation rose steadily since 2021 and reached its maximum in the latest window",
-                    "An AR of 0.68 means that 68% of the 19 coins moved in the same direction on a day",
-                    "The peak came just before the May 2021 crash, so high correlation predicts crashes",
-                    "Last window: AR 0.59, below its 0.68 average; mean correlation 0.54"
+                    "The window mean, so the estimate is very stable",
+                    "The 45th observation, so many days matter",
+                    "The lowest observation only, so one day matters",
+                    "The 5th smallest value, so five days decide it"
                 ],
-                correctExplanation: "The slides report a last-window mean correlation of 0.54 and AR of 0.59, both below the peak reached in mid-August 2021, after the May crash.",
-                incorrectExplanation: "The peak (0.85) came after the May 2021 crash, not before it; the last window shows a mean correlation of 0.54 and an AR of 0.59, below the 0.68 average."
-            }
-        },
-        {
-            correct: 0,
-            en: {
-                title: "Diebold–Yilmaz share",
-                text: "In the Diebold–Yilmaz framework, what is $\\tilde\\theta_{ij}$, computed from the generalised forecast-error variance decomposition of a vector autoregression (VAR) at horizon $H$?",
-                options: [
-                    "The share of coin $i$'s $H$-step forecast-error variance due to shocks in coin $j$",
-                    "The correlation between the returns of coins $i$ and $j$, cumulated over $H$ days",
-                    "The probability that coin $j$ falls by more than 5% on a day when coin $i$ falls",
-                    "The slope of a regression of coin $j$'s return on coin $i$'s return lagged $H$ days"
-                ],
-                correctExplanation: "$\\tilde\\theta_{ij}$ is a normalised variance share: the part of $i$'s forecast-error variance attributed to shocks in $j$, with direction $j \\rightarrow i$. With the Pesaran–Shin decomposition it does not depend on the ordering of the variables.",
-                incorrectExplanation: "A spillover share is a forecast-error variance share with a direction ($j \\rightarrow i$), not a symmetric correlation and not a tail probability."
+                correctExplanation: "With $n\\tau = 4.5$ the minimiser is unique, the 5th smallest value. One day entering or leaving the window can move it, so rolling 5% quantile models are noisy by construction.",
+                incorrectExplanation: "In 90 days, the 5% quantile is pinned down by the 5th lowest day; a handful of observations decide the lower tail."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Reading one cell",
-                text: "In the spillover table of 8 coins (VAR(5), horizon $H = 10$ days, 2021–2026), rows are receivers of shocks and columns are sources. The cell in row BTC, column ETH equals 16.0. What does it say?",
+                title: "Regimes rather than days",
+                text: "Why is the DPI analysed in regimes and event windows rather than read day by day?",
                 options: [
-                    "16% of ETH's 10-day forecast-error variance is due to BTC shocks",
-                    "16% of BTC's 10-day forecast-error variance is due to ETH shocks",
-                    "BTC and ETH have a daily return correlation of 0.16 over 2021–2026",
-                    "ETH shocks cause 16% of BTC's daily price changes, in a causal sense"
+                    "Because the DPI is published only once a month",
+                    "Because daily values rest on a few tail days",
+                    "Because the Lasso cannot be estimated every day",
+                    "Because regulators require regime-based reporting"
                 ],
-                correctExplanation: "Row = receiver, column = source: the cell is the share of BTC's 10-day forecast-error variance attributed to ETH shocks (ETH $\\rightarrow$ BTC).",
-                incorrectExplanation: "Read the row as the receiver and the column as the source. The entry is a variance share, not a correlation, and it does not establish causation."
-            }
-        },
-        {
-            correct: 3,
-            en: {
-                title: "NET spillover of ETH",
-                text: "In the 8-coin spillover table (2021–2026), ETH has TO $= 93.2$ (what it sends to the other coins) and FROM $= 77.5$ (what it receives from them). What is its NET spillover, and what does the sign say?",
-                options: [
-                    "$-15.7$: ETH receives more than it sends, a net receiver",
-                    "$+170.7$: TO plus FROM, all the shocks that involve ETH",
-                    "$+16.0$: the cell in row BTC, column ETH of the table",
-                    "$+15.7$: ETH is a net transmitter of shocks"
-                ],
-                correctExplanation: "$\\mathrm{NET} = \\mathrm{TO} - \\mathrm{FROM} = 93.2 - 77.5 = +15.7$. A positive NET means the coin sends more than it receives: ETH is the largest net transmitter in the table.",
-                incorrectExplanation: "NET is TO minus FROM, here $93.2 - 77.5 = +15.7$; a positive value marks a net transmitter."
-            }
-        },
-        {
-            correct: 0,
-            en: {
-                title: "Total spillover index",
-                text: "The total spillover index of the 8-coin system (2021–2026, VAR(5), $H = 10$ days) is $S = 72.9\\%$. What does this number mean?",
-                options: [
-                    "On average, 72.9% of a coin's 10-day forecast-error variance comes from the others",
-                    "On 72.9% of days all eight coins moved in the same direction as Bitcoin did",
-                    "The mean pairwise correlation of the eight coins' daily returns is 0.729",
-                    "The VAR(5) explains 72.9% of the variance of daily returns, like an $R^2$"
-                ],
-                correctExplanation: "$S$ is the mean of the FROM column: the average share of a coin's forecast-error variance due to the other coins. At 72.9% the system is highly connected.",
-                incorrectExplanation: "The total index averages the off-diagonal variance shares (the FROM column); it is neither a correlation nor an $R^2$."
+                correctExplanation: "Rolling 5% quantile models depend on about five days per window; averaging over regimes or event windows reduces that noise.",
+                incorrectExplanation: "A daily DPI value is driven by a handful of tail days; only aggregates over longer periods are informative."
             }
         },
         {
             correct: 2,
             en: {
-                title: "DOGE as net receiver",
-                text: "In the 8-coin spillover table, DOGE receives the least from the others (FROM $= 63.6$), yet it has the most negative NET ($-18.6$). Why?",
+                title: "The largest penalty",
+                text: "In the Quantile Lasso, all slopes are zero for $\\lambda \\ge \\lambda_{max}$, where $\\lambda_{max} = \\max_k |\\sum_s x_{k,s}\\,\\psi_\\tau(d_{j,s} - \\hat q_\\tau)|$. What does $\\lambda_{max}$ measure?",
                 options: [
-                    "The table must be wrong: the coin that receives least must be a net transmitter",
-                    "DOGE has the largest own share (36.4), which is subtracted a second time in NET",
-                    "DOGE sends even less (TO $= 45.0$), so TO minus FROM is the most negative",
-                    "NET is computed from return correlations, not from forecast-error variance shares"
+                    "The number of candidate predictors in the model",
+                    "The variance of the target deviation in the 90-day window",
+                    "The strongest scaled covariance with the tail indicator",
+                    "The check loss of the intercept-only model"
                 ],
-                correctExplanation: "$\\mathrm{NET} = 45.0 - 63.6 = -18.6$. DOGE receives relatively little, but what it transmits is much smaller still.",
-                incorrectExplanation: "NET compares what a coin sends with what it receives. DOGE's TO of 45.0 is far below its FROM of 63.6, which makes it the largest net receiver."
+                correctExplanation: "$\\psi_\\tau$ marks whether an observation is below the quantile; $\\lambda_{max}$ is the largest scaled covariance of a predictor with that indicator, the penalty at which the first predictor enters.",
+                incorrectExplanation: "$\\lambda_{max}$ is the penalty at which the first predictor would enter: the largest scaled covariance between a predictor and the lower-tail indicator."
+            }
+        },
+        {
+            correct: 0,
+            en: {
+                title: "GACV",
+                text: "The penalty is chosen by generalised approximate cross-validation: $\\mathrm{GACV}(\\lambda) = \\sum_s \\rho_\\tau(\\text{residual}_s)/(n - \\mathrm{df}(\\lambda))$ with $\\mathrm{df} = \\#\\{\\hat\\beta_k \\neq 0\\} + 1$. What role does the denominator play?",
+                options: [
+                    "It penalises complexity: more active predictors raise it",
+                    "It converts the check loss into a probability",
+                    "It removes the intercept from the check loss",
+                    "It rescales predictors by their median absolute deviation"
+                ],
+                correctExplanation: "A smaller $\\lambda$ lowers the check loss but activates more predictors; dividing by $n - \\mathrm{df}$ trades fit against the number of active coefficients.",
+                incorrectExplanation: "The degrees of freedom count the nonzero slopes plus the intercept; dividing by $n - \\mathrm{df}$ charges each extra predictor."
+            }
+        },
+        {
+            correct: 0,
+            en: {
+                title: "The penalty as a risk proxy",
+                text: "The Financial Risk Meter (FRM) idea uses the selected penalty $\\hat\\lambda$ as a risk proxy. Which caveat does the lecture attach to it?",
+                options: [
+                    "Its level also reflects scaling, the grid and the criterion",
+                    "It is valid only for dollar-pegged stablecoins",
+                    "It measures the issuer's probability of default",
+                    "It can be read directly in basis points of deviation from the peg"
+                ],
+                correctExplanation: "$\\hat\\lambda$ reflects tail co-movement but also specification choices; it is a specification-dependent proxy, not a structural quantity.",
+                incorrectExplanation: "The selected penalty is shaped by the data scaling, the grid and GACV as well as by tail dependence; treat it as a proxy to be validated."
+            }
+        },
+        {
+            correct: 2,
+            en: {
+                title: "One equation: USDC after SVB",
+                text: "Target USDC, 90 days to 19 March 2023 (after the Silicon Valley Bank failure), 13 candidates: $\\lambda_{max} = 164.1$, GACV selects $\\hat\\lambda = 0.241$ with 12 active predictors; DAI keeps the largest slope along the path (3.70). How do you read this?",
+                options: [
+                    "DAI caused the failure of Silicon Valley Bank",
+                    "The equation is overfitted, so DAI should be dropped",
+                    "USDC's lower tail moved most closely with DAI's",
+                    "USDC was not linked to any other coin in the window"
+                ],
+                correctExplanation: "The predictor that survives the largest penalty is the one most strongly linked to the target's lower tail. DAI held much USDC as collateral, so the two tails moved together.",
+                incorrectExplanation: "Order of entry along the Lasso path ranks tail links: DAI, first in and last out, was USDC's strongest lower-tail companion; this is association, not causation."
             }
         },
         {
             correct: 1,
             en: {
-                title: "What NET does not show",
-                text: "In the 8-coin spillover table, $\\mathrm{NET}_{DOGE} = -18.6$. Which claim does this number NOT support?",
+                title: "Robust scaling",
+                text: "In the DPI, every variable is centred by its window median and divided by $1.4826 \\times$ MAD (median absolute deviation). Why this scaling?",
                 options: [
-                    "DOGE transmits less forecast-error variance to the others than it receives",
-                    "Price moves of the other coins cause DOGE's price changes",
-                    "Among the eight coins in the table, DOGE is the largest net receiver",
-                    "Shocks to the other coins help explain DOGE's forecast-error variance"
+                    "To make all variables Normally distributed before the Lasso",
+                    "A common scale that a few extreme days cannot dominate",
+                    "To remove the lower tail before estimation",
+                    "To convert the deviations into probabilities"
                 ],
-                correctExplanation: "Spillovers are forecast-error variance shares from a VAR; they describe predictive links, not causal effects. None of the link measures in the lecture shows that one coin causes another to move.",
-                incorrectExplanation: "NET is a statement about variance shares in a forecasting model. A causal claim would need a design that identifies the cause, which a VAR decomposition does not provide."
+                correctExplanation: "The Lasso penalty treats all slopes alike, so predictors need a common scale; median and MAD are robust to the outliers that stablecoin data contain.",
+                incorrectExplanation: "A Lasso needs comparable scales; median and MAD give them robustly, and the factor 1.4826 makes MAD comparable to a standard deviation."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Rolling spillover index",
-                text: "The total spillover index is re-estimated with a VAR(2) on 200-day rolling windows. What range and latest value do the slides report?",
+                title: "Building the index",
+                text: "For each coin $j$ and day $t$, a 5% Quantile Lasso on the preceding 90 days selects $\\hat\\lambda_{j,t}$ by GACV. How is the DPI formed?",
                 options: [
-                    "From 36% (April 2021) to 85% (August 2021); 54% in the last window",
-                    "A constant level of about 72.9% in every 200-day window since 2021",
-                    "From 45.0% to 93.2%; 76.7% in the last window, ending October 2026",
-                    "From 65.2% (July 2021) to 83.5% (May 2026); 80.4% in the last window"
+                    "As the largest $\\hat\\lambda_{j,t}$ across coins",
+                    "As the number of active predictors summed across coins",
+                    "As the share of coins that are depegged",
+                    "As the average of $\\hat\\lambda_{j,t}$ over the coins"
                 ],
-                correctExplanation: "The rolling index ranges from 65.2% to 83.5% and stands at 80.4% in the window ending 22 October 2026. It rose into Terra and FTX, fell in 2023 and climbed after the spot ETFs.",
-                incorrectExplanation: "The rolling Diebold–Yilmaz index moves between 65.2% (July 2021) and 83.5% (May 2026). The 36%–85% range belongs to the rolling mean correlation."
-            }
-        },
-        {
-            correct: 0,
-            en: {
-                title: "Spillovers after the ETFs",
-                text: "The rolling spillover index climbs after the launch of the spot Bitcoin exchange-traded funds (ETFs). What can be concluded from the chart alone?",
-                options: [
-                    "Consistent with more common (institutional) flows; the cause is not identified",
-                    "The ETF launches caused the rise in spillovers, as the timing of the increase shows",
-                    "The rise proves that crypto markets became less efficient after the ETF launches",
-                    "The rise shows that each individual coin now carries less risk than before 2024"
-                ],
-                correctExplanation: "A time series of an index can be consistent with an explanation without identifying it; other events in the same period could produce the same pattern.",
-                incorrectExplanation: "A rolling index moving after an event shows co-occurrence. Establishing that the ETFs caused the rise would need a design that rules out other explanations."
-            }
-        },
-        {
-            correct: 2,
-            en: {
-                title: "Clusters of the asset map",
-                text: "Six return features of 33 assets (19 coins and 14 traditional assets, 2021–2026) are standardised across assets and grouped by $k$-means with $k = 3$. Which grouping results?",
-                options: [
-                    "All 19 coins in one cluster, all 14 traditional assets in another; DOGE not apart",
-                    "BTC alone in one cluster; all other coins and traditional assets in two clusters",
-                    "14 traditional assets with BTC, ETH, LTC, LINK; 14 other coins; DOGE alone",
-                    "Each of the three clusters mixes coins and traditional assets in equal numbers"
-                ],
-                correctExplanation: "BTC, ETH, LTC and LINK join the traditional assets, 14 other coins form their own cluster, and DOGE (skewness 5.9) is an outlier of its own.",
-                incorrectExplanation: "On standardised features the large coins group with traditional assets, most altcoins stay apart, and DOGE forms its own cluster."
-            }
-        },
-        {
-            correct: 3,
-            en: {
-                title: "Why BTC sits near the S&P 500",
-                text: "On the asset map, Bitcoin (annualised volatility 57%, Hill tail index 3.56) sits next to the S&P 500 (volatility 16%, tail index 3.44). How can that be?",
-                options: [
-                    "The return series were rescaled to equal volatility before computing the features",
-                    "Bitcoin and the S&P 500 have a daily return correlation close to 1 in 2021–2026",
-                    "The map is built from price levels, not returns, and both prices trended upwards",
-                    "Volatility is one feature of six; on the other five BTC resembles equities"
-                ],
-                correctExplanation: "Each feature is standardised across assets, but the returns themselves are not rescaled; volatility stays one of six features, and on skewness, kurtosis, tail index, ACF of $|r_t|$ and the 1% quantile BTC is close to equities.",
-                incorrectExplanation: "The map places assets by six standardised features, not by correlation. BTC's high volatility is outweighed by its equity-like values on the other five features."
+                correctExplanation: "$\\mathrm{DPI}_t = J^{-1}\\sum_j \\hat\\lambda_{j,t}$: one number per day summarising lower-tail pressure across the system (replication in this course on EODHD data: 10 coins, 23 970 equations).",
+                incorrectExplanation: "The index is the cross-sectional mean of the selected penalties of all coin equations on that day."
             }
         },
         {
             correct: 1,
             en: {
-                title: "What separates cryptos",
-                text: "Pele et al. (2023) study 906 assets (234 cryptos), January 2014 to November 2020, with factor analysis of 24 indicators: a tail factor (76% of variance), a memory factor (6%) and a moment factor (6%). Which factor separates cryptos from other assets?",
+                title: "DPI over time",
+                text: "Replication in this course (EODHD data), annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and which coin carried it?",
                 options: [
-                    "The memory factor, since cryptos have the largest Hurst exponents of all classes",
-                    "The tail factor: alone it gives a logit Nagelkerke $\\tilde R^2$ of 0.992",
-                    "The moment factor: its logit on skewness and kurtosis gives $\\tilde R^2 = 0.992$",
-                    "None: a classifier on the factors is right on only about half of the assets"
+                    "2020, during the pandemic market crash",
+                    "2025, carried mostly by BUSD, a thinly traded coin",
+                    "2025, carried by the depeg of sUSD in November",
+                    "2026, because of the Iran-Hormuz shock"
                 ],
-                correctExplanation: "The tail factor alone gives $\\hat\\beta_1 = 15.45$ (SE 4.44) and $\\tilde R^2 = 0.992$; the moment factor reaches only 0.12. A support vector machine on two factors reaches 99.56% accuracy.",
-                incorrectExplanation: "The conclusion of the paper is a separate asset class “mainly due to the tail factor”: the tail factor classifies almost perfectly, the moment factor weakly, the memory factor not at all."
-            }
-        },
-        {
-            correct: 3,
-            en: {
-                title: "Reading the class averages",
-                text: "In Pele et al. (2023), daily returns 2014–2020 in decimals, the average 1% quantile of cryptos is $Q_{1\\%} = -0.366$ and that of stocks $-0.054$. What does the crypto value mean?",
-                options: [
-                    "On average, cryptos lose 0.366% of their value on the worst 1% of days",
-                    "36.6% of the trading days of a typical crypto end with a loss",
-                    "Cryptos have 0.366 times the tail risk of stocks over 2014–2020",
-                    "Averaged over 234 cryptos, the 1% daily quantile is a fall of 36.6%"
-                ],
-                correctExplanation: "Returns are in decimals, so $-0.366$ is $-36.6\\%$: on 1% of days the average crypto loses at least about 36.6% in a day, against 5.4% for stocks.",
-                incorrectExplanation: "The quantile is a return in decimals: $-0.366$ means a daily fall of 36.6%, the 1% quantile averaged over 234 cryptos."
-            }
-        },
-        {
-            correct: 2,
-            en: {
-                title: "BTC at the border",
-                text: "Pele et al. (2023) classify cryptos with 99.56% accuracy, and only BTC and USDT are misclassified. The update in this course (EODHD data, 2021–2026) groups BTC and ETH with traditional assets. Which conclusion fits both results?",
-                options: [
-                    "Cryptos are no longer a separate asset class, so the 2023 result was wrong",
-                    "BTC behaves like a stock and should therefore be regulated as an equity",
-                    "Most cryptos form a class through their tails; BTC (now ETH) is at the border",
-                    "The two studies use different samples, so no joint conclusion is possible"
-                ],
-                correctExplanation: "The paper already places BTC at the border; the update on standardised and on shape-only features is consistent with it, while most altcoins stay apart.",
-                incorrectExplanation: "The two studies agree: cryptos as a group are separated by their tails, and BTC sits at the boundary, now joined by ETH."
+                correctExplanation: "The highest annual median is 0.52 in 2025. BUSD carries 63% of the index in October–December 2025; without BUSD the 2025 median falls to 0.34, while leaving out sUSD raises it to 0.55.",
+                incorrectExplanation: "The maximum, 0.52, is in 2025, but the leave-one-coin-out check points to BUSD, not to the sUSD depeg that began in the same months."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Estimation window of an event study",
-                text: "In the market-model event study, $\\alpha$ and $\\beta$ of $R_t = \\alpha + \\beta R_{m,t} + u_t$ are estimated on days $[-250, -31]$ before the event. Why does the window end 31 days before the event?",
+                title: "A trend that is not rejected",
+                text: "Log-linear trend of the DPI to May 2026: $+0.046$ per year, heteroskedasticity and autocorrelation consistent (HAC, 90 lags) standard error 0.036, p 0.21, 95% CI $[-0.025, 0.117]$. What is the correct conclusion?",
                 options: [
-                    "To keep the event and its run-up out of the normal-return model",
-                    "Because prices are not available in the month before an upgrade",
-                    "To make the abnormal returns average exactly zero in the event window",
-                    "Because a market model needs exactly 220 daily observations to be fitted"
+                    "Zero slope not rejected; no trend is not shown either",
+                    "There is no trend in the DPI over this period",
+                    "The DPI rises significantly, by about 4.6% a year since 2020",
+                    "The DPI falls significantly over time"
                 ],
-                correctExplanation: "The normal-return model should describe returns without the event; a gap before the event window prevents anticipation effects from contaminating $\\hat\\alpha$ and $\\hat\\beta$.",
-                incorrectExplanation: "The gap separates the estimation window from the event window, so that the benchmark of normal returns is not itself affected by the event."
+                correctExplanation: "The interval contains zero, so a zero slope is not rejected; it also contains slopes up to 0.117, so a sizeable trend is not ruled out.",
+                incorrectExplanation: "Not rejecting zero is not accepting zero; with a 95% interval from $-0.025$ to $0.117$ both no trend and a sizeable trend remain possible."
+            }
+        },
+        {
+            correct: 3,
+            en: {
+                title: "Working paper and replication",
+                text: "The working paper estimates a DPI trend of $-0.004$ per year (p 0.78); the replication in this course $+0.046$ (p 0.21). In what sense do they agree?",
+                options: [
+                    "Both find a significant upward trend",
+                    "Both find a significant downward trend",
+                    "They agree on the sign and the size of the trend",
+                    "Only in not rejecting zero; the signs differ"
+                ],
+                correctExplanation: "Neither rejects zero, which is the only common conclusion. Different data sources, coins and periods give different point estimates.",
+                incorrectExplanation: "One estimate is negative, the other positive; the shared result is only that a zero slope is not rejected in either."
             }
         },
         {
             correct: 2,
             en: {
-                title: "Cross-section of 13 upgrades",
-                text: "For 13 Ethereum upgrades (implementation dates), the event study reports: mean $\\mathrm{CAR}[-1,1] = -0.18\\%$, $t_{CS} = -0.10$ (p 0.92), 7 of 13 CARs positive (sign test p $= 1.00$). CAR is the cumulative abnormal return. Which reading is correct?",
+                title: "Sensitivity of event responses",
+                text: "The DPI response to the Silicon Valley Bank (SVB) failure (mean over days 0 to 30 relative to days $-60$ to $-8$) is $+21.0\\%$ with the wide $\\lambda$ grid and $+158.6\\%$ with a narrow grid; the two indices correlate 0.84 in logs. What is the lesson?",
                 options: [
-                    "Upgrades lower the price of Ether by 0.18% on average, a significant effect",
-                    "Upgrades raise the price of Ether, since a majority of the CARs are positive",
-                    "We do not reject a mean CAR of zero: no common reaction is detected",
-                    "A p-value of 0.92 means a 92% probability that upgrades have an effect"
+                    "The narrow grid is right, since its effect is stronger",
+                    "SVB had no effect on stablecoin pressure at all",
+                    "Report the specification; trust what survives several",
+                    "Correlated indices must give the same event responses"
                 ],
-                correctExplanation: "A $t$ of $-0.10$ and p of 0.92 are far from any usual significance level, and 7 of 13 positive is what a coin toss would give.",
-                incorrectExplanation: "With p 0.92 for the mean and p 1.00 for the sign test, the data are consistent with a mean CAR of zero: we do not reject the null."
+                correctExplanation: "Highly correlated indices can still differ in a 31-day mean around one event. A result that changes several-fold with the grid is fragile.",
+                incorrectExplanation: "A correlation of 0.84 over the whole sample does not guarantee similar responses to a single event; the size of an event effect depends on the specification."
+            }
+        },
+        {
+            correct: 2,
+            en: {
+                title: "Boundary solutions",
+                text: "With a narrow grid $[10^{-2}, 1]\\lambda_{max}$, 19.6% of equations select the smallest $\\lambda$ on the grid; with a wide grid $[10^{-4}, 1]\\lambda_{max}$, 4.0%. Why does this matter?",
+                options: [
+                    "It shows that the wide grid overfits the data",
+                    "It has no effect on the DPI, since only the median is used",
+                    "Many penalties sit at the grid's edge, set by the grid",
+                    "It proves that the DPI is a depeg probability"
+                ],
+                correctExplanation: "When GACV would choose a smaller $\\lambda$ than the grid allows, the selected value is set by the grid's lower bound; the DPI then inherits that choice.",
+                incorrectExplanation: "A boundary solution means the optimum lies outside the grid; the selected $\\lambda$, and so the DPI, is then determined by the grid."
+            }
+        },
+        {
+            correct: 3,
+            en: {
+                title: "Reading the link matrix",
+                text: "In the tail-link matrix, each cell is the share of daily equations with a positive slope minus the share with a negative slope, in percentage points (pp). What does a cell value tell you?",
+                options: [
+                    "The size of the effect in basis points",
+                    "The correlation between the two coins",
+                    "The probability that both coins depeg on the same day",
+                    "How often, and with which sign, a link is selected"
+                ],
+                correctExplanation: "It is a signed selection frequency: how consistently a link appears across days and in which direction, not how large the effect is.",
+                incorrectExplanation: "The cell counts selections over equations; it is a frequency in pp, not a size in bp, a correlation or a probability."
+            }
+        },
+        {
+            correct: 0,
+            en: {
+                title: "USDC and DAI",
+                text: "Replication in this course (EODHD data): the cell USDC $\\leftarrow$ DAI is 75 pp, and DAI $\\leftarrow$ USDC is 60 pp. How do you read the first number?",
+                options: [
+                    "Net share of USDC equations with a positive DAI slope",
+                    "A 1 bp fall of DAI lowers USDC's 5% quantile by 75 bp",
+                    "USDC and DAI are depegged together on 75% of days",
+                    "DAI's depegs cause 75% of the depegs of USDC"
+                ],
+                correctExplanation: "A positive slope means aligned: a lower DAI deviation goes with a lower USDC quantile. 75 pp is the net share of equations with that sign.",
+                incorrectExplanation: "The matrix reports a signed selection frequency in percentage points; it measures consistency of the link, not its size or a causal share."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Merge and Pectra",
-                text: "The Merge (September 2022) has $\\mathrm{CAR}[-1,1] = -11.1\\%$ ($t = -3.09$) and Pectra (May 2025) $+11.3\\%$ ($t = 2.92$), while the mean over 13 upgrades is $-0.18\\%$ (p 0.92). What can be concluded?",
+                title: "Aligned or inverse",
+                text: "Replication in this course (EODHD data): 47.4% of coin coefficients are aligned (positive) and 33.1% inverse (negative); the working paper finds 39.6% and 23.9%. What do the two data sets agree on?",
                 options: [
-                    "Upgrades are already priced in by the market, which the zero mean proves",
-                    "Single upgrades can move Ether either way; no common revaluation is detected",
-                    "The Merge and Pectra effects cancel out, so neither CAR was significant",
-                    "Pectra shows that the market now rewards upgrades, unlike in 2022"
+                    "Inverse links dominate in both data sets",
+                    "Aligned links are more common than inverse ones",
+                    "All coins are linked about equally often",
+                    "Macro variables carry most of the slope weight"
                 ],
-                correctExplanation: "Two individual CARs are large and of opposite sign; the cross-section shows no common effect. A non-significant mean does not prove “priced in”, which remains a hypothesis.",
-                incorrectExplanation: "Individual tests and the cross-sectional test answer different questions. Large single CARs of both signs fit a mean that is not distinguishable from zero, without proving that upgrades are priced in."
+                correctExplanation: "In both data sets aligned links outnumber inverse ones. Macro variables carry only about 18 to 21% of the absolute slope weight.",
+                incorrectExplanation: "Compare the two shares in each data set: aligned exceeds inverse in both, so co-movement of lower tails is the common pattern."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Independence of events",
-                text: "The cross-sectional, BMP and sign tests in the Ethereum event study assume independent events. Two schedule dates are 2 days apart, and 17 of 26 estimation windows contain another event day. What is the consequence?",
+                title: "Sparser under pressure",
+                text: "Replication in this course (EODHD data): average active predictors fall from 10.96 (of 13) in the lowest DPI quintile to 9.68 in the highest; working paper: 10.11 to 9.00 (of 15). Which interpretation is supported?",
                 options: [
-                    "None: the cross-sectional and sign tests do not assume independent events",
-                    "The abnormal returns of the overlapping events become exactly zero",
-                    "The market model can no longer be estimated for the affected events",
-                    "The p-values may be too optimistic: CARs are dependent, benchmarks contaminated"
+                    "A few strong links dominate, as the chart proves",
+                    "The result holds in one data source only, not in the paper",
+                    "Pressure makes the coins move independently",
+                    "Partly mechanical: a larger penalty removes predictors"
                 ],
-                correctExplanation: "Dependent events mean fewer effective observations than 13, and estimation windows with event days distort the normal-return benchmark; the test statistics assume neither happens.",
-                incorrectExplanation: "Overlapping windows violate an assumption of the cross-sectional tests; the abnormal returns can still be computed, but their standard errors are less reliable."
+                correctExplanation: "The DPI is the penalty itself, so higher DPI implies fewer active predictors almost automatically. The direction replicates, but its economic interpretation is not shown.",
+                incorrectExplanation: "Higher penalties set more slopes to zero; the pattern replicates across data sets, but separating the mechanical effect from economics needs more evidence."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Attention, activity, volatility",
-                text: "Lin et al. (2026) report, on implementation days of Ethereum upgrades: Google attention $+0.350$ log points (Benjamini–Hochberg adjusted p 0.004), active addresses $-0.145$ (BH p 0.020), median hourly log realised volatility $+0.316$ (BH p 0.007). Which reading is correct?",
+                title: "Is the DPI a proxy for simple stress?",
+                text: "Spearman correlation of the DPI (90-day means) with the median $|d|$ across coins is $-0.10$, and with the VIX (CBOE volatility index) $-0.16$. What does this show?",
                 options: [
-                    "About +42% attention, −13.5% active addresses, +37% volatility",
-                    "Implementation raises the price of Ether by about 35% within the day",
-                    "Users pause their activity during upgrades, which the address result proves",
-                    "None of the effects survives the Benjamini–Hochberg adjustment at 5%"
+                    "The DPI proxies neither; it measures something else",
+                    "The DPI is a good substitute for the VIX",
+                    "The DPI is wrong, since all stress measures must agree closely",
+                    "The DPI is the median deviation with opposite sign"
                 ],
-                correctExplanation: "Log-point effects convert to $e^{0.350} - 1 \\approx 42\\%$, $e^{-0.145} - 1 \\approx -13.5\\%$ and $e^{0.316} - 1 \\approx 37\\%$, all significant after adjustment.",
-                incorrectExplanation: "These are effects on attention, activity and volatility, not price, all significant after adjustment. That “users pause” is a hypothesis consistent with fewer addresses, not a proven fact."
-            }
-        },
-        {
-            correct: 2,
-            en: {
-                title: "Engagement-weighted sentiment",
-                text: "BitMood scores 120 000 Facebook posts on Bitcoin (2015–2023) with FinBERT and builds a daily engagement-weighted compound score $\\mathrm{WC}_d$. How are the posts of a day weighted?",
-                options: [
-                    "Equally, so that every post of the day counts the same",
-                    "By the number of words, so that longer posts count more",
-                    "By total interactions, so widely seen posts count more",
-                    "By Bitcoin's price change on the day of the post"
-                ],
-                correctExplanation: "Each post's sentiment probabilities are weighted by its total interactions $T_i$; $\\mathrm{WC}_d = (P^+_d - P^-_d)/(P^+_d + P^-_d + P^0_d)$ then lies in $[-1, 1]$.",
-                incorrectExplanation: "The weights are the total interactions $T_i$ of each post, which is why the score is called engagement-weighted; weighting by price would mix the target into the signal."
+                correctExplanation: "Correlations near zero mean the DPI does not just repackage deviation levels or the VIX; it captures tail co-movement, a different object.",
+                incorrectExplanation: "Weak correlations with simple stress measures show the DPI carries different information; they neither validate nor refute it as a pressure measure."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Contrarian back-test",
-                text: "The best BitMood trading configuration (3-day window, compound sentiment, cost $10^{-5}$) reports a Sharpe ratio of 0.210 over 1 January – 15 October 2023. Why is this number weak evidence of skill?",
+                title: "Fit is not forecast",
+                text: "Fan et al. (2026), working paper, skill relative to an intercept-only model: the joint model (coins and macro) has in-window GACV skill 37.0% but a fully lagged out-of-sample forecast skill of $-38.6\\%$. What does this show?",
                 options: [
-                    "A Sharpe ratio of 0.210 is negative once costs are subtracted from returns",
-                    "It was the best of many settings, chosen on the same 2023 period that scores it",
-                    "Contrarian rules cannot earn a positive return by construction in any market",
-                    "Sentiment cannot be measured reliably from Facebook posts about Bitcoin"
+                    "The joint model is the best forecaster of the three",
+                    "The best in-window fit is the worst lagged forecast",
+                    "The intercept-only model overfits the window",
+                    "Skill cannot be negative, so there is an error"
                 ],
-                correctExplanation: "Selecting the best of many combinations on the test period inflates the result; the selection should use a separate validation period. In addition, a cost of $10^{-5}$ (0.1 bp per trade) is far below typical exchange fees.",
-                incorrectExplanation: "The problem is selection: the best configuration was picked on the same period that scores it, so its performance is optimistic."
+                correctExplanation: "In-window fit uses same-day information and the estimation sample; held out and with lagged predictors, the richer model loses more to the simple benchmark.",
+                incorrectExplanation: "Negative skill means a larger loss than the intercept-only benchmark; the model that describes the window best forecasts worst."
+            }
+        },
+        {
+            correct: 2,
+            en: {
+                title: "Selected but not useful",
+                text: "Fan et al. (2026), working paper: on-chain variables (Curve, Uniswap) enter 91% of the Quantile Lasso equations, yet do not reduce held-out loss significantly. What is the lesson?",
+                options: [
+                    "On-chain data should be removed from all models",
+                    "The Lasso is selecting at random",
+                    "Frequent selection in sample is not forecast value",
+                    "Held-out loss is the wrong criterion for forecasting"
+                ],
+                correctExplanation: "Selection reflects in-sample association; forecast value must be shown on data outside the estimation window.",
+                incorrectExplanation: "A variable can be selected in almost every window and still not improve forecasts; only held-out loss tests forecast value."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Choosing a volume model",
-                text: "BitMood forecasts daily Bitcoin volume (2022–2023). Root mean squared error (RMSE) of scaled volume: linear regression 0.1423 (validation) and 0.1935 (test); Bi-LSTM 0.1701 and 0.1930. Following “select on validation, report on test”, which model and which number are reported?",
+                title: "Concentration and the DPI",
+                text: "Fan et al. (2026), working paper, regression of $\\ln \\mathrm{DPI}_t$ on lagged concentration with year effects: $+1$ standard deviation of the Herfindahl-Hirschman index (HHI) goes with $-1.52\\%$ DPI, 95% interval $[-4.24\\%, 1.27\\%]$, Holm p 0.38. What follows?",
                 options: [
-                    "The linear regression, with test RMSE 0.1935",
-                    "The Bi-LSTM, with test RMSE 0.1930, the lowest on the test set",
-                    "The linear regression, with validation RMSE 0.1423",
-                    "The Bi-LSTM, with validation RMSE 0.1701"
+                    "No evidence of an effect; use it for scenarios and limits",
+                    "Higher concentration lowers depegging pressure",
+                    "Concentration is irrelevant for stablecoin risk",
+                    "Concentration predicts when pressure builds up in the system"
                 ],
-                correctExplanation: "The linear regression has the lowest validation RMSE, so it is chosen; its test RMSE of 0.1935 is reported, only 0.0005 above the best test value.",
-                incorrectExplanation: "The choice is made on validation (linear regression, 0.1423) and the reported number is the chosen model's test score (0.1935). Choosing on test would repeat the selection error."
+                correctExplanation: "The interval contains zero and the corrected p-value is 0.38. Concentration says how much of the system depends on two issuers, not when pressure arrives.",
+                incorrectExplanation: "The coefficient is not distinguishable from zero; concentration measures exposure, which is useful for scenarios and limits, not timing."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Does sentiment add value?",
-                text: "In the BitMood volume forecasts every model uses sentiment features, and Shapley additive explanations (SHAP) show that lagged volume and negative sentiment dominate. What is missing before claiming that sentiment improves volume forecasts?",
+                title: "Year effects",
+                text: "Without year effects, higher concentration goes with a higher DPI; with year effects the link disappears. What is the most likely explanation?",
                 options: [
-                    "Nothing: the large SHAP values of negative sentiment are the required evidence",
-                    "A larger neural network that uses more sentiment features than the current one",
-                    "A higher test RMSE for the linear model than for all the neural networks",
-                    "The same model without sentiment, on the same test days, with a test of the gap"
+                    "Year effects remove all information from the regression",
+                    "Concentration causes the DPI only in some years",
+                    "Year effects correct a measurement error in the DPI",
+                    "Both trend with the market regime over time"
                 ],
-                correctExplanation: "The minimum standard needs a benchmark without the new information; the RMSE difference should come with a confidence interval, for example from a Diebold–Mariano test.",
-                incorrectExplanation: "SHAP describes how the model uses its inputs; whether sentiment helps needs a comparison with a model that lacks it, on the same test period."
+                correctExplanation: "Concentration and the DPI both move with broad market phases; once each year's level is absorbed, no within-year link remains.",
+                incorrectExplanation: "A link that vanishes when year effects are added was driven by shared trends over time, not by concentration itself."
             }
         }
     ]

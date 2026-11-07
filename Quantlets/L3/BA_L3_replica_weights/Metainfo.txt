@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_replica_weights'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Weights of the CRIX-type replica at each monthly rebalancing, April 2018 to September 2026: market-value weights and weights capped below 50% (US Patent 12,784,107 B2, claim 1).'
+
+Keywords: 'index weights, weight cap, CRIX, Bitcoin dominance'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_replica_weights.pdf'

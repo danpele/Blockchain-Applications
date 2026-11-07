@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L8_recal'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'VaR 1% breach rates and change of the mean quantile score after correcting six Bitcoin VaR models (HS, EWMA-N, GARCH-t, quantile regression, quantile trees, optionally Chronos-2) by the empirical quantile of their 500 forecast errors before 2024, with intensity Raw, Half or Full. EODHD daily Bitcoin data, test period 1 January 2024 - 23 October 2026.'
+
+Keywords: 'Value-at-Risk, recalibration, quantile score, block bootstrap, Diebold-Mariano test, backtesting, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l8_recal.pdf'

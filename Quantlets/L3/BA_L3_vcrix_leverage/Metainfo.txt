@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_vcrix_leverage'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Change of log VCRIX on day t against the CRIX return on day t-1, 16 March 2018 to 13 May 2026, with separate slopes for falls and rises (HAC standard errors) and mean changes by return bin.'
+
+Keywords: 'VCRIX, leverage effect, volatility asymmetry, CRIX'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices)'
+
+Output: 'ba_l3_vcrix_leverage.pdf'

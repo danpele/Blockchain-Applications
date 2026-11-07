@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_gegenbauer'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Orthonormal Gegenbauer polynomials (alpha = 0.3) and the weighted least-squares decomposition, up to degree 7, of a stylised peg-centred log-liquidity curve of a Uniswap V3 pool and of its mirror image. Stylised example, no market data.'
+
+Keywords: 'Gegenbauer polynomials, liquidity curve, Uniswap V3, functional data, orthonormal basis, asymmetry, stablecoins'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none (stylised example)'
+
+Output: 'ba_l5_gegenbauer.pdf'

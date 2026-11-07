@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L8_ml_acc'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'In-sample against out-of-sample accuracy of three walk-forward classifiers (logit, random forest, XGBoost) that predict the daily direction of Bitcoin, and the mean absolute SHAP value of each feature of the last XGBoost fit. EODHD daily Bitcoin data, test period 1 January 2020 - 22 October 2026, refit every 63 days.'
+
+Keywords: 'machine learning, direction forecast, overfitting, XGBoost, random forest, SHAP, walk-forward, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l8_ml_acc.pdf'

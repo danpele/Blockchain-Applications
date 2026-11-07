@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lecture 4 · Stablecoins I: Depeg Risk and On-Chain Early Warning</title>
+<title>Lecture 4 · Volatility and Tail Risk</title>
 <link rel="icon" href="../logos/ida_square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,131 +21,111 @@
 <header>
   <div class="header-inner">
     <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
-    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 4 · Stablecoins I: Depeg Risk and On-Chain Early Warning</p></div>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 4 · Volatility and Tail Risk</p></div>
     <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
   </div>
 </header>
 <nav><ul>
   <li><a href="../index.html#chapters">← Course site</a></li>
-  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
   <li><a href="../web/l4.html">Web lecture</a></li>
   <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L4" target="_blank" rel="noopener">Quantlets</a></li>
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-promise">What a Stablecoin Promises</a> · <a href="#s-peg">Measuring the Peg</a> · <a href="#s-amm">Where the Price Is Formed: AMMs</a> · <a href="#s-ew">Early Warning</a> · <a href="#s-now">Now</a></p>
-<h2 class="sec" id="s-promise">What a Stablecoin Promises</h2>
-<section class="blk" id="supply">
-  <h3>Who Issues the Dollars on Chain</h3>
+<p class="toc"><a href="#s-models">Volatility Models</a> · <a href="#s-estimates">Estimates</a> · <a href="#s-var">Value-at-Risk and Expected Shortfall</a> · <a href="#s-backtest">Backtesting</a> · <a href="#s-oos">Out of Sample: 19 September – 23 October 2026</a></p>
+<h2 class="sec" id="s-models">Volatility Models</h2>
+<section class="blk" id="clustering">
+  <h3>Volatility Clustering, Again</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l4_supply.jpg?v=20261031a" alt="Slide 10: Who Issues the Dollars on Chain" loading="lazy"></a>
-      <figcaption>Slide 10</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="su-t">Date: <b id="su-t-v"></b></label><input type="range" id="su-t" min="0" max="2850" step="1" value="2850"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-stack"></div><div class="chart" id="su-bar"></div></div><ul class="out" id="su-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=7" target="_blank" rel="noopener"><img src="slides/ba_l4_clustering.jpg?v=20261031a" alt="Slide 6: Volatility Clustering, Again" loading="lazy"></a>
+      <figcaption>Slide 6</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cl-k">Largest absolute returns capped: <b id="cl-k-v"></b></label><input type="range" id="cl-k" min="0" max="30" step="1" value="0"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-ret"></div><div class="chart" id="cl-acf"></div></div><ul class="out" id="cl-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> On 8 May 2022, the day before the TerraUSD collapse, the supply of USD stablecoins was 185.4 USD bn. What share of it was algorithmic?</div>
-  <details><summary>Answer</summary><p>About 11%: 11.5%, or 21.3 USD bn. Three weeks later, on 31 May 2022, the algorithmic share was 0.9%, and in October 2026 it is 0.0%; fiat-backed tokens hold 90.9% and crypto-backed tokens 8.1%. TerraUSD was large, but never the largest: on 8 May 2022 Tether held 45.0% and USD Coin 26.1% of the supply.</p></details>
-</section><h2 class="sec" id="s-peg">Measuring the Peg</h2>
-<section class="blk" id="dev-daily">
-  <h3>The Three Dollars, Day by Day</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Without capping, 8 of the 30 autocorrelations of squared returns lie above the band. Cap only the largest absolute return, the −46.5% of 12 March 2020, at the second largest (18.5%). How many of the 30 lie above the band?</div>
+  <details><summary>Answer</summary><p>26, and 28 to 30 when more days are capped; the largest autocorrelation rises from 0.11 to 0.15. The squared return of that day, 46.5² = 2,162, dominates the sum of squares in the denominator of every autocorrelation, so one day hides the dependence that the other 3,182 days show. Absolute returns do not have this problem: all 30 lags lie above the band with or without capping. For returns the count stays at 2 of 30.</p></details>
+</section>
+<section class="blk" id="ewma-weights">
+  <h3>How EWMA Weights the Past</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l4_dev_daily.jpg?v=20261031a" alt="Slide 16: The Three Dollars, Day by Day" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l4_ewma_weights.jpg?v=20261031a" alt="Slide 8: How EWMA Weights the Past" loading="lazy"></a>
+      <figcaption>Slide 8</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ew-l">λ: <b id="ew-l-v"></b></label><input type="range" id="ew-l" min="0.8" max="0.99" step="0.01" value="0.94"></div><button class="btn play" id="ew-play" type="button"></button></div><div class="charts "><div class="chart" id="ew-w"></div><div class="chart" id="ew-btc"></div></div><ul class="out" id="ew-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With λ = 0.94 the last 30 days carry 84% of the weight. The ▶ button raises λ from 0.80 to 0.99. What happens to that share?</div>
+  <details><summary>Answer</summary><p>It falls: 1 − λ³⁰ is 99.9% at λ = 0.80, 60% at λ = 0.97 and 26% at λ = 0.99; a higher λ spreads the weight over a longer past (effective memory 1/(1 − λ) from 5 to 100 days). λ is the weight of yesterday's variance estimate, not of yesterday's return, whose weight is 1 − λ: 20% at λ = 0.80, 1% at λ = 0.99. On 11 April 2020, when the crash of 12 March leaves a 30-day window, the equal-weight volatility drops from 197% to 106% a year; the EWMA with λ = 0.94 only from 124% to 121%.</p></details>
+</section><h2 class="sec" id="s-estimates">Estimates</h2>
+<section class="blk" id="tails">
+  <h3>Heavy Tails after Filtering: Bitcoin's Standardised Residuals</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l4_tails.jpg?v=20261031a" alt="Slide 14: Heavy Tails after Filtering: Bitcoin's Standardised Residuals" loading="lazy"></a>
+      <figcaption>Slide 14</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="tl-c">Threshold c for |ẑ<sub>t</sub>|: <b id="tl-c-v"></b></label><input type="range" id="tl-c" min="2" max="8" step="0.25" value="4"></div><button class="btn play" id="tl-play" type="button"></button></div><div class="charts "><div class="chart" id="tl-hist"></div><div class="chart" id="tl-count"></div></div><ul class="out" id="tl-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> At c = 4 the fitted Student-t expects 19.2 days with |ẑ| above c and 18 are observed. The ▶ button raises c from 2 to 8. At c = 6, 3 days are observed. How many does the Student-t expect?</div>
+  <details><summary>Answer</summary><p>About 5.7, almost twice the 3 observed. Up to c ≈ 4 the fitted Student-t (estimated ν = 3.13) matches the counts; beyond about 4.5 it expects more extreme days than occurred: 9.9 against 5 at c = 5, and 2.3 against 2 at c = 8. The Normal expects 6.3 × 10⁻⁶ days beyond 6 in this sample, about one such day in 1.4 million years of daily data; the largest observed, 12 March 2020, has ẑ = −13.3. Both counts beyond 5 rest on a handful of days, so the excess of the Student-t is a weak signal.</p></details>
+</section>
+<section class="blk" id="conditional-volatility">
+  <h3>Conditional Volatility</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l4_condvol.jpg?v=20261031a" alt="Slide 16: Conditional Volatility" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="dd-k">Threshold δ: <b id="dd-k-v"></b></label><input type="range" id="dd-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="cv-a">α as a multiple of its estimate (α + β and ω kept): <b id="cv-a-v"></b></label><input type="range" id="cv-a" min="0.25" max="2.5" step="0.05" value="1"></div><button class="btn play" id="cv-play" type="button"></button></div><div class="charts "><div class="chart" id="cv-chart"></div></div><ul class="out" id="cv-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> With δ = 15 bp, DAI closes beyond ±δ on 5.2% of days, USDT on 3.6% and USDC on 0.7%. The ▶ button raises δ to 100 bp. At δ = 50 bp, which coin has the largest share of closes beyond ±δ?</div>
-  <details><summary>Answer</summary><p>DAI, with 0.57% of days (12 of 2,122). USDT and USDC are beyond 50 bp on 0.14% of days each (3 days). USDT is the coin most often beyond 15 bp, but its deviations are small and persistent; USDC has the deepest close (−285 bp on 11 March 2023), but only on a few days. How often a coin breaches a threshold depends on the threshold: the ranking at 15 bp does not carry over to 50 bp.</p></details>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Bitcoin's conditional volatility peaks at 253.5% a year on 13 March 2020. The ▶ button sets α from 0.25 to 2.5 times its estimate, keeping α + β = 1 and ω. What happens to the peak?</div>
+  <details><summary>Answer</summary><p>It rises with α: 148.6% at 0.25 times the estimate (α = 0.019), 253.5% at the estimate (α = 0.076) and 392.6% at 2.5 times (α = 0.190). α is the weight of yesterday's squared shock, so a larger α turns the crash of 12 March 2020 into a larger jump of the next day's variance; the persistence α + β decides how long a shock lasts, not how large the jump is. The median moves the other way, from 78.6% to 52.6% a year.</p></details>
 </section>
-<section class="blk" id="exceed">
-  <h3>Tails and Their Frequency</h3>
+<section class="blk" id="term-structure">
+  <h3>After a Shock: Volatility Forecasts by Horizon</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=18" target="_blank" rel="noopener"><img src="slides/ba_l4_exceed.jpg?v=20261031a" alt="Slide 17: Tails and Their Frequency" loading="lazy"></a>
-      <figcaption>Slide 17</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ex-k">Threshold x: <b id="ex-k-v"></b></label><input type="range" id="ex-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="ex-play" type="button"></button></div><div class="charts "><div class="chart" id="ex-curve"></div><div class="chart" id="ex-years"></div></div><ul class="out" id="ex-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> With x = 15 bp, DAI was beyond on 26.6% of days in 2021 and on 0.3% in 2026; USDT on 8.2% and 3.0%. The ▶ button raises x. With x = 25 bp, how many of the three coins have at least one close beyond x in 2026?</div>
-  <details><summary>Answer</summary><p>None. In 2026 (to 23 October) no close of USDT, USDC or DAI is 25 bp or more from 1 USD; at 20 bp only USDT has any (0.34% of days). The tails are heavy over 2021–2026 as a whole, because of 2021, May 2022 and March 2023; in 2026 the deviations are small. A heavy tail of the full sample does not mean that large deviations occur every year.</p></details>
-</section>
-<section class="blk" id="rollvar">
-  <h3>Tail Risk Moves: Rolling VaR 1%</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l4_rollvar.jpg?v=20261031a" alt="Slide 18: Tail Risk Moves: Rolling VaR 1%" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l4_term_structure.jpg?v=20261031a" alt="Slide 18: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="rv-w">Window length W (days): <b id="rv-w-v"></b></label><input type="range" id="rv-w" min="60" max="730" step="5" value="365"></div><button class="btn play" id="rv-play" type="button"></button></div><div class="charts "><div class="chart" id="rv-chart"></div></div><ul class="out" id="rv-out"></ul></div>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ts-s">Variance after the shock, multiple of the long-run variance: <b id="ts-s-v"></b></label><input type="range" id="ts-s" min="0.25" max="4" step="0.25" value="2"></div><div class="ctl"><label for="ts-h">Horizon h for the readout: <b id="ts-h-v"></b></label><input type="range" id="ts-h" min="1" max="250" step="1" value="10"></div><button class="btn play" id="ts-play" type="button"></button></div><div class="charts "><div class="chart" id="ts-left"></div><div class="chart" id="ts-right"></div></div><ul class="out" id="ts-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> With a window of 365 days the VaR 1% of USDC stays at 12.0 bp for a year after the SVB weekend. The ▶ button changes the window length W. With W = 90 days, what is the highest VaR 1% of USDC after the SVB weekend?</div>
-  <details><summary>Answer</summary><p>About 102 bp, on 12 March 2023, and it stays at 50 bp or more for 89 days. With 90 days the 1% quantile lies at position (90 − 1) × 0.01 = 0.89 between the lowest close (−285 bp) and the second lowest (−79.3 bp): −285 + 0.89 × 205.7 = −101.9 bp. With 365 days it lies between the 4th and 5th lowest, which is why one extreme day hardly moves it. A short window reacts strongly to a single day and forgets it after W days; a long window barely sees it.</p></details>
+  <div class="ask"><span class="ask-tag">Question for the room</span> After a shock that doubles the variance, a volatility shock of the S&amp;P 500 has a half-life of 36.1 days. The ▶ button raises the shock from 0.25 to 4 times the long-run variance. What happens to the half-life?</div>
+  <details><summary>Answer</summary><p>It stays at 36.1 days (gold: 90.0 days). The gap between the forecast and the long-run variance is multiplied by the estimated α + β = 0.981 each day, whatever its size, so it halves in ln 0.5 / ln 0.981 = 36.1 days for every shock, also for a variance below the long run (0.25 times), from which the forecast rises. After 250 days the ratio is 1.025 for the largest shock and 0.994 for the smallest. Bitcoin has no half-life: with estimated α + β = 1 the forecast variance rises by ω = 0.144 a day, from 52.7% a year at h = 1 to 126% at h = 250.</p></details>
+</section><h2 class="sec" id="s-var">Value-at-Risk and Expected Shortfall</h2>
+<section class="blk" id="density-var">
+  <h3>VaR and ES on the Forecast Density</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=23" target="_blank" rel="noopener"><img src="slides/ba_l4_density_var.jpg?v=20261031a" alt="Slide 22: VaR and ES on the Forecast Density" loading="lazy"></a>
+      <figcaption>Slide 22</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="dv-n">Degrees of freedom ν of the Student-t (σ kept): <b id="dv-n-v"></b></label><input type="range" id="dv-n" min="0" max="17" step="1" value="9"></div><button class="btn play" id="dv-play" type="button"></button></div><div class="charts "><div class="chart" id="dv-dens"></div><div class="chart" id="dv-tail"></div></div><ul class="out" id="dv-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> With the estimated ν = 3.13, the Student-t VaR 1% (7.23%) is above the Normal VaR 1% with the same σ (6.37%). The ▶ button lowers ν towards 2, even heavier tails, keeping σ. What happens to the Student-t VaR 1%?</div>
+  <details><summary>Answer</summary><p>It falls: 7.18% at ν = 3, 6.55% at ν = 2.5, below the Normal's 6.37% once ν < 2.44, and 2.85% at ν = 2.05. With σ fixed, a Student-t with ν close to 2 puts its variance into extremely rare, very large losses and concentrates the rest near zero, so its 1% quantile shrinks. Raising ν from the estimate the other way, the VaR first rises to about 7.28% near ν = 3.5 and then falls towards the Normal value (6.50% at ν = 30). ES 2.5% falls below the Normal value (6.40%) once ν < 2.23. Heavier tails do not always mean a larger VaR at a given level; the crossing level of the two VaR curves moves from 1.92% to 0.12%.</p></details>
 </section>
-<section class="blk" id="svb">
-  <h3>The SVB Weekend, Hour by Hour</h3>
+<section class="blk" id="var-methods">
+  <h3>VaR and ES by Method</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l4_svb.jpg?v=20261031a" alt="Slide 19: The SVB Weekend, Hour by Hour" loading="lazy"></a>
-      <figcaption>Slide 19</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="sv-t">Hour: <b id="sv-t-v"></b></label><input type="range" id="sv-t" min="0" max="239" step="1" value="79"></div><div class="ctl"><label for="sv-r">Recovery rate R on the SVB deposit</label><select id="sv-r"><option value="0" selected>R = 0 (zero recovery)</option><option value="0.5">R = 0.5</option><option value="0.9">R = 0.9</option></select></div><button class="btn play" id="sv-play" type="button"></button></div><div class="charts "><div class="chart" id="sv-chart"></div></div><ul class="out" id="sv-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l4_var_methods.jpg?v=20261031a" alt="Slide 25: VaR and ES by Method" loading="lazy"></a>
+      <figcaption>Slide 25</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vm-p">Tail level p (%): <b id="vm-p-v"></b></label><input type="range" id="vm-p" min="0.1" max="5" step="0.05" value="1"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-chart"></div></div><ul class="out" id="vm-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> USDC reached −1,036 bp at 07:00 UTC on Saturday 11 March 2023, 211 bp below its zero-recovery value of −825 bp. For how many hours of the weekend was the hourly close of USDC below the zero-recovery value?</div>
-  <details><summary>Answer</summary><p>For 8 hours, all on Saturday 11 March between 06:00 and 14:00 UTC (at 08:00 it was −771 bp). From 15:00 UTC on Saturday the price stayed above the value that a total loss of the SVB deposit implies, although it returned above −100 bp only at 22:00 UTC on Sunday 12 March and above −15 bp at 14:00 UTC on Monday 13 March. With a recovery rate R = 0.5 the value is −412 bp, and USDC was below it for 22 hours.</p></details>
-</section><h2 class="sec" id="s-amm">Where the Price Is Formed: AMMs</h2>
-<section class="blk" id="amm">
-  <h3>Prices Are Inelastic until They Are Not</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> At p = 1% the Normal VaR (7.75%) is above the GARCH-t VaR (7.23%). The ▶ button moves p from 0.1% to 5%. At p = 0.1%, which of the two is larger?</div>
+  <details><summary>Answer</summary><p>GARCH-t, by far: 15.90% against 10.31% for the Normal. The Student-t with estimated ν = 3.13 has much heavier tails, so its quantile grows faster as p falls; at p = 1% the larger σ of the Normal (3.35% a day over 2018–2026, against a GARCH-t forecast of 2.76% for 19 September 2026) still dominates. At p = 5% the Normal is higher again, 5.46% against 3.78%. Historical simulation at 0.1% takes the worst returns of the last 500 days: 11.24%.</p></details>
+</section><h2 class="sec" id="s-backtest">Backtesting</h2>
+<section class="blk" id="violations">
+  <h3>Violations Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l4_amm.jpg?v=20261031a" alt="Slide 23: Prices Are Inelastic until They Are Not" loading="lazy"></a>
-      <figcaption>Slide 23</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="am-k">Amplification A of the chosen StableSwap pool: <b id="am-k-v"></b></label><input type="range" id="am-k" min="0" max="11" step="1" value="6"></div><button class="btn play" id="am-play" type="button"></button></div><div class="charts "><div class="chart" id="am-price"></div><div class="chart" id="am-slip"></div></div><ul class="out" id="am-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> In a StableSwap pool with A = 2000 the price of X is 0.997 when X is 90% of the pool. As the share of X grows, where does the price of X first fall below 0.99?</div>
-  <details><summary>Answer</summary><p>Between 90% and 95% of the pool: the price is 0.9914 at 94.0% and 0.9898 at 94.5%. With A = 100 it falls below 0.99 already at about 76%, with A = 10 at about 55%; in a constant-product pool any imbalance moves the price (0.99 at a share of 50.3%). A high amplification keeps the price near 1 until the pool is almost one-sided: the price says little about the stress, the composition says much more.</p></details>
-</section><h2 class="sec" id="s-ew">Early Warning</h2>
-<section class="blk" id="episodes">
-  <h3>Episodes: Mostly Short and Shallow</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l4_episodes.jpg?v=20261031a" alt="Slide 27: Episodes: Mostly Short and Shallow" loading="lazy"></a>
-      <figcaption>Slide 27</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ep-k">Threshold δ: <b id="ep-k-v"></b></label><input type="range" id="ep-k" min="10" max="50" step="1" value="15"></div><button class="btn play" id="ep-play" type="button"></button></div><div class="charts "><div class="chart" id="ep-scatter"></div><div class="chart" id="ep-hist"></div></div><ul class="out" id="ep-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> At δ = 15 bp there are 30 episodes; 15 last one hour and the median duration is 1.5 hours. The ▶ button raises δ. At δ = 25 bp, how many episodes are there, and what is their median duration?</div>
-  <details><summary>Answer</summary><p>5 episodes, with a median duration of 7 hours; 2 of them last more than a day. A higher threshold keeps fewer, longer and deeper events: the median peak is 33.6 bp, against 16.6 bp at 15 bp. At 50 bp only 2 episodes remain, the FTX collapse (November 2022) and the SVB weekend (March 2023). An episode beyond 25 bp has also crossed 15 bp, but at 15 bp it is counted inside a longer episode that started earlier.</p></details>
-</section>
-<section class="blk" id="utility">
-  <h3>Worked Example: Computing the Utility</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=32" target="_blank" rel="noopener"><img src="slides/ba_l4_utility.jpg?v=20261031a" alt="Slide 31: Worked Example: Computing the Utility" loading="lazy"></a>
-      <figcaption>Slide 31</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="ut-f">False alerts per month F<sub>m</sub>: <b id="ut-f-v"></b></label><input type="range" id="ut-f" min="0" max="10" step="0.1" value="2.5"></div><div class="ctl"><label for="ut-l">Lead of the first alert before event 3: <b id="ut-l-v"></b></label><input type="range" id="ut-l" min="0" max="30" step="1" value="0"></div><button class="btn play" id="ut-play" type="button"></button></div><div class="charts "><div class="chart" id="ut-chart"></div></div><ul class="out" id="ut-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> In the example U = 0.398 − 0.05 × 2.5 = 0.273. The ▶ button raises the false-alert rate F<sub>m</sub> from 0 to 10 a month. At what rate of false alerts does U fall to zero?</div>
-  <details><summary>Answer</summary><p>At 7.96 false alerts a month: the mean credit of the four events, 0.398, divided by the cost of 0.05 per false alert a month. 0.273 / 0.05 = 5.46 is the number of false alerts a month that can be added to the 2.5 already counted. The budget of 2 false alerts a month is a constraint on the choice of the alert threshold, not the point where U changes sign.</p></details>
-</section>
-<section class="blk" id="paper-t1">
-  <h3>Results: Four Classifier Families</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l4_paper_t1.jpg?v=20261031a" alt="Slide 32: Results: Four Classifier Families" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l4_backtest.jpg?v=20261031a" alt="Slide 32: Violations Through Time" loading="lazy"></a>
       <figcaption>Slide 32</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="pt-a">Highlighted column: <b id="pt-a-v"></b></label><input type="range" id="pt-a" min="0" max="5" step="1" value="1"></div><div class="ctl"><label for="pt-m">Metric</label><select id="pt-m"><option value="U" selected>Event utility U, 95% CI</option><option value="recall">Timely event recall</option><option value="fa">False alerts per month</option></select></div><button class="btn play" id="pt-play" type="button"></button></div><div class="charts "><div class="chart" id="pt-chart"></div></div><ul class="out" id="pt-out"></ul></div>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="bt-e">Last day of the 250-day Basel window: <b id="bt-e-v"></b></label><input type="range" id="bt-e" min="249" max="2452" step="1" value="2452"></div><div class="ctl"><label for="bt-m">Method whose violations are marked</label><select id="bt-m"><option value="GARCH-t" selected>GARCH(1,1)-t</option><option value="HS 500">Historical simulation, 500 days</option><option value="Normal 250">Normal, 250 days</option><option value="EWMA">EWMA, Normal</option></select></div><button class="btn play" id="bt-play" type="button"></button></div><div class="charts "><div class="chart" id="bt-chart"></div></div><ul class="out" id="bt-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> CatBoost with α = 0.3 has the highest utility of the table, 0.303. For how many of the six values of α does CatBoost have a higher U than the other three families?</div>
-  <details><summary>Answer</summary><p>For 5 of the 6. At α = 0.5 the random forest is higher (0.233 against 0.149). XGBoost and LightGBM never have the highest U; LightGBM has a negative U for five of the six values. Overlapping 95% intervals of CatBoost and the random forest do not change the ranking of the point estimates; they show that the ranking is uncertain.</p></details>
-</section>
-<section class="blk" id="tradeoff">
-  <h3>The Recall–False-Alert Trade-off</h3>
+  <div class="ask"><span class="ask-tag">Question for the room</span> Over 2020–2026 no test rejects GARCH-t, and its last 250 days are in the green zone (2 hits). The ▶ button moves the 250-day Basel window through the test period. Is GARCH-t in the green zone in every window?</div>
+  <details><summary>Answer</summary><p>No. GARCH-t has 5 to 7 hits, the amber zone, in 23% of the 250-day windows (among them the windows ending between June 2022 and February 2023); it never reaches the red zone. A model can pass the full-period tests (28 hits against 24.5 expected) and still spend long periods in amber. EWMA is amber or red in 76% of the windows and reaches 10 hits in 2026; the Normal in 50%, with 10 hits in August 2024; historical simulation in 11%.</p></details>
+</section><h2 class="sec" id="s-oos">Out of Sample: 19 September – 23 October 2026</h2>
+<section class="blk" id="oos-var">
+  <h3>Bitcoin VaR, Rolled Forward</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=35" target="_blank" rel="noopener"><img src="slides/ba_l4_ew_tradeoff.jpg?v=20261031a" alt="Slide 34: The Recall–False-Alert Trade-off" loading="lazy"></a>
-      <figcaption>Slide 34</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="tf-k">Threshold k of the rule |d<sub>t</sub>| ≥ k: <b id="tf-k-v"></b></label><input type="range" id="tf-k" min="4" max="25" step="1" value="11"></div><button class="btn play" id="tf-play" type="button"></button></div><div class="charts "><div class="chart" id="tf-chart"></div></div><ul class="out" id="tf-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261031a" alt="Slide 38: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
+      <figcaption>Slide 38</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="ov-d">Days of the window: <b id="ov-d-v"></b></label><input type="range" id="ov-d" min="1" max="35" step="1" value="35"></div><button class="btn play" id="ov-play" type="button"></button></div><div class="charts "><div class="chart" id="ov-chart"></div></div><ul class="out" id="ov-out"></ul></div>
   </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> On the test period the rule |d<sub>t</sub>| ≥ 11 bp detects 4 of the 5 events with 3.18 false alerts a month. The ▶ button raises k from 4 to 25 bp. At the smallest k that meets the budget of 2 false alerts a month on the test period, how many events does the rule detect?</div>
-  <details><summary>Answer</summary><p>3 of the 5, at k = 13 bp, with 1.29 false alerts a month and U = 0.340 (Clopper–Pearson 95% interval for the recall [0.15, 0.95]). At k = 12 bp the rule has 2.26 false alerts a month. This k is chosen with hindsight on the test data; the rule chosen on 2024 under the same budget is k = 20 bp, which detects none of the test events. At k = 15 bp, the event threshold itself, the rule detects nothing in time: it fires only once the breach has started.</p></details>
-</section><h2 class="sec" id="s-now">Now</h2>
-<section class="blk" id="recent">
-  <h3>The Last Twelve Weeks</h3>
-  <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_stablecoins_depeg.pdf#page=37" target="_blank" rel="noopener"><img src="slides/ba_l4_recent.jpg?v=20261031a" alt="Slide 36: The Last Twelve Weeks" loading="lazy"></a>
-      <figcaption>Slide 36</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="rc-k">Alert level k for USDC priced in USDT: <b id="rc-k-v"></b></label><input type="range" id="rc-k" min="5" max="20" step="0.5" value="10"></div><button class="btn play" id="rc-play" type="button"></button></div><div class="charts "><div class="chart" id="rc-chart"></div></div><ul class="out" id="rc-out"></ul></div>
-  </div>
-  <div class="ask"><span class="ask-tag">Question for the room</span> In October 2026 USDC priced in USDT was at or above 10 bp in 206 of 552 hours, never at 15 bp. With an alert at |d<sub>t</sub>| ≥ 10 bp and a 24-hour refractory period, how many alert episodes would the rule have issued from 1 August to 23 October?</div>
-  <details><summary>Answer</summary><p>24, about two a week, none of them followed by a breach of 15 bp. The refractory period merges consecutive hours above 10 bp into one episode, so the count is far below the number of hours. With k = 12 bp there are 10 episodes, with k = 14 bp 2. A level rule cannot tell a persistent small discount of USDT from stress; the alarm of the paper also looks at the pool composition and the liquidity curve.</p></details>
+  <div class="ask"><span class="ask-tag">Question for the room</span> No method had a VaR hit in the 35 days. If a method's true hit rate were 2%, twice the promised 1%, what was the probability of no hit in 35 days?</div>
+  <details><summary>Answer</summary><p>0.98³⁵ = 0.493, against 0.99³⁵ = 0.703 for a correct 1% VaR. No hit is almost as likely for the wrong model as for the right one, so these five weeks cannot separate them: the Kupiec statistic for no hit is 0.70 (p-value 0.40). Telling a 2% from a 1% hit rate with power 0.8 at the 5% level needs about 905 days.</p></details>
 </section>
-<p class="src foot">Prices: EODHD daily closes and intraday lows (2021 to 23 October 2026) and hourly closes (January 2022 to 23 October 2026). The rolling VaR 1% and the episodes are recomputed in the browser from these prices. Stablecoin supply: DefiLlama snapshot of 21 October 2026. Results of the paper: Chaffard et al. (2026), Table 1. The price-only alarms (logistic regression, gradient boosting) are fitted in the lecture notebook; the page evaluates their test-period scores and the rule |d<sub>t</sub>| ≥ k with the event-level protocol of the lecture.</p>
+<p class="src foot">Prices: EODHD daily closes of Bitcoin, Ethereum, the S&amp;P 500 and gold; estimation sample 1 January 2018 – 18 September 2026, out-of-sample window 19 September – 23 October 2026. GARCH(1,1)-t parameters and the 2020–2026 VaR forecasts (GARCH-t re-estimated every 21 days) come from the lecture notebook; the variance filter, VaR, ES and the backtest statistics are computed in the browser.</p>
 </main>
 </body>
 </html>

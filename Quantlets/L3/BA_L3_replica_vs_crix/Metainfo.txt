@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_replica_vs_crix'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'A CRIX-type replica on ten coins (quarterly AIC rule, monthly rebalancing, divisor), with and without a 50% cap, against the published Royalton CRIX, 31 March 2018 to 30 October 2026; 180-day correlation of daily log returns.'
+
+Keywords: 'CRIX, index replication, tracking error, correlation, Royalton CRIX'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices); EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_replica_vs_crix.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_crix_path'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Royalton CRIX, 6 September 2017 to 6 November 2026, against Bitcoin scaled to CRIX on 16 March 2018; record, low and data gaps marked; CAGR, volatility, drawdown and beta on Bitcoin.'
+
+Keywords: 'CRIX, crypto index, Bitcoin, CAGR, volatility'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices); EODHD Bitcoin daily close'
+
+Output: 'ba_l3_crix_path.pdf'

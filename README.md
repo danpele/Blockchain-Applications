@@ -4,7 +4,7 @@ Course website for **Blockchain Applications**, Master's programme *Blockchain f
 
 Website: https://danpele.github.io/Blockchain-Applications/
 
-- `EN/Lectures/`: lecture slides (PDF), lectures 1-7
+- `EN/Lectures/`: lecture slides (PDF), lectures 1-8
 - `data/`: data used in the lectures (`market/` daily prices from EODHD, `hourly/` hourly stablecoin prices from EODHD, `onchain/` daily on-chain series)
 - `notebooks/`, `Quantlets/`: Python code for each lecture (Google Colab)
 

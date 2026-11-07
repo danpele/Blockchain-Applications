@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L8_breaches'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Cumulative number of breaches of one-day Bitcoin VaR 1% forecasts (historical simulation, EWMA-Normal, GARCH(1,1)-t, quantile regression, gradient-boosted quantile trees, optional Chronos-2), 1 January 2024 - 23 October 2026, against the expected count and its 95% binomial range.'
+
+Keywords: 'Value-at-Risk, backtesting, breaches, binomial test, Kupiec test, EWMA, GARCH, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l8_breaches.pdf'

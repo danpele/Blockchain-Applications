@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_volume'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Log daily Bitcoin trading volume (EODHD) over the sample of the BitMood volume forecasts, its autocorrelation, weekly pattern and an AR(1) fit: the lagged-volume benchmark a sentiment model must beat.'
+
+Keywords: 'trading volume, autocorrelation, AR(1), benchmark, forecast evaluation, sentiment, BitMood, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l7_volume.pdf'

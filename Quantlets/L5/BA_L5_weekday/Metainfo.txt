@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_weekday'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean absolute deviation of USDC priced in USDT and the share of hours with a deviation of at least 15 basis points, by day of the week, hourly, January 2022 to 23 October 2026, with and without the Silicon Valley Bank (SVB) days of 10-14 March 2023. Data: EODHD hourly aggregated prices.'
+
+Keywords: 'stablecoins, USDC, USDT, peg deviation, weekend effect, redemption, bank hours, hourly data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD hourly prices in the course repository (data/hourly)'
+
+Output: 'ba_l5_weekday.pdf'

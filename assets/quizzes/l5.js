@@ -1,6 +1,6 @@
 // ============================================================
-// Practice quiz bank for Lecture 5: Stablecoins II – Systemic Depegging
-// Pressure and Portfolios (EN)
+// Practice quiz bank for Lecture 5: Stablecoins I – Measuring Depeg Risk
+// and On-Chain Early Warning (EN)
 // correct = index (0-3) of the right option in the original order.
 // incorrectExplanation must not name a letter: the engine prepends
 // "The correct answer is X) ..." after shuffling the options.
@@ -11,451 +11,451 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 2,
             en: {
-                title: "What the DPI is",
-                text: "On 12 March 2023 the De-pegging Pressure Index (DPI), estimated on the 90 days to 11 March, was 0.52. Which reading is right?",
+                title: "What a daily VaR misses",
+                text: "A depeg can be described by its magnitude, its duration and the probability that an episode starts. What does a daily VaR 1% of stablecoin returns tell us about these three?",
                 options: [
-                    "A 52% probability of a depeg within the next 24 hours",
-                    "USDC was 52 basis points (bp) below the dollar",
-                    "A unitless penalty measuring lower-tail co-movement",
-                    "52% of the stablecoins were depegged on that day"
+                    "All three, since it is a complete risk measure",
+                    "The magnitude and the duration, not the probability",
+                    "None: it is one quantile of daily closes",
+                    "Only the duration, since VaR is measured per day"
                 ],
-                correctExplanation: "The DPI averages selected Quantile Lasso penalties. It is neither an observed depeg in bp nor a probability; the value 0.52 lay in the fourth of five quintiles.",
-                incorrectExplanation: "The observed depeg is a price fact in bp and an alarm gives a probability; the DPI is a third object, a unitless measure of lower-tail co-movement."
+                correctExplanation: "VaR 1% is a single threshold of daily closes. It says nothing about how deep a depeg goes beyond it, how long it lasts, or when the next one starts.",
+                incorrectExplanation: "A daily quantile gives a one-day loss threshold only; depth beyond it, duration in hours and the start of episodes need separate measures."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Reference-adjusted deviation",
-                text: "EURS, a euro stablecoin, trades at 1.1194 USD while EUR/USD is 1.1202. What is its reference-adjusted deviation $d = 10^4\\,(P/B - 1)$?",
+                title: "Hourly against daily",
+                text: "During the Silicon Valley Bank (SVB) weekend of March 2023, the lowest hourly close of USDC was $-1\\,036$ basis points (bp) and the lowest daily close $-285$ bp. What does the gap show?",
                 options: [
-                    "About $-7.1$ bp",
-                    "About $+1\\,194$ bp",
-                    "About $-0.07$ bp",
-                    "About $-8.0$ bp"
+                    "Daily closes can hide most of the intraday depth of a depeg",
+                    "The hourly data contain an error, since daily and hourly lows must agree",
+                    "The depeg was mostly a daily phenomenon",
+                    "USDC recovered fully within the same hour"
                 ],
-                correctExplanation: "$1.1194/1.1202 = 0.99929$, so $d = 10^4 \\times (-0.00071) \\approx -7.1$ bp: EURS is slightly below the euro.",
-                incorrectExplanation: "Divide the token price by the dollar value of its reference: $1.1194/1.1202 - 1 \\approx -0.00071$, i.e. $-7.1$ bp."
+                correctExplanation: "The deepest point (07:00 Coordinated Universal Time, 11 March) lasted hours, not a full day; a daily close samples one moment and can miss most of the trough.",
+                incorrectExplanation: "A daily close is one observation per day; an hourly series reveals that the trough reached $-1\\,036$ bp, more than three times deeper than the worst daily close."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Why adjust for the reference",
-                text: "Why must the dollar price of a euro or gold token be divided by the dollar value of its reference asset before measuring a depeg?",
+                title: "Arbitrage below par",
+                text: "A fiat-backed stablecoin trades at $P_t = 0.995$ USD. Which arbitrage pushes the price back toward 1 USD?",
                 options: [
-                    "Because euro and gold tokens are always more volatile than dollar ones",
-                    "Because the dollar price is not available for them",
-                    "Because the Quantile Lasso requires positive data",
-                    "Otherwise a 1% euro move would look like a 100 bp depeg"
+                    "Mint new tokens at 1 USD and sell them on the market",
+                    "Sell the token on the market and wait",
+                    "Borrow the token and lend it in decentralised finance (DeFi)",
+                    "Buy on the market and redeem at 1 USD with the issuer"
                 ],
-                correctExplanation: "EURS tracks the euro, PAXG one ounce of gold; their dollar prices move with the reference. The adjustment puts all tokens on one economic scale before any model sees them.",
-                incorrectExplanation: "A token's deviation is measured against what it promises; without the adjustment, currency or gold moves are mistaken for depegs."
+                correctExplanation: "Below par, buying at 0.995 and redeeming at 1 earns 50 bp and removes tokens from the market. Above par, the trade is reversed: mint at 1 and sell.",
+                incorrectExplanation: "When $P_t < 1$, the arbitrageur buys cheap tokens and redeems them at par; minting and selling is the trade for $P_t > 1$."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Two tiers of peg quality",
-                text: "Median absolute deviation $|d|$, January 2020 to May 2026 (EOD Historical Data): USDC 1.3 bp, USDT 3.6 bp, GUSD 17.7 bp, EURS 50.9 bp, sUSD 56.3 bp. What pattern do these numbers show?",
+                title: "When arbitrage stops",
+                text: "Peg arbitrage needs access to redemption, time and trust in the reserves. Why could arbitrage not close the USDC discount on Saturday 11 March 2023?",
                 options: [
-                    "All stablecoins hold their pegs about equally well, within a few bp",
-                    "Two tiers: large dollar tokens tight, the others loose",
-                    "Euro tokens are the most stable of all tokens",
-                    "Only crypto-collateralised tokens deviate at all"
+                    "USDC had no reserves at all behind the token",
+                    "Banks were closed, so redemption had to wait for Monday",
+                    "Arbitrage on stablecoins is not legally permitted",
+                    "The market price stayed above 1 USD over the whole weekend"
                 ],
-                correctExplanation: "The large dollar coins sit within a few bp; GUSD, PAXG, EURS and sUSD are tens of bp off and have deep lower tails (5% quantile of sUSD $-1\\,883$ bp).",
-                incorrectExplanation: "The medians split into a tight group of large dollar tokens and a loose group of small, non-dollar or crypto-collateralised tokens."
+                correctExplanation: "Redemption requires bank transfers; with banks closed, arbitrageurs could buy below par but could not redeem until markets reopened, and the reserve loss was uncertain.",
+                incorrectExplanation: "Arbitrage needs the redemption channel to work; over a weekend the banking leg was closed, so the price could stay far below the redemption value."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Does the data source matter?",
-                text: "Median $|d|$ of USDC is 1.3 bp from EOD Historical Data (EODHD) and 4.11 bp in the working paper of Fan et al. (2026) (CoinGecko); the share of days at least 100 bp below the peg is 0.09% for USDT in both. What follows?",
+                title: "Issuer concentration",
+                text: "On 21 October 2026 the supply of USD stablecoins was 303.4 bn USD (DefiLlama), with USDT at 60.2% and USDC at 23.8%. What follows for risk?",
                 options: [
-                    "One of the two data sources must be wrong",
-                    "Levels depend on the source; the ranking does not",
-                    "The source changes the ranking of coins completely",
-                    "The source matters only for non-dollar tokens"
+                    "Risk is well diversified across many issuers",
+                    "Two issuers hold 84%: a USDC/USDT dislocation is systemic",
+                    "Concentration does not matter for fiat-backed coins",
+                    "Crypto-backed coins now dominate the supply of on-chain dollars"
                 ],
-                correctExplanation: "EODHD medians are lower than CoinGecko's, but the ordering of coins and the rates of large downside deviations agree closely (sUSD 26.0% against 25.0%).",
-                incorrectExplanation: "Different aggregation gives different levels of small deviations; the ranking and the frequency of large depegs are robust to the source."
+                correctExplanation: "$60.2\\% + 23.8\\% = 84\\%$: a problem at either issuer, or between the two, affects most on-chain dollars. Crypto-backed coins are only 8.1%.",
+                incorrectExplanation: "Two issuers with 84% of supply means a high concentration: stress in the USDC/USDT pair moves most of the on-chain dollar system."
             }
         },
         {
             correct: 3,
             en: {
-                title: "A persistent depeg",
-                text: "sUSD (Synthetix, crypto-collateralised) was below 0.99 USD on 607 of 661 days since January 2025 and at 0.09 USD on 23 October 2026. Why did arbitrage not close the gap, as after the Silicon Valley Bank (SVB) failure?",
+                title: "Market-defined peg",
+                text: "On 10 October 2025, USDe traded at 0.65 USD on one exchange while other venues stayed near 1 USD. Which distinction does this illustrate?",
                 options: [
-                    "Arbitrageurs did not notice the low price in time",
-                    "sUSD trades only on a few small venues at weekends",
-                    "The gap was too small to make arbitrage profitable",
-                    "There is no redemption at par, so no arbitrage"
+                    "Exogenous against endogenous causes of a depeg",
+                    "Fiat-backed against crypto-backed stablecoin design",
+                    "Transient against persistent depegs over time",
+                    "Redemption value against the price on one venue"
                 ],
-                correctExplanation: "USDC recovered after two days because redemption at par returned. sUSD has no such channel, so the market price can drift down for months.",
-                incorrectExplanation: "Peg arbitrage needs a way to redeem at par; when that channel is missing, a discount can persist and deepen."
+                correctExplanation: "A token has no single price: the market-defined peg is venue-specific, and one venue can dislocate while the redemption value is unchanged.",
+                incorrectExplanation: "Different prices on different venues at the same time show that the market-defined peg depends on the venue, unlike the fundamental redemption value."
             }
         },
         {
             correct: 0,
             en: {
-                title: "The check loss at the 5% quantile",
-                text: "The check loss is $\\rho_\\tau(e) = e\\,(\\tau - \\mathbb 1\\{e < 0\\})$. With $\\tau = 0.05$, how are residuals below and above the fitted line weighted?",
+                title: "Which risk can be monitored",
+                text: "Why does the lecture focus on endogenous rather than exogenous depeg risk?",
                 options: [
-                    "Below: $0.95|e|$; above: $0.05|e|$",
-                    "Below: $0.05|e|$; above: $0.95|e|$",
-                    "Both: $|e|$, as for the median",
-                    "Both: $e^2$, as for least squares"
+                    "Liquidity and order flow show on chain before the price moves",
+                    "Exogenous risk never causes a stablecoin to depeg",
+                    "Endogenous depegs are always larger in size",
+                    "Exogenous events such as sanctions can be read from the pool composition"
                 ],
-                correctExplanation: "For $e < 0$, $\\rho_{0.05}(e) = e(0.05 - 1) = 0.95|e|$; for $e > 0$ it is $0.05\\,e$. Points below the line are expensive, so only about 5% of them end up there.",
-                incorrectExplanation: "Substitute into $\\rho_\\tau$: a negative residual is weighted by $1 - \\tau = 0.95$, a positive one by $\\tau = 0.05$."
+                correctExplanation: "Reserve losses, regulation or sanctions arrive as news and are hard to predict; liquidity stress builds up inside the market and can be seen in on-chain data first.",
+                incorrectExplanation: "Exogenous shocks arrive as news; endogenous stress from liquidity and order flow leaves traces on chain before the price reacts, which makes monitoring feasible."
             }
         },
         {
             correct: 2,
             en: {
-                title: "A non-unique quantile",
-                text: "Twenty daily deviations, $\\tau = 0.05$: the total check loss equals 116.55 for every $q$ between $-120$ bp and $-35$ bp, the smallest and second-smallest observations. What does this mean?",
+                title: "Transient depegs",
+                text: "A depeg lasts a few hours and is closed by arbitrage. Why is it still a risk?",
                 options: [
-                    "The data contain a recording error",
-                    "The 5% quantile is the midpoint of the two lowest values, $-77.5$ bp",
-                    "Any value between the two lowest is a valid 5% quantile",
-                    "No 5% quantile exists for 20 observations"
+                    "Because the issuer must then pay a regulatory fine",
+                    "Because transient depegs always become persistent",
+                    "Because liquidations at a bad price are irreversible",
+                    "Because the token supply then falls permanently"
                 ],
-                correctExplanation: "When $n\\tau$ is an integer, the check loss is flat between two order statistics; every point in between minimises it.",
-                incorrectExplanation: "The loss is flat over the interval, so the minimiser is a whole interval; choosing its midpoint is a convention, not a property of the estimator."
+                correctExplanation: "Stablecoins serve as collateral in decentralised finance (DeFi). A few hours at a low price can trigger liquidations that are not undone when the peg returns.",
+                incorrectExplanation: "The price recovers, but positions liquidated during the dislocation stay liquidated: a short depeg can have permanent consequences."
             }
         },
         {
             correct: 3,
             en: {
-                title: "The 5% quantile in a 90-day window",
-                text: "The DPI uses 90-day windows and $\\tau = 0.05$, so $n\\tau = 4.5$. What defines the estimated 5% quantile, and what follows?",
+                title: "Deviation in basis points",
+                text: "A dollar stablecoin closes at 0.9985 USD. What is its deviation $d_t = 10^4(P_t - 1)$?",
                 options: [
-                    "The window mean, so the estimate is very stable",
-                    "The 45th observation, so many days matter",
-                    "The lowest observation only, so one day matters",
-                    "The 5th smallest value, so five days decide it"
+                    "$-1.5$ bp",
+                    "$-0.15$ bp",
+                    "$-150$ bp",
+                    "$-15$ bp"
                 ],
-                correctExplanation: "With $n\\tau = 4.5$ the minimiser is unique, the 5th smallest value. One day entering or leaving the window can move it, so rolling 5% quantile models are noisy by construction.",
-                incorrectExplanation: "In 90 days, the 5% quantile is pinned down by the 5th lowest day; a handful of observations decide the lower tail."
+                correctExplanation: "$10^4 \\times (0.9985 - 1) = 10^4 \\times (-0.0015) = -15$ bp, exactly at the 15 bp threshold used in the lecture.",
+                incorrectExplanation: "One basis point is 0.01%, i.e. 0.0001 USD at par: $-0.0015 \\times 10^4 = -15$ bp."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Regimes rather than days",
-                text: "Why is the DPI analysed in regimes and event windows rather than read day by day?",
+                title: "Count episodes, not hours",
+                text: "An episode starts at a breach hour ($|d_t| \\ge 15$ bp) preceded by 24 observed hours without a breach. Why count episodes rather than breach hours?",
                 options: [
-                    "Because the DPI is published only once a month",
-                    "Because daily values rest on a few tail days",
-                    "Because the Lasso cannot be estimated every day",
-                    "Because regulators require regime-based reporting"
+                    "Because hourly prices have more error than daily ones",
+                    "Because hours in one episode are not independent",
+                    "Because episodes always last exactly 24 hours",
+                    "Because missing hours are counted as breach hours"
                 ],
-                correctExplanation: "Rolling 5% quantile models depend on about five days per window; averaging over regimes or event windows reduces that noise.",
-                incorrectExplanation: "A daily DPI value is driven by a handful of tail days; only aggregates over longer periods are informative."
+                correctExplanation: "The 1 044 breach hours at 15 bp (USDC/USDT, 2022 to 2026) come from only 30 episodes; treating them as independent would overstate the evidence.",
+                incorrectExplanation: "A single depeg spans many consecutive breach hours; the independent unit is the episode, so frequencies and tests should count episodes."
             }
         },
         {
             correct: 2,
             en: {
-                title: "The largest penalty",
-                text: "In the Quantile Lasso, all slopes are zero for $\\lambda \\ge \\lambda_{max}$, where $\\lambda_{max} = \\max_k |\\sum_s x_{k,s}\\,\\psi_\\tau(d_{j,s} - \\hat q_\\tau)|$. What does $\\lambda_{max}$ measure?",
+                title: "Quantile and kurtosis together",
+                text: "USDC daily closes 2021 to 2026: 1% quantile $-7.6$ bp (closest to zero of USDT, USDC, DAI), excess kurtosis 1 045 (0 for the Normal). What do the two numbers say together?",
                 options: [
-                    "The number of candidate predictors in the model",
-                    "The variance of the target deviation in the 90-day window",
-                    "The strongest scaled covariance with the tail indicator",
-                    "The check loss of the intercept-only model"
+                    "USDC is the safest of the three coins in every respect",
+                    "The kurtosis must be a data error, since the 1% quantile is so small",
+                    "Tight on ordinary days; its risk sits in one rare, deep event",
+                    "USDC deviates often, but always by small amounts"
                 ],
-                correctExplanation: "$\\psi_\\tau$ marks whether an observation is below the quantile; $\\lambda_{max}$ is the largest scaled covariance of a predictor with that indicator, the penalty at which the first predictor enters.",
-                incorrectExplanation: "$\\lambda_{max}$ is the penalty at which the first predictor would enter: the largest scaled covariance between a predictor and the lower-tail indicator."
+                correctExplanation: "One weekend (SVB, $-285$ bp at the daily close) drives the kurtosis; the 1% quantile reflects ordinary days. A tight quantile and a huge kurtosis together mean rare, deep events.",
+                incorrectExplanation: "A quantile describes typical tail days; an extreme kurtosis shows a few observations far beyond it. For USDC the risk is concentrated in one rare episode."
             }
         },
         {
             correct: 0,
             en: {
-                title: "GACV",
-                text: "The penalty is chosen by generalised approximate cross-validation: $\\mathrm{GACV}(\\lambda) = \\sum_s \\rho_\\tau(\\text{residual}_s)/(n - \\mathrm{df}(\\lambda))$ with $\\mathrm{df} = \\#\\{\\hat\\beta_k \\neq 0\\} + 1$. What role does the denominator play?",
+                title: "Persistence of deviations",
+                text: "Daily deviations 2021 to 2026: lag-1 autocorrelation $\\hat\\rho_1 = 0.73$ for USDT, 0.29 for USDC, 0.34 for DAI. What does USDT's value mean?",
                 options: [
-                    "It penalises complexity: more active predictors raise it",
-                    "It converts the check loss into a probability",
-                    "It removes the intercept from the check loss",
-                    "It rescales predictors by their median absolute deviation"
+                    "USDT deviations persist: once off the peg, it stays off",
+                    "USDT has the largest single depeg of the three coins",
+                    "USDT deviations tend to reverse sign from one day to the next",
+                    "USDT is the most volatile of the three coins by far"
                 ],
-                correctExplanation: "A smaller $\\lambda$ lowers the check loss but activates more predictors; dividing by $n - \\mathrm{df}$ trades fit against the number of active coefficients.",
-                incorrectExplanation: "The degrees of freedom count the nonzero slopes plus the intercept; dividing by $n - \\mathrm{df}$ charges each extra predictor."
+                correctExplanation: "High $\\hat\\rho_1$ means today's deviation predicts tomorrow's; USDT has the smallest extreme ($-41$ bp) but is the most persistent and most often beyond 15 bp after 2022.",
+                incorrectExplanation: "Autocorrelation measures persistence, not size; 0.73 means USDT deviations last, although its worst close is the mildest of the three."
             }
         },
         {
             correct: 0,
             en: {
-                title: "The penalty as a risk proxy",
-                text: "The Financial Risk Meter (FRM) idea uses the selected penalty $\\hat\\lambda$ as a risk proxy. Which caveat does the lecture attach to it?",
+                title: "Where the risk lies",
+                text: "Mean daily deviations 2021 to 2026 are 0.5 bp (USDT), $-0.2$ bp (USDC) and 0.4 bp (DAI). What is the right conclusion?",
                 options: [
-                    "Its level also reflects scaling, the grid and the criterion",
-                    "It is valid only for dollar-pegged stablecoins",
-                    "It measures the issuer's probability of default",
-                    "It can be read directly in basis points of deviation from the peg"
+                    "The peg holds on average; the risk is in the tails",
+                    "Stablecoins carry no depeg risk on these numbers",
+                    "USDT is overvalued by 0.5 bp and should be sold",
+                    "The means show that the daily deviations are Normally distributed"
                 ],
-                correctExplanation: "$\\hat\\lambda$ reflects tail co-movement but also specification choices; it is a specification-dependent proxy, not a structural quantity.",
-                incorrectExplanation: "The selected penalty is shaped by the data scaling, the grid and GACV as well as by tail dependence; treat it as a proxy to be validated."
+                correctExplanation: "Means within $\\pm 0.5$ bp say the peg holds on average; minima of $-285$ bp (USDC) and $-261$ bp (DAI) show where the risk is.",
+                incorrectExplanation: "Averages near zero hide rare deep deviations; depeg risk is a tail and episode question, not a mean question."
             }
         },
         {
             correct: 2,
             en: {
-                title: "One equation: USDC after SVB",
-                text: "Target USDC, 90 days to 19 March 2023 (after the Silicon Valley Bank failure), 13 candidates: $\\lambda_{max} = 164.1$, GACV selects $\\hat\\lambda = 0.241$ with 12 active predictors; DAI keeps the largest slope along the path (3.70). How do you read this?",
+                title: "Value under zero recovery",
+                text: "Circle held 3.3 bn USD of about 40 bn USD reserves at Silicon Valley Bank (SVB). With zero recovery on that deposit, the redemption value per token is $V(0) = 1 - 3.3/40$. What deviation does this imply?",
                 options: [
-                    "DAI caused the failure of Silicon Valley Bank",
-                    "The equation is overfitted, so DAI should be dropped",
-                    "USDC's lower tail moved most closely with DAI's",
-                    "USDC was not linked to any other coin in the window"
+                    "$-330$ bp",
+                    "$-1\\,036$ bp",
+                    "$-825$ bp",
+                    "$-82.5$ bp"
                 ],
-                correctExplanation: "The predictor that survives the largest penalty is the one most strongly linked to the target's lower tail. DAI held much USDC as collateral, so the two tails moved together.",
-                incorrectExplanation: "Order of entry along the Lasso path ranks tail links: DAI, first in and last out, was USDC's strongest lower-tail companion; this is association, not causation."
+                correctExplanation: "$3.3/40 = 8.25\\%$, so $V(0) = 0.9175$ and $d = -825$ bp. The market reached $-1\\,036$ bp, 211 bp lower.",
+                incorrectExplanation: "The share at risk is $3.3/40 = 0.0825$; times $10^4$ gives $-825$ bp, the deviation if the SVB deposit were lost entirely."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Robust scaling",
-                text: "In the DPI, every variable is centred by its window median and divided by $1.4826 \\times$ MAD (median absolute deviation). Why this scaling?",
+                title: "The unexplained discount",
+                text: "During the Silicon Valley Bank (SVB) weekend, USDC fell to $-1\\,036$ bp, 211 bp below its value under zero recovery on the SVB deposit ($-825$ bp). How should the 211 bp be read?",
                 options: [
-                    "To make all variables Normally distributed before the Lasso",
-                    "A common scale that a few extreme days cannot dominate",
-                    "To remove the lower tail before estimation",
-                    "To convert the deviations into probabilities"
+                    "A precise estimate of the liquidity premium of USDC",
+                    "A residual not explained by the reserve-loss scenario",
+                    "Proof that Circle's other reserves were also lost",
+                    "A data error, since prices cannot fall below $V(0)$"
                 ],
-                correctExplanation: "The Lasso penalty treats all slopes alike, so predictors need a common scale; median and MAD are robust to the outliers that stablecoin data contain.",
-                incorrectExplanation: "A Lasso needs comparable scales; median and MAD give them robustly, and the factor 1.4826 makes MAD comparable to a standard deviation."
+                correctExplanation: "The calculation separates the reserve loss from the rest, but does not split the rest: closed banks, uncertainty about other holdings and arbitrage frictions all contribute.",
+                incorrectExplanation: "The 211 bp is a residual; it is not identified as a liquidity premium, since weekend timing, uncertainty and frictions are not separated."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Building the index",
-                text: "For each coin $j$ and day $t$, a 5% Quantile Lasso on the preceding 90 days selects $\\hat\\lambda_{j,t}$ by GACV. How is the DPI formed?",
+                title: "Why DAI followed USDC",
+                text: "On 11 March 2023, DAI reached $-955$ bp in the same hour as USDC ($-1\\,036$ bp), while USDT rose above 1 USD. Why did DAI fall?",
                 options: [
-                    "As the largest $\\hat\\lambda_{j,t}$ across coins",
-                    "As the number of active predictors summed across coins",
-                    "As the share of coins that are depegged",
-                    "As the average of $\\hat\\lambda_{j,t}$ over the coins"
+                    "DAI is issued by Circle, like USDC",
+                    "DAI holders panicked independently of USDC",
+                    "DAI is algorithmic, like TerraUSD",
+                    "Much of DAI's collateral was USDC"
                 ],
-                correctExplanation: "$\\mathrm{DPI}_t = J^{-1}\\sum_j \\hat\\lambda_{j,t}$: one number per day summarising lower-tail pressure across the system (replication in this course on EODHD data: 10 coins, 23 970 equations).",
-                incorrectExplanation: "The index is the cross-sectional mean of the selected penalties of all coin equations on that day."
+                correctExplanation: "A crypto-backed stablecoin is only as good as its collateral; with much of it in USDC, DAI inherited USDC's depeg. USDT gained as the other dollar.",
+                incorrectExplanation: "DAI is crypto-backed, and its collateral held a lot of USDC, so the USDC loss passed through to DAI's balance sheet."
             }
         },
         {
             correct: 1,
             en: {
-                title: "DPI over time",
-                text: "Replication in this course (EODHD data), annual medians of the DPI: 0.27 (2020), 0.39 to 0.40 (2021 to 2023), 0.44 (2024), 0.52 (2025), 0.32 (2026). When was pressure highest, and which coin carried it?",
+                title: "Constant-product slippage",
+                text: "A constant-product pool ($x\\,y = k$) holds 10 m of token X and 10 m of token Y, both worth 1 USD. A trader sells 1 m X. How much Y does she receive?",
                 options: [
-                    "2020, during the pandemic market crash",
-                    "2025, carried mostly by BUSD, a thinly traded coin",
-                    "2025, carried by the depeg of sUSD in November",
-                    "2026, because of the Iran-Hormuz shock"
+                    "1.000 m Y, since the price is 1",
+                    "0.909 m Y, a slippage of 9.1%",
+                    "0.990 m Y, a slippage of 1%",
+                    "0.500 m Y, a slippage of 50%"
                 ],
-                correctExplanation: "The highest annual median is 0.52 in 2025. BUSD carries 63% of the index in October–December 2025; without BUSD the 2025 median falls to 0.34, while leaving out sUSD raises it to 0.55.",
-                incorrectExplanation: "The maximum, 0.52, is in 2025, but the leave-one-coin-out check points to BUSD, not to the sUSD depeg that began in the same months."
+                correctExplanation: "$\\Delta y = y\\,\\Delta x/(x + \\Delta x) = 10 \\times 1/11 = 0.909$ m. A 10% trade costs 9.1%: the constant product spreads liquidity over all prices.",
+                incorrectExplanation: "Keep $x\\,y = 100$: after the sale $x = 11$, so $y = 100/11 = 9.091$ and the trader receives $10 - 9.091 = 0.909$ m Y."
             }
         },
         {
             correct: 0,
             en: {
-                title: "A trend that is not rejected",
-                text: "Log-linear trend of the DPI to May 2026: $+0.046$ per year, heteroskedasticity and autocorrelation consistent (HAC, 90 lags) standard error 0.036, p 0.21, 95% CI $[-0.025, 0.117]$. What is the correct conclusion?",
+                title: "StableSwap amplification",
+                text: "In the StableSwap (Curve) invariant, the amplification parameter $A$ moves the curve between two extremes. Which?",
                 options: [
-                    "Zero slope not rejected; no trend is not shown either",
-                    "There is no trend in the DPI over this period",
-                    "The DPI rises significantly, by about 4.6% a year since 2020",
-                    "The DPI falls significantly over time"
+                    "$A \\to 0$: constant product; $A \\to \\infty$: constant sum, price exactly 1",
+                    "$A \\to 0$: constant sum; $A \\to \\infty$: constant product",
+                    "$A$ only sets the trading fee",
+                    "$A \\to \\infty$: the pool stops trading, since the price is fixed"
                 ],
-                correctExplanation: "The interval contains zero, so a zero slope is not rejected; it also contains slopes up to 0.117, so a sizeable trend is not ruled out.",
-                incorrectExplanation: "Not rejecting zero is not accepting zero; with a 95% interval from $-0.025$ to $0.117$ both no trend and a sizeable trend remain possible."
+                correctExplanation: "A large $A$ flattens the curve near balance, approaching $x + y = D$; a small $A$ approaches the constant product $x\\,y = k$.",
+                incorrectExplanation: "Low amplification behaves like Uniswap's constant product; high amplification behaves like a constant sum with price 1 near balance."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Working paper and replication",
-                text: "The working paper estimates a DPI trend of $-0.004$ per year (p 0.78); the replication in this course $+0.046$ (p 0.21). In what sense do they agree?",
+                title: "Slippage as the pool empties",
+                text: "Pool of 10 m + 10 m, StableSwap with $A = 100$: average slippage 0.05% for a sale of 1 m X, 0.33% for 5 m, 2.94% for 9.5 m (constant product: 9.09%, 33.3%, 48.7%). What does the table show?",
                 options: [
-                    "Both find a significant upward trend",
-                    "Both find a significant downward trend",
-                    "They agree on the sign and the size of the trend",
-                    "Only in not rejecting zero; the signs differ"
+                    "StableSwap and constant product cost the same for large trades",
+                    "StableSwap slippage grows linearly with the trade size",
+                    "StableSwap is always more expensive than constant product",
+                    "Cheap near balance, but steep when one coin runs out"
                 ],
-                correctExplanation: "Neither rejects zero, which is the only common conclusion. Different data sources, coins and periods give different point estimates.",
-                incorrectExplanation: "One estimate is negative, the other positive; the shared result is only that a zero slope is not rejected in either."
+                correctExplanation: "From 1 m to 9.5 m the trade size grows 9.5 times, but the slippage grows about 60 times (0.05% to 2.94%): flat near parity, steep near depletion.",
+                incorrectExplanation: "Compare growth rates: a 9.5-fold larger trade costs about 60 times more under StableSwap; the curve is flat only while the pool is balanced."
             }
         },
         {
             correct: 2,
             en: {
-                title: "Sensitivity of event responses",
-                text: "The DPI response to the Silicon Valley Bank (SVB) failure (mean over days 0 to 30 relative to days $-60$ to $-8$) is $+21.0\\%$ with the wide $\\lambda$ grid and $+158.6\\%$ with a narrow grid; the two indices correlate 0.84 in logs. What is the lesson?",
+                title: "Price hides the stress",
+                text: "In a StableSwap pool with $A = 100$, the price of X is 0.986 when X is 80% of the pool and 0.943 when it is 90%. What should a risk monitor watch?",
                 options: [
-                    "The narrow grid is right, since its effect is stronger",
-                    "SVB had no effect on stablecoin pressure at all",
-                    "Report the specification; trust what survives several",
-                    "Correlated indices must give the same event responses"
+                    "Only the price, since it already reflects the stress",
+                    "Only the trading volume, since volume rises under stress",
+                    "The pool composition, which moves first",
+                    "The fee level, since fees rise when the pool is stressed"
                 ],
-                correctExplanation: "Highly correlated indices can still differ in a 31-day mean around one event. A result that changes several-fold with the grid is fragile.",
-                incorrectExplanation: "A correlation of 0.84 over the whole sample does not guarantee similar responses to a single event; the size of an event effect depends on the specification."
+                correctExplanation: "The pool absorbs one-sided flow with little price change; by the time the price falls sharply the pool is almost empty of the other coin. The composition reveals the stress earlier.",
+                incorrectExplanation: "AMM prices are inelastic until a pool is nearly one-sided; the share of each coin in the pool signals stress before the price does."
             }
         },
         {
             correct: 2,
             en: {
-                title: "Boundary solutions",
-                text: "With a narrow grid $[10^{-2}, 1]\\lambda_{max}$, 19.6% of equations select the smallest $\\lambda$ on the grid; with a wide grid $[10^{-4}, 1]\\lambda_{max}$, 4.0%. Why does this matter?",
+                title: "Entropy of the 3pool",
+                text: "The Curve 3pool holds DAI, USDC and USDT. Its balance is summarised by the entropy of the three shares, equal to $\\ln 3 = 1.0986$ when balanced. What does a falling entropy indicate?",
                 options: [
-                    "It shows that the wide grid overfits the data",
-                    "It has no effect on the DPI, since only the median is used",
-                    "Many penalties sit at the grid's edge, set by the grid",
-                    "It proves that the DPI is a depeg probability"
+                    "More liquidity has been added to the pool",
+                    "A higher price of all three coins together",
+                    "A growing imbalance: one coin accumulates",
+                    "A lower trading fee charged by the pool"
                 ],
-                correctExplanation: "When GACV would choose a smaller $\\lambda$ than the grid allows, the selected value is set by the grid's lower bound; the DPI then inherits that choice.",
-                incorrectExplanation: "A boundary solution means the optimum lies outside the grid; the selected $\\lambda$, and so the DPI, is then determined by the grid."
+                correctExplanation: "Entropy is maximal at equal shares; it falls as the pool becomes dominated by one coin, often the one that holders are trying to sell.",
+                incorrectExplanation: "Entropy is highest when the three shares are equal ($\\ln 3$); a lower value means the shares are diverging, a sign of one-sided flow."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Reading the link matrix",
-                text: "In the tail-link matrix, each cell is the share of daily equations with a positive slope minus the share with a negative slope, in percentage points (pp). What does a cell value tell you?",
+                title: "AUPRC baseline",
+                text: "In the working paper of Chaffard et al. (2026), 5.9% of hours are followed by a breach within 24 hours. What area under the precision-recall curve (AUPRC) does a random score get?",
                 options: [
-                    "The size of the effect in basis points",
-                    "The correlation between the two coins",
-                    "The probability that both coins depeg on the same day",
-                    "How often, and with which sign, a link is selected"
+                    "0.5, as for the area under the receiver operating characteristic (ROC) curve",
+                    "0, since a random score detects nothing",
+                    "1, since precision and recall are averaged",
+                    "About 0.059, the base rate"
                 ],
-                correctExplanation: "It is a signed selection frequency: how consistently a link appears across days and in which direction, not how large the effect is.",
-                incorrectExplanation: "The cell counts selections over equations; it is a frequency in pp, not a size in bp, a correlation or a probability."
+                correctExplanation: "A random score has precision equal to the base rate at every recall level, so its AUPRC is 0.059; a perfect score gets 1.",
+                incorrectExplanation: "Unlike the AUC (random 0.5), the AUPRC of a random score equals the share of positive hours, here 5.9%."
             }
         },
         {
             correct: 0,
             en: {
-                title: "USDC and DAI",
-                text: "Replication in this course (EODHD data): the cell USDC $\\leftarrow$ DAI is 75 pp, and DAI $\\leftarrow$ USDC is 60 pp. How do you read the first number?",
+                title: "Labels against events",
+                text: "In the working paper of Chaffard et al. (2026) (Uniswap V3 USDC/USDT pool, hourly, January 2022 to May 2026), 2 227 hours are positive (5.9%), but there are only 107 events. Why does this matter for evaluation?",
                 options: [
-                    "Net share of USDC equations with a positive DAI slope",
-                    "A 1 bp fall of DAI lowers USDC's 5% quantile by 75 bp",
-                    "USDC and DAI are depegged together on 75% of days",
-                    "DAI's depegs cause 75% of the depegs of USDC"
+                    "Hours cluster in few events: about 107 cases, not 2 227",
+                    "It shows that most of the 2 227 labels are wrong",
+                    "It means that each event lasts exactly 21 hours",
+                    "It does not matter, since the classifiers learn from hours, not events"
                 ],
-                correctExplanation: "A positive slope means aligned: a lower DAI deviation goes with a lower USDC quantile. 75 pp is the net share of equations with that sign.",
-                incorrectExplanation: "The matrix reports a signed selection frequency in percentage points; it measures consistency of the link, not its size or a causal share."
+                correctExplanation: "An alarm succeeds or fails per event; 2 227 positive hours from 107 events are highly dependent, so evidence about warnings rests on about 107 cases.",
+                incorrectExplanation: "Hours within one event are not independent; the number that limits how well an alarm can be tested is the number of events."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Aligned or inverse",
-                text: "Replication in this course (EODHD data): 47.4% of coin coefficients are aligned (positive) and 33.1% inverse (negative); the working paper finds 39.6% and 23.9%. What do the two data sets agree on?",
+                title: "Choosing the threshold",
+                text: "USDC priced in USDT, hourly, 2022 to 23 October 2026: 98 episodes at $\\delta = 10$ bp, 30 at 15 bp, 5 at 25 bp, 2 at 50 bp. What does this imply for the choice of $\\delta$?",
                 options: [
-                    "Inverse links dominate in both data sets",
-                    "Aligned links are more common than inverse ones",
-                    "All coins are linked about equally often",
-                    "Macro variables carry most of the slope weight"
+                    "A higher threshold is always better, since its events are more serious",
+                    "A policy choice: low gives harmless events, high too few to test",
+                    "The threshold has no effect on the number of episodes",
+                    "10 bp is optimal, since it gives the most events to learn from"
                 ],
-                correctExplanation: "In both data sets aligned links outnumber inverse ones. Macro variables carry only about 18 to 21% of the absolute slope weight.",
-                incorrectExplanation: "Compare the two shares in each data set: aligned exceeds inverse in both, so co-movement of lower tails is the common pattern."
+                correctExplanation: "From 10 to 15 bp the episodes fall by about 70%; at 25 bp and above only 5 remain. The threshold trades relevance against sample size.",
+                incorrectExplanation: "Raising $\\delta$ makes events more serious but rarer; with 5 events or fewer, neither training nor testing an alarm is reliable."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Sparser under pressure",
-                text: "Replication in this course (EODHD data): average active predictors fall from 10.96 (of 13) in the lowest DPI quintile to 9.68 in the highest; working paper: 10.11 to 9.00 (of 15). Which interpretation is supported?",
+                title: "An alarm, not a classifier",
+                text: "Why can the row-level area under the receiver operating characteristic curve (AUC) be high for a depeg model that gives no useful warning?",
                 options: [
-                    "A few strong links dominate, as the chart proves",
-                    "The result holds in one data source only, not in the paper",
-                    "Pressure makes the coins move independently",
-                    "Partly mechanical: a larger penalty removes predictors"
+                    "Because AUC ignores the positive class entirely",
+                    "Because AUC is computed only on the training data, never on test data",
+                    "Because AUC penalises false alerts too heavily",
+                    "Because it rewards labels inside an episode, after the breach"
                 ],
-                correctExplanation: "The DPI is the penalty itself, so higher DPI implies fewer active predictors almost automatically. The direction replicates, but its economic interpretation is not shown.",
-                incorrectExplanation: "Higher penalties set more slopes to zero; the pattern replicates across data sets, but separating the mechanical effect from economics needs more evidence."
+                correctExplanation: "Hours inside an episode are easy to label from the current deviation. An event-level protocol counts only alerts in the 24 hours before the breach.",
+                incorrectExplanation: "Most positive hours lie inside or right at an episode, where the deviation is already visible; scoring them well inflates AUC without any lead time."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Is the DPI a proxy for simple stress?",
-                text: "Spearman correlation of the DPI (90-day means) with the median $|d|$ across coins is $-0.10$, and with the VIX (CBOE volatility index) $-0.16$. What does this show?",
+                title: "Value of a lead time",
+                text: "The value of detecting an event with lead $\\ell$ hours is $v(\\ell) = 0.10 + 0.90\\,(\\ell - 1)/23$ for $1 \\le \\ell \\le 24$. What is $v(14)$?",
                 options: [
-                    "The DPI proxies neither; it measures something else",
-                    "The DPI is a good substitute for the VIX",
-                    "The DPI is wrong, since all stress measures must agree closely",
-                    "The DPI is the median deviation with opposite sign"
+                    "0.609",
+                    "0.583",
+                    "0.548",
+                    "0.900"
                 ],
-                correctExplanation: "Correlations near zero mean the DPI does not just repackage deviation levels or the VIX; it captures tail co-movement, a different object.",
-                incorrectExplanation: "Weak correlations with simple stress measures show the DPI carries different information; they neither validate nor refute it as a pressure measure."
+                correctExplanation: "$0.10 + 0.90 \\times 13/23 = 0.10 + 0.509 = 0.609$. A 1-hour lead is worth 0.10, a 24-hour lead 1.",
+                incorrectExplanation: "Substitute $\\ell = 14$: $(\\ell - 1)/23 = 13/23 = 0.565$; times 0.90 plus 0.10 gives 0.609."
             }
         },
         {
             correct: 1,
             en: {
-                title: "Fit is not forecast",
-                text: "Fan et al. (2026), working paper, skill relative to an intercept-only model: the joint model (coins and macro) has in-window GACV skill 37.0% but a fully lagged out-of-sample forecast skill of $-38.6\\%$. What does this show?",
+                title: "AUC against recall",
+                text: "Chaffard et al. (2026), working paper, test fold: CatBoost has AUC 0.862, recall 0.723, 2.50 false alerts a month, utility 0.303; random forest has AUC 0.901, recall 0.410, 0.97 false alerts a month, utility 0.180. What does the comparison show?",
                 options: [
-                    "The joint model is the best forecaster of the three",
-                    "The best in-window fit is the worst lagged forecast",
-                    "The intercept-only model overfits the window",
-                    "Skill cannot be negative, so there is an error"
+                    "The random forest is better, since its AUC is higher",
+                    "AUC misleads: the lower-AUC model detects far more events",
+                    "Both models are equivalent once false alerts are counted",
+                    "CatBoost wins only because it was tuned on the test fold"
                 ],
-                correctExplanation: "In-window fit uses same-day information and the estimation sample; held out and with lagged predictors, the richer model loses more to the simple benchmark.",
-                incorrectExplanation: "Negative skill means a larger loss than the intercept-only benchmark; the model that describes the window best forecasts worst."
+                correctExplanation: "CatBoost detects 72% of events about 14 hours ahead and has the higher utility; the random forest's better AUC does not translate into timely warnings.",
+                incorrectExplanation: "The ranking by AUC and by event-level recall and utility disagree; for an alarm the event-level measures are the relevant ones."
             }
         },
         {
             correct: 2,
             en: {
-                title: "Selected but not useful",
-                text: "Fan et al. (2026), working paper: on-chain variables (Curve, Uniswap) enter 91% of the Quantile Lasso equations, yet do not reduce held-out loss significantly. What is the lesson?",
+                title: "High AUC, no warning",
+                text: "Price-only alarms on the EOD Historical Data (EODHD) USDC/USDT cross rate, test 2025 to 23 October 2026 (5 events): AUC 0.88 to 0.93, but 0 events detected in time. How is that possible?",
                 options: [
-                    "On-chain data should be removed from all models",
-                    "The Lasso is selecting at random",
-                    "Frequent selection in sample is not forecast value",
-                    "Held-out loss is the wrong criterion for forecasting"
+                    "The test period contained no depeg events that could be detected",
+                    "The AUC was computed incorrectly on the test set",
+                    "AUC rewards hours inside episodes, not warnings before them",
+                    "Price features carry no information at any horizon"
                 ],
-                correctExplanation: "Selection reflects in-sample association; forecast value must be shown on data outside the estimation window.",
-                incorrectExplanation: "A variable can be selected in almost every window and still not improve forecasts; only held-out loss tests forecast value."
+                correctExplanation: "With a base rate of 1.5%, hours inside episodes are easy to rank. In 2024, every rule that detected events produced at least 2.6 false alerts a month, so the 2-per-month budget forced the threshold above 15 bp.",
+                incorrectExplanation: "AUC rewards ranking hours within episodes; the event-level protocol, with its false-alert budget, needs a warning before the breach, which these thresholds never gave."
             }
         },
         {
             correct: 0,
             en: {
-                title: "Concentration and the DPI",
-                text: "Fan et al. (2026), working paper, regression of $\\ln \\mathrm{DPI}_t$ on lagged concentration with year effects: $+1$ standard deviation of the Herfindahl-Hirschman index (HHI) goes with $-1.52\\%$ DPI, 95% interval $[-4.24\\%, 1.27\\%]$, Holm p 0.38. What follows?",
+                title: "A rule chosen with hindsight",
+                text: "On the test set, the rule $|d_t| \\ge 11$ bp would have detected 4 of 5 events (utility 0.42), with 3.2 false alerts a month. Why does this not show it matches the paper's model?",
                 options: [
-                    "No evidence of an effect; use it for scenarios and limits",
-                    "Higher concentration lowers depegging pressure",
-                    "Concentration is irrelevant for stablecoin risk",
-                    "Concentration predicts when pressure builds up in the system"
+                    "Its threshold was picked on the test data; 5 events are too few",
+                    "A simple rule can never beat a machine-learning model",
+                    "The paper's model reaches a recall above 0.8 on exactly the same data",
+                    "A recall of 4 of 5 events is only 0.4"
                 ],
-                correctExplanation: "The interval contains zero and the corrected p-value is 0.38. Concentration says how much of the system depends on two issuers, not when pressure arrives.",
-                incorrectExplanation: "The coefficient is not distinguishable from zero; concentration measures exposure, which is useful for scenarios and limits, not timing."
+                correctExplanation: "Choosing $k$ on the test set is hindsight, and the Clopper-Pearson 95% interval for 4 of 5 is [0.28, 0.99]; the data and venue also differ from the paper's.",
+                incorrectExplanation: "A threshold picked after seeing the test outcomes is not an out-of-sample result, and five events are too few to rank alarms reliably."
             }
         },
         {
             correct: 3,
             en: {
-                title: "Year effects",
-                text: "Without year effects, higher concentration goes with a higher DPI; with year effects the link disappears. What is the most likely explanation?",
+                title: "A 10 bp rule in October 2026",
+                text: "USDC priced in USDT in October 2026: mean 7.5 bp, maximum 14.7 bp; 206 of 552 hours above 10 bp, none above 15 bp. What would a simple rule at 10 bp have done?",
                 options: [
-                    "Year effects remove all information from the regression",
-                    "Concentration causes the DPI only in some years",
-                    "Year effects correct a measurement error in the DPI",
-                    "Both trend with the market regime over time"
+                    "Stayed silent, since no breach occurred",
+                    "Detected a real depeg that the 15 bp threshold missed entirely",
+                    "Fired only once, at the maximum",
+                    "Fired repeatedly, with no breach of 15 bp following"
                 ],
-                correctExplanation: "Concentration and the DPI both move with broad market phases; once each year's level is absorbed, no within-year link remains.",
-                incorrectExplanation: "A link that vanishes when year effects are added was driven by shared trends over time, not by concentration itself."
+                correctExplanation: "37% of hours were above 10 bp, yet none reached 15 bp: a price-level rule would have produced many false alerts. The paper's alarm looks at pool composition and liquidity as well.",
+                incorrectExplanation: "With 206 hours above 10 bp and no breach of 15 bp, a 10 bp rule raises many alerts that are not followed by an event."
             }
         }
     ]

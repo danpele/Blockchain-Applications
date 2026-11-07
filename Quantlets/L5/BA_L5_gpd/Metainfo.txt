@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_gpd'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Quantile function of a Gaussian body (standard deviation 3 basis points) spliced at the 5% and 95% levels with generalised Pareto (GPD) tails, for symmetric and asymmetric tail parameters, on a normal-quantile scale. Analytical illustration, no data.'
+
+Keywords: 'quantile function, generalised Pareto distribution, GPD, tail index, splicing, distributional forecast, depeg'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'none (analytical computation)'
+
+Output: 'ba_l5_gpd.pdf'

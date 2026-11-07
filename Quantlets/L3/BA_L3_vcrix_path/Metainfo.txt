@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_vcrix_path'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The VCRIX volatility index against the 30-day realised volatility of CRIX, 2018 to 2026; the window affected by the CRIX data gap of 2026 is marked.'
+
+Keywords: 'VCRIX, volatility index, realised volatility, CRIX'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices)'
+
+Output: 'ba_l3_vcrix_path.pdf'

@@ -226,7 +226,7 @@
     // ------------------------------------------------------------
     // PRACTICE QUIZZES (no sign-in, no stored score)
     // Bank format (assets/quizzes/<lecture id>.js):
-    //   MFM_DATA.quizzes['l3'] = { draw: 15, questions: [
+    //   MFM_DATA.quizzes['l4'] = { draw: 15, questions: [
     //     { correct: <index 0-3>, en: {title, text, options:[4], correctExplanation, incorrectExplanation} } ] }
     // The questions are in English on both pages, like the lectures.
     // ------------------------------------------------------------

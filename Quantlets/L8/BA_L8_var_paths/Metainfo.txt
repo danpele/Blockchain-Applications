@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L8_var_paths'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Daily Bitcoin returns with the one-day 1% return quantiles (VaR 1% = -q) of GARCH(1,1)-t, gradient-boosted quantile trees and (optionally) Chronos-2, and the largest one-day jump of the tree-based VaR. EODHD daily Bitcoin data, 1 January 2024 - 23 October 2026.'
+
+Keywords: 'Value-at-Risk, quantile regression trees, gradient boosting, GARCH, Chronos-2, extrapolation, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices and volumes in the course repository (data/market/BTC-USD.CC.csv)'
+
+Output: 'ba_l8_var_paths.pdf'

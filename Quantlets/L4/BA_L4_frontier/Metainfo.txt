@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_frontier'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Long-only minimum-variance frontiers of the S&P 500 and Treasuries (TLT), with and without Bitcoin, from annualised means and covariances of daily simple returns on common trading days 2018 to 18 September 2026.'
+
+Keywords: 'efficient frontier, mean-variance, minimum variance, diversification, Bitcoin, portfolio optimisation'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market); TLT adjusted close (distributions reinvested)'
+
+Output: 'ba_l4_frontier.pdf'

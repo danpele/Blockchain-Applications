@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_paper_t1'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Event-level utility U with 95% confidence intervals of four tree-based classifiers (CatBoost, random forest, XGBoost, LightGBM) for six values of the class-weight parameter alpha, on the test period of the stablecoin depeg early-warning study; values from Table 1 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper.'
+
+Keywords: 'early warning, depeg, CatBoost, random forest, XGBoost, LightGBM, event utility, class weights'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Table 1 of Chaffard, Gaman, Staures, Ginavar, Jheng, Hardle and Pele (2026), Onchain Monitoring of Stablecoin Depeg Risk, working paper (values typed in the notebook)'
+
+Output: 'ba_l5_paper_t1.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_concentration'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Value shares of ten coins (price times Coin Metrics current supply), 1 January 2018 to 30 October 2026, and the effective number of coins 1/HHI (Herfindahl-Hirschman index).'
+
+Keywords: 'crypto index, market concentration, Herfindahl-Hirschman index, effective number, Bitcoin dominance'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_concentration.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_traffic_light'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Number of violations of the one-day VaR 1% of Bitcoin in the last 250 days, 2020 to 18 September 2026, for four rolling methods (Normal 250 days, historical simulation 500 days, EWMA, GARCH(1,1)-t), against the Basel green, amber and red zones.'
+
+Keywords: 'Basel traffic light, backtesting, Value-at-Risk, violations, EWMA, GARCH, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_traffic_light.pdf'

@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_stress'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'The De-pegging Pressure Index (DPI) against the 90-day mean of the cross-coin median absolute peg deviation and against the 90-day mean VIX, with Spearman rank correlations, April 2020 - October 2026 (EODHD data). Estimated every 7th day by default; set FULL_DAILY = True for the daily index of the lecture.'
+
+Keywords: 'stablecoins, De-pegging Pressure Index, quantile regression, Lasso, Financial Risk Meter, tail dependence, VIX, Spearman correlation'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield'
+
+Output: 'ba_l6_stress.pdf'

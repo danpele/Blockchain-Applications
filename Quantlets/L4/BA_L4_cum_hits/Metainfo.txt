@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_cum_hits'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Cumulative number of hits of the one-day VaR 1% of Bitcoin, 1 January 2020 to 18 September 2026, for four rolling methods (Normal 250 days, historical simulation 500 days, EWMA, GARCH(1,1)-t), against the expected count and the 95% binomial range of a correct VaR.'
+
+Keywords: 'backtesting, Value-at-Risk, hits, binomial distribution, GARCH, EWMA, historical simulation, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_cum_hits.pdf'

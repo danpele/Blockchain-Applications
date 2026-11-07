@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_susd'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Daily close of Synthetix USD (sUSD), a crypto-collateralised stablecoin, from July 2024 to 23 October 2026 (EODHD), against its 1 USD peg; counts of the days below 0.99 USD and the date it fell below 0.95 USD.'
+
+Keywords: 'stablecoins, sUSD, Synthetix, depeg, crypto-collateralised stablecoin, redemption'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): sUSD'
+
+Output: 'ba_l6_susd.pdf'

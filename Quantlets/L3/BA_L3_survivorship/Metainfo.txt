@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_survivorship'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Two equally weighted baskets bought on 1 January 2018: the five largest of ten coins on that day (ex ante) and the five largest on 30 October 2026 (ex post).'
+
+Keywords: 'survivorship bias, look-ahead bias, crypto index, backtest'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_survivorship.pdf'

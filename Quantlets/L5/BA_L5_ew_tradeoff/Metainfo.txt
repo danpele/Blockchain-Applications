@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_ew_tradeoff'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Timely event recall against false-alert episodes per month for price-only early-warning alarms of a 15 basis point breach of USDC priced in USDT (a threshold rule, a logistic regression and gradient boosting), on the test period 2 January 2025 to 23 October 2026; trained on 2022-2023 hourly data. Data: EODHD hourly prices.'
+
+Keywords: 'early warning, depeg, recall, false alerts, logistic regression, gradient boosting, event-level evaluation, USDC/USDT'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD hourly prices in the course repository (data/hourly)'
+
+Output: 'ba_l5_ew_tradeoff.pdf'

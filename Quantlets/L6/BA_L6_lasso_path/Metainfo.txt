@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_lasso_path'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Coefficient path, generalised approximate cross-validation (GACV) criterion and active-set size of a 5% Quantile Lasso for USD Coin (USDC) on the 90 days to 19 March 2023, with 9 other stablecoins and 4 lagged market variables as predictors (EODHD data).'
+
+Keywords: 'Quantile Lasso, coefficient path, GACV, penalty selection, USDC, SVB, stablecoins'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD, DXY, VIX, S&P 500, 1-year US Treasury yield'
+
+Output: 'ba_l6_lasso_path.pdf'

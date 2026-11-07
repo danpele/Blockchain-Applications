@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_var_methods'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'One-day Value-at-Risk (VaR 1%) and Expected Shortfall (ES 2.5%) of Bitcoin for 19 September 2026 by four methods: Normal on 2018-2026, historical simulation on 500 days, EWMA with Normal quantiles and GARCH(1,1)-t; losses in % and in USD per 1 million.'
+
+Keywords: 'Value-at-Risk, Expected Shortfall, historical simulation, EWMA, GARCH, Student-t, model risk, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_var_methods.pdf'

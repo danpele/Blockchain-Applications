@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 8 · Machine Learning, AI and Their Limits</title>
+<link rel="icon" href="../logos/ida_square.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=20261031a">
+<link rel="stylesheet" href="interactive.css?v=20261031a">
+<script>window.MFM_LANG = 'en';</script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="l8_data.js?v=20261031a"></script>
+<script src="l8_text.js?v=20261031a"></script>
+<script src="common.js?v=20261031a"></script>
+<script src="l8.js?v=20261031a" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="https://www.ase.ro" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ase_logo.png" alt="ASE"></a>
+    <div class="header-title"><h1>Blockchain Applications</h1><p>Lecture 8 · Machine Learning, AI and Their Limits</p></div>
+    <a href="https://www.theida.net/" target="_blank" rel="noopener"><img class="header-logo" src="../logos/ida_logo.png" alt="IDA"></a>
+  </div>
+</header>
+<nav><ul>
+  <li><a href="../index.html#chapters">← Course site</a></li>
+  <li><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf" target="_blank" rel="noopener">Lecture PDF</a></li>
+  <li><a href="../web/l8.html">Web lecture</a></li>
+  <li><a href="https://github.com/danpele/Blockchain-Applications/tree/main/Quantlets/L8" target="_blank" rel="noopener">Quantlets</a></li>
+</ul></nav>
+<main class="imain">
+<p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the model outputs of the lecture. The ▶ button moves the parameter step by step.</p>
+<p class="toc"><a href="#s-ml">Can Machine Learning Predict the Direction of Bitcoin?</a> · <a href="#s-snoop">Data Snooping</a> · <a href="#s-var">Risk Forecasts: Classical, ML and Pretrained</a></p>
+<h2 class="sec" id="s-ml">Can Machine Learning Predict the Direction of Bitcoin?</h2>
+<section class="blk" id="overfitting">
+  <h3>Overfitting and What the Model Uses</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_acc.jpg?v=20261031a" alt="Slide 12: Overfitting and What the Model Uses" loading="lazy"></a>
+      <figcaption>Slide 12</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="oa-k">Walk-forward origin: <b id="oa-k-v"></b></label><input type="range" id="oa-k" min="0" max="40" step="1" value="40"></div><button class="btn play" id="oa-play" type="button"></button></div><div class="charts "><div class="chart" id="oa-acc"></div><div class="chart" id="oa-shap"></div></div><ul class="out" id="oa-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button goes through the 40 walk-forward origins. At how many of them is the out-of-sample accuracy of XGBoost, on the next 63 days, above its in-sample accuracy on the training data?</div>
+  <details><summary>Answer</summary><p>At none of the 40. In-sample, XGBoost fits 74–85% of past days; out of sample its accuracy on a 63-day block ranges from 38% to 67%. The random forest also never does better out of sample; the logit, which fits only 54–58% in sample, does better at 13 of the 40 origins. A flexible model learns the noise of the training days, so its in-sample accuracy says little about new days. Out of sample, XGBoost beats "always up" in 15 of the 40 blocks, and over all 2,487 test days it scores 51.3% against a base rate of 50.6%.</p></details>
+</section>
+<section class="blk" id="trading">
+  <h3>Trading the Signals</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_equity.jpg?v=20261031a" alt="Slide 13: Trading the Signals" loading="lazy"></a>
+      <figcaption>Slide 13</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="eq-c">Cost per change of position: <b id="eq-c-v"></b></label><input type="range" id="eq-c" min="0" max="50" step="5" value="10"></div><div class="ctl"><label for="eq-t">Go long when the probability of an up day exceeds: <b id="eq-t-v"></b></label><input type="range" id="eq-t" min="0.45" max="0.55" step="0.01" value="0.5"></div><button class="btn play" id="eq-play" type="button"></button></div><div class="charts "><div class="chart" id="eq-chart"></div></div><ul class="out" id="eq-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the cost per change of position from 0 to 50 basis points. Which strategy loses the most Sharpe ratio?</div>
+  <details><summary>Answer</summary><p>XGBoost: its Sharpe ratio falls from 0.89 (no cost) to 0.63 (10 bp) and −0.43 (50 bp); it changes position about 125 times a year. The random forest (81 changes a year) falls from 0.97 to 0.19 and the logit (70 a year) from 0.85 to 0.22. Buy-and-hold pays the cost once and stays at 0.59. XGBoost falls below buy-and-hold at about 12 bp, the logit at about 21 bp and the random forest at about 25 bp. The Sharpe ratio before costs does not rank the strategies after costs: turnover does.</p></details>
+</section><h2 class="sec" id="s-snoop">Data Snooping</h2>
+<section class="blk" id="snooping">
+  <h3>810 Trading Rules</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ba_l8_snoop.jpg?v=20261031a" alt="Slide 15: 810 Trading Rules" loading="lazy"></a>
+      <figcaption>Slide 15</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="sn-n">Number of independent trials N in the deflated Sharpe ratio: <b id="sn-n-v"></b></label><input type="range" id="sn-n" min="0" max="8" step="1" value="8"></div><button class="btn play" id="sn-play" type="button"></button></div><div class="charts "><div class="chart" id="sn-scatter"></div><div class="chart" id="sn-hist"></div></div><ul class="out" id="sn-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button raises the number of independent trials N in the deflated Sharpe ratio from 2 to 810. Up to which N is the winner MOM(2) significant at 95% (DSR above 0.95)?</div>
+  <details><summary>Answer</summary><p>Only for N = 2 (DSR 0.953). The benchmark SR₀, the best annualised Sharpe ratio expected by chance, rises from 0.09 (N = 2) to 0.22 (N = 5), 0.29 (N = 10), 0.46 (N = 100) and 0.58 (N = 810); the DSR falls from 0.95 to 0.92, 0.89, 0.80 and 0.72. The PSR against zero, 0.97, ignores the search. The rules are strongly correlated, so the effective N is below 810, but even 5 independent trials leave the winner below 0.95. Out of sample (2023–2026) MOM(2) has a Sharpe ratio of 0.45 against 0.90 for buy-and-hold.</p></details>
+</section><h2 class="sec" id="s-var">Risk Forecasts: Classical, ML and Pretrained</h2>
+<section class="blk" id="var-models">
+  <h3>Breach Rate and Quantile Score Rank Models Differently</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l8_var_models.jpg?v=20261031a" alt="Slide 24: Breach Rate and Quantile Score Rank Models Differently" loading="lazy"></a>
+      <figcaption>Slide 24</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vm-a">VaR level</label><select id="vm-a"><option value="0.01" selected>1%</option><option value="0.05">5%</option></select></div><div class="ctl"><label for="vm-e">Evaluation period ends on: <b id="vm-e-v"></b></label><input type="range" id="vm-e" min="0" max="33" step="1" value="33"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-br"></div><div class="chart" id="vm-qs"></div></div><div class="src" id="vm-leg"></div><ul class="out" id="vm-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button extends the evaluation period of the VaR 1% month by month, from January 2024 to October 2026. Which ranking of the six models is the more stable?</div>
+  <details><summary>Answer</summary><p>The ranking by mean quantile score. From May 2024 on, GARCH-t has the lowest mean QS at every month end; QReg is lowest in the first four months. The model closest to the 1% breach target changes 10 times, among five models (HS, GARCH-t, EWMA-N, QReg, QGBM). With 10.3 breaches expected in 1,027 days, one breach more or less moves a breach rate by 0.1 percentage point, while the QS uses the size of the miss on every day.</p></details>
+</section>
+<section class="blk" id="var-paths">
+  <h3>VaR Paths: Machine Learning Can Jump</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l8_var_paths.jpg?v=20261031a" alt="Slide 25: VaR Paths: Machine Learning Can Jump" loading="lazy"></a>
+      <figcaption>Slide 25</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="vp-t">Day: <b id="vp-t-v"></b></label><input type="range" id="vp-t" min="0" max="1026" step="1" value="13"></div><div class="ctl"><label for="vp-ref">Breaches counted against</label><select id="vp-ref"><option value="HS">HS</option><option value="EWMA-N">EWMA-N</option><option value="GARCH-t">GARCH-t</option><option value="QReg">QReg</option><option value="QGBM">QGBM</option><option value="Chronos-2" selected>Chronos-2</option></select></div><button class="btn play" id="vp-play" type="button"></button></div><div class="charts "><div class="chart" id="vp-chart"></div></div><ul class="out" id="vp-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> On 14 January 2024 the VaR 1% of QGBM, the gradient-boosted quantile trees, jumps from 7.3% to 35.4%. The ▶ button moves day by day through January 2024. What is the QGBM VaR 1% on the next day, 15 January?</div>
+  <details><summary>Answer</summary><p>8.1%: the jump lasts one day. On 14 January the trees received a −7.9% return on 12 January followed by a 52% fall in volume on 13 January, a combination met in training only in crash periods; on 15 January the inputs (return −2.5%, volume −15%) fall in an ordinary leaf again. GARCH-t moves smoothly, from 9.9% (13 January) to 9.4% and 9.2%; a variance recursion cannot jump like this, and a tree forecast has no memory from one day to the next.</p></details>
+</section>
+<section class="blk" id="qs-roll">
+  <h3>Who Is Ahead Changes over Time</h3>
+  <div class="pair">
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l8_qs_roll.jpg?v=20261031a" alt="Slide 27: Who Is Ahead Changes over Time" loading="lazy"></a>
+      <figcaption>Slide 27</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="qr-w">Rolling window: <b id="qr-w-v"></b></label><input type="range" id="qr-w" min="60" max="720" step="5" value="365"></div><button class="btn play" id="qr-play" type="button"></button></div><div class="charts "><div class="chart" id="qr-chart"></div></div><ul class="out" id="qr-out"></ul></div>
+  </div>
+  <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button lengthens the rolling window from 60 to 720 days. What happens to the share of windows in which EWMA-N, the Normal-quantile model, has a lower mean 1% quantile score than GARCH-t?</div>
+  <details><summary>Answer</summary><p>It falls from 59% (60-day windows) to 14% (365 days) and to 0% from 480 days on. A 1% VaR is breached on about one day in a hundred, so most short windows contain no breach of either model; on such days a lower VaR scores better, and EWMA-N, with its thin Normal tail, usually has the lower VaR. Long windows contain the breaches, where its thin tail costs most. Short windows therefore reward the wrong model; the other models show the same pattern: Chronos-2 is ahead in 60% of the 60-day windows and in 13–22% of the windows of 300 days or more.</p></details>
+</section>
+<p class="src foot">Prices and volumes: EODHD daily closes of Bitcoin to 23 October 2026. Direction forecasts: walk-forward probabilities of the logit, random forest and XGBoost (40 refits, test 1 January 2020 – 22 October 2026) and the Sharpe ratios of the 810 trading rules, from the lecture notebook. VaR: one-day forecasts of HS, EWMA-N, GARCH-t, QReg, QGBM and Chronos-2 (amazon/chronos-2, revision 29ec376), test 1 January 2024 – 23 October 2026. Accuracies, back-tests, deflated Sharpe ratios, breach tests and quantile scores are computed in the browser from these outputs.</p>
+</main>
+</body>
+</html>

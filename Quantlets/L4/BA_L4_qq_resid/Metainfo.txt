@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L4_qq_resid'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Quantile-quantile plots of the standardised residuals of a GARCH(1,1)-t model for Bitcoin daily log returns (2018 to 18 September 2026) against the Normal distribution and against the fitted Student-t rescaled to unit variance.'
+
+Keywords: 'QQ plot, standardised residuals, Student-t, heavy tails, GARCH, Bitcoin'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l4_qq_resid.pdf'

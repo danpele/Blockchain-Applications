@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L6_pegquality'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Distribution of the absolute reference-adjusted deviation from the peg of 10 stablecoins (EODHD daily closes, January 2020 - May 2026), shown as box plots on a log scale, coins ordered by their median.'
+
+Keywords: 'stablecoins, peg deviation, reference adjustment, box plot, peg quality, basis points'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market): 10 stablecoins, EUR/USD, XAU/USD'
+
+Output: 'ba_l6_pegquality.pdf'

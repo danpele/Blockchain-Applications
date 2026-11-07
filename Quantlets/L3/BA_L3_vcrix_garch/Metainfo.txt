@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_vcrix_garch'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'GARCH(1,1) with Student-t errors for CRIX daily log returns, 16 March 2018 to 13 May 2026: annualised one-day-ahead volatility against the 30-day realised volatility and VCRIX.'
+
+Keywords: 'GARCH, VCRIX, CRIX, conditional volatility'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'Royalton CRIX and VCRIX daily values from the chart data of thecrix.de (data/indices)'
+
+Output: 'ba_l3_vcrix_garch.pdf'

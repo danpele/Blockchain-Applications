@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L5_episodes'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Duration and peak absolute deviation of the 30 episodes in which USDC priced in USDT moved at least 15 basis points away from parity after 24 observed quiet hours, hourly, January 2022 to 23 October 2026, and the distribution of their durations. Data: EODHD hourly aggregated prices.'
+
+Keywords: 'stablecoins, depeg episode, duration, peak deviation, USDC, USDT, FTX, Silicon Valley Bank, hourly data'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD hourly prices in the course repository (data/hourly)'
+
+Output: 'ba_l5_episodes.pdf'

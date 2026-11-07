@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L7_connect'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Mean pairwise correlation and absorption ratio (share of variance of the first principal component) of 19 cryptocurrencies, on rolling 90-day windows of daily log returns moved forward 5 days at a time (EODHD, January 2021 - October 2026).'
+
+Keywords: 'connectedness, absorption ratio, principal components, rolling correlation, diversification, cryptocurrency'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'EODHD daily prices in the course repository (data/market)'
+
+Output: 'ba_l7_connect.pdf'
