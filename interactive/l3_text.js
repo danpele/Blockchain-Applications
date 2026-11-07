@@ -4,7 +4,7 @@ window.L3_TEXT = {
  sv2: (n, d, l, e, c) => `Ex post, the top ${n} of ${d}: ${l}; 100 USD became ${e} USD, CAGR ${c}%.`,
  sv3: (g, k, n) => `Gap: ${g} percentage points a year; ${k} of the ${n} coins are in both baskets.`,
  ar1: (d, n, l, x, t) => `Reselection of ${d}: ${n} coins pass the liquidity rule (${l}); excluded: ${x}; ADTV threshold ${t} million USD a day.`,
- ar2: (e, f, c, m) => `Chosen k: first rise of the AIC ${e} (${m}), global minimum ${f}, CTDC-type rule ${c}.`,
+ ar2: (e, f, c, m) => `Chosen k: first rise of the AIC ${e} (${m}), global minimum ${f}, smoothed six-month rule ${c}.`,
  ar3: (a, b) => `Fall of the AIC from k = 1 to 2: ${a} points; from the last but one to the last k: ${b}.`,
  rp1: (n, c, te) => `Daily log returns against CRIX, ${n} common days: correlation ${c}, tracking error ${te}% a year.`,
  rp2: (m, lo, hi, c, r) => `Constituents: on average ${m} (from ${lo} to ${hi}); on 30 October 2026 CRIX ${c}, replica ${r} (both 1000 on 31 March 2018).`,

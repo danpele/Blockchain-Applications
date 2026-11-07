@@ -2,9 +2,9 @@ Name of QuantLet: 'BA_L3_aic_curve'
 
 Published in: 'Blockchain Applications (BA)'
 
-Description: 'AIC of candidate CRIX-type indices with k constituents on the 90 days to 30 September 2026 (first-rise rule), and a CTDC-type polynomial fitted to the AIC curves of six month-ends.'
+Description: 'AIC of candidate CRIX-type indices with k constituents on the 90 days to 30 September 2026 (first-rise rule), and a smoothed polynomial fitted to the AIC curves of six month-ends.'
 
-Keywords: 'CRIX, Akaike information criterion, kernel density, leave-one-out, CTDC, number of constituents'
+Keywords: 'CRIX, Akaike information criterion, kernel density, leave-one-out, smoothing, number of constituents'
 
 Author: 'Daniel Traian Pele'
 

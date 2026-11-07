@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_floor'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'A yield-type crypto index of the LIXX kind on real data, 31 March 2018 to 30 October 2026: Bitcoin and USD cash earning the effective federal funds rate, cash kept at 81% of the highest index level of the past year; against Bitcoin bought and held.'
+
+Keywords: 'crypto index, protection floor, yield index, Bitcoin, federal funds rate, drawdown'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily Bitcoin prices (data/market) and FRED effective federal funds rate DFF (data/indices/fed_funds_effective_daily_fred.csv)'
+
+Output: 'ba_l3_floor.pdf'

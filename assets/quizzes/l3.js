@@ -138,7 +138,7 @@ window.MFM_DATA.quizzes['l3'] = {
                     "Four coins track the market 1 000 times better than three",
                     "The AIC rule cannot be used for crypto"
                 ],
-                correctExplanation: "A large drop then a flat curve: Ethereum adds most, the next coins little, and small data changes can flip the choice; hence the CTDC smoothing.",
+                correctExplanation: "A large drop then a flat curve: Ethereum adds most, the next coins little, and small data changes can flip the choice; hence the six-month smoothing.",
                 incorrectExplanation: "Differences of a fraction of an AIC point are within noise, so the choice between 3 and 4 is unstable, while the first added coin clearly improves tracking."
             }
         },
@@ -175,8 +175,8 @@ window.MFM_DATA.quizzes['l3'] = {
         {
             correct: 3,
             en: {
-                title: "The CTDC",
-                text: "What does the CRIX Technology Decision Criterion (CTDC) of the patent add to the daily AIC rule?",
+                title: "Smoothing the decision",
+                text: "What does the smoothed rule (six months of AIC curves) add to the daily AIC rule?",
                 options: [
                     "A fixed number of 30 constituents",
                     "A daily change of constituents",
@@ -184,21 +184,21 @@ window.MFM_DATA.quizzes['l3'] = {
                     "A polynomial fitted to six months of AIC values, whose minimum gives a stable number of constituents"
                 ],
                 correctExplanation: "Smoothing the noisy daily AIC curves with a polynomial gives a stable, identifiable minimum.",
-                incorrectExplanation: "The CTDC smooths AIC curves over six months with a polynomial whose degree is chosen by AIC; it does not fix the number or the weights."
+                incorrectExplanation: "The smoothed rule fits AIC curves over six months with a polynomial whose degree is chosen by AIC; it does not fix the number or the weights."
             }
         },
         {
             correct: 0,
             en: {
                 title: "Stability of the rule",
-                text: "In our replica the first-rise rule chose $k = 2$ in 9, $k = 3$ in 13 and $k = 4$ in 11 of 35 quarters; the CTDC-type rule chose $k = 3$ in 30 of 35. What does this show?",
+                text: "In our replica the first-rise rule chose $k = 2$ in 9, $k = 3$ in 13 and $k = 4$ in 11 of 35 quarters; the smoothed six-month rule chose $k = 3$ in 30 of 35. What does this show?",
                 options: [
                     "The polynomial smoothing makes the number of constituents much more stable",
-                    "The CTDC always chooses fewer coins than the AIC",
+                    "The smoothed rule always chooses fewer coins than the AIC",
                     "The AIC rule is wrong in most quarters",
                     "The number of eligible coins fell over time"
                 ],
-                correctExplanation: "The CTDC-type choice changes rarely, which keeps trading costs of the index low.",
+                correctExplanation: "The smoothed choice changes rarely, which keeps trading costs of the index low.",
                 incorrectExplanation: "The two rules agree on small indices; the smoothed rule simply changes its choice far less often from quarter to quarter."
             }
         },
@@ -206,7 +206,7 @@ window.MFM_DATA.quizzes['l3'] = {
             correct: 1,
             en: {
                 title: "Weight cap",
-                text: "Claim 1 of US Patent 12,784,107 B2 includes a capped weight $\\mathrm{CW}_{it}$. What does it prevent?",
+                text: "A capped market-value index uses a capped weight $\\mathrm{CW}_{it}$ below 50%. What does it prevent?",
                 options: [
                     "Illiquid coins entering the index",
                     "A constituent having an influence of 50% or more in the index",
@@ -233,33 +233,33 @@ window.MFM_DATA.quizzes['l3'] = {
             }
         },
         {
-            correct: 3,
+            correct: 1,
             en: {
-                title: "The patent",
-                text: "Which statement about US Patent 12,784,107 B2 is right?",
+                title: "Square-root weights",
+                text: "On 30 September 2026 Bitcoin is 80.8% of the market value of our ten coins. With weights proportional to the square root of market value (COINTILT-style) its weight is 50.7%. What does the square root do?",
                 options: [
-                    "It is still a pending application",
-                    "It covers only the VCRIX volatility index",
-                    "It was granted in 2021, the priority year",
-                    "It was granted on 3 November 2026 to Royalton Partners AG, inventor Wolfgang Karl Härdle"
+                    "It changes the ranking of the coins",
+                    "It keeps the ranking but compresses the distance between large and small coins",
+                    "It gives every coin the same weight",
+                    "It removes the coins below 1%"
                 ],
-                correctExplanation: "Priority 3 May 2021, publication US 2024/0233028 A1 in July 2024, grant on 3 November 2026.",
-                incorrectExplanation: "The provisional application dates from 2021 and the publication from 2024; the patent was granted on 3 November 2026 and covers managing an investible index fund."
+                correctExplanation: "The square root is increasing, so the ranking stays; large values are compressed more than small ones, and the effective number of coins rises from 1.48 to 3.15.",
+                incorrectExplanation: "A monotone transformation keeps the order of the coins; it only reduces the dominance of the largest one. Equal weights would give 10% to each coin."
             }
         },
         {
             correct: 0,
             en: {
-                title: "What the patent claims",
-                text: "In plain words, what does claim 1 of the patent cover?",
+                title: "Protection floor",
+                text: "A Bitcoin-and-cash index keeps cash equal to 81% of its highest level of the past year. On our data, 2018-2026, its maximum drawdown was -13.9% against -76.6% for Bitcoin. What did its investor give up?",
                 options: [
-                    "A computer method that selects, weights and rebalances a small index tracking the total market, and sends it to a fund",
-                    "A new cryptocurrency",
-                    "A trading strategy that beats Bitcoin",
-                    "An option pricing model for CRIX"
+                    "Most of the upside: a CAGR of 9.9% against 32.3% for Bitcoin",
+                    "Nothing: the floor index also had the higher return",
+                    "Liquidity: cash cannot be sold",
+                    "The interest on cash"
                 ],
-                correctExplanation: "Filter, rank, build candidate indices, choose the number of constituents by AIC and a polynomial, rebalance and send constituents and weights to the investment vehicle.",
-                incorrectExplanation: "The claim describes the operating steps of an investible index fund, not a coin, a trading strategy or an option model."
+                correctExplanation: "Bitcoin stayed between 6.1% and 20.0% of the index, so the index captured only a small part of Bitcoin's rise.",
+                incorrectExplanation: "The floor limits losses by holding mostly cash, which also earns the overnight rate; the cost is a much lower growth rate than Bitcoin's."
             }
         },
         {

@@ -2,7 +2,7 @@ Name of QuantLet: 'BA_L3_replica_weights'
 
 Published in: 'Blockchain Applications (BA)'
 
-Description: 'Weights of the CRIX-type replica at each monthly rebalancing, April 2018 to September 2026: market-value weights and weights capped below 50% (US Patent 12,784,107 B2, claim 1).'
+Description: 'Weights of the CRIX-type replica at each monthly rebalancing, April 2018 to September 2026: market-value weights and weights capped below 50%.'
 
 Keywords: 'index weights, weight cap, CRIX, Bitcoin dominance'
 

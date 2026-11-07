@@ -38,8 +38,8 @@
 <section class="blk" id="survivorship">
   <h3>Today's Winners, Bought in 2018</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l3_survivorship.jpg?v=20261031a" alt="Slide 10: Today's Winners, Bought in 2018" loading="lazy"></a>
-      <figcaption>Slide 10</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l3_survivorship.jpg?v=20261031a" alt="Slide 11: Today's Winners, Bought in 2018" loading="lazy"></a>
+      <figcaption>Slide 11</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="sv-t">Purchase date (ex-ante selection on that day)</label><select id="sv-t"><option value="2018-01-01" selected>1 January 2018</option><option value="2019-01-01">1 January 2019</option><option value="2020-01-01">1 January 2020</option><option value="2021-01-01">1 January 2021</option><option value="2022-01-01">1 January 2022</option><option value="2023-01-01">1 January 2023</option><option value="2024-01-01">1 January 2024</option></select></div><div class="ctl"><label for="sv-n">Number of coins N: <b id="sv-n-v"></b></label><input type="range" id="sv-n" min="2" max="8" step="1" value="5"></div><div class="ctl"><label for="sv-w">Weights</label><select id="sv-w"><option value="eq" selected>equal weights</option><option value="cap">market-value weights</option></select></div><button class="btn play" id="sv-play" type="button"></button></div><div class="charts "><div class="chart" id="sv-chart"></div></div><ul class="out" id="sv-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Switch the purchase date to 1 January 2024, with five coins and equal weights. How large is the gap between the ex-post and the ex-ante basket?</div>
@@ -48,19 +48,19 @@
 <section class="blk" id="aic-rule">
   <h3>The Decision Curve on Our Data</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l3_aic_curve.jpg?v=20261031a" alt="Slide 18: The Decision Curve on Our Data" loading="lazy"></a>
-      <figcaption>Slide 18</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l3_aic_curve.jpg?v=20261031a" alt="Slide 19: The Decision Curve on Our Data" loading="lazy"></a>
+      <figcaption>Slide 19</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ar-q">Quarterly reselection: <b id="ar-q-v"></b></label><input type="range" id="ar-q" min="0" max="34" step="1" value="34"></div><button class="btn play" id="ar-play" type="button"></button></div><div class="charts "><div class="chart" id="ar-chart"></div></div><ul class="out" id="ar-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button runs through the 35 quarterly reselections, March 2018 to September 2026. How often does the first rise of the AIC choose only two constituents?</div>
-  <details><summary>Answer</summary><p>In 9 of 35 quarters; 3 constituents in 13, 4 in 11, 5 and 6 once each (mean 3.2). The curve always falls steeply from k = 1 to k = 2 (adding Ethereum) and is almost flat after that, so the choice between 2, 3 and 4 moves from quarter to quarter. The CTDC-type polynomial rule chooses 3 in 30 of the 35 quarters: smoothing over six months makes the number of constituents more stable.</p></details>
+  <details><summary>Answer</summary><p>In 9 of 35 quarters; 3 constituents in 13, 4 in 11, 5 and 6 once each (mean 3.2). The curve always falls steeply from k = 1 to k = 2 (adding Ethereum) and is almost flat after that, so the choice between 2, 3 and 4 moves from quarter to quarter. The smoothed AIC rule (six months, polynomial) chooses 3 in 30 of the 35 quarters: smoothing over six months makes the number of constituents more stable.</p></details>
 </section><h2 class="sec" id="s-replica">Our Replication on Real Data</h2>
 <section class="blk" id="replica">
   <h3>The Replica against the Real CRIX</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l3_replica_vs_crix.jpg?v=20261031a" alt="Slide 27: The Replica against the Real CRIX" loading="lazy"></a>
-      <figcaption>Slide 27</figcaption></figure>
-    <div class="live"><div class="ctls"><div class="ctl"><label for="rp-r">Number of constituents</label><select id="rp-r"><option value="e" selected>first rise of the AIC (ECRIX), as in the slides</option><option value="f">global minimum of the AIC (EFCRIX)</option><option value="c">CTDC-type polynomial rule</option><option value="tmi">all eligible coins (TMI)</option><option value="1">fixed: top 1 coin</option><option value="2">fixed: top 2 coins</option><option value="3">fixed: top 3 coins</option><option value="4">fixed: top 4 coins</option><option value="5">fixed: top 5 coins</option><option value="6">fixed: top 6 coins</option><option value="7">fixed: top 7 coins</option></select></div><div class="ctl"><label for="rp-c">Weights</label><select id="rp-c"><option value="none" selected>market-value weights</option><option value="cap">capped below 50%</option></select></div></div><div class="charts "><div class="chart" id="rp-chart"></div></div><ul class="out" id="rp-out"></ul></div>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l3_replica_vs_crix.jpg?v=20261031a" alt="Slide 25: The Replica against the Real CRIX" loading="lazy"></a>
+      <figcaption>Slide 25</figcaption></figure>
+    <div class="live"><div class="ctls"><div class="ctl"><label for="rp-r">Number of constituents</label><select id="rp-r"><option value="e" selected>first rise of the AIC (ECRIX), as in the slides</option><option value="f">global minimum of the AIC (EFCRIX)</option><option value="c">smoothed AIC rule (six months, polynomial)</option><option value="tmi">all eligible coins (TMI)</option><option value="1">fixed: top 1 coin</option><option value="2">fixed: top 2 coins</option><option value="3">fixed: top 3 coins</option><option value="4">fixed: top 4 coins</option><option value="5">fixed: top 5 coins</option><option value="6">fixed: top 6 coins</option><option value="7">fixed: top 7 coins</option></select></div><div class="ctl"><label for="rp-c">Weights</label><select id="rp-c"><option value="none" selected>market-value weights</option><option value="cap">capped below 50%</option></select></div></div><div class="charts "><div class="chart" id="rp-chart"></div></div><ul class="out" id="rp-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Change the number of constituents: the AIC rules, the TMI, or a fixed top 1 to 7. Which choice tracks the published CRIX best, and by how much?</div>
   <details><summary>Answer</summary><p>All choices with 3 to 7 coins are close: tracking error 9.0% (top 5) to 9.4% (top 3) a year, correlation 0.989–0.990; the AIC rules give 9.3%. Bitcoin alone (top 1) has 15.6% and correlation 0.971; the top 2 has 10.0%. Capping the weights below 50% raises the tracking error of the ECRIX replica from 9.3% to 14.5%. Beyond the first two or three coins the remaining gap comes from coins outside our ten-coin universe, not from the rule.</p></details>
@@ -68,8 +68,8 @@
 <section class="blk" id="crix-path">
   <h3>CRIX, 2017–2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=31" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_path.jpg?v=20261031a" alt="Slide 30: CRIX, 2017–2026" loading="lazy"></a>
-      <figcaption>Slide 30</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=29" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_path.jpg?v=20261031a" alt="Slide 28: CRIX, 2017–2026" loading="lazy"></a>
+      <figcaption>Slide 28</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cp-a">From</label><select id="cp-a"><option value="2017-09-06">6 September 2017 (first value)</option><option value="2018-03-16" selected>16 March 2018 (official history)</option><option value="2019-01-01">1 January 2019</option><option value="2020-01-01">1 January 2020</option><option value="2021-01-01">1 January 2021</option><option value="2022-01-01">1 January 2022</option><option value="2023-01-01">1 January 2023</option><option value="2024-01-01">1 January 2024</option><option value="2025-01-01">1 January 2025</option></select></div><div class="ctl"><label for="cp-b">To</label><select id="cp-b"><option value="2018-12-31">31 December 2018</option><option value="2019-12-31">31 December 2019</option><option value="2020-12-31">31 December 2020</option><option value="2021-12-31">31 December 2021</option><option value="2022-12-31">31 December 2022</option><option value="2023-12-31">31 December 2023</option><option value="2024-12-31">31 December 2024</option><option value="2025-12-31">31 December 2025</option><option value="2026-10-31" selected>31 October 2026</option></select></div></div><div class="charts "><div class="chart" id="cp-chart"></div></div><ul class="out" id="cp-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Choose the period 1 January 2023 – 31 October 2026. Did the broad index CRIX beat Bitcoin?</div>
@@ -78,8 +78,8 @@
 <section class="blk" id="drawdowns">
   <h3>Drawdowns of CRIX and Bitcoin</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=34" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_drawdown.jpg?v=20261031a" alt="Slide 33: Drawdowns of CRIX and Bitcoin" loading="lazy"></a>
-      <figcaption>Slide 33</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=32" target="_blank" rel="noopener"><img src="slides/ba_l3_crix_drawdown.jpg?v=20261031a" alt="Slide 31: Drawdowns of CRIX and Bitcoin" loading="lazy"></a>
+      <figcaption>Slide 31</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dd-d">Threshold below the record: <b id="dd-d-v"></b></label><input type="range" id="dd-d" min="10" max="90" step="5" value="50"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> At 50%, CRIX spent 48.8% of the days more than 50% below its record, Bitcoin 39.9%. What are the shares at 70%?</div>
@@ -88,8 +88,8 @@
 <section class="blk" id="vcrix">
   <h3>VCRIX, 2018–2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_path.jpg?v=20261031a" alt="Slide 38: VCRIX, 2018–2026" loading="lazy"></a>
-      <figcaption>Slide 38</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=37" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_path.jpg?v=20261031a" alt="Slide 36: VCRIX, 2018–2026" loading="lazy"></a>
+      <figcaption>Slide 36</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vr-w">Window of the realised volatility: <b id="vr-w-v"></b></label><input type="range" id="vr-w" min="5" max="120" step="1" value="30"></div><div class="ctl"><label for="vr-l">Realised volatility of</label><select id="vr-l"><option value="1" selected>the previous day (t − 1)</option><option value="0">the same day (t)</option></select></div><button class="btn play" id="vr-play" type="button"></button></div><div class="charts "><div class="chart" id="vr-chart"></div></div><ul class="out" id="vr-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button changes the window of the realised volatility from 7 to 90 days. For which window does VCRIX correlate most with the realised volatility of the previous day?</div>
@@ -98,8 +98,8 @@
 <section class="blk" id="vcrix-returns">
   <h3>Volatility after Falls and Rises</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=41" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_leverage.jpg?v=20261031a" alt="Slide 40: Volatility after Falls and Rises" loading="lazy"></a>
-      <figcaption>Slide 40</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_leverage.jpg?v=20261031a" alt="Slide 38: Volatility after Falls and Rises" loading="lazy"></a>
+      <figcaption>Slide 38</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vl-t">Threshold of a large move: <b id="vl-t-v"></b></label><input type="range" id="vl-t" min="1" max="12" step="0.5" value="5"></div><button class="btn play" id="vl-play" type="button"></button></div><div class="charts "><div class="chart" id="vl-chart"></div></div><ul class="out" id="vl-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Raise the threshold of a large move to 10%. What happens to VCRIX the day after a fall of more than 10%, and after a rise of more than 10%?</div>
@@ -108,8 +108,8 @@
 <section class="blk" id="garch-vcrix">
   <h3>VCRIX against GARCH and Realised Volatility</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=43" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_garch.jpg?v=20261031a" alt="Slide 42: VCRIX against GARCH and Realised Volatility" loading="lazy"></a>
-      <figcaption>Slide 42</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=41" target="_blank" rel="noopener"><img src="slides/ba_l3_vcrix_garch.jpg?v=20261031a" alt="Slide 40: VCRIX against GARCH and Realised Volatility" loading="lazy"></a>
+      <figcaption>Slide 40</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="gv-k">Shift k: VCRIX on day t against the other measure on day t + k: <b id="gv-k-v"></b></label><input type="range" id="gv-k" min="-10" max="10" step="1" value="0"></div><button class="btn play" id="gv-play" type="button"></button></div><div class="charts "><div class="chart" id="gv-chart"></div></div><ul class="out" id="gv-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> The ▶ button shifts the GARCH and realised volatility series against VCRIX by k = −10 to +10 days. At which shift is the correlation of VCRIX with the realised volatility highest?</div>
@@ -118,8 +118,8 @@
 <section class="blk" id="etf-tracking">
   <h3>A Spot Bitcoin Fund against Bitcoin</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=47" target="_blank" rel="noopener"><img src="slides/ba_l3_etf_tracking.jpg?v=20261031a" alt="Slide 46: A Spot Bitcoin Fund against Bitcoin" loading="lazy"></a>
-      <figcaption>Slide 46</figcaption></figure>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture3_crypto_indices.pdf#page=45" target="_blank" rel="noopener"><img src="slides/ba_l3_etf_tracking.jpg?v=20261031a" alt="Slide 44: A Spot Bitcoin Fund against Bitcoin" loading="lazy"></a>
+      <figcaption>Slide 44</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="et-c">Bitcoin price used as the benchmark</label><select id="et-c"><option value="16" selected>16:00 New York (IBIT closing time)</option><option value="00">24:00 UTC (daily close)</option></select></div><div class="ctl"><label for="et-s">Start of the period: <b id="et-s-v"></b></label><input type="range" id="et-s" min="0" max="637" step="1" value="0"></div></div><div class="charts "><div class="chart" id="et-ratio"></div><div class="chart" id="et-hist"></div></div><ul class="out" id="et-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> Move the start of the period to July 2025 and switch the benchmark clock. What happens to the tracking error and to the tracking difference?</div>

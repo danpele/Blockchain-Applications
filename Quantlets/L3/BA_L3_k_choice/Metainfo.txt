@@ -2,9 +2,9 @@ Name of QuantLet: 'BA_L3_k_choice'
 
 Published in: 'Blockchain Applications (BA)'
 
-Description: 'Number of constituents chosen at 35 quarterly reselections, 2018 to 2026, by the first rise of the AIC (ECRIX), the global minimum (EFCRIX) and a CTDC-type polynomial rule; number of coins passing the liquidity rule.'
+Description: 'Number of constituents chosen at 35 quarterly reselections, 2018 to 2026, by the first rise of the AIC (ECRIX), the global minimum (EFCRIX) and a smoothed six-month polynomial rule; number of coins passing the liquidity rule.'
 
-Keywords: 'CRIX, number of constituents, AIC, CTDC, liquidity rule, index reconstitution'
+Keywords: 'CRIX, number of constituents, AIC, smoothing, liquidity rule, index reconstitution'
 
 Author: 'Daniel Traian Pele'
 

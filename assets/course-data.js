@@ -226,7 +226,7 @@
             {
                 id: 'l3', num: 3, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
                 title: { en: 'Crypto Indices: CRIX, VCRIX and Investible Index Funds', ro: 'Indici cripto: CRIX, VCRIX și fonduri investibile pe indici' },
-                topics: { en: ['Index construction (Laspeyres, divisor, AIC choice of constituents)', 'The CRIX family and the VCRIX volatility index', 'From index to investible fund: Royalton CRIX and US Patent 12,784,107'], ro: ['Construcția indicelui (Laspeyres, divizor, alegerea constituenților după AIC)', 'Familia CRIX și indicele de volatilitate VCRIX', 'De la indice la fond investibil: Royalton CRIX și brevetul SUA 12,784,107'] },
+                topics: { en: ['Index construction (Laspeyres, divisor, AIC choice of constituents)', 'The CRIX family and the VCRIX volatility index', 'From index to investible fund: Royalton CRIX and a spot Bitcoin ETF', 'Nine types of crypto indices: sector, price, futures, volatility, yield, smart beta, fundamentals, sentiment'], ro: ['Construcția indicelui (Laspeyres, divizor, alegerea constituenților după AIC)', 'Familia CRIX și indicele de volatilitate VCRIX', 'De la indice la fond investibil: Royalton CRIX și un ETF spot pe Bitcoin', 'Nouă tipuri de indici cripto: sectoriali, de preț, futures, de volatilitate, de randament, smart beta, fundamentali, de sentiment'] },
                 links: L(3, 'crypto_indices'),
                 quantinar: []
             },

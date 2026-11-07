@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L3_weighting'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Ten coins with monthly rebalancing, 31 March 2018 to 30 October 2026: market-value weights (BITX-style), square-root of market value (COINTILT-style smart beta) and equal weights; index levels and the weight of Bitcoin.'
+
+Keywords: 'crypto index, smart beta, square-root weights, equal weights, market-value weights, index types'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Saturday, 7 November 2026'
+
+Datafile: 'EODHD daily prices and USD volumes of ten coins (data/market) and Coin Metrics Community API current supply (data/indices/coin_supply_coinmetrics.csv)'
+
+Output: 'ba_l3_weighting.pdf'
