@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261031a">
-<link rel="stylesheet" href="interactive.css?v=20261031a">
+<link rel="stylesheet" href="../assets/site.css?v=20261109a">
+<link rel="stylesheet" href="interactive.css?v=20261109a">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l6_data.js?v=20261031a"></script>
-<script src="l6_text.js?v=20261031a"></script>
-<script src="common.js?v=20261108s"></script>
-<script src="l6.js?v=20261031a" defer></script>
+<script src="l6_data.js?v=20261109a"></script>
+<script src="l6_text.js?v=20261109a"></script>
+<script src="common.js?v=20261109a"></script>
+<script src="l6.js?v=20261109a" defer></script>
 </head>
 <body>
 <header>
@@ -33,12 +33,12 @@
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-anchors">Comparing Different Anchors</a> · <a href="#s-qr">Quantile Regression and the Lasso</a> · <a href="#s-dpi">The De-pegging Pressure Index</a> · <a href="#s-links">Inside the Tail Links</a></p>
+<p class="toc"><a href="#s-anchors">Comparing Different Anchors</a> · <a href="#s-qr">Quantile Regression and the Lasso</a> · <a href="#s-dpi">The De-pegging Pressure Index</a> · <a href="#s-links">Tail Dependence between Stablecoins</a></p>
 <h2 class="sec" id="s-anchors">Comparing Different Anchors</h2>
 <section class="blk" id="peg-quality">
   <h3>Two Tiers of Peg Quality</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l6_pegquality.jpg?v=20261031a" alt="Slide 10: Two Tiers of Peg Quality" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l6_pegquality.jpg?v=20261109a" alt="Slide 10: Two Tiers of Peg Quality" loading="lazy"></a>
       <figcaption>Slide 10</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="pq-e">Sample ends: <b id="pq-e-v"></b></label><input type="range" id="pq-e" min="0" max="69" step="1" value="64"></div><button class="btn play" id="pq-play" type="button"></button></div><div class="charts "><div class="chart" id="pq-chart"></div></div><ul class="out" id="pq-out"></ul></div>
   </div>
@@ -48,7 +48,7 @@
 <section class="blk" id="susd">
   <h3>A Persistent Depeg: sUSD</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l6_susd.jpg?v=20261031a" alt="Slide 11: A Persistent Depeg: sUSD" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l6_susd.jpg?v=20261109a" alt="Slide 11: A Persistent Depeg: sUSD" loading="lazy"></a>
       <figcaption>Slide 11</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="su-c">Threshold price: <b id="su-c-v"></b></label><input type="range" id="su-c" min="0.1" max="0.99" step="0.01" value="0.99"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-chart"></div></div><ul class="out" id="su-out"></ul></div>
   </div>
@@ -58,7 +58,7 @@
 <section class="blk" id="check-loss">
   <h3>The Check Loss</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l6_checkloss.jpg?v=20261031a" alt="Slide 12: The Check Loss" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l6_checkloss.jpg?v=20261109a" alt="Slide 12: The Check Loss" loading="lazy"></a>
       <figcaption>Slide 12</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cl-t">Quantile level τ: <b id="cl-t-v"></b></label><input type="range" id="cl-t" min="0.01" max="0.99" step="0.01" value="0.05"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-rho"></div><div class="chart" id="cl-sum"></div></div><ul class="out" id="cl-out"></ul></div>
   </div>
@@ -66,9 +66,9 @@
   <details><summary>Answer</summary><p>Every q from −35 to −12 bp, the second and third smallest observations: n τ = 2 is again an integer, so the loss is flat between two observations (total loss 148.10). Whenever 20 τ is an integer the minimiser is an interval; for other τ it is one observation (τ = 0.06: q = −35 bp). For τ = 0.5 the interval is [2, 3] bp, around the median of 2 bp quoted on the slide. In a 90-day window n τ = 4.5, so the 5% quantile is unique, but still set by five days.</p></details>
 </section>
 <section class="blk" id="rollq">
-  <h3>The 5% Quantile Counts Ranks, Not Depth</h3>
+  <h3>Sensitivity of the 5% Quantile to Extreme Days</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l6_rollq.jpg?v=20261031a" alt="Slide 14: The 5% Quantile Counts Ranks, Not Depth" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l6_rollq.jpg?v=20261109a" alt="Slide 14: Sensitivity of the 5% Quantile to Extreme Days" loading="lazy"></a>
       <figcaption>Slide 14</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rq-w">Window length W (days): <b id="rq-w-v"></b></label><input type="range" id="rq-w" min="20" max="365" step="1" value="90"></div><button class="btn play" id="rq-play" type="button"></button></div><div class="charts "><div class="chart" id="rq-chart"></div></div><ul class="out" id="rq-out"></ul></div>
   </div>
@@ -78,7 +78,7 @@
 <section class="blk" id="lasso-path">
   <h3>Worked Example: One Equation, USDC after SVB</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l6_lasso_path.jpg?v=20261031a" alt="Slide 16: Worked Example: One Equation, USDC after SVB" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l6_lasso_path.jpg?v=20261109a" alt="Slide 16: Worked Example: One Equation, USDC after SVB" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lp-k">Penalty λ (point of the 25-value grid): <b id="lp-k-v"></b></label><input type="range" id="lp-k" min="0" max="24" step="1" value="7"></div><button class="btn play" id="lp-play" type="button"></button></div><div class="charts "><div class="chart" id="lp-path"></div><div class="chart" id="lp-gacv"></div></div><ul class="out" id="lp-out"></ul></div>
   </div>
@@ -88,7 +88,7 @@
 <section class="blk" id="dpi">
   <h3>The DPI, April 2020 – October 2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l6_dpi.jpg?v=20261031a" alt="Slide 18: The DPI, April 2020 – October 2026" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l6_dpi.jpg?v=20261109a" alt="Slide 18: The DPI, April 2020 – October 2026" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dp-e">Trend sample ends: <b id="dp-e-v"></b></label><input type="range" id="dp-e" min="0" max="52" step="1" value="47"></div><button class="btn play" id="dp-play" type="button"></button></div><div class="charts "><div class="chart" id="dp-chart"></div></div><ul class="out" id="dp-out"></ul></div>
   </div>
@@ -98,7 +98,7 @@
 <section class="blk" id="dpi-coins">
   <h3>Which Coins Carry the DPI?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=21" target="_blank" rel="noopener"><img src="slides/ba_l6_dpi_coins.jpg?v=20261031a" alt="Slide 20: Which Coins Carry the DPI?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=21" target="_blank" rel="noopener"><img src="slides/ba_l6_dpi_coins.jpg?v=20261109a" alt="Slide 20: Which Coins Carry the DPI?" loading="lazy"></a>
       <figcaption>Slide 20</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dc-c">Coin left out of the right panel</label><select id="dc-c"><option value="">none</option><option value="USDT">USDT</option><option value="USDC">USDC</option><option value="DAI">DAI</option><option value="TUSD">TUSD</option><option value="USDP">USDP</option><option value="GUSD">GUSD</option><option value="BUSD" selected>BUSD</option><option value="SUSD">sUSD</option><option value="PAXG">PAXG</option><option value="EURS">EURS</option></select></div><button class="btn play" id="dc-play" type="button"></button></div><div class="charts "><div class="chart" id="dc-share"></div><div class="chart" id="dc-ann"></div></div><ul class="out" id="dc-out"></ul></div>
   </div>
@@ -108,17 +108,17 @@
 <section class="blk" id="events">
   <h3>How Robust Are Event Responses?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l6_events.jpg?v=20261031a" alt="Slide 24: How Robust Are Event Responses?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l6_events.jpg?v=20261109a" alt="Slide 24: How Robust Are Event Responses?" loading="lazy"></a>
       <figcaption>Slide 24</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ev-h">Last day of the post-event window: <b id="ev-h-v"></b></label><input type="range" id="ev-h" min="1" max="30" step="1" value="30"></div><button class="btn play" id="ev-play" type="button"></button></div><div class="charts "><div class="chart" id="ev-chart"></div></div><ul class="out" id="ev-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With the post-event window of days 0..30, three own responses are significant after the Holm correction: KuCoin, the China sell-off and Terra. With a window of days 0..10, which events have a Holm p-value below 0.05?</div>
   <details><summary>Answer</summary><p>KuCoin (+49.6%), Terra (+23.5%) and the Iran–Hormuz shock (−34.8%, Holm p = 0.049); the China sell-off is no longer significant (−12.5%, Holm p = 0.123). The window length changes which events respond, and even the sign: the Iran–Hormuz response is −35% over 10 days and +2.4% over 30. Neither window gives FTX and SVB, the two events the paper finds significant. The narrow-λ-grid index on this page is re-estimated with the notebook (+94.9% for KuCoin and +158.6% for SVB at 30 days; the lecture reports +95.3% and +158.6%).</p></details>
-</section><h2 class="sec" id="s-links">Inside the Tail Links</h2>
+</section><h2 class="sec" id="s-links">Tail Dependence between Stablecoins</h2>
 <section class="blk" id="links">
   <h3>Who Is Linked to Whom?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l6_links.jpg?v=20261031a" alt="Slide 25: Who Is Linked to Whom?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l6_links.jpg?v=20261109a" alt="Slide 25: Who Is Linked to Whom?" loading="lazy"></a>
       <figcaption>Slide 25</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lk-y">Period (0 = all days, then 2020 to 2026): <b id="lk-y-v"></b></label><input type="range" id="lk-y" min="0" max="7" step="1" value="0"></div><button class="btn play" id="lk-play" type="button"></button></div><div class="charts "><div class="chart" id="lk-chart"></div></div><ul class="out" id="lk-out"></ul></div>
   </div>
@@ -128,7 +128,7 @@
 <section class="blk" id="active">
   <h3>Sparser Models under Pressure</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=27" target="_blank" rel="noopener"><img src="slides/ba_l6_active.jpg?v=20261031a" alt="Slide 26: Sparser Models under Pressure" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture6_stablecoins_dpi.pdf#page=27" target="_blank" rel="noopener"><img src="slides/ba_l6_active.jpg?v=20261109a" alt="Slide 26: Sparser Models under Pressure" loading="lazy"></a>
       <figcaption>Slide 26</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ac-g">Number of DPI groups: <b id="ac-g-v"></b></label><input type="range" id="ac-g" min="2" max="10" step="1" value="5"></div><button class="btn play" id="ac-play" type="button"></button></div><div class="charts "><div class="chart" id="ac-chart"></div></div><ul class="out" id="ac-out"></ul></div>
   </div>
