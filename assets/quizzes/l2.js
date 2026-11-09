@@ -40,7 +40,7 @@ window.MFM_DATA.quizzes['l2'] = {
         {
             correct: 0,
             en: {
-                title: "From log return to loss",
+                title: "Converting a log return to a loss",
                 text: "On 12 March 2020 Bitcoin's daily log return was $-46.5\\%$. What fraction of the value held was lost that day?",
                 options: [
                     "About 37.2%",
@@ -130,7 +130,7 @@ window.MFM_DATA.quizzes['l2'] = {
         {
             correct: 1,
             en: {
-                title: "Heavy tails beyond crypto",
+                title: "Heavy tails in other assets",
                 text: "Excess kurtosis of daily log returns, 1 January 2018 -- 18 September 2026: Bitcoin 14.8, Ethereum 11.1, S&P 500 14.9, gold 10.2. Which statement does this table support?",
                 options: [
                     "Heavy tails are a feature of crypto only; equities are close to Normal",
@@ -310,7 +310,7 @@ window.MFM_DATA.quizzes['l2'] = {
         {
             correct: 1,
             en: {
-                title: "What not rejecting does not show",
+                title: "Interpreting a non-rejection",
                 text: "Robust variance-ratio tests do not reject $\\mathrm{VR}(q) = 1$ for Bitcoin at 2 to 10 days, in any sub-period 2014--2017, 2018--2021, 2022--2026. Which statement goes too far?",
                 options: [
                     "No linear predictability of returns from past returns is detected at these horizons",
@@ -325,7 +325,7 @@ window.MFM_DATA.quizzes['l2'] = {
         {
             correct: 3,
             en: {
-                title: "Unpredictable but mispriced?",
+                title: "Predictability and mispricing",
                 text: "Suppose Bitcoin's returns are fully unpredictable from past prices. What does this imply about Bitcoin's price level?",
                 options: [
                     "The price equals Bitcoin's fundamental value",

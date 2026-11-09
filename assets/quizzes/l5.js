@@ -56,7 +56,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 1,
             en: {
-                title: "When arbitrage stops",
+                title: "Limits of peg arbitrage",
                 text: "Peg arbitrage needs access to redemption, time and trust in the reserves. Why could arbitrage not close the USDC discount on Saturday 11 March 2023?",
                 options: [
                     "USDC had no reserves at all behind the token",
@@ -191,7 +191,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 0,
             en: {
-                title: "Where the risk lies",
+                title: "Mean deviations and peg risk",
                 text: "Mean daily deviations 2021 to 2026 are 0.5 bp (USDT), $-0.2$ bp (USDC) and 0.4 bp (DAI). What is the right conclusion?",
                 options: [
                     "The peg holds on average; the risk is in the tails",
@@ -296,7 +296,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 2,
             en: {
-                title: "Price hides the stress",
+                title: "Pool imbalance and price in StableSwap",
                 text: "In a StableSwap pool with $A = 100$, the price of X is 0.986 when X is 80% of the pool and 0.943 when it is 90%. What should a risk monitor watch?",
                 options: [
                     "Only the price, since it already reflects the stress",
@@ -416,7 +416,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 2,
             en: {
-                title: "High AUC, no warning",
+                title: "High AUC without early warning",
                 text: "Price-only alarms on the EOD Historical Data (EODHD) USDC/USDT cross rate, test 2025 to 23 October 2026 (5 events): AUC 0.88 to 0.93, but 0 events detected in time. How is that possible?",
                 options: [
                     "The test period contained no depeg events that could be detected",

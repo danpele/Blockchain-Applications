@@ -55,7 +55,7 @@ window.MFM_DATA.quizzes['l7'] = {
         {
             correct: 3,
             en: {
-                title: "Few MST links, large influence",
+                title: "Influence of a few MST links",
                 text: "In the minimum spanning tree (MST) of 19 coins, BTC has only two edges while ETH has six. In the Diebold–Yilmaz spillover table of 8 coins (2021–2026), BTC has NET $= +11.0$, the second largest. How should the two facts be reconciled?",
                 options: [
                     "They contradict each other, so one of the two estimates must be wrong and re-run",
@@ -310,7 +310,7 @@ window.MFM_DATA.quizzes['l7'] = {
         {
             correct: 2,
             en: {
-                title: "BTC at the border",
+                title: "Classification of BTC",
                 text: "Pele et al. (2023) classify cryptos with 99.56% accuracy, and only BTC and USDT are misclassified. The update in this course (EODHD data, 2021–2026) groups BTC and ETH with traditional assets. Which conclusion fits both results?",
                 options: [
                     "Cryptos are no longer a separate asset class, so the 2023 result was wrong",

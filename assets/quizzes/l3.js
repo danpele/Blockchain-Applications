@@ -280,7 +280,7 @@ window.MFM_DATA.quizzes['l3'] = {
         {
             correct: 2,
             en: {
-                title: "Capped or not",
+                title: "Capped and uncapped weights",
                 text: "Against the published CRIX the uncapped replica has correlation 0.990 (TE 9.3%), the capped one 0.979 (TE 14.5%). What can you conclude?",
                 options: [
                     "The published CRIX caps Bitcoin at 50%",
@@ -445,7 +445,7 @@ window.MFM_DATA.quizzes['l3'] = {
         {
             correct: 1,
             en: {
-                title: "Why the clock matters",
+                title: "Benchmark time and tracking error",
                 text: "IBIT's tracking error is 3.5% a year against Bitcoin at 16:00 New York and 20.6% against Bitcoin's midnight UTC close. Which number should you report?",
                 options: [
                     "20.6%, the larger and more prudent number",

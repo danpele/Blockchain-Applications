@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261109b">
-<link rel="stylesheet" href="interactive.css?v=20261109b">
+<link rel="stylesheet" href="../assets/site.css?v=20261109c">
+<link rel="stylesheet" href="interactive.css?v=20261109c">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l8_data.js?v=20261109b"></script>
-<script src="l8_text.js?v=20261109b"></script>
-<script src="common.js?v=20261109b"></script>
-<script src="l8.js?v=20261109b" defer></script>
+<script src="l8_data.js?v=20261109c"></script>
+<script src="l8_text.js?v=20261109c"></script>
+<script src="common.js?v=20261109c"></script>
+<script src="l8.js?v=20261109c" defer></script>
 </head>
 <body>
 <header>
@@ -33,12 +33,12 @@
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the model outputs of the lecture. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-ml">Can Machine Learning Predict the Direction of Bitcoin?</a> · <a href="#s-snoop">Data Snooping</a> · <a href="#s-var">Risk Forecasts: Classical, ML and Pretrained</a></p>
-<h2 class="sec" id="s-ml">Can Machine Learning Predict the Direction of Bitcoin?</h2>
+<p class="toc"><a href="#s-ml">Machine-Learning Forecasts of Bitcoin's Direction</a> · <a href="#s-snoop">Data Snooping</a> · <a href="#s-var">Risk Forecasts: Classical, ML and Pretrained</a></p>
+<h2 class="sec" id="s-ml">Machine-Learning Forecasts of Bitcoin's Direction</h2>
 <section class="blk" id="overfitting">
-  <h3>Overfitting and What the Model Uses</h3>
+  <h3>Overfitting and Feature Contributions</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_acc.jpg?v=20261109b" alt="Slide 12: Overfitting and What the Model Uses" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_acc.jpg?v=20261109c" alt="Slide 12: Overfitting and Feature Contributions" loading="lazy"></a>
       <figcaption>Slide 12</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="oa-k">Walk-forward origin: <b id="oa-k-v"></b></label><input type="range" id="oa-k" min="0" max="40" step="1" value="40"></div><button class="btn play" id="oa-play" type="button"></button></div><div class="charts "><div class="chart" id="oa-acc"></div><div class="chart" id="oa-shap"></div></div><ul class="out" id="oa-out"></ul></div>
   </div>
@@ -48,7 +48,7 @@
 <section class="blk" id="trading">
   <h3>Trading the Signals</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_equity.jpg?v=20261109b" alt="Slide 13: Trading the Signals" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l8_ml_equity.jpg?v=20261109c" alt="Slide 13: Trading the Signals" loading="lazy"></a>
       <figcaption>Slide 13</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="eq-c">Cost per change of position: <b id="eq-c-v"></b></label><input type="range" id="eq-c" min="0" max="50" step="5" value="10"></div><div class="ctl"><label for="eq-t">Go long when the probability of an up day exceeds: <b id="eq-t-v"></b></label><input type="range" id="eq-t" min="0.45" max="0.55" step="0.01" value="0.5"></div><button class="btn play" id="eq-play" type="button"></button></div><div class="charts "><div class="chart" id="eq-chart"></div></div><ul class="out" id="eq-out"></ul></div>
   </div>
@@ -58,7 +58,7 @@
 <section class="blk" id="snooping">
   <h3>810 Trading Rules</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ba_l8_snoop.jpg?v=20261109b" alt="Slide 15: 810 Trading Rules" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=16" target="_blank" rel="noopener"><img src="slides/ba_l8_snoop.jpg?v=20261109c" alt="Slide 15: 810 Trading Rules" loading="lazy"></a>
       <figcaption>Slide 15</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="sn-n">Number of independent trials N in the deflated Sharpe ratio: <b id="sn-n-v"></b></label><input type="range" id="sn-n" min="0" max="8" step="1" value="8"></div><button class="btn play" id="sn-play" type="button"></button></div><div class="charts "><div class="chart" id="sn-scatter"></div><div class="chart" id="sn-hist"></div></div><ul class="out" id="sn-out"></ul></div>
   </div>
@@ -66,9 +66,9 @@
   <details><summary>Answer</summary><p>Only for N = 2 (DSR 0.953). The benchmark SR₀, the best annualised Sharpe ratio expected by chance, rises from 0.09 (N = 2) to 0.22 (N = 5), 0.29 (N = 10), 0.46 (N = 100) and 0.58 (N = 810); the DSR falls from 0.95 to 0.92, 0.89, 0.80 and 0.72. The PSR against zero, 0.97, ignores the search. The rules are strongly correlated, so the effective N is below 810, but even 5 independent trials leave the winner below 0.95. Out of sample (2023–2026) MOM(2) has a Sharpe ratio of 0.45 against 0.90 for buy-and-hold.</p></details>
 </section><h2 class="sec" id="s-var">Risk Forecasts: Classical, ML and Pretrained</h2>
 <section class="blk" id="var-models">
-  <h3>Breach Rate and Quantile Score Rank Models Differently</h3>
+  <h3>Model Rankings by Breach Rate and by Quantile Score</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l8_var_models.jpg?v=20261109b" alt="Slide 24: Breach Rate and Quantile Score Rank Models Differently" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=25" target="_blank" rel="noopener"><img src="slides/ba_l8_var_models.jpg?v=20261109c" alt="Slide 24: Model Rankings by Breach Rate and by Quantile Score" loading="lazy"></a>
       <figcaption>Slide 24</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vm-a">VaR level</label><select id="vm-a"><option value="0.01" selected>1%</option><option value="0.05">5%</option></select></div><div class="ctl"><label for="vm-e">Evaluation period ends on: <b id="vm-e-v"></b></label><input type="range" id="vm-e" min="0" max="33" step="1" value="33"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-br"></div><div class="chart" id="vm-qs"></div></div><div class="src" id="vm-leg"></div><ul class="out" id="vm-out"></ul></div>
   </div>
@@ -78,7 +78,7 @@
 <section class="blk" id="var-paths">
   <h3>VaR Paths of the Tree Model and GARCH-t</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l8_var_paths.jpg?v=20261109b" alt="Slide 25: VaR Paths of the Tree Model and GARCH-t" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l8_var_paths.jpg?v=20261109c" alt="Slide 25: VaR Paths of the Tree Model and GARCH-t" loading="lazy"></a>
       <figcaption>Slide 25</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vp-t">Day: <b id="vp-t-v"></b></label><input type="range" id="vp-t" min="0" max="1026" step="1" value="13"></div><div class="ctl"><label for="vp-ref">Breaches counted against</label><select id="vp-ref"><option value="HS">HS</option><option value="EWMA-N">EWMA-N</option><option value="GARCH-t">GARCH-t</option><option value="QReg">QReg</option><option value="QGBM">QGBM</option><option value="Chronos-2" selected>Chronos-2</option></select></div><button class="btn play" id="vp-play" type="button"></button></div><div class="charts "><div class="chart" id="vp-chart"></div></div><ul class="out" id="vp-out"></ul></div>
   </div>
@@ -88,7 +88,7 @@
 <section class="blk" id="qs-roll">
   <h3>Rolling Quantile Scores Relative to GARCH-t</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l8_qs_roll.jpg?v=20261109b" alt="Slide 27: Rolling Quantile Scores Relative to GARCH-t" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture8_ml_ai_limits.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l8_qs_roll.jpg?v=20261109c" alt="Slide 27: Rolling Quantile Scores Relative to GARCH-t" loading="lazy"></a>
       <figcaption>Slide 27</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="qr-w">Rolling window: <b id="qr-w-v"></b></label><input type="range" id="qr-w" min="60" max="720" step="5" value="365"></div><button class="btn play" id="qr-play" type="button"></button></div><div class="charts "><div class="chart" id="qr-chart"></div></div><ul class="out" id="qr-out"></ul></div>
   </div>

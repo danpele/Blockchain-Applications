@@ -146,7 +146,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 1,
             en: {
-                title: "Regimes rather than days",
+                title: "Regime-level reading of the DPI",
                 text: "Why is the DPI analysed in regimes and event windows rather than read day by day?",
                 options: [
                     "Because the DPI is published only once a month",
@@ -266,7 +266,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 0,
             en: {
-                title: "A trend that is not rejected",
+                title: "Testing for a trend in the DPI",
                 text: "Log-linear trend of the DPI to May 2026: $+0.046$ per year, heteroskedasticity and autocorrelation consistent (HAC, 90 lags) standard error 0.036, p 0.21, 95% CI $[-0.025, 0.117]$. What is the correct conclusion?",
                 options: [
                     "Zero slope not rejected; no trend is not shown either",
@@ -356,7 +356,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 1,
             en: {
-                title: "Aligned or inverse",
+                title: "Aligned and inverse coefficients",
                 text: "Replication in this course (EODHD data): 47.4% of coin coefficients are aligned (positive) and 33.1% inverse (negative); the working paper finds 39.6% and 23.9%. What do the two data sets agree on?",
                 options: [
                     "Inverse links dominate in both data sets",
@@ -371,7 +371,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 3,
             en: {
-                title: "Sparser under pressure",
+                title: "Model sparsity under pressure",
                 text: "Replication in this course (EODHD data): average active predictors fall from 10.96 (of 13) in the lowest DPI quintile to 9.68 in the highest; working paper: 10.11 to 9.00 (of 15). Which interpretation is supported?",
                 options: [
                     "A few strong links dominate, as the chart proves",
@@ -416,7 +416,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 2,
             en: {
-                title: "Selected but not useful",
+                title: "Selected predictors and forecasting value",
                 text: "Fan et al. (2026), working paper: on-chain variables (Curve, Uniswap) enter 91% of the Quantile Lasso equations, yet do not reduce held-out loss significantly. What is the lesson?",
                 options: [
                     "On-chain data should be removed from all models",

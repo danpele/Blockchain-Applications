@@ -160,7 +160,7 @@ window.MFM_DATA.quizzes['l1'] = {
         {
             correct: 2,
             en: {
-                title: "What the basket HHI does not tell",
+                title: "Limits of the basket HHI",
                 text: "The five selected coins (BTC, ETH, DOGE, ADA, LTC) have $\\mathrm{HHI} = 0.71$ on 18 September 2026; an eleven-coin basket in September 2025 gave 0.58. What can you conclude about the concentration of the whole crypto market?",
                 options: [
                     "It is 0.71, since Bitcoin dominates any basket in the same way",
@@ -400,7 +400,7 @@ window.MFM_DATA.quizzes['l1'] = {
         {
             correct: 3,
             en: {
-                title: "From a trend slope to annual growth",
+                title: "Converting a trend slope to annual growth",
                 text: "A log-linear trend $\\ln X_t = a + g\\,t + u_t$ ($t$ in years) fitted to Bitcoin's monthly market value, 2014--2025, gives $\\hat g = 0.586$ (standard error 0.055, $R^2 = 0.88$). What is the implied annual growth rate?",
                 options: [
                     "58.6% a year",
@@ -430,7 +430,7 @@ window.MFM_DATA.quizzes['l1'] = {
         {
             correct: 1,
             en: {
-                title: "Value grows faster than usage?",
+                title: "Growth of value relative to usage",
                 text: "Bitcoin, monthly, 2014--2025: regressing $\\ln(M_t/n_t)$ on time ($M_t$: market value, $n_t$: transactions per day) gives a growth gap of 0.482 (standard error 0.052, $z = 9.3$). The residual first-order autoregressive (AR(1)) coefficient is 0.96. What is the best reading?",
                 options: [
                     "The test proves that Bitcoin's market value is a bubble",

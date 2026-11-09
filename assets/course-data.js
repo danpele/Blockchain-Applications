@@ -226,14 +226,14 @@
             {
                 id: 'l3', num: 3, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
                 title: { en: 'Crypto Indices: CRIX, VCRIX and Investible Index Funds', ro: 'Indici cripto: CRIX, VCRIX și fonduri investibile pe indici' },
-                topics: { en: ['Index construction (Laspeyres, divisor, AIC choice of constituents)', 'The CRIX family and the VCRIX volatility index', 'From index to investible fund: Royalton CRIX and a spot Bitcoin ETF', 'Nine types of crypto indices: sector, price, futures, volatility, yield, smart beta, fundamentals, sentiment'], ro: ['Construcția indicelui (Laspeyres, divizor, alegerea constituenților după AIC)', 'Familia CRIX și indicele de volatilitate VCRIX', 'De la indice la fond investibil: Royalton CRIX și un ETF spot pe Bitcoin', 'Nouă tipuri de indici cripto: sectoriali, de preț, futures, de volatilitate, de randament, smart beta, fundamentali, de sentiment'] },
+                topics: { en: ['Index construction (Laspeyres, divisor, AIC choice of constituents)', 'The CRIX family and the VCRIX volatility index', 'Investible index funds: Royalton CRIX and a spot Bitcoin ETF', 'Nine types of crypto indices: sector, price, futures, volatility, yield, smart beta, fundamentals, sentiment'], ro: ['Construcția indicelui (Laspeyres, divizor, alegerea constituenților după AIC)', 'Familia CRIX și indicele de volatilitate VCRIX', 'Fonduri investibile pe indici: Royalton CRIX și un ETF spot pe Bitcoin', 'Nouă tipuri de indici cripto: sectoriali, de preț, futures, de volatilitate, de randament, smart beta, fundamentali, de sentiment'] },
                 links: L(3, 'crypto_indices'),
                 quantinar: []
             },
             {
                 id: 'l4', num: 4, available: true, web: true, interactive: true, date: { en: 'Tue 24 Nov', ro: 'Marți 24 nov.' },
-                title: { en: 'Volatility and Tail Risk', ro: 'Volatilitate și tail risk' },
-                topics: { en: ['EWMA and GARCH(1,1)-t by maximum likelihood; residual diagnostics', 'VaR and ES: Normal, historical, EWMA, GARCH-t', 'Kupiec and Christoffersen backtests; Basel traffic light', 'A short out-of-sample check'], ro: ['EWMA și GARCH(1,1)-t estimat prin verosimilitate maximă; diagnosticul reziduurilor', 'VaR și ES: Normal, istoric, EWMA, GARCH-t', 'Backtesturile Kupiec și Christoffersen; semaforul Basel', 'O verificare out-of-sample scurtă'] },
+                title: { en: 'Volatility and Tail Risk', ro: 'Volatilitate și riscul de coadă' },
+                topics: { en: ['EWMA and GARCH(1,1)-t by maximum likelihood; residual diagnostics', 'VaR and ES: Normal, historical, EWMA, GARCH-t', 'Kupiec and Christoffersen backtests; Basel traffic light', 'A short out-of-sample check'], ro: ['EWMA și GARCH(1,1)-t estimat prin verosimilitate maximă; diagnosticul reziduurilor', 'VaR și ES: Normal, istoric, EWMA, GARCH-t', 'Backtesturile Kupiec și Christoffersen; semaforul Basel', 'O scurtă verificare out-of-sample'] },
                 links: L(4, 'volatility_tail_risk'),
                 quantinar: q('robustMarkowitz')
             },

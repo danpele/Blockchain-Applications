@@ -145,7 +145,7 @@ window.MFM_DATA.quizzes['l8'] = {
         {
             correct: 3,
             en: {
-                title: "Mostly buy-and-hold",
+                title: "Logit strategy and buy-and-hold",
                 text: "The logit strategy is long Bitcoin 85% of the time and has a maximum drawdown of 68.6%, against 76.6% for buy-and-hold (2020–2026). What is the best description?",
                 options: [
                     "It is a market-neutral strategy with little exposure to Bitcoin",
@@ -370,7 +370,7 @@ window.MFM_DATA.quizzes['l8'] = {
         {
             correct: 1,
             en: {
-                title: "Not rejecting equal loss",
+                title: "Diebold–Mariano test of equal loss",
                 text: "At VaR 1%, the mean QS of Chronos-2 minus that of GARCH-t is 0.0025, with 95% interval $[-0.0053, 0.0102]$ from a Diebold–Mariano (DM) test. What does this result say?",
                 options: [
                     "Chronos-2 and GARCH-t are equally good at forecasting VaR 1%",
@@ -400,7 +400,7 @@ window.MFM_DATA.quizzes['l8'] = {
         {
             correct: 0,
             en: {
-                title: "Trees can jump",
+                title: "Jumps in tree-based VaR forecasts",
                 text: "On 14 January 2024, the 1% VaR of gradient-boosted quantile trees (QGBM) for Bitcoin jumps from 7.3% to 35.4%, while GARCH-t moves from 9.9% to 9.4%. The input was a $-7.9\\%$ return the day after the spot ETF launch, then a 52% fall in volume. What lesson follows?",
                 options: [
                     "Trees do not extrapolate smoothly; they need bounds or a fallback",

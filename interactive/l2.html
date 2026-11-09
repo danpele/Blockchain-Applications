@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261109b">
-<link rel="stylesheet" href="interactive.css?v=20261109b">
+<link rel="stylesheet" href="../assets/site.css?v=20261109c">
+<link rel="stylesheet" href="interactive.css?v=20261109c">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l2_data.js?v=20261109b"></script>
-<script src="l2_text.js?v=20261109b"></script>
-<script src="common.js?v=20261109b"></script>
-<script src="l2.js?v=20261109b" defer></script>
+<script src="l2_data.js?v=20261109c"></script>
+<script src="l2_text.js?v=20261109c"></script>
+<script src="common.js?v=20261109c"></script>
+<script src="l2.js?v=20261109c" defer></script>
 </head>
 <body>
 <header>
@@ -33,12 +33,12 @@
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-shape">The Shape of Returns</a> · <a href="#s-volcorr">Volatility and Correlation</a> · <a href="#s-eff">Is the Market Efficient?</a> · <a href="#s-bubbles">Bubbles, Crashes and Network Value</a></p>
+<p class="toc"><a href="#s-shape">The Shape of Returns</a> · <a href="#s-volcorr">Volatility and Correlation</a> · <a href="#s-eff">Market Efficiency</a> · <a href="#s-bubbles">Bubbles, Crashes and Network Value</a></p>
 <h2 class="sec" id="s-shape">The Shape of Returns</h2>
 <section class="blk" id="normal-fit">
-  <h3>The Normal Distribution Does Not Fit</h3>
+  <h3>Fit of the Normal Distribution</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l2_hist_qq.jpg?v=20261109b" alt="Slide 11: The Normal Distribution Does Not Fit" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=12" target="_blank" rel="noopener"><img src="slides/ba_l2_hist_qq.jpg?v=20261109c" alt="Slide 11: Fit of the Normal Distribution" loading="lazy"></a>
       <figcaption>Slide 11</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="nf-k">Threshold k (standard deviations): <b id="nf-k-v"></b></label><input type="range" id="nf-k" min="2" max="8" step="0.5" value="4"></div><div class="ctl"><label for="nf-a">Asset of the histogram and of the first QQ plot</label><select id="nf-a"><option value="btc" selected>Bitcoin</option><option value="eth">Ethereum</option><option value="sp500">S&amp;P 500</option><option value="gold">Gold</option></select></div><button class="btn play" id="nf-play" type="button"></button></div><div class="charts "><div class="chart" id="nf-hist"></div><div class="chart" id="nf-qq1"></div><div class="chart" id="nf-qq2"></div></div><ul class="out" id="nf-out"></ul></div>
   </div>
@@ -48,7 +48,7 @@
 <section class="blk" id="volatility-time">
   <h3>Volatility Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=16" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vol.jpg?v=20261109b" alt="Slide 15: Volatility Through Time" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=16" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vol.jpg?v=20261109c" alt="Slide 15: Volatility Through Time" loading="lazy"></a>
       <figcaption>Slide 15</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rv-w">Window: <b id="rv-w-v"></b></label><input type="range" id="rv-w" min="7" max="365" step="1" value="30"></div><button class="btn play" id="rv-play" type="button"></button></div><div class="charts "><div class="chart" id="rv-chart"></div></div><ul class="out" id="rv-out"></ul></div>
   </div>
@@ -58,7 +58,7 @@
 <section class="blk" id="volatility-clusters">
   <h3>Volatility Clusters</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=19" target="_blank" rel="noopener"><img src="slides/sfm_ch14_acf.jpg?v=20261109b" alt="Slide 18: Volatility Clusters" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=19" target="_blank" rel="noopener"><img src="slides/sfm_ch14_acf.jpg?v=20261109c" alt="Slide 18: Volatility Clusters" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vc-m">Lags m in the Ljung–Box test: <b id="vc-m-v"></b></label><input type="range" id="vc-m" min="1" max="30" step="1" value="10"></div><button class="btn play" id="vc-play" type="button"></button></div><div class="charts "><div class="chart" id="vc-r"></div><div class="chart" id="vc-r2"></div></div><ul class="out" id="vc-out"></ul></div>
   </div>
@@ -68,7 +68,7 @@
 <section class="blk" id="calm-follows-calm">
   <h3>Absolute Returns after Calm and Turbulent Days</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l2_calm.jpg?v=20261109b" alt="Slide 19: Absolute Returns after Calm and Turbulent Days" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l2_calm.jpg?v=20261109c" alt="Slide 19: Absolute Returns after Calm and Turbulent Days" loading="lazy"></a>
       <figcaption>Slide 19</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cm-l">Lag L: days sorted by the absolute return L days earlier: <b id="cm-l-v"></b></label><input type="range" id="cm-l" min="1" max="60" step="1" value="1"></div><button class="btn play" id="cm-play" type="button"></button></div><div class="charts "><div class="chart" id="cm-btc"></div><div class="chart" id="cm-sp"></div></div><ul class="out" id="cm-out"></ul></div>
   </div>
@@ -76,19 +76,19 @@
   <details><summary>Answer</summary><p>Still higher: 2.39% against 2.07% a day, 1.15 times, against 1.49 times at L = 1; at L = 60 the ratio is 1.03. For the S&amp;P 500 it is still 1.39 at L = 30 (1.02% against 0.73%) and 0.91 at L = 60. A turbulent day raises the expected size of moves for weeks: volatility has a long memory, which the GARCH models of Lecture 4 describe with a slowly decaying variance. Turbulence is not followed by unusual calm: the bars do not turn upside down.</p></details>
 </section>
 <section class="blk" id="btc-equities">
-  <h3>Does Bitcoin Move with Equities?</h3>
+  <h3>Correlation of Bitcoin with Equities</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=21" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_corr.jpg?v=20261109b" alt="Slide 20: Does Bitcoin Move with Equities?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=21" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_corr.jpg?v=20261109c" alt="Slide 20: Correlation of Bitcoin with Equities" loading="lazy"></a>
       <figcaption>Slide 20</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="bc-w">Rolling window: <b id="bc-w-v"></b></label><input type="range" id="bc-w" min="30" max="500" step="10" value="250"></div><button class="btn play" id="bc-play" type="button"></button></div><div class="charts "><div class="chart" id="bc-chart"></div></div><ul class="out" id="bc-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> With 250 common days the highest rolling correlation of Bitcoin and the S&amp;P 500 is 0.57 (February 2023). What is the highest value with a 30-day window?</div>
   <details><summary>Answer</summary><p>0.79 (May 2022), and the lowest falls from −0.16 to −0.64. A correlation estimated on 30 days has a large sampling error (about 1/√30 = 0.18 when the true correlation is zero), so short windows give more extreme highs and lows; the 500-day window gives 0.47 and −0.07. The correlation from 2020 onwards, 0.39, does not depend on the window.</p></details>
-</section><h2 class="sec" id="s-eff">Is the Market Efficient?</h2>
+</section><h2 class="sec" id="s-eff">Market Efficiency</h2>
 <section class="blk" id="vr-sub-periods">
   <h3>Variance Ratios by Sub-Period</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l2_vr_periods.jpg?v=20261109b" alt="Slide 23: Variance Ratios by Sub-Period" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l2_vr_periods.jpg?v=20261109c" alt="Slide 23: Variance Ratios by Sub-Period" loading="lazy"></a>
       <figcaption>Slide 23</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vp-q">Horizon q of the variance ratio (days): <b id="vp-q-v"></b></label><input type="range" id="vp-q" min="2" max="30" step="1" value="5"></div><button class="btn play" id="vp-play" type="button"></button></div><div class="charts "><div class="chart" id="vp-chart"></div></div><ul class="out" id="vp-out"></ul></div>
   </div>
@@ -98,7 +98,7 @@
 <section class="blk" id="efficiency-time">
   <h3>Efficiency Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=25" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vr.jpg?v=20261109b" alt="Slide 24: Efficiency Through Time" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=25" target="_blank" rel="noopener"><img src="slides/sfm_ch14_rolling_vr.jpg?v=20261109c" alt="Slide 24: Efficiency Through Time" loading="lazy"></a>
       <figcaption>Slide 24</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ef-w">Window length: <b id="ef-w-v"></b></label><input type="range" id="ef-w" min="250" max="1500" step="50" value="500"></div><div class="ctl"><label for="ef-q">Horizon q of the variance ratio</label><select id="ef-q"><option value="2">q = 2</option><option value="5" selected>q = 5</option><option value="10">q = 10</option></select></div><button class="btn play" id="ef-play" type="button"></button></div><div class="charts "><div class="chart" id="ef-chart"></div></div><ul class="out" id="ef-out"></ul></div>
   </div>
@@ -108,7 +108,7 @@
 <section class="blk" id="drawdowns">
   <h3>Drawdowns of Bitcoin, Ethereum and the S&P 500</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=30" target="_blank" rel="noopener"><img src="slides/sfm_ch14_drawdowns.jpg?v=20261109b" alt="Slide 29: Drawdowns of Bitcoin, Ethereum and the S&P 500" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=30" target="_blank" rel="noopener"><img src="slides/sfm_ch14_drawdowns.jpg?v=20261109c" alt="Slide 29: Drawdowns of Bitcoin, Ethereum and the S&P 500" loading="lazy"></a>
       <figcaption>Slide 29</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dd-d">Threshold below the record: <b id="dd-d-v"></b></label><input type="range" id="dd-d" min="5" max="90" step="5" value="10"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
   </div>
@@ -118,7 +118,7 @@
 <section class="blk" id="lppl-2017">
   <h3>Bitcoin 2017: an LPPL Fit</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_btc2017.jpg?v=20261109b" alt="Slide 32: Bitcoin 2017: an LPPL Fit" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_btc2017.jpg?v=20261109c" alt="Slide 32: Bitcoin 2017: an LPPL Fit" loading="lazy"></a>
       <figcaption>Slide 32</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="lp-tc">Critical time t<sub>c</sub> (m and ω fixed at the estimates): <b id="lp-tc-v"></b></label><input type="range" id="lp-tc" min="335" max="455" step="0.01" value="358.71"></div><button class="btn play" id="lp-play" type="button"></button></div><div class="charts "><div class="chart" id="lp-chart"></div></div><ul class="out" id="lp-out"></ul></div>
   </div>
@@ -126,9 +126,9 @@
   <details><summary>Answer</summary><p>Very little: it stays between 0.962 (t<sub>c</sub> = 31 March 2018) and 0.982 (25 December 2017); it is 0.975 for t<sub>c</sub> = 2 December and 0.981 for 1 January. A fit this good for every t<sub>c</sub> over four months cannot date the crash: the window determines the shape of the past rise, not the critical time. The actual peak, 16 December 2017, has no special place in this R² profile.</p></details>
 </section>
 <section class="blk" id="tc-windows">
-  <h3>t̂<sub>c</sub> Window by Window</h3>
+  <h3>t̂c across Estimation Windows</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=34" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_tc.jpg?v=20261109b" alt="Slide 33: t̂c Window by Window" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=34" target="_blank" rel="noopener"><img src="slides/ba_l2_lppl_tc.jpg?v=20261109c" alt="Slide 33: t̂c across Estimation Windows" loading="lazy"></a>
       <figcaption>Slide 33</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="tw-e">Estimation window ends on: <b id="tw-e-v"></b></label><input type="range" id="tw-e" min="0" max="10" step="1" value="10"></div><button class="btn play" id="tw-play" type="button"></button></div><div class="charts "><div class="chart" id="tw-tc"></div><div class="chart" id="tw-fit"></div></div><ul class="out" id="tw-out"></ul></div>
   </div>
@@ -138,7 +138,7 @@
 <section class="blk" id="metcalfe">
   <h3>Market Value against Metcalfe Value</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=36" target="_blank" rel="noopener"><img src="slides/ba_l2_metcalfe.jpg?v=20261109b" alt="Slide 35: Market Value against Metcalfe Value" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture2_stylized_facts_efficiency_bubbles.pdf#page=36" target="_blank" rel="noopener"><img src="slides/ba_l2_metcalfe.jpg?v=20261109c" alt="Slide 35: Market Value against Metcalfe Value" loading="lazy"></a>
       <figcaption>Slide 35</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="mf-b">Exponent b of the network value n<sup>b</sup>: <b id="mf-b-v"></b></label><input type="range" id="mf-b" min="0.5" max="4.5" step="0.05" value="2"></div><button class="btn play" id="mf-play" type="button"></button></div><div class="charts "><div class="chart" id="mf-lv"></div><div class="chart" id="mf-ratio"></div></div><ul class="out" id="mf-out"></ul></div>
   </div>
