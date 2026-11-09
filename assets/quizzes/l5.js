@@ -146,7 +146,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 1,
             en: {
-                title: "Count episodes, not hours",
+                title: "Episodes and breach hours",
                 text: "An episode starts at a breach hour ($|d_t| \\ge 15$ bp) preceded by 24 observed hours without a breach. Why count episodes rather than breach hours?",
                 options: [
                     "Because hourly prices have more error than daily ones",
@@ -371,7 +371,7 @@ window.MFM_DATA.quizzes['l5'] = {
         {
             correct: 3,
             en: {
-                title: "An alarm, not a classifier",
+                title: "Row-level AUC of a depeg model",
                 text: "Why can the row-level area under the receiver operating characteristic curve (AUC) be high for a depeg model that gives no useful warning?",
                 options: [
                     "Because AUC ignores the positive class entirely",

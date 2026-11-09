@@ -160,7 +160,7 @@ window.MFM_DATA.quizzes['l4'] = {
         {
             correct: 2,
             en: {
-                title: "A large move is not high volatility",
+                title: "Gold: a large move and realised volatility",
                 text: "From 19 September to 23 October 2026, gold fell 9.3%, while its realised annualised volatility was 19.3%, below the GARCH-t forecast of 23.2%. How do you read this?",
                 options: [
                     "The GARCH forecast was too low, since gold fell sharply",
@@ -415,7 +415,7 @@ window.MFM_DATA.quizzes['l4'] = {
         {
             correct: 2,
             en: {
-                title: "Too many hits, not clustered",
+                title: "Reading the coverage and independence tests",
                 text: "EWMA-Normal VaR 1%, Bitcoin backtest: 51 hits (2.08%), $\\mathrm{LR}_{uc} = 22.01$ (p below 0.001), $\\mathrm{LR}_{ind} = 0.00$ (p 0.952). What do the two tests say together?",
                 options: [
                     "The model passes overall, since the independence test does not reject",

@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261109a">
-<link rel="stylesheet" href="interactive.css?v=20261109a">
+<link rel="stylesheet" href="../assets/site.css?v=20261109b">
+<link rel="stylesheet" href="interactive.css?v=20261109b">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l7_data.js?v=20261109a"></script>
-<script src="l7_text.js?v=20261109a"></script>
-<script src="common.js?v=20261109a"></script>
-<script src="l7.js?v=20261109a" defer></script>
+<script src="l7_data.js?v=20261109b"></script>
+<script src="l7_text.js?v=20261109b"></script>
+<script src="common.js?v=20261109b"></script>
+<script src="l7.js?v=20261109b" defer></script>
 </head>
 <body>
 <header>
@@ -38,7 +38,7 @@
 <section class="blk" id="mst">
   <h3>Correlation Matrix and Minimum Spanning Tree</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l7_mst.jpg?v=20261109a" alt="Slide 10: Correlation Matrix and Minimum Spanning Tree" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l7_mst.jpg?v=20261109b" alt="Slide 10: Correlation Matrix and Minimum Spanning Tree" loading="lazy"></a>
       <figcaption>Slide 10</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ms-p">Sample (calendar year, or the full sample): <b id="ms-p-v"></b></label><input type="range" id="ms-p" min="0" max="6" step="1" value="6"></div><button class="btn play" id="ms-play" type="button"></button></div><div class="charts "><div class="chart" id="ms-heat"></div><div class="chart" id="ms-tree"></div></div><ul class="out" id="ms-out"></ul></div>
   </div>
@@ -48,7 +48,7 @@
 <section class="blk" id="eigenvalues">
   <h3>Eigenvalues of the Correlation Matrix and the Absorption Ratio</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l7_eigen.jpg?v=20261109a" alt="Slide 12: Eigenvalues of the Correlation Matrix and the Absorption Ratio" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=13" target="_blank" rel="noopener"><img src="slides/ba_l7_eigen.jpg?v=20261109b" alt="Slide 12: Eigenvalues of the Correlation Matrix and the Absorption Ratio" loading="lazy"></a>
       <figcaption>Slide 12</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="eg-p">Sample (calendar year, or the full sample): <b id="eg-p-v"></b></label><input type="range" id="eg-p" min="0" max="6" step="1" value="6"></div><button class="btn play" id="eg-play" type="button"></button></div><div class="charts "><div class="chart" id="eg-chart"></div></div><ul class="out" id="eg-out"></ul></div>
   </div>
@@ -56,9 +56,9 @@
   <details><summary>Answer</summary><p>2022: λ₁ = 14.12 and the absorption ratio λ₁/19 is 0.743, against 0.592 in 2023, the lowest year. 2022 is the year of the Terra and FTX collapses, when the mean pairwise correlation reached 0.725. In every year the formula (1 + 18ρ̄)/19 from the mean correlation is within 0.021 of the absorption ratio, so the year with the highest mean correlation is also the year with the strongest common factor. Only one eigenvalue exceeds 1 in 2022 and 2025; in 2024 three do (λ₂ = 1.27), a sign of a second, weaker factor.</p></details>
 </section>
 <section class="blk" id="connectedness">
-  <h3>How Connected, and When?</h3>
+  <h3>Rolling Correlation and Absorption Ratio, 2021–2026</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l7_connect.jpg?v=20261109a" alt="Slide 13: How Connected, and When?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=14" target="_blank" rel="noopener"><img src="slides/ba_l7_connect.jpg?v=20261109b" alt="Slide 13: Rolling Correlation and Absorption Ratio, 2021–2026" loading="lazy"></a>
       <figcaption>Slide 13</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cn-w">Window length: <b id="cn-w-v"></b></label><input type="range" id="cn-w" min="30" max="360" step="10" value="90"></div><button class="btn play" id="cn-play" type="button"></button></div><div class="charts "><div class="chart" id="cn-chart"></div></div><ul class="out" id="cn-out"></ul></div>
   </div>
@@ -68,7 +68,7 @@
 <section class="blk" id="spillovers">
   <h3>Spillovers through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l7_spill.jpg?v=20261109a" alt="Slide 16: Spillovers through Time" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l7_spill.jpg?v=20261109b" alt="Slide 16: Spillovers through Time" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="sp-h">Forecast horizon H: <b id="sp-h-v"></b></label><input type="range" id="sp-h" min="1" max="20" step="1" value="10"></div><div class="ctl"><label for="sp-w">Rolling window: <b id="sp-w-v"></b></label><input type="range" id="sp-w" min="100" max="400" step="50" value="200"></div><button class="btn play" id="sp-play" type="button"></button></div><div class="charts "><div class="chart" id="sp-roll"></div><div class="chart" id="sp-net"></div></div><ul class="out" id="sp-out"></ul></div>
   </div>
@@ -76,9 +76,9 @@
   <details><summary>Answer</summary><p>It hardly changes: for the full-sample VAR(5) it is 72.7% at H = 1, 72.9% at H = 10 and 72.9% at H = 20; in the last 200-day window it moves from 80.3% to 80.4%. The lag coefficients of daily crypto returns are small, so almost all of the forecast-error variance comes from the same-day correlation of the shocks (Σ), which is already in the H = 1 decomposition. A high spillover index here measures common same-day moves, not shocks that travel from coin to coin over the following days.</p></details>
 </section><h2 class="sec" id="s-class">Are Cryptos an Asset Class?</h2>
 <section class="blk" id="asset-map">
-  <h3>The Map of Assets</h3>
+  <h3>Classification Map of 33 Assets</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l7_classes.jpg?v=20261109a" alt="Slide 19: The Map of Assets" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l7_classes.jpg?v=20261109b" alt="Slide 19: Classification Map of 33 Assets" loading="lazy"></a>
       <figcaption>Slide 19</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cl-w">Weight of volatility among the six standardised features: <b id="cl-w-v"></b></label><input type="range" id="cl-w" min="0" max="1" step="0.05" value="1"></div><div class="ctl"><label for="cl-k">Number of k-means groups</label><select id="cl-k"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-chart"></div></div><ul class="out" id="cl-out"></ul></div>
   </div>
@@ -88,7 +88,7 @@
 <section class="blk" id="car-bands">
   <h3>Which CARs Are Significant?</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l7_cars.jpg?v=20261109a" alt="Slide 27: Which CARs Are Significant?" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l7_cars.jpg?v=20261109b" alt="Slide 27: Which CARs Are Significant?" loading="lazy"></a>
       <figcaption>Slide 27</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cb-a">CAR window starts on event day τ₁: <b id="cb-a-v"></b></label><input type="range" id="cb-a" min="-10" max="0" step="1" value="-1"></div><div class="ctl"><label for="cb-b">CAR window ends on event day τ₂: <b id="cb-b-v"></b></label><input type="range" id="cb-b" min="0" max="10" step="1" value="1"></div><button class="btn play" id="cb-play" type="button"></button></div><div class="charts "><div class="chart" id="cb-chart"></div></div><ul class="out" id="cb-out"></ul></div>
   </div>
@@ -98,7 +98,7 @@
 <section class="blk" id="event-paths">
   <h3>Abnormal Returns around the Event Day</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=30" target="_blank" rel="noopener"><img src="slides/ba_l7_event.jpg?v=20261109a" alt="Slide 29: Abnormal Returns around the Event Day" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture7_networks_sentiment_art.pdf#page=30" target="_blank" rel="noopener"><img src="slides/ba_l7_event.jpg?v=20261109b" alt="Slide 29: Abnormal Returns around the Event Day" loading="lazy"></a>
       <figcaption>Slide 29</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ev-a">CAR window starts on event day τ₁: <b id="ev-a-v"></b></label><input type="range" id="ev-a" min="-10" max="0" step="1" value="-1"></div><div class="ctl"><label for="ev-b">CAR window ends on event day τ₂: <b id="ev-b-v"></b></label><input type="range" id="ev-b" min="0" max="10" step="1" value="1"></div><button class="btn play" id="ev-play" type="button"></button></div><div class="charts "><div class="chart" id="ev-sch"></div><div class="chart" id="ev-imp"></div></div><ul class="out" id="ev-out"></ul></div>
   </div>

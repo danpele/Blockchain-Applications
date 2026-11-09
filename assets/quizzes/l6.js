@@ -206,7 +206,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 2,
             en: {
-                title: "One equation: USDC after SVB",
+                title: "Quantile Lasso equation for USDC after SVB",
                 text: "Target USDC, 90 days to 19 March 2023 (after the Silicon Valley Bank failure), 13 candidates: $\\lambda_{max} = 164.1$, GACV selects $\\hat\\lambda = 0.241$ with 12 active predictors; DAI keeps the largest slope along the path (3.70). How do you read this?",
                 options: [
                     "DAI caused the failure of Silicon Valley Bank",
@@ -401,7 +401,7 @@ window.MFM_DATA.quizzes['l6'] = {
         {
             correct: 1,
             en: {
-                title: "Fit is not forecast",
+                title: "In-window fit and out-of-sample skill",
                 text: "Fan et al. (2026), working paper, skill relative to an intercept-only model: the joint model (coins and macro) has in-window GACV skill 37.0% but a fully lagged out-of-sample forecast skill of $-38.6\\%$. What does this show?",
                 options: [
                     "The joint model is the best forecaster of the three",

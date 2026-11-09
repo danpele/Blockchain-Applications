@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261109a">
-<link rel="stylesheet" href="interactive.css?v=20261109a">
+<link rel="stylesheet" href="../assets/site.css?v=20261109b">
+<link rel="stylesheet" href="interactive.css?v=20261109b">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l4_data.js?v=20261109a"></script>
-<script src="l4_text.js?v=20261109a"></script>
-<script src="common.js?v=20261109a"></script>
-<script src="l4.js?v=20261109a" defer></script>
+<script src="l4_data.js?v=20261109b"></script>
+<script src="l4_text.js?v=20261109b"></script>
+<script src="common.js?v=20261109b"></script>
+<script src="l4.js?v=20261109b" defer></script>
 </head>
 <body>
 <header>
@@ -38,7 +38,7 @@
 <section class="blk" id="clustering">
   <h3>Volatility Clustering in Bitcoin Returns</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=7" target="_blank" rel="noopener"><img src="slides/ba_l4_clustering.jpg?v=20261109a" alt="Slide 6: Volatility Clustering in Bitcoin Returns" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=7" target="_blank" rel="noopener"><img src="slides/ba_l4_clustering.jpg?v=20261109b" alt="Slide 6: Volatility Clustering in Bitcoin Returns" loading="lazy"></a>
       <figcaption>Slide 6</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cl-k">Largest absolute returns capped: <b id="cl-k-v"></b></label><input type="range" id="cl-k" min="0" max="30" step="1" value="0"></div><button class="btn play" id="cl-play" type="button"></button></div><div class="charts "><div class="chart" id="cl-ret"></div><div class="chart" id="cl-acf"></div></div><ul class="out" id="cl-out"></ul></div>
   </div>
@@ -48,7 +48,7 @@
 <section class="blk" id="ewma-weights">
   <h3>How EWMA Weights the Past</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l4_ewma_weights.jpg?v=20261109a" alt="Slide 8: How EWMA Weights the Past" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=9" target="_blank" rel="noopener"><img src="slides/ba_l4_ewma_weights.jpg?v=20261109b" alt="Slide 8: How EWMA Weights the Past" loading="lazy"></a>
       <figcaption>Slide 8</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ew-l">λ: <b id="ew-l-v"></b></label><input type="range" id="ew-l" min="0.8" max="0.99" step="0.01" value="0.94"></div><button class="btn play" id="ew-play" type="button"></button></div><div class="charts "><div class="chart" id="ew-w"></div><div class="chart" id="ew-btc"></div></div><ul class="out" id="ew-out"></ul></div>
   </div>
@@ -58,7 +58,7 @@
 <section class="blk" id="tails">
   <h3>Heavy Tails after Filtering: Bitcoin's Standardised Residuals</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l4_tails.jpg?v=20261109a" alt="Slide 14: Heavy Tails after Filtering: Bitcoin's Standardised Residuals" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=15" target="_blank" rel="noopener"><img src="slides/ba_l4_tails.jpg?v=20261109b" alt="Slide 14: Heavy Tails after Filtering: Bitcoin's Standardised Residuals" loading="lazy"></a>
       <figcaption>Slide 14</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="tl-c">Threshold c for |ẑ<sub>t</sub>|: <b id="tl-c-v"></b></label><input type="range" id="tl-c" min="2" max="8" step="0.25" value="4"></div><button class="btn play" id="tl-play" type="button"></button></div><div class="charts "><div class="chart" id="tl-hist"></div><div class="chart" id="tl-count"></div></div><ul class="out" id="tl-out"></ul></div>
   </div>
@@ -68,7 +68,7 @@
 <section class="blk" id="conditional-volatility">
   <h3>Conditional Volatility</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l4_condvol.jpg?v=20261109a" alt="Slide 16: Conditional Volatility" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l4_condvol.jpg?v=20261109b" alt="Slide 16: Conditional Volatility" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="cv-a">α as a multiple of its estimate (α + β and ω kept): <b id="cv-a-v"></b></label><input type="range" id="cv-a" min="0.25" max="2.5" step="0.05" value="1"></div><button class="btn play" id="cv-play" type="button"></button></div><div class="charts "><div class="chart" id="cv-chart"></div></div><ul class="out" id="cv-out"></ul></div>
   </div>
@@ -78,7 +78,7 @@
 <section class="blk" id="term-structure">
   <h3>After a Shock: Volatility Forecasts by Horizon</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l4_term_structure.jpg?v=20261109a" alt="Slide 18: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l4_term_structure.jpg?v=20261109b" alt="Slide 18: After a Shock: Volatility Forecasts by Horizon" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ts-s">Variance after the shock, multiple of the long-run variance: <b id="ts-s-v"></b></label><input type="range" id="ts-s" min="0.25" max="4" step="0.25" value="2"></div><div class="ctl"><label for="ts-h">Horizon h for the readout: <b id="ts-h-v"></b></label><input type="range" id="ts-h" min="1" max="250" step="1" value="10"></div><button class="btn play" id="ts-play" type="button"></button></div><div class="charts "><div class="chart" id="ts-left"></div><div class="chart" id="ts-right"></div></div><ul class="out" id="ts-out"></ul></div>
   </div>
@@ -88,7 +88,7 @@
 <section class="blk" id="density-var">
   <h3>VaR and ES on the Forecast Density</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=23" target="_blank" rel="noopener"><img src="slides/ba_l4_density_var.jpg?v=20261109a" alt="Slide 22: VaR and ES on the Forecast Density" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=23" target="_blank" rel="noopener"><img src="slides/ba_l4_density_var.jpg?v=20261109b" alt="Slide 22: VaR and ES on the Forecast Density" loading="lazy"></a>
       <figcaption>Slide 22</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dv-n">Degrees of freedom ν of the Student-t (σ kept): <b id="dv-n-v"></b></label><input type="range" id="dv-n" min="0" max="17" step="1" value="9"></div><button class="btn play" id="dv-play" type="button"></button></div><div class="charts "><div class="chart" id="dv-dens"></div><div class="chart" id="dv-tail"></div></div><ul class="out" id="dv-out"></ul></div>
   </div>
@@ -98,7 +98,7 @@
 <section class="blk" id="var-methods">
   <h3>VaR and ES by Method</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l4_var_methods.jpg?v=20261109a" alt="Slide 25: VaR and ES by Method" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=26" target="_blank" rel="noopener"><img src="slides/ba_l4_var_methods.jpg?v=20261109b" alt="Slide 25: VaR and ES by Method" loading="lazy"></a>
       <figcaption>Slide 25</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="vm-p">Tail level p (%): <b id="vm-p-v"></b></label><input type="range" id="vm-p" min="0.1" max="5" step="0.05" value="1"></div><button class="btn play" id="vm-play" type="button"></button></div><div class="charts "><div class="chart" id="vm-chart"></div></div><ul class="out" id="vm-out"></ul></div>
   </div>
@@ -108,7 +108,7 @@
 <section class="blk" id="violations">
   <h3>Violations Through Time</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l4_backtest.jpg?v=20261109a" alt="Slide 32: Violations Through Time" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l4_backtest.jpg?v=20261109b" alt="Slide 32: Violations Through Time" loading="lazy"></a>
       <figcaption>Slide 32</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="bt-e">Last day of the 250-day Basel window: <b id="bt-e-v"></b></label><input type="range" id="bt-e" min="249" max="2452" step="1" value="2452"></div><div class="ctl"><label for="bt-m">Method whose violations are marked</label><select id="bt-m"><option value="GARCH-t" selected>GARCH(1,1)-t</option><option value="HS 500">Historical simulation, 500 days</option><option value="Normal 250">Normal, 250 days</option><option value="EWMA">EWMA, Normal</option></select></div><button class="btn play" id="bt-play" type="button"></button></div><div class="charts "><div class="chart" id="bt-chart"></div></div><ul class="out" id="bt-out"></ul></div>
   </div>
@@ -118,7 +118,7 @@
 <section class="blk" id="oos-var">
   <h3>Bitcoin VaR, Rolled Forward</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261109a" alt="Slide 38: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture4_volatility_tail_risk.pdf#page=39" target="_blank" rel="noopener"><img src="slides/ba_oos_var_btc.jpg?v=20261109b" alt="Slide 38: Bitcoin VaR, Rolled Forward" loading="lazy"></a>
       <figcaption>Slide 38</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ov-d">Days of the window: <b id="ov-d-v"></b></label><input type="range" id="ov-d" min="1" max="35" step="1" value="35"></div><button class="btn play" id="ov-play" type="button"></button></div><div class="charts "><div class="chart" id="ov-chart"></div></div><ul class="out" id="ov-out"></ul></div>
   </div>

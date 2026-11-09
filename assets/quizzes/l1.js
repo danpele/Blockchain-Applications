@@ -70,7 +70,7 @@ window.MFM_DATA.quizzes['l1'] = {
         {
             correct: 1,
             en: {
-                title: "Supply growth is not inflation",
+                title: "Bitcoin supply growth and inflation",
                 text: "Bitcoin's coin stock grows 0.82% a year after the 2024 halving. A manager concludes that Bitcoin has lower inflation than the euro area, whose central bank targets 2%. What is wrong with this comparison?",
                 options: [
                     "Nothing: 0.82% is below 2%, so Bitcoin preserves purchasing power better",

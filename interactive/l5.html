@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261109a">
-<link rel="stylesheet" href="interactive.css?v=20261109a">
+<link rel="stylesheet" href="../assets/site.css?v=20261109b">
+<link rel="stylesheet" href="interactive.css?v=20261109b">
 <script>window.MFM_LANG = 'en';</script>
 <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="l5_data.js?v=20261109a"></script>
-<script src="l5_text.js?v=20261109a"></script>
-<script src="common.js?v=20261109a"></script>
-<script src="l5.js?v=20261109a" defer></script>
+<script src="l5_data.js?v=20261109b"></script>
+<script src="l5_text.js?v=20261109b"></script>
+<script src="common.js?v=20261109b"></script>
+<script src="l5.js?v=20261109b" defer></script>
 </head>
 <body>
 <header>
@@ -33,12 +33,12 @@
 </ul></nav>
 <main class="imain">
 <p class="lead">The slide of the lecture is on the left, the same figure on the right, computed in the browser from the same data. The ▶ button moves the parameter step by step.</p>
-<p class="toc"><a href="#s-promise">What a Stablecoin Promises</a> · <a href="#s-peg">Measuring the Peg</a> · <a href="#s-amm">Where the Price Is Formed: AMMs</a> · <a href="#s-ew">Early Warning</a> · <a href="#s-now">Recent Data: August to October 2026</a></p>
+<p class="toc"><a href="#s-promise">What a Stablecoin Promises</a> · <a href="#s-peg">Measuring the Peg</a> · <a href="#s-amm">Automated Market Makers and Price Formation</a> · <a href="#s-ew">Early Warning</a> · <a href="#s-now">Recent Data: August to October 2026</a></p>
 <h2 class="sec" id="s-promise">What a Stablecoin Promises</h2>
 <section class="blk" id="supply">
   <h3>Who Issues the Dollars on Chain</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l5_supply.jpg?v=20261109a" alt="Slide 10: Who Issues the Dollars on Chain" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=11" target="_blank" rel="noopener"><img src="slides/ba_l5_supply.jpg?v=20261109b" alt="Slide 10: Who Issues the Dollars on Chain" loading="lazy"></a>
       <figcaption>Slide 10</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="su-t">Date: <b id="su-t-v"></b></label><input type="range" id="su-t" min="0" max="2850" step="1" value="2850"></div><button class="btn play" id="su-play" type="button"></button></div><div class="charts "><div class="chart" id="su-stack"></div><div class="chart" id="su-bar"></div></div><ul class="out" id="su-out"></ul></div>
   </div>
@@ -46,9 +46,9 @@
   <details><summary>Answer</summary><p>About 11%: 11.5%, or 21.3 USD bn. Three weeks later, on 31 May 2022, the algorithmic share was 0.9%, and in October 2026 it is 0.0%; fiat-backed tokens hold 90.9% and crypto-backed tokens 8.1%. TerraUSD was large, but never the largest: on 8 May 2022 Tether held 45.0% and USD Coin 26.1% of the supply.</p></details>
 </section><h2 class="sec" id="s-peg">Measuring the Peg</h2>
 <section class="blk" id="dev-daily">
-  <h3>The Three Dollars, Day by Day</h3>
+  <h3>Daily Peg Deviations of Three Stablecoins</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l5_dev_daily.jpg?v=20261109a" alt="Slide 16: The Three Dollars, Day by Day" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=17" target="_blank" rel="noopener"><img src="slides/ba_l5_dev_daily.jpg?v=20261109b" alt="Slide 16: Daily Peg Deviations of Three Stablecoins" loading="lazy"></a>
       <figcaption>Slide 16</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="dd-k">Threshold δ: <b id="dd-k-v"></b></label><input type="range" id="dd-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="dd-play" type="button"></button></div><div class="charts "><div class="chart" id="dd-chart"></div></div><ul class="out" id="dd-out"></ul></div>
   </div>
@@ -58,7 +58,7 @@
 <section class="blk" id="exceed">
   <h3>Tails and Their Frequency</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=18" target="_blank" rel="noopener"><img src="slides/ba_l5_exceed.jpg?v=20261109a" alt="Slide 17: Tails and Their Frequency" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=18" target="_blank" rel="noopener"><img src="slides/ba_l5_exceed.jpg?v=20261109b" alt="Slide 17: Tails and Their Frequency" loading="lazy"></a>
       <figcaption>Slide 17</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ex-k">Threshold x: <b id="ex-k-v"></b></label><input type="range" id="ex-k" min="5" max="100" step="1" value="15"></div><button class="btn play" id="ex-play" type="button"></button></div><div class="charts "><div class="chart" id="ex-curve"></div><div class="chart" id="ex-years"></div></div><ul class="out" id="ex-out"></ul></div>
   </div>
@@ -66,9 +66,9 @@
   <details><summary>Answer</summary><p>None. In 2026 (to 23 October) no close of USDT, USDC or DAI is 25 bp or more from 1 USD; at 20 bp only USDT has any (0.34% of days). The tails are heavy over 2021–2026 as a whole, because of 2021, May 2022 and March 2023; in 2026 the deviations are small. A heavy tail of the full sample does not mean that large deviations occur every year.</p></details>
 </section>
 <section class="blk" id="rollvar">
-  <h3>Tail Risk Moves: Rolling VaR 1%</h3>
+  <h3>Rolling 1% VaR of Peg Deviations</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l5_rollvar.jpg?v=20261109a" alt="Slide 18: Tail Risk Moves: Rolling VaR 1%" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=19" target="_blank" rel="noopener"><img src="slides/ba_l5_rollvar.jpg?v=20261109b" alt="Slide 18: Rolling 1% VaR of Peg Deviations" loading="lazy"></a>
       <figcaption>Slide 18</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rv-w">Window length W (days): <b id="rv-w-v"></b></label><input type="range" id="rv-w" min="60" max="730" step="5" value="365"></div><button class="btn play" id="rv-play" type="button"></button></div><div class="charts "><div class="chart" id="rv-chart"></div></div><ul class="out" id="rv-out"></ul></div>
   </div>
@@ -78,17 +78,17 @@
 <section class="blk" id="svb">
   <h3>The SVB Weekend, Hour by Hour</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l5_svb.jpg?v=20261109a" alt="Slide 19: The SVB Weekend, Hour by Hour" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=20" target="_blank" rel="noopener"><img src="slides/ba_l5_svb.jpg?v=20261109b" alt="Slide 19: The SVB Weekend, Hour by Hour" loading="lazy"></a>
       <figcaption>Slide 19</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="sv-t">Hour: <b id="sv-t-v"></b></label><input type="range" id="sv-t" min="0" max="239" step="1" value="79"></div><div class="ctl"><label for="sv-r">Recovery rate R on the SVB deposit</label><select id="sv-r"><option value="0" selected>R = 0 (zero recovery)</option><option value="0.5">R = 0.5</option><option value="0.9">R = 0.9</option></select></div><button class="btn play" id="sv-play" type="button"></button></div><div class="charts "><div class="chart" id="sv-chart"></div></div><ul class="out" id="sv-out"></ul></div>
   </div>
   <div class="ask"><span class="ask-tag">Question for the room</span> USDC reached −1,036 bp at 07:00 UTC on Saturday 11 March 2023, 211 bp below its zero-recovery value of −825 bp. For how many hours of the weekend was the hourly close of USDC below the zero-recovery value?</div>
   <details><summary>Answer</summary><p>For 8 hours, all on Saturday 11 March between 06:00 and 14:00 UTC (at 08:00 it was −771 bp). From 15:00 UTC on Saturday the price stayed above the value that a total loss of the SVB deposit implies, although it returned above −100 bp only at 22:00 UTC on Sunday 12 March and above −15 bp at 14:00 UTC on Monday 13 March. With a recovery rate R = 0.5 the value is −412 bp, and USDC was below it for 22 hours.</p></details>
-</section><h2 class="sec" id="s-amm">Where the Price Is Formed: AMMs</h2>
+</section><h2 class="sec" id="s-amm">Automated Market Makers and Price Formation</h2>
 <section class="blk" id="amm">
   <h3>Price Response of an AMM Pool to Imbalance</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l5_amm.jpg?v=20261109a" alt="Slide 23: Price Response of an AMM Pool to Imbalance" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=24" target="_blank" rel="noopener"><img src="slides/ba_l5_amm.jpg?v=20261109b" alt="Slide 23: Price Response of an AMM Pool to Imbalance" loading="lazy"></a>
       <figcaption>Slide 23</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="am-k">Amplification A of the chosen StableSwap pool: <b id="am-k-v"></b></label><input type="range" id="am-k" min="0" max="11" step="1" value="6"></div><button class="btn play" id="am-play" type="button"></button></div><div class="charts "><div class="chart" id="am-price"></div><div class="chart" id="am-slip"></div></div><ul class="out" id="am-out"></ul></div>
   </div>
@@ -98,7 +98,7 @@
 <section class="blk" id="episodes">
   <h3>Episodes: Mostly Short and Shallow</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l5_episodes.jpg?v=20261109a" alt="Slide 27: Episodes: Mostly Short and Shallow" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=28" target="_blank" rel="noopener"><img src="slides/ba_l5_episodes.jpg?v=20261109b" alt="Slide 27: Episodes: Mostly Short and Shallow" loading="lazy"></a>
       <figcaption>Slide 27</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ep-k">Threshold δ: <b id="ep-k-v"></b></label><input type="range" id="ep-k" min="10" max="50" step="1" value="15"></div><button class="btn play" id="ep-play" type="button"></button></div><div class="charts "><div class="chart" id="ep-scatter"></div><div class="chart" id="ep-hist"></div></div><ul class="out" id="ep-out"></ul></div>
   </div>
@@ -108,7 +108,7 @@
 <section class="blk" id="utility">
   <h3>Worked Example: Computing the Utility</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=32" target="_blank" rel="noopener"><img src="slides/ba_l5_utility.jpg?v=20261109a" alt="Slide 31: Worked Example: Computing the Utility" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=32" target="_blank" rel="noopener"><img src="slides/ba_l5_utility.jpg?v=20261109b" alt="Slide 31: Worked Example: Computing the Utility" loading="lazy"></a>
       <figcaption>Slide 31</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="ut-f">False alerts per month F<sub>m</sub>: <b id="ut-f-v"></b></label><input type="range" id="ut-f" min="0" max="10" step="0.1" value="2.5"></div><div class="ctl"><label for="ut-l">Lead of the first alert before event 3: <b id="ut-l-v"></b></label><input type="range" id="ut-l" min="0" max="30" step="1" value="0"></div><button class="btn play" id="ut-play" type="button"></button></div><div class="charts "><div class="chart" id="ut-chart"></div></div><ul class="out" id="ut-out"></ul></div>
   </div>
@@ -118,7 +118,7 @@
 <section class="blk" id="paper-t1">
   <h3>Results: Four Classifier Families</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l5_paper_t1.jpg?v=20261109a" alt="Slide 32: Results: Four Classifier Families" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=33" target="_blank" rel="noopener"><img src="slides/ba_l5_paper_t1.jpg?v=20261109b" alt="Slide 32: Results: Four Classifier Families" loading="lazy"></a>
       <figcaption>Slide 32</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="pt-a">Highlighted column: <b id="pt-a-v"></b></label><input type="range" id="pt-a" min="0" max="5" step="1" value="1"></div><div class="ctl"><label for="pt-m">Metric</label><select id="pt-m"><option value="U" selected>Event utility U, 95% CI</option><option value="recall">Timely event recall</option><option value="fa">False alerts per month</option></select></div><button class="btn play" id="pt-play" type="button"></button></div><div class="charts "><div class="chart" id="pt-chart"></div></div><ul class="out" id="pt-out"></ul></div>
   </div>
@@ -128,7 +128,7 @@
 <section class="blk" id="tradeoff">
   <h3>The Recall–False-Alert Trade-off</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=35" target="_blank" rel="noopener"><img src="slides/ba_l5_ew_tradeoff.jpg?v=20261109a" alt="Slide 34: The Recall–False-Alert Trade-off" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=35" target="_blank" rel="noopener"><img src="slides/ba_l5_ew_tradeoff.jpg?v=20261109b" alt="Slide 34: The Recall–False-Alert Trade-off" loading="lazy"></a>
       <figcaption>Slide 34</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="tf-k">Threshold k of the rule |d<sub>t</sub>| ≥ k: <b id="tf-k-v"></b></label><input type="range" id="tf-k" min="4" max="25" step="1" value="11"></div><button class="btn play" id="tf-play" type="button"></button></div><div class="charts "><div class="chart" id="tf-chart"></div></div><ul class="out" id="tf-out"></ul></div>
   </div>
@@ -138,7 +138,7 @@
 <section class="blk" id="recent">
   <h3>The Last Twelve Weeks</h3>
   <div class="pair">
-    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=37" target="_blank" rel="noopener"><img src="slides/ba_l5_recent.jpg?v=20261109a" alt="Slide 36: The Last Twelve Weeks" loading="lazy"></a>
+    <figure class="slide"><a href="../pdfjs/web/viewer.html?file=../../EN/Lectures/lecture5_stablecoins_depeg.pdf#page=37" target="_blank" rel="noopener"><img src="slides/ba_l5_recent.jpg?v=20261109b" alt="Slide 36: The Last Twelve Weeks" loading="lazy"></a>
       <figcaption>Slide 36</figcaption></figure>
     <div class="live"><div class="ctls"><div class="ctl"><label for="rc-k">Alert level k for USDC priced in USDT: <b id="rc-k-v"></b></label><input type="range" id="rc-k" min="5" max="20" step="0.5" value="10"></div><button class="btn play" id="rc-play" type="button"></button></div><div class="charts "><div class="chart" id="rc-chart"></div></div><ul class="out" id="rc-out"></ul></div>
   </div>
