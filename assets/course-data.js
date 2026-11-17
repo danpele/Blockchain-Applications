@@ -337,11 +337,12 @@
             const rows = lang => {
                 const ro = lang === 'ro';
                 const C = ro ? 'Studiu de caz' : 'Case', P = ro ? 'Proiect' : 'Project';
+                const SL = f => `<br><a class="btn btn-primary btn-slides" href="pdfjs/web/viewer.html?file=${encodeURIComponent('../../EN/Part1/' + f)}">${ro ? 'Slide-uri (PDF)' : 'Slides (PDF)'}</a>`;
                 return [
-                    [ro ? 'Luni 16 nov.' : 'Mon 16 Nov', ro ? 'Bitcoin și whitepaper-ul său: fundamentele blockchain, macroeconomia, cererea, oferta, efectele de rețea, costurile și valoarea Bitcoin' : 'Bitcoin and its whitepaper: blockchain foundations, macroeconomics, demand, supply, network effects, costs and value of Bitcoin',
+                    [ro ? 'Luni 16 nov.' : 'Mon 16 Nov', (ro ? 'Bitcoin și whitepaper-ul său: fundamentele blockchain, macroeconomia, cererea, oferta, efectele de rețea, costurile și valoarea Bitcoin' : 'Bitcoin and its whitepaper: blockchain foundations, macroeconomics, demand, supply, network effects, costs and value of Bitcoin') + SL('alon_day1_bitcoin.pdf'),
                         `${R.btc} (${ro ? 'integral, înainte de curs' : 'in full, before class'}); ${R.jrz}; ${C}: ${R.cGamble}`, `${V.btcMacro}; ${V.ds}; ${V.value}`,
                         ro ? 'Formarea echipelor, alegerea proiectului, cazul de utilizare și propunerea de valoare economică' : 'Form teams, select the project, define its use case and economic value proposition'],
-                    [ro ? 'Marți 17 nov.' : 'Tue 17 Nov', ro ? 'Ethereum și smart contracts: conturi, tranziții de stare, gas; aplicații descentralizate, NFT, riscuri de execuție și de securitate' : 'Ethereum and smart contracts: accounts, state transitions, gas; decentralised applications, NFTs, execution and security risks',
+                    [ro ? 'Marți 17 nov.' : 'Tue 17 Nov', (ro ? 'Ethereum și smart contracts: conturi, tranziții de stare, gas; aplicații descentralizate, NFT, riscuri de execuție și de securitate' : 'Ethereum and smart contracts: accounts, state transitions, gas; decentralised applications, NFTs, execution and security risks') + SL('alon_day2_ethereum.pdf'),
                         `${R.ethWp}; ${R.sgs}; ${C}: ${R.cPolygon}`, `${V.eth}; ${V.sc}`,
                         ro ? 'Arhitectura blockchain a proiectului, funcțiile smart contracts, dependențe și riscuri' : 'Map the blockchain architecture, smart-contract functions, dependencies and risks'],
                     [ro ? 'Miercuri 18 nov.' : 'Wed 18 Nov', ro ? 'Piețe financiare și tokenomics: stablecoin-uri, CBDC, portofele, custodie; oferta, deblocările, stimulentele și captarea valorii' : 'Financial markets and tokenomics: stablecoins, CBDCs, wallets, custody; supply, unlocks, incentives and value capture',

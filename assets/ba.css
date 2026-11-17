@@ -114,3 +114,4 @@ html, body { overflow-x: clip; }
 #guest-card { display: flex; flex-direction: column; gap: 1.2rem; }
 .guest-links { margin-top: 0.9rem; }
 #guest-card .guest-card { max-width: 1000px; }
+.sessions .btn-slides { display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.7rem; font-size: 0.85rem; }
