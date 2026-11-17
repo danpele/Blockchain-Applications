@@ -133,7 +133,7 @@
         box.innerHTML = gs.map(g => `<div class="guest-card${g.photo ? ' has-photo' : ''}">` +
             (g.photo ? `<img class="guest-photo" src="${g.photo}" alt="${esc(g.name)}" loading="lazy">` : '') +
             `<div class="guest-text"><span class="badge badge-date">${g.date}</span><h3>${esc(g.title)}</h3>` +
-            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p>` +
+            `<p class="guest-name"><strong>${esc(g.name)}</strong></p>` + (g.role ? `<p class="guest-role">${esc(g.role)}</p>` : '') + `<p class="guest-bio">${g.bio}</p>` +
             (g.slides ? `<div class="guest-links">${linkButton({ type: 'slides', href: g.slides })}</div>` : '') +
             `</div></div>`).join('');
     }
