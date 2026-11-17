@@ -127,12 +127,15 @@
 
     // guest lecture: its own section, between the lectures and the assessment
     function renderGuest() {
-        const g = (D.guest || {})[LANG], box = $('guest-card'), sec = $('guest');
-        if (!g || !box) { if (sec) sec.hidden = true; return; }
-        box.innerHTML = `<div class="guest-card${g.photo ? ' has-photo' : ''}">` +
+        const raw = (D.guest || {})[LANG], box = $('guest-card'), sec = $('guest');
+        const gs = Array.isArray(raw) ? raw : (raw ? [raw] : []);
+        if (!gs.length || !box) { if (sec) sec.hidden = true; return; }
+        box.innerHTML = gs.map(g => `<div class="guest-card${g.photo ? ' has-photo' : ''}">` +
             (g.photo ? `<img class="guest-photo" src="${g.photo}" alt="${esc(g.name)}" loading="lazy">` : '') +
             `<div class="guest-text"><span class="badge badge-date">${g.date}</span><h3>${esc(g.title)}</h3>` +
-            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p></div></div>`;
+            `<p class="guest-name"><strong>${esc(g.name)}</strong></p><p class="guest-role">${esc(g.role)}</p><p class="guest-bio">${g.bio}</p>` +
+            (g.slides ? `<div class="guest-links">${linkButton({ type: 'slides', href: g.slides })}</div>` : '') +
+            `</div></div>`).join('');
     }
 
     function renderChapters() {
