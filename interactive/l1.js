@@ -217,20 +217,19 @@ function etf() {
 // ================================================================= 3.1 four views of a blockchain
 const OC = D.onchain, OC_D = days(OC.dates);
 function onchain() {
-  const w = +$('oc-w').value, clean = $('oc-mc').value === 'clean', mp = Math.max(1, Math.round(2 * w / 3));
+  const w = +$('oc-w').value, mp = Math.max(1, Math.round(2 * w / 3));
   $('oc-w-v').textContent = w + (w === 1 ? ' day' : ' days');
   const sm = a => rollMean(a, w, mp), win = w === 1 ? 'daily' : w + '-day mean';
   const txb = sm(OC.tx_btc), txe = sm(OC.tx_eth), fb = sm(OC.fee_btc), fe = sm(OC.fee_eth);
-  const mcb = OC.mc_btc.map((v, j) => (clean && OC_D[j] >= OC.bad[0] && OC_D[j] <= OC.bad[1] ? null : v));
+  const mcb = OC.mc_btc.map((v, j) => (OC_D[j] >= OC.bad[0] && OC_D[j] <= OC.bad[1] ? null : v));   // the 11 days of recording error are not shown
   const L = (y, name, color, unit, show) => ({ x: OC_D, y, mode: 'lines', name, showlegend: !!show, legendgroup: name, line: { color, width: 1.1 }, hovertemplate: name + ' %{x|%d %b %Y}: %{y:,.4~r} ' + unit + '<extra></extra>' });
   const lay = (title, ylab, extra) => layout(Object.assign({ title: ttl(title), xaxis: AX('', { type: 'date' }), yaxis: AX(ylab, LOG) }, extra || {}));
   plot('oc-tx', [L(txb.map(v => (v === null ? null : v / 1e3)), 'Bitcoin', BA.btc, 'thousand', 1), L(txe.map(v => (v === null ? null : v / 1e3)), 'Ethereum', BA.eth, 'thousand', 1)],
     lay('Transactions per day (' + win + ')', 'thousand / day'));
   plot('oc-fee', [L(fb, 'Bitcoin', BA.btc, 'USD'), L(fe, 'Ethereum', BA.eth, 'USD')], lay('Average fee per transaction (' + win + ')', 'USD', { showlegend: false }));
   plot('oc-hr', [L(OC.hr_btc, 'Bitcoin', BA.btc, 'EH/s')], lay('Bitcoin hash rate (computing power securing the chain)', 'EH/s', { showlegend: false }));
-  const ann = clean ? [] : [{ x: '2023-09-01', y: Math.log10(0.05), ax: -120, ay: -10, text: 'recording error<br>27 Aug - 6 Sep 2023', font: { color: BA.red, size: 10 }, arrowcolor: BA.red, showarrow: true }];
   plot('oc-val', [L(mcb, 'Bitcoin', BA.btc, 'USD bn'), L(OC.mc_eth, 'Ethereum', BA.eth, 'USD bn')],
-    lay('Market capitalisation (' + (clean ? 'recording error removed' : 'raw series') + ')', 'USD bn', { showlegend: false, annotations: ann }));
+    lay('Market capitalisation', 'USD bn', { showlegend: false }));
   const pk = a => { let k = -1; a.forEach((v, j) => { if (v !== null && (k < 0 || v > a[k])) k = j; }); return k; };
   const kb = pk(fb), ke = pk(fe), [tb] = lastValid(txb), [te] = lastValid(txe), [lb] = lastValid(fb), [le] = lastValid(fe);
   out('oc-out', [T.oc1(win, gnum(tb), gnum(te), nf(te / tb, 1)),
@@ -319,7 +318,7 @@ function init() {
   $('sc-t').max = CC_D.length - 1; $('sc-t').value = CC_D.length - 1; on(['sc-t'], concentration); P('sc-play', 'sc-t', range(0, CC_D.length - 1, 30).concat([CC_D.length - 1]), 90);
   $('df-b').max = DF.mdates.length - 2; $('df-b').value = 0; on(['df-b'], defi); P('df-play', 'df-b', range(0, DF.mdates.length - 2, 1), 160);
   $('et-b').max = EF.dates.length - 41; $('et-b').value = 0; on(['et-b'], etf); P('et-play', 'et-b', range(0, EF.dates.length - 41, 10), 150);
-  on(['oc-w', 'oc-mc'], onchain); P('oc-play', 'oc-w', [1, 2, 3, 5, 7, 10, 14, 21, 30, 45, 60, 75, 90], 700);
+  on(['oc-w'], onchain); P('oc-play', 'oc-w', [1, 2, 3, 5, 7, 10, 14, 21, 30, 45, 60, 75, 90], 700);
   tall('oc-tx', 300); tall('oc-fee', 300); tall('oc-hr', 300); tall('oc-val', 300);
   $('va-e').max = VA.dates.length - 1; $('va-e').value = VA.dates.length - 1; on(['va-e'], valueActivity); P('va-play', 'va-e', range(23, VA.dates.length - 1, 3), 220);
   $('tr-s').max = TR.dates.length - 37; $('tr-s').value = 0; on(['tr-s'], trend); P('tr-play', 'tr-s', range(0, TR.dates.length - 37, 3), 220);
