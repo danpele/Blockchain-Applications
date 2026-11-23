@@ -222,7 +222,7 @@
             {
                 id: 'l1', num: 1, available: true, web: true, interactive: true, date: { en: 'Mon 23 Nov', ro: 'Luni 23 nov.' },
                 title: { en: 'Blockchains and Crypto Markets as Data', ro: 'Blockchain-urile și piețele cripto ca date' },
-                topics: { en: ['Proof-of-work arithmetic and the supply rule', 'Market concentration: the Herfindahl–Hirschman index (HHI)', 'Data-quality checks on prices and on-chain series', 'Log-linear trends with Newey–West standard errors'], ro: ['Aritmetica proof-of-work și regula de emisiune', 'Concentrarea pieței: indicele Herfindahl–Hirschman (HHI)', 'Verificarea calității datelor pentru prețuri și serii on-chain', 'Trenduri log-liniare cu erori standard Newey–West'] },
+                topics: { en: ['Proof-of-work arithmetic and the supply rule', 'Data-quality checks on prices and on-chain series', 'Market concentration: the Herfindahl–Hirschman index (HHI)', 'Log-linear trends with Newey–West standard errors'], ro: ['Aritmetica proof-of-work și regula de emisiune', 'Verificarea calității datelor pentru prețuri și serii on-chain', 'Concentrarea pieței: indicele Herfindahl–Hirschman (HHI)', 'Trenduri log-liniare cu erori standard Newey–West'] },
                 links: L(1, 'blockchains_as_data'),
                 quantinar: q('cryptosNfts', 'bcIntro', 'understanding')
             },
