@@ -1,0 +1,11 @@
+{
+ "source": "CoinGecko /global",
+ "retrieved": "2026-11-23",
+ "total_market_cap_usd": 2093938263039.3975,
+ "market_cap_percentage": {
+  "btc": 58.905827741950226,
+  "eth": 10.040750532575863
+ },
+ "active_cryptocurrencies": 21291,
+ "markets": 1529
+}

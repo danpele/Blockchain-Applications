@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_eth_supply'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Ether in circulation and new Ether per day, January 2019 to 23 May 2026, around the Merge of 15 September 2022, when Ethereum replaced proof of work with proof of stake; supply growth and issuance before and after.'
+
+Keywords: 'Ethereum, Ether, proof of stake, the Merge, supply, issuance, Coin Metrics'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Coin Metrics community data for Ethereum, in the course repository (data/indices/eth_supply_coinmetrics.csv)'
+
+Output: 'ba_l1_eth_supply.pdf'

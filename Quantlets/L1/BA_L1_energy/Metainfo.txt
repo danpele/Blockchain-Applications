@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_energy'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Annualised electricity use of the Bitcoin network, 2015 to 22 November 2026, from the Cambridge Bitcoin Electricity Consumption Index (CBECI): best guess with its lower and upper bound, yearly means and the fall after the mining ban in China in 2021.'
+
+Keywords: 'Bitcoin, mining, proof of work, electricity consumption, CBECI, hash rate'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'CBECI download of 23 November 2026, in the course repository (data/indices/cbeci_bitcoin_electricity.csv)'
+
+Output: 'ba_l1_energy.pdf'

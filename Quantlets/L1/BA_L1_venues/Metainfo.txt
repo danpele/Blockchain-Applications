@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_venues'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Monthly spot volume of ten large centralised exchanges and of all decentralised exchanges, in USD, 24 November 2025 to 22 November 2026, and the share of decentralised exchanges in the sum.'
+
+Keywords: 'exchanges, centralised exchange, decentralised exchange, trading volume, CoinGecko, DefiLlama'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Daily volumes from CoinGecko (ten centralised exchanges, in bitcoins, converted at the Bitstamp daily close) and DefiLlama (decentralised exchanges), in the course repository (data/market/exchange_volumes_daily.csv)'
+
+Output: 'ba_l1_venues.pdf'
