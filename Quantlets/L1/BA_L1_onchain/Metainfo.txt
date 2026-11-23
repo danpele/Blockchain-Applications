@@ -2,7 +2,7 @@ Name of QuantLet: 'BA_L1_onchain'
 
 Published in: 'Blockchain Applications (BA)'
 
-Description: 'Usage, fees, security and value of Bitcoin and Ethereum: transactions per day and average fee per transaction (30-day means), the Bitcoin hash rate and market capitalisation, daily, November 2014 to 8 October 2025, on log scales. The 11 days of recording error in the Bitcoin market value are set to missing.'
+Description: 'Usage, fees, security and value of Bitcoin and Ethereum: transactions per day and average fee per transaction (30-day means), the Bitcoin hash rate and market capitalisation, daily, November 2014 to 8 October 2025, on log scales.'
 
 Keywords: 'blockchain data, on-chain activity, transactions, transaction fees, hash rate, market capitalisation, Bitcoin, Ethereum'
 

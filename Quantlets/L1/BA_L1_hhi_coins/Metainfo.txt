@@ -2,7 +2,7 @@ Name of QuantLet: 'BA_L1_hhi_coins'
 
 Published in: 'Blockchain Applications (BA)'
 
-Description: 'Monthly market-value shares of eleven coins and the Herfindahl-Hirschman index (HHI) with its effective number of coins, November 2014 to October 2025, from the IDA on-chain data with the 11 days of recording error removed.'
+Description: 'Monthly market-value shares of eleven coins and the Herfindahl-Hirschman index (HHI) with its effective number of coins, November 2014 to October 2025, from the IDA on-chain data.'
 
 Keywords: 'market concentration, Herfindahl-Hirschman index, effective number, Bitcoin dominance, crypto market, altcoins'
 
