@@ -356,15 +356,15 @@ window.MFM_DATA.quizzes['l1'] = {
             correct: 3,
             en: {
                 title: "Finding a hidden error",
-                text: "In the on-chain files, the file labelled \"transaction value\" is identical to the file labelled \"transaction fee\". How is such an error found, and what is done?",
+                text: "In the on-chain files, the social-media counts stop on 14 March 2023, while the other series run to 8 October 2025. How is such a problem found, and what is done?",
                 options: [
-                    "A program crashes on the duplicated rows; the rows are deleted from the file",
-                    "The share of missing values exceeds 30%; the coin is dropped",
+                    "A program crashes on the empty rows; the rows are deleted from the file",
                     "A spike appears on a log-scale chart; the values are set to missing",
-                    "Series are compared pairwise; the mislabelled series is not used"
+                    "The gap is filled with the last observed value; the full sample is kept",
+                    "The last non-missing date of every series is checked; the sample ends there"
                 ],
-                correctExplanation: "A pairwise comparison shows that the two files are equal cell by cell. A series that duplicates another carries no information of its own and is not used; no program would have stopped on it.",
-                incorrectExplanation: "The copy is found by comparing series pairwise, and the mislabelled series is not used; such errors never stop a program from running."
+                correctExplanation: "The coverage check records the first and last valid date of every series. An analysis that uses a series which ends early must end its sample on that date; no program would have stopped on the empty rows.",
+                incorrectExplanation: "The problem is found by checking the last non-missing date of every series, and the sample ends there; filling the gap would invent data."
             }
         },
         {
