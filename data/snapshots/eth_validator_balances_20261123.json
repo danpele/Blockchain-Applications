@@ -1,0 +1,8 @@
+{
+ "source": "Ethereum beacon chain, head state, public node (ethereum-beacon-api.publicnode.com, /eth/v1/beacon/states/head/validator_balances)",
+ "retrieved": "2026-11-23",
+ "validators_with_positive_balance": 788633,
+ "total_balance_eth": 44714030.5,
+ "validators_with_more_than_40_eth": 16761,
+ "balance_of_those_eth": 20264388.8
+}
