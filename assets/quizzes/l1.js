@@ -356,15 +356,15 @@ window.MFM_DATA.quizzes['l1'] = {
             correct: 3,
             en: {
                 title: "Finding a hidden error",
-                text: "In the on-chain files, Bitcoin market value was more than 1 000 times too small from 27 August to 6 September 2023 (11 days). How was the error found, and what was the fix?",
+                text: "In the on-chain files, the file labelled \"transaction value\" is identical to the file labelled \"transaction fee\". How is such an error found, and what is done?",
                 options: [
-                    "A program crashed on the bad rows; the rows were deleted from the file",
-                    "The share of missing values exceeded 30%; the coin was dropped",
-                    "Two files were compared cell by cell; the file was downloaded again",
-                    "A spike on a log-scale chart; the 11 values were set to missing"
+                    "A program crashes on the duplicated rows; the rows are deleted from the file",
+                    "The share of missing values exceeds 30%; the coin is dropped",
+                    "A spike appears on a log-scale chart; the values are set to missing",
+                    "Series are compared pairwise; the mislabelled series is not used"
                 ],
-                correctExplanation: "On a log scale a fall by a factor of 1 000 for 11 days is an obvious spike. The values were set to missing; no program would have stopped on them.",
-                incorrectExplanation: "The error was visible only on a log-scale chart and the bad days were set to missing; such errors never stop a program from running."
+                correctExplanation: "A pairwise comparison shows that the two files are equal cell by cell. A series that duplicates another carries no information of its own and is not used; no program would have stopped on it.",
+                incorrectExplanation: "The copy is found by comparing series pairwise, and the mislabelled series is not used; such errors never stop a program from running."
             }
         },
         {

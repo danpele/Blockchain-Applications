@@ -221,7 +221,7 @@ function onchain() {
   $('oc-w-v').textContent = w + (w === 1 ? ' day' : ' days');
   const sm = a => rollMean(a, w, mp), win = w === 1 ? 'daily' : w + '-day mean';
   const txb = sm(OC.tx_btc), txe = sm(OC.tx_eth), fb = sm(OC.fee_btc), fe = sm(OC.fee_eth);
-  const mcb = OC.mc_btc.map((v, j) => (OC_D[j] >= OC.bad[0] && OC_D[j] <= OC.bad[1] ? null : v));   // the 11 days of recording error are not shown
+  const mcb = OC.mc_btc.map((v, j) => (OC_D[j] >= OC.bad[0] && OC_D[j] <= OC.bad[1] ? null : v));
   const L = (y, name, color, unit, show) => ({ x: OC_D, y, mode: 'lines', name, showlegend: !!show, legendgroup: name, line: { color, width: 1.1 }, hovertemplate: name + ' %{x|%d %b %Y}: %{y:,.4~r} ' + unit + '<extra></extra>' });
   const lay = (title, ylab, extra) => layout(Object.assign({ title: ttl(title), xaxis: AX('', { type: 'date' }), yaxis: AX(ylab, LOG) }, extra || {}));
   plot('oc-tx', [L(txb.map(v => (v === null ? null : v / 1e3)), 'Bitcoin', BA.btc, 'thousand', 1), L(txe.map(v => (v === null ? null : v / 1e3)), 'Ethereum', BA.eth, 'thousand', 1)],
