@@ -1,0 +1,15 @@
+Name of QuantLet: 'BA_L1_close'
+
+Published in: 'Blockchain Applications (BA)'
+
+Description: 'Two conventions behind a daily Bitcoin price: the gap of the daily close between three exchanges (Bitstamp, Kraken, Coinbase), in basis points, December 2024 to October 2026; and the correlation of Bitcoin and S&P 500 daily returns, 2021 to 2026, as a function of the hour (UTC) at which the Bitcoin day closes, with the change of the daily return between the New York close and the midnight close.'
+
+Keywords: 'Bitcoin, exchanges, daily close, price gap, closing hour, S&P 500, correlation, data quality'
+
+Author: 'Daniel Traian Pele'
+
+Submitted: 'Sunday, 1 November 2026'
+
+Datafile: 'Daily Bitcoin closes of Bitstamp, Kraken and Coinbase from their public market-data interfaces and EODHD hourly and daily prices, in the course repository (data/market, data/hourly)'
+
+Output: 'ba_l1_close.pdf'
