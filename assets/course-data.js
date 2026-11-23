@@ -176,7 +176,7 @@
                     'Defend an evidence-based due-diligence recommendation'
                 ] },
                 { h: 'Part 2: Blockchain Analytics', items: [
-                    'Collect market and on-chain data from public sources (EODHD, DefiLlama, Coin Metrics, block explorers) and check its quality before any analysis',
+                    'Collect market and on-chain data from public sources (EODHD, DefiLlama, the Blockchain Research Center, Coin Metrics, block explorers) and check its quality before any analysis',
                     'Describe crypto returns with the right statistics and test their stylized facts (heavy tails, volatility clustering, changing correlations) against stocks and gold',
                     "Test market efficiency, date bubbles and crashes with drawdowns and the LPPL model, and judge network-value claims such as Metcalfe's law",
                     'Build and evaluate a crypto market index such as CRIX (constituents, divisor, tracking error) and read the VCRIX volatility index',
@@ -195,7 +195,7 @@
                     'Susțineți o recomandare de due diligence bazată pe dovezi'
                 ] },
                 { h: 'Partea 2: Blockchain Analytics', items: [
-                    'Colectați date de piață și on-chain din surse publice (EODHD, DefiLlama, Coin Metrics, exploratoare de blockchain) și le verificați calitatea înainte de analiză',
+                    'Colectați date de piață și on-chain din surse publice (EODHD, DefiLlama, Blockchain Research Center, Coin Metrics, exploratoare de blockchain) și le verificați calitatea înainte de analiză',
                     'Descrieți randamentele cripto cu statisticile potrivite și testați faptele lor stilizate (cozi groase, volatility clustering, corelații care se schimbă în timp) în comparație cu acțiunile și aurul',
                     'Testați eficiența pieței, datați bulele și crahurile cu drawdown-uri și modelul LPPL și evaluați afirmațiile despre valoarea de rețea, precum legea lui Metcalfe',
                     'Construiți și evaluați un indice al pieței cripto precum CRIX (componente, divizor, eroare de urmărire) și interpretați indicele de volatilitate VCRIX',
@@ -426,7 +426,8 @@
         dataSources: [
             { name: 'EODHD', href: 'https://eodhd.com', en: 'Daily and hourly prices of cryptos, stablecoins, stocks, indices, FX and gold, used in the lectures and notebooks (the files are in the repository, data/)', ro: 'Prețuri zilnice și orare pentru criptoactive, stablecoin-uri, acțiuni, indici, cursuri valutare și aur, folosite în cursuri și în notebook-uri (fișierele sînt în repository, data/)' },
             { name: 'DefiLlama', href: 'https://defillama.com', en: 'Stablecoin supply and DeFi total value locked (TVL)', ro: 'Oferta de stablecoin-uri și valoarea totală blocată (TVL) în DeFi' },
-            { name: 'Coin Metrics', href: 'https://coinmetrics.io/community-network-data/', en: 'On-chain activity of Bitcoin and Ethereum (community data)', ro: 'Activitatea on-chain pentru Bitcoin și Ethereum (date comunitare)' },
+            { name: 'Blockchain Research Center (BRC)', href: 'https://blockchain-research-center.com/data/', en: 'On-chain activity of Bitcoin, Ethereum and nine other coins: transactions, fees, hash rate, market value (the files are in the repository, data/onchain)', ro: 'Activitatea on-chain pentru Bitcoin, Ethereum și alte nouă monede: tranzacții, comisioane, hash rate, valoare de piață (fișierele sînt în repository, data/onchain)' },
+            { name: 'Coin Metrics', href: 'https://coinmetrics.io/community-network-data/', en: 'Circulating supply of the coins (community data)', ro: 'Oferta în circulație a monedelor (date comunitare)' },
             { name: 'CBECI', href: 'https://ccaf.io/cbnsi/cbeci', en: 'Cambridge Bitcoin Electricity Consumption Index: mining energy and the geography of mining', ro: 'Cambridge Bitcoin Electricity Consumption Index: energia consumată de minerit și geografia mineritului' },
             { name: 'CoinGecko, Etherscan, Dune', href: 'https://www.coingecko.com', en: 'Further public sources, useful for the due-diligence project: prices and market capitalisation, Ethereum transactions, SQL queries on on-chain data', ro: 'Alte surse publice, utile pentru proiectul de due diligence: prețuri și capitalizare, tranzacții Ethereum, interogări SQL pe date on-chain' }
         ],
