@@ -22,7 +22,8 @@
         confirmYes: 'Submit now', confirmNo: 'Back to the exam',
         other: 'This exam was opened in another window or device. Reload this page to continue here.',
         done: t => `Your answers were submitted at ${t}. You may close this page.`,
-        score: s => `Score: ${s.correct} of ${s.n} answers correct, ${s.total} / 100.`,
+        score: s => `Score: ${s.correct} of ${s.n} answers correct, ${s.total} / 100 (grade ${(s.total / 10).toFixed(2)} out of 10).`,
+        reviewTitle: 'Your answers and the correct answers', yours: 'your answer', right: 'correct answer', none: 'Not answered',
         timeUp: 'Time is over: your answers are being submitted.',
         question: 'Question', caseLbl: 'Case', navLbl: 'Go to question', navTitle: (n, a) => `Question ${n}${a ? ', answered' : ', not answered'}`
     };
@@ -174,13 +175,34 @@
     }
 
     // ---------------------------------------------------------- stage 4: done
+    // the submitted paper, read-only: the correct option in green, a wrong choice in red
+    function reviewHtml(rv) {
+        let html = '', lastCase, nCase = 0;
+        rv.paper.questions.forEach((q, n) => {
+            if (q.case && q.case !== lastCase) {
+                html += `<div class="ex-case"><h3>${T.caseLbl} ${++nCase}: ${rv.paper.cases[q.case].title}</h3>${rv.paper.cases[q.case].html}</div>`;
+            }
+            lastCase = q.case;
+            const a = rv.answers[q.k], key = rv.key[q.k], given = a !== undefined && a !== null;
+            html += `<div class="ex-q ex-rev ${given && a === key ? 'ok' : 'bad'}"><div class="ex-num">${T.question} ${n + 1}${given ? '' : ` · ${T.none}`}</div>
+                <div class="ex-stem">${q.stem}</div>
+                ${q.options.map((o, i) => `<div class="ex-opt ${i === key ? 'right' : i === a ? 'wrong' : ''}">
+                    <span class="ex-letter">${'abcde'[i]})</span> <span>${o}${i === key ? ` <em>(${T.right}${i === a ? ', ' + T.yours : ''})</em>` : i === a ? ` <em>(${T.yours})</em>` : ''}</span></div>`).join('')}
+              </div>`;
+        });
+        return html;
+    }
+
     function showDone(j) {
         state.finished = true;
         clearInterval(state.timer);
         $('exam-paper').hidden = true;
         const box = $('exam-gate');
         box.hidden = false;
-        box.innerHTML = `<p class="ex-done">${T.done(fmtTime(j.submitted))}</p>` + (j.score ? `<p>${T.score(j.score)}</p>` : '');
+        box.innerHTML = `<p class="ex-done">${T.done(fmtTime(j.submitted))}</p>` + (j.score ? `<p class="ex-score">${T.score(j.score)}</p>` : '');
+        const rv = $('exam-review');
+        rv.hidden = !j.review;
+        if (j.review) rv.innerHTML = `<h2>${T.reviewTitle}</h2>` + reviewHtml(j.review);
         window.scrollTo(0, 0);
     }
 

@@ -28,7 +28,7 @@
             teacherBtn: 'Instructor access', teacherPrompt: 'Instructor sign-in:', teacherDenied: 'This account is not an instructor account.',
             session: 'Session', showCode: 'Show code', full: 'Full screen', changes: s => `New code in ${s} s`,
             examOpen: 'Exam open', examClosed: 'Exam closed', openExam: 'Open the exam', closeExam: 'Close the exam',
-            closeAt: 'Latest end (optional, today, hh:mm)', showScore: 'Show students their score after submitting',
+            closeAt: 'Latest end (optional, today, hh:mm)', showScore: 'Show students their score and the correct answers after submitting',
             finalize: 'Grade unfinished attempts whose time is over', refresh: 'Refresh counts',
             counts: (st, sb) => `Exam: ${st} started, ${sb} submitted.`, attCounts: 'Attendance by session',
             finalized: n => `${n} attempt(s) graded.`
@@ -47,7 +47,7 @@
             teacherBtn: 'Acces profesor', teacherPrompt: 'Autentificare profesor:', teacherDenied: 'Acest cont nu este cont de profesor.',
             session: 'Ședința', showCode: 'Afișează codul', full: 'Ecran complet', changes: s => `Cod nou în ${s} s`,
             examOpen: 'Examen deschis', examClosed: 'Examen închis', openExam: 'Deschide examenul', closeExam: 'Închide examenul',
-            closeAt: 'Ora-limită de final (opțional, azi, hh:mm)', showScore: 'Studenții își văd scorul după predare',
+            closeAt: 'Ora-limită de final (opțional, azi, hh:mm)', showScore: 'Studenții își văd scorul și răspunsurile corecte după predare',
             finalize: 'Notează încercările nepredate cu timpul expirat', refresh: 'Actualizează',
             counts: (st, sb) => `Examen: ${st} începute, ${sb} predate.`, attCounts: 'Prezența pe ședințe',
             finalized: n => `${n} încercări notate.`

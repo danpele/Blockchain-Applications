@@ -133,3 +133,13 @@ html, body { overflow-x: clip; }
     .ex-stem { overflow-x: auto; }
     .ex-fig { min-width: 640px; }   /* phones: the chart keeps a readable size and scrolls sideways */
 }
+/* exam: review after submission */
+#exam-review h2 { color: var(--main-blue); font-size: 1.2rem; margin: 1.4rem 0 0.4rem; }
+.ex-score { font-size: 1.15rem; font-weight: 700; color: var(--main-blue); }
+.ex-rev { border-left: 5px solid #c62828; }
+.ex-rev.ok { border-left-color: #2e7d32; }
+.ex-rev .ex-opt { cursor: default; }
+.ex-rev .ex-opt:hover { background: none; }
+.ex-rev .ex-opt.right { background: #e6f4ea; font-weight: 600; }
+.ex-rev .ex-opt.wrong { background: #fdecea; }
+.ex-rev .ex-opt em { font-style: normal; font-size: 0.85em; color: #555; }
