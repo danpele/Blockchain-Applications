@@ -457,6 +457,36 @@ window.MFM_DATA.quizzes['l6'] = {
                 correctExplanation: "Concentration and the DPI both move with broad market phases; once each year's level is absorbed, no within-year link remains.",
                 incorrectExplanation: "A link that vanishes when year effects are added was driven by shared trends over time, not by concentration itself."
             }
+        },
+        {
+            "correct": 3,
+            "en": {
+                "title": "Chart: peg quality of ten tokens",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l6_pegquality.png\" alt=\"Chart for this question\">Distribution of the absolute reference-adjusted deviation |d| of ten tokens, in bp on a log scale (median, interquartile range, 5% and 95% whiskers). Which reading is right?",
+                "options": [
+                    "All ten tokens hold their reference within a few basis points",
+                    "USDC is the least stable token, since its box is the lowest",
+                    "The log scale hides the fact that the tokens are almost identical",
+                    "Large dollar tokens stay within a few bp; PAXG, EURS and sUSD are typically tens of bp away"
+                ],
+                "correctExplanation": "Medians rise from about 1 bp (USDC) to about 50 bp (EURS, sUSD): two tiers of peg quality, separated by more than an order of magnitude.",
+                "incorrectExplanation": "On a log scale each gridline is a factor of ten: USDC's median is near 1 bp, while PAXG, EURS and sUSD have medians of tens of bp."
+            }
+        },
+        {
+            "correct": 0,
+            "en": {
+                "title": "Chart: the DPI against simple stress gauges",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l6_stress.png\" alt=\"Chart for this question\">Each point is one day: the De-pegging Pressure Index (DPI) against the cross-coin median deviation (left) and against the VIX (right), with the rank correlations shown. Which reading is right?",
+                "options": [
+                    "The DPI is almost unrelated to both gauges: it measures something else",
+                    "The DPI rises strongly with the VIX",
+                    "The DPI is highest on the days with the largest deviations from the peg",
+                    "The DPI and the median deviation are the same measure on different scales"
+                ],
+                "correctExplanation": "Rank correlations of −0.10 and −0.16 and shapeless clouds: the DPI captures joint lower-tail movement, not distance from the peg or equity-market stress.",
+                "incorrectExplanation": "The clouds show no upward pattern and the correlations are slightly negative; the days of 2020 with the largest deviations and VIX have a low DPI."
+            }
         }
     ]
 };

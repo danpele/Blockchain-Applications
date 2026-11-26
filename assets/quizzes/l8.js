@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l8'] = {
                 correctExplanation: "The exam is written, 90 minutes, closed book with one A4 formula sheet; Part A has 20 multiple-choice questions, Part B three interpretation problems on real course output.",
                 incorrectExplanation: "Part A is the 20 multiple-choice questions (40%) and Part B the three interpretation problems (60%), in a 90-minute written, closed-book exam."
             }
+        },
+        {
+            "correct": 3,
+            "en": {
+                "title": "Chart: 810 trading rules",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l8_snoop.png\" alt=\"Chart for this question\">Left: each point is one trading rule, with its Sharpe ratio in the selection period (2018–2022) and in the evaluation period (2023–2026); the red point is the best rule of the selection period. Which reading is right?",
+                "options": [
+                    "The best rule of the selection period is also the best in the evaluation period",
+                    "Most rules beat buy-and-hold in the evaluation period",
+                    "Rules with a high Sharpe ratio in selection all have a high one in evaluation",
+                    "The winner of the selection period falls among the weakest rules afterwards"
+                ],
+                "correctExplanation": "The red point is far to the right (best in selection) but near the bottom in evaluation, below buy-and-hold: selection on past performance does not carry over.",
+                "incorrectExplanation": "The red point sits low on the vertical axis, and most points lie below the buy-and-hold line: past ranking says little about later performance."
+            }
+        },
+        {
+            "correct": 0,
+            "en": {
+                "title": "Chart: cumulative VaR breaches",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l8_breaches.png\" alt=\"Chart for this question\">Bitcoin, 1% VaR, 2024–2026: cumulative breaches of six models, with the expected number and the 95% binomial range. Which reading is right?",
+                "options": [
+                    "EWMA-N ends far above the range: its VaR is breached too often",
+                    "All six models end inside the 95% range",
+                    "GARCH-t has the most breaches of the six models",
+                    "Chronos-2 ends below the expected line: it is too conservative"
+                ],
+                "correctExplanation": "EWMA-N ends with about 22 breaches against about 10 expected, outside the band; the other five end inside it.",
+                "incorrectExplanation": "Only the EWMA-N line leaves the shaded range for good; GARCH-t has the fewest breaches, and Chronos-2 ends above the expected line but inside the range."
+            }
         }
     ]
 };

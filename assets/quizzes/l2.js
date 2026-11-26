@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l2'] = {
                 correctExplanation: "Without cointegration, a high $R^2$ in levels can come from common trends. Once the trend is removed or changes are used, $\\hat b$ falls to about 0.3, so valuations based on user growth rest on a fragile link.",
                 incorrectExplanation: "No cointegration and a collapse of $\\hat b$ to about 0.3 with a trend or in changes point to a spurious levels regression, not to strong network effects."
             }
+        },
+        {
+            "correct": 0,
+            "en": {
+                "title": "Chart: tails against the Normal",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l2_tails.png\" alt=\"Chart for this question\">Left: probability of a standardised loss larger than x for Bitcoin and the S&amp;P 500, against the Normal distribution (log scales). Right: Hill estimates of the tail index. Which reading of the left panel is right?",
+                "options": [
+                    "Beyond about 2 standard deviations, large losses are far more frequent than the Normal implies, for both assets",
+                    "The Normal distribution describes the tails of both assets well",
+                    "Only Bitcoin has more large losses than the Normal; the S&amp;P 500 follows the Normal curve",
+                    "Large losses are less frequent than the Normal implies, for both assets"
+                ],
+                "correctExplanation": "The Normal curve falls away quickly, while both empirical curves decline slowly: large losses are much more frequent than under the Normal.",
+                "incorrectExplanation": "Both empirical lines stay far above the Normal curve in the tail: extreme losses are more frequent than the Normal implies, for Bitcoin and the S&amp;P 500 alike."
+            }
+        },
+        {
+            "correct": 3,
+            "en": {
+                "title": "Chart: rolling skewness and kurtosis",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l2_rolling_moments.png\" alt=\"Chart for this question\">Bitcoin: skewness and excess kurtosis computed on rolling windows of 365 days. Both jump in March 2020 and return about a year later. What explains this pattern?",
+                "options": [
+                    "Bitcoin returns were Normal except during 2020",
+                    "Skewness and kurtosis are stable features of Bitcoin returns",
+                    "The market became permanently riskier after 2020",
+                    "One extreme day enters the window and leaves it a year later: these moments depend on a few observations"
+                ],
+                "correctExplanation": "The crash of 12 March 2020 dominates both statistics while it is inside the 365-day window; when it drops out, they fall back.",
+                "incorrectExplanation": "The jumps mark the day a single extreme return enters the window and the day it leaves, a year later: sample skewness and kurtosis are driven by a few observations."
+            }
         }
     ]
 };

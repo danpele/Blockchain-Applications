@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l1'] = {
                 correctExplanation: "With residuals that persist almost like a random walk, deviations from the trend accumulate over months. A band built as if residuals were independent and identically distributed (iid) understates the uncertainty, and the outcome ended just below it.",
                 incorrectExplanation: "Persistent residuals (AR(1) 0.97) make an iid forecast band far too narrow; a fitted trend describes the past and does not forecast prices."
             }
+        },
+        {
+            "correct": 1,
+            "en": {
+                "title": "Chart: the Bitcoin supply schedule",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l1_supply_schedule.png\" alt=\"Chart for this question\">The chart shows the simulated Bitcoin supply (left) and its annual growth rate on a log scale (right); dotted lines mark the halvings. Which reading is right?",
+                "options": [
+                    "The supply grows by the same number of coins in every four-year period",
+                    "The supply approaches the cap of 21 million; its growth rate falls in steps at each halving",
+                    "The cap of 21 million was already reached at the 2024 halving",
+                    "The growth rate of the supply rises after each halving"
+                ],
+                "correctExplanation": "The supply curve flattens towards the dashed cap, and the growth rate drops by a step at each halving.",
+                "incorrectExplanation": "The curve flattens towards 21 million without reaching it yet, and each halving lowers the growth rate by a step."
+            }
+        },
+        {
+            "correct": 2,
+            "en": {
+                "title": "Chart: concentration of market value",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l1_hhi_coins.png\" alt=\"Chart for this question\">Left: shares of ten coins in their total market value. Right: the Herfindahl–Hirschman index (HHI) of the shares and the effective number of coins, 1/HHI. Which reading is right?",
+                "options": [
+                    "The market has become steadily less concentrated since 2015",
+                    "Ethereum has held the largest share of market value since 2018",
+                    "Concentration fell sharply in 2017–2018 and has risen again since; Bitcoin dominates throughout",
+                    "The effective number of coins is about ten, as ten coins are included"
+                ],
+                "correctExplanation": "The HHI drops in 2017–2018 (the effective number peaks near 3) and climbs back afterwards; Bitcoin's share is the largest in every year.",
+                "incorrectExplanation": "The HHI falls in 2017–2018 and then rises again; the effective number of coins stays between about 1 and 3, and Bitcoin has the largest share throughout."
+            }
         }
     ]
 };

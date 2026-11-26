@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l7'] = {
                 correctExplanation: "The minimum standard needs a benchmark without the new information; the RMSE difference should come with a confidence interval, for example from a Diebold–Mariano test.",
                 incorrectExplanation: "SHAP describes how the model uses its inputs; whether sentiment helps needs a comparison with a model that lacks it, on the same test period."
             }
+        },
+        {
+            "correct": 2,
+            "en": {
+                "title": "Chart: eigenvalues and the absorption ratio",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l7_eigen.png\" alt=\"Chart for this question\">Left: eigenvalues of the correlation matrix of 19 coins. Right: the absorption ratio (share of variance of the first component) by year, with the value implied by the mean correlation. Which reading is right?",
+                "options": [
+                    "The 19 coins move independently, since most eigenvalues are small",
+                    "Each of the 19 components explains about the same share of the variance",
+                    "One common factor dominates: the first eigenvalue is far larger than all the others",
+                    "The absorption ratio falls steadily from 2021 to 2026"
+                ],
+                "correctExplanation": "The first eigenvalue is close to 12 of 19, the rest are below 1: one market factor explains about 60–75% of the variance in every year.",
+                "incorrectExplanation": "The first bar dwarfs the others, so one factor carries most of the variance; the yearly ratio moves between about 0.6 and 0.75 without a steady trend."
+            }
+        },
+        {
+            "correct": 1,
+            "en": {
+                "title": "Chart: Bitcoin trading volume",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l7_volume.png\" alt=\"Chart for this question\">Left: log of daily Bitcoin trading volume with its 30-day mean. Right: today's log volume against yesterday's, with the fitted AR(1) line. What does the right panel imply for a study of volume forecasts?",
+                "options": [
+                    "Volume is unpredictable, so any model that forecasts it has skill",
+                    "Yesterday's volume already explains much of today's: a new predictor must beat this benchmark",
+                    "Volume rises over the sample, so a trend is the best forecast",
+                    "The AR(1) fit shows that sentiment drives trading volume"
+                ],
+                "correctExplanation": "The points lie along the line (R² = 0.61): lagged volume is a strong benchmark, and a new variable has to improve on it.",
+                "incorrectExplanation": "The scatter shows strong persistence in volume; a forecast that does not beat lagged volume adds nothing, whatever variable it uses."
+            }
         }
     ]
 };

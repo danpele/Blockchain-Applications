@@ -143,3 +143,9 @@ html, body { overflow-x: clip; }
 .ex-rev .ex-opt.right { background: #e6f4ea; font-weight: 600; }
 .ex-rev .ex-opt.wrong { background: #fdecea; }
 .ex-rev .ex-opt em { font-style: normal; font-size: 0.85em; color: #555; }
+/* practice quizzes: chart inside a question */
+.quiz-fig { display: block; max-width: 100%; height: auto; margin: 0.2rem auto 0.7rem; background: white; }
+@media (max-width: 700px) {
+    .quiz-question p { overflow-x: auto; }
+    .quiz-fig { min-width: 640px; }
+}

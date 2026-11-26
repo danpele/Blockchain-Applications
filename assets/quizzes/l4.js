@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l4'] = {
                 correctExplanation: "35 days have almost no power: detecting 2% against 1% with probability 0.8 at the 5% level needs about 900 days. The long backtest, not this window, discriminates.",
                 incorrectExplanation: "Zero hits is the most likely outcome for both a correct model (0.703) and a bad one (0.493); five weeks cannot separate them."
             }
+        },
+        {
+            "correct": 3,
+            "en": {
+                "title": "Chart: conditional volatility",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l4_condvol.png\" alt=\"Chart for this question\">Annualised conditional volatility from GARCH(1,1)-t models for Bitcoin, Ethereum and the S&amp;P 500, 2018–2026. Which reading is right?",
+                "options": [
+                    "Volatility is roughly constant over time for all three assets",
+                    "The S&amp;P 500 is more volatile than Bitcoin in most years",
+                    "Ethereum is the calmest of the three assets",
+                    "Volatility comes in bursts; Ethereum is above Bitcoin, and both are far above the S&amp;P 500"
+                ],
+                "correctExplanation": "All three series show spikes followed by slow decay (clustering); the ordering Ethereum, Bitcoin, S&amp;P 500 holds almost throughout.",
+                "incorrectExplanation": "The lines spike and decay (volatility clustering), with Ethereum above Bitcoin and both far above the S&amp;P 500 nearly all the time."
+            }
+        },
+        {
+            "correct": 0,
+            "en": {
+                "title": "Chart: EWMA weights",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l4_ewma_weights.png\" alt=\"Chart for this question\">Weights given to past squared returns by an exponentially weighted moving average (EWMA) with lambda = 0.94 and lambda = 0.97, against an equal-weight window of 30 days. Which reading is right?",
+                "options": [
+                    "A lower lambda puts more weight on recent days and forgets old ones faster",
+                    "A higher lambda puts more weight on yesterday's return",
+                    "Both EWMA schemes ignore returns older than 30 days",
+                    "The equal-weight window reacts fastest to yesterday's return"
+                ],
+                "correctExplanation": "With lambda = 0.94 the weight starts at 0.06 and decays quickly; with 0.97 it starts at 0.03 and decays slowly, so old days still count.",
+                "incorrectExplanation": "The orange bars (lambda = 0.94) start higher and fall faster than the blue ones (0.97); EWMA weights never drop to zero at 30 days, unlike the equal-weight window."
+            }
         }
     ]
 };

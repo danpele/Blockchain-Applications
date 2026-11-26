@@ -457,6 +457,36 @@ window.MFM_DATA.quizzes['l5'] = {
                 correctExplanation: "37% of hours were above 10 bp, yet none reached 15 bp: a price-level rule would have produced many false alerts. The paper's alarm looks at pool composition and liquidity as well.",
                 incorrectExplanation: "With 206 hours above 10 bp and no breach of 15 bp, a 10 bp rule raises many alerts that are not followed by an event."
             }
+        },
+        {
+            "correct": 2,
+            "en": {
+                "title": "Chart: depeg episodes",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l5_episodes.png\" alt=\"Chart for this question\">USDC priced in USDT, hourly: each point is one episode beyond 15 bp, by duration and peak deviation (left); number of episodes by duration (right). Which reading is right?",
+                "options": [
+                    "Most episodes last several days and peak above 100 bp",
+                    "Episodes became more frequent every year from 2022 to 2026",
+                    "Most episodes are short and shallow; a few long ones are far deeper",
+                    "Duration and depth are unrelated: the deepest episodes are the shortest"
+                ],
+                "correctExplanation": "Half of the episodes last one hour and almost all peak below 25 bp; the two longest episodes are also the deepest.",
+                "incorrectExplanation": "15 of the 30 episodes last one hour and most peak near 20 bp; only two episodes are both long and deep, and the yearly counts do not rise steadily."
+            }
+        },
+        {
+            "correct": 1,
+            "en": {
+                "title": "Chart: rolling VaR of three stablecoins",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l5_rollvar.png\" alt=\"Chart for this question\">Rolling VaR 1% of the daily close deviation from 1 USD (previous 365 days, bp, log scale) for USDT, USDC and DAI. Which reading is right?",
+                "options": [
+                    "USDC has the highest tail risk of the three in every year",
+                    "Tail risk is not constant: DAI's fell sharply after 2022, while USDT's is the highest since 2024",
+                    "All three lines are flat, so one VaR number describes the whole period",
+                    "USDT's tail risk has fallen steadily since 2022"
+                ],
+                "correctExplanation": "DAI starts above 30 bp and falls below 5 bp by 2025; USDT moves up to 15–20 bp and is the highest of the three from 2024 on.",
+                "incorrectExplanation": "The lines move in steps and cross: DAI falls from the highest to among the lowest, and USDT is the highest from 2024, so no single number describes the period."
+            }
         }
     ]
 };

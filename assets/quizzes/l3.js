@@ -456,6 +456,36 @@ window.MFM_DATA.quizzes['l3'] = {
                 correctExplanation: "The fund did not change; the larger figure is caused by comparing prices taken eight hours apart.",
                 incorrectExplanation: "Asynchronous prices add noise that has nothing to do with the fund; compare at the fund's pricing time."
             }
+        },
+        {
+            "correct": 2,
+            "en": {
+                "title": "Chart: drawdowns of CRIX and Bitcoin",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l3_crix_drawdown.png\" alt=\"Chart for this question\">Drawdown (% below the last record) of the CRIX index and of Bitcoin, 2017–2026. Which reading is right?",
+                "options": [
+                    "CRIX avoids the deep drawdowns of Bitcoin, since it holds several coins",
+                    "Drawdowns of 40% or more occurred only once, in 2018",
+                    "The two drawdowns are almost the same: the index gives little protection in a crash",
+                    "Bitcoin recovers from each drawdown within a few weeks"
+                ],
+                "correctExplanation": "The Bitcoin line follows the edge of the CRIX area closely, with falls of 75–85% in 2018 and 2022: diversification across coins does not protect in a crash.",
+                "incorrectExplanation": "The two series nearly coincide, including the falls of about 80% in 2018 and 2022, and recoveries take years, not weeks."
+            }
+        },
+        {
+            "correct": 1,
+            "en": {
+                "title": "Chart: index weights with and without a cap",
+                "text": "<img class=\"quiz-fig\" src=\"web/img/ba_l3_replica_weights.png\" alt=\"Chart for this question\">Weights of a CRIX replica at each rebalancing: market-value weights (left) and weights capped below 50% (right). What does the cap change?",
+                "options": [
+                    "Nothing visible: the two panels show the same weights",
+                    "It holds Bitcoin at 50% and gives most of the remainder to Ethereum",
+                    "It spreads the weights equally across all the coins",
+                    "It removes Bitcoin from the index"
+                ],
+                "correctExplanation": "With the cap, Bitcoin sits at 50% in every period and Ethereum takes most of the other half: the capped index is a different product.",
+                "incorrectExplanation": "In the right panel Bitcoin is held at the 50% limit throughout, and the weight it gives up goes mainly to Ethereum, not equally to all coins."
+            }
         }
     ]
 };
