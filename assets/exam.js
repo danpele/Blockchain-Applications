@@ -24,7 +24,7 @@
         done: t => `Your answers were submitted at ${t}. You may close this page.`,
         score: s => `Score: ${s.correct} of ${s.n} answers correct, ${s.total} / 100.`,
         timeUp: 'Time is over: your answers are being submitted.',
-        question: 'Question', caseLbl: 'Case'
+        question: 'Question', caseLbl: 'Case', navLbl: 'Go to question', navTitle: (n, a) => `Question ${n}${a ? ', answered' : ', not answered'}`
     };
 
     const state = { email: null, token: null, deadline: 0, skew: 0, paper: null, answers: {}, focus: 0,
@@ -97,6 +97,12 @@
         });
         html += `<div class="ex-end"><button class="btn btn-primary btn-lg" id="ex-submit" type="button">${T.submit}</button></div>`;
         $('ex-body').innerHTML = html;
+        // question navigator: one button per question, filled once answered; a click scrolls to the question
+        $('ex-nav').innerHTML = qs.map((q, i) => `<button type="button" class="ex-nav-btn" data-k="${q.k}">${i + 1}</button>`).join('');
+        $('ex-nav').onclick = ev => {
+            const b = ev.target.closest('.ex-nav-btn');
+            if (b) document.getElementById('q' + b.dataset.k).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
         $('ex-who').textContent = `${j.name} (${j.email})`;
         $('ex-body').onchange = ev => {
             const t = ev.target;
@@ -118,6 +124,11 @@
     function progress() {
         const n = state.paper.questions.length, a = Object.keys(state.answers).filter(k => state.answers[k] !== null).length;
         $('ex-progress').textContent = T.answered(a, n);
+        $('ex-nav').querySelectorAll('.ex-nav-btn').forEach(b => {
+            const v = state.answers[b.dataset.k], done = v !== undefined && v !== null;
+            b.classList.toggle('done', done);
+            b.title = T.navTitle(b.textContent, done);
+        });
         return [a, n];
     }
 
