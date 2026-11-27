@@ -206,6 +206,11 @@
         window.scrollTo(0, 0);
     }
 
+    // while the paper is open: no copying, cutting, context menu or dragging of the questions (a deterrent, not a lock)
+    ['copy', 'cut', 'contextmenu', 'dragstart'].forEach(ev => document.addEventListener(ev, e => {
+        if (state.paper && !state.finished && e.target.closest && e.target.closest('#exam-paper')) e.preventDefault();
+    }));
+
     document.addEventListener('visibilitychange', () => {
         if (document.hidden && state.paper && !state.finished) { state.focus++; state.dirty = true; }
     });

@@ -157,3 +157,6 @@ html, body { overflow-x: clip; }
 .ex-stem th, .ex-stem td { border: 1px solid var(--border); padding: 0.3rem 0.55rem; text-align: right; white-space: nowrap; }
 .ex-stem th:first-child, .ex-stem td:first-child { text-align: left; }
 .ex-stem th { background: var(--main-blue); color: white; white-space: normal; vertical-align: bottom; }
+/* exam: the text of the paper cannot be selected (a deterrent against copying it elsewhere) */
+#exam-paper { -webkit-user-select: none; user-select: none; }
+@media print { #exam-paper { display: none; } }
