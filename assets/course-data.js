@@ -154,7 +154,7 @@
                 { h: 'Programme', p: ['Master Blockchain for Business (MBB), year I, semester I, 2026–2027', 'Taught in English; one course in two parts', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Course syllabus (PDF)</a>'] },
                 { h: 'Part 1: Crypto Economics', p: ['Prof. Ilan Alon, Mon 16 – Sat 21 November 2026', 'Weekdays 17:30–20:40, Saturday 09:10–15:40 (28 academic hours)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
                 { h: 'Part 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 8 lectures', 'Mon 23 Nov (L1–L2), Tue 24 Nov (L3–L4), Wed 25 Nov (L5–L6), Thu 26 Nov (L7–L8)', 'Room 4113, 1st floor (Trading Lab), Victor Slăvescu Building, 2–2A Calea Griviței, District 1, Bucharest'] },
-                { h: 'Exam', p: ['Friday 27 November 2026, 60 minutes', '30 multiple-choice questions on both parts of the course, answered on this website'] },
+                { h: 'Exam', p: ['Friday 27 November 2026, 90 minutes', '30 multiple-choice questions on both parts of the course, answered on this website'] },
                 { h: 'Final grade', p: ['50% due-diligence project (Part 1)', '50% exam (both parts, one paper)'] },
                 { h: 'Tools', p: ['Google Colab notebooks in Python, run in the browser', 'Sign-in with the ASE Google account for attendance and the exam'] }
             ],
@@ -162,7 +162,7 @@
                 { h: 'Program', p: ['Masterul Blockchain for Business (MBB), anul I, semestrul I, 2026–2027', 'Predare în limba engleză; o disciplină în două părți', '<a href="EN/Blockchain_Applications_Syllabus_2026-2027.pdf" target="_blank" rel="noopener">Syllabus (PDF, în engleză)</a>'] },
                 { h: 'Partea 1: Crypto Economics', p: ['Prof. Ilan Alon, luni 16 – sîmbătă 21 noiembrie 2026', 'În zilele lucrătoare 17:30–20:40, sîmbătă 09:10–15:40 (28 de ore academice)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
                 { h: 'Partea 2: Blockchain Analytics', p: ['Prof. Daniel Traian Pele, 8 cursuri', 'Luni 23 nov. (C1–C2), marți 24 nov. (C3–C4), miercuri 25 nov. (C5–C6), joi 26 nov. (C7–C8)', 'Sala 4113, etajul 1 (Trading Lab), clădirea Victor Slăvescu, Calea Griviței 2–2A, Sector 1, București'] },
-                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 60 de minute', '30 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
+                { h: 'Examen', p: ['Vineri, 27 noiembrie 2026, 90 de minute', '30 de întrebări grilă din ambele părți ale cursului, cu răspunsurile date pe acest site'] },
                 { h: 'Nota finală', p: ['50% proiectul de due diligence (Partea 1)', '50% examenul (ambele părți, un singur subiect)'] },
                 { h: 'Instrumente', p: ['Notebook-uri Google Colab în Python, rulate în browser', 'Autentificare cu contul Google ASE pentru prezență și examen'] }
             ]
@@ -383,7 +383,7 @@
                 `<a href="pdfjs/web/viewer.html?file=..%2F..%2FEN%2FReadings%2FCrypto_Due_Diligence_Assignment.pdf" target="_blank" rel="noopener">Assignment and student template</a> (<a href="EN/Readings/Crypto_Due_Diligence_Assignment.docx">Word</a>)`
             ] },
             { h: 'Exam: 50%', p: [
-                'Friday 27 November 2026, 60 minutes, on this site: sign in with your ASE Google account and type the exam code shown on the screen.',
+                'Friday 27 November 2026, 90 minutes, on this site: sign in with your ASE Google account and type the exam code shown on the screen.',
                 'One exam of 30 multiple-choice questions, one point each: 15 on Crypto Economics and 15 on Blockchain Analytics, mixed together. The last 5 questions are about a short case built on real output from the course notebooks. The score is the share of correct answers, out of 100.',
                 'Each student gets a different set of questions on the screen, drawn from larger question banks, in a different order. No calculations; a wrong answer costs nothing.',
                 'No books, notes or other materials. Answers are saved as you go; if the page closes, sign in again to continue.',
@@ -403,7 +403,7 @@
                 `<a href="pdfjs/web/viewer.html?file=..%2F..%2FEN%2FReadings%2FCrypto_Due_Diligence_Assignment.pdf" target="_blank" rel="noopener">Tema și șablonul pentru studenți</a> (<a href="EN/Readings/Crypto_Due_Diligence_Assignment.docx">Word</a>)`
             ] },
             { h: 'Examenul: 50%', p: [
-                'Vineri, 27 noiembrie 2026, 60 de minute, pe acest site: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
+                'Vineri, 27 noiembrie 2026, 90 de minute, pe acest site: vă autentificați cu contul Google ASE și introduceți codul de examen afișat pe ecran.',
                 'Un singur examen cu 30 de întrebări grilă, fiecare de un punct: 15 de Crypto Economics și 15 de Blockchain Analytics, amestecate. Ultimele 5 întrebări se referă la un studiu de caz scurt, construit pe rezultate reale din notebook-urile cursului. Nota este procentul de răspunsuri corecte, din 100.',
                 'Fiecare student primește pe ecran alt set de întrebări, extrase din bănci mai mari de întrebări, în altă ordine. Fără calcule; un răspuns greșit nu se depunctează.',
                 'Fără cărți, notițe sau alte materiale. Răspunsurile se salvează pe parcurs; dacă pagina se închide, vă autentificați din nou și continuați.',
