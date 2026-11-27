@@ -31,7 +31,8 @@
             closeAt: 'Latest end (optional, today, hh:mm)', showScore: 'Show students their score and the correct answers after submitting',
             finalize: 'Grade unfinished attempts whose time is over', refresh: 'Refresh counts',
             results: 'Grades and report', resTitle: 'Exam results', resCsv: 'Download CSV', resBack: 'Back to the list', resView: 'Report', resNone: 'No attempts yet.',
-            resCols: ['Name', 'E-mail', 'Grade (of 10)', 'Correct', 'Crypto Economics', 'Blockchain Analytics', 'Answered', 'Left the page', 'Started', 'Submitted', 'Minutes', ''],
+            resCols: ['Name', 'E-mail', 'Grade (of 10)', 'Adjusted grade', 'Correct', 'Crypto Economics', 'Blockchain Analytics', 'Answered', 'Left the page', 'Started', 'Submitted', 'Minutes', ''],
+            resRule: 'Adjusted grade: up to 3 exits from the exam page are tolerated; 4 to 10 exits cost 1 point, more than 10 cost 2 points.',
             resOpen: 'not submitted', resLeft: n => `Left the exam page ${n} time(s).`, resQ: 'Question', resNoAns: 'no answer', resRight: 'correct answer', resYours: 'student\'s answer', resCase: 'Case',
             counts: (st, sb) => `Exam: ${st} started, ${sb} submitted.`, attCounts: 'Attendance by session',
             finalized: n => `${n} attempt(s) graded.`
@@ -53,7 +54,8 @@
             closeAt: 'Ora-limită de final (opțional, azi, hh:mm)', showScore: 'Studenții își văd scorul și răspunsurile corecte după predare',
             finalize: 'Notează încercările nepredate cu timpul expirat', refresh: 'Actualizează',
             results: 'Note și raport', resTitle: 'Rezultatele examenului', resCsv: 'Descarcă CSV', resBack: 'Înapoi la listă', resView: 'Raport', resNone: 'Nicio lucrare încă.',
-            resCols: ['Nume', 'E-mail', 'Nota (din 10)', 'Corecte', 'Crypto Economics', 'Blockchain Analytics', 'Răspunsuri date', 'A părăsit pagina', 'Început', 'Predat', 'Minute', ''],
+            resCols: ['Nume', 'E-mail', 'Nota (din 10)', 'Nota ajustată', 'Corecte', 'Crypto Economics', 'Blockchain Analytics', 'Răspunsuri date', 'A părăsit pagina', 'Început', 'Predat', 'Minute', ''],
+            resRule: 'Nota ajustată: se tolerează cel mult 3 ieșiri din pagina de examen; 4–10 ieșiri scad 1 punct, peste 10 scad 2 puncte.',
             resOpen: 'nepredat', resLeft: n => `A părăsit pagina de examen de ${n} ori.`, resQ: 'Întrebarea', resNoAns: 'fără răspuns', resRight: 'răspuns corect', resYours: 'răspunsul studentului', resCase: 'Studiu de caz',
             counts: (st, sb) => `Examen: ${st} începute, ${sb} predate.`, attCounts: 'Prezența pe ședințe',
             finalized: n => `${n} încercări notate.`
@@ -303,6 +305,9 @@
     // ---------------------------------------------------------- instructor: grades and per-student report
     const hm = t => t ? new Date(t).toTimeString().slice(0, 5) : '';
     const grade = r => (r.score / 10).toFixed(2);
+    // exits from the exam page: up to 3 tolerated, 4 to 10 cost 1 point, more than 10 cost 2 points
+    const penalty = r => r.focus > 10 ? 2 : r.focus > 3 ? 1 : 0;
+    const adjusted = r => Math.max(0, r.score / 10 - penalty(r)).toFixed(2);
     const mins = r => Math.round(((r.submitted || Math.min(Date.now(), r.deadline)) - r.started) / 60000);
 
     function showResults() {
@@ -314,8 +319,9 @@
             const C = TXT.resCols;
             box.innerHTML = `<h3>${TXT.resTitle} (${rows.length})</h3>
                 <p><button class="btn btn-outline btn-sm" id="tp-csv" type="button">${TXT.resCsv}</button></p>
+                <p>${TXT.resRule}</p>
                 <div class="tp-scroll"><table class="tp-table"><thead><tr>${C.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>
-                ${rows.map((r, i) => `<tr class="${r.submitted ? '' : 'open'}"><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td><strong>${grade(r)}</strong></td>
+                ${rows.map((r, i) => `<tr class="${r.submitted ? '' : 'open'}"><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${grade(r)}</td><td class="${penalty(r) ? 'warn' : ''}"><strong>${adjusted(r)}</strong></td>
                     <td>${r.correct} / ${r.n}</td><td>${r.ce}</td><td>${r.ba}</td><td>${r.answered} / ${r.n}</td><td class="${r.focus ? 'warn' : ''}">${r.focus}</td>
                     <td>${hm(r.started)}</td><td>${r.submitted ? hm(r.submitted) : TXT.resOpen}</td><td>${mins(r)}</td>
                     <td><button class="btn btn-outline btn-sm" data-i="${i}" type="button">${TXT.resView}</button></td></tr>`).join('')}
@@ -323,7 +329,7 @@
             box.querySelectorAll('button[data-i]').forEach(b => b.onclick = () => showReport(rows[+b.dataset.i].email));
             $('tp-csv').onclick = () => {
                 const q = v => `"${String(v).replace(/"/g, '""')}"`;
-                const csv = [C.slice(0, 11).map(q).join(',')].concat(rows.map(r => [r.name, r.email, grade(r), r.correct, r.ce, r.ba, r.answered, r.focus,
+                const csv = [C.slice(0, 12).map(q).join(',')].concat(rows.map(r => [r.name, r.email, grade(r), adjusted(r), r.correct, r.ce, r.ba, r.answered, r.focus,
                     hm(r.started), r.submitted ? hm(r.submitted) : TXT.resOpen, mins(r)].map(q).join(','))).join('\r\n');
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' }));
@@ -351,7 +357,7 @@
             });
             box.innerHTML = `<p><button class="btn btn-outline btn-sm" id="tp-back" type="button">${TXT.resBack}</button></p>
                 <h3>${esc(j.name)} (${esc(j.email)})</h3>
-                <p><strong>${TXT.resCols[2]}: ${grade(j)}</strong> · ${TXT.resCols[3]}: ${j.correct} / ${j.n} · Crypto Economics: ${j.ce} · Blockchain Analytics: ${j.ba}
+                <p><strong>${TXT.resCols[2]}: ${grade(j)} · ${TXT.resCols[3]}: ${adjusted(j)}</strong> · ${TXT.resCols[4]}: ${j.correct} / ${j.n} · Crypto Economics: ${j.ce} · Blockchain Analytics: ${j.ba}
                    · ${hm(j.started)}–${j.submitted ? hm(j.submitted) : TXT.resOpen} · ${TXT.resLeft(j.focus)}</p>
                 <div class="tp-report">${html}</div>`;
             $('tp-back').onclick = showResults;
