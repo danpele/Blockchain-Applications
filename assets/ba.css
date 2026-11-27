@@ -160,3 +160,12 @@ html, body { overflow-x: clip; }
 /* exam: the text of the paper cannot be selected (a deterrent against copying it elsewhere) */
 #exam-paper { -webkit-user-select: none; user-select: none; }
 @media print { #exam-paper { display: none; } }
+
+/* instructor panel: grades table and per-student report */
+.tp-scroll { overflow-x: auto; }
+.tp-table { border-collapse: collapse; width: 100%; font-size: .9rem; background: #fff; color: #1a1a1a; }
+.tp-table th, .tp-table td { border: 1px solid #d5d9e0; padding: .35rem .5rem; text-align: left; white-space: nowrap; }
+.tp-table th { background: #eef1f6; }
+.tp-table tr.open td { background: #fff7e0; }
+.tp-table td.warn { background: #fde2e2; font-weight: 700; }
+.tp-report { background: #fff; color: #1a1a1a; padding: 1rem; border-radius: 8px; text-align: left; }

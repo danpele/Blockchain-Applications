@@ -30,6 +30,9 @@
             examOpen: 'Exam open', examClosed: 'Exam closed', openExam: 'Open the exam', closeExam: 'Close the exam',
             closeAt: 'Latest end (optional, today, hh:mm)', showScore: 'Show students their score and the correct answers after submitting',
             finalize: 'Grade unfinished attempts whose time is over', refresh: 'Refresh counts',
+            results: 'Grades and report', resTitle: 'Exam results', resCsv: 'Download CSV', resBack: 'Back to the list', resView: 'Report', resNone: 'No attempts yet.',
+            resCols: ['Name', 'E-mail', 'Grade (of 10)', 'Correct', 'Crypto Economics', 'Blockchain Analytics', 'Answered', 'Left the page', 'Started', 'Submitted', 'Minutes', ''],
+            resOpen: 'not submitted', resLeft: n => `Left the exam page ${n} time(s).`, resQ: 'Question', resNoAns: 'no answer', resRight: 'correct answer', resYours: 'student\'s answer', resCase: 'Case',
             counts: (st, sb) => `Exam: ${st} started, ${sb} submitted.`, attCounts: 'Attendance by session',
             finalized: n => `${n} attempt(s) graded.`
         },
@@ -49,6 +52,9 @@
             examOpen: 'Examen deschis', examClosed: 'Examen închis', openExam: 'Deschide examenul', closeExam: 'Închide examenul',
             closeAt: 'Ora-limită de final (opțional, azi, hh:mm)', showScore: 'Studenții își văd scorul și răspunsurile corecte după predare',
             finalize: 'Notează încercările nepredate cu timpul expirat', refresh: 'Actualizează',
+            results: 'Note și raport', resTitle: 'Rezultatele examenului', resCsv: 'Descarcă CSV', resBack: 'Înapoi la listă', resView: 'Raport', resNone: 'Nicio lucrare încă.',
+            resCols: ['Nume', 'E-mail', 'Nota (din 10)', 'Corecte', 'Crypto Economics', 'Blockchain Analytics', 'Răspunsuri date', 'A părăsit pagina', 'Început', 'Predat', 'Minute', ''],
+            resOpen: 'nepredat', resLeft: n => `A părăsit pagina de examen de ${n} ori.`, resQ: 'Întrebarea', resNoAns: 'fără răspuns', resRight: 'răspuns corect', resYours: 'răspunsul studentului', resCase: 'Studiu de caz',
             counts: (st, sb) => `Examen: ${st} începute, ${sb} predate.`, attCounts: 'Prezența pe ședințe',
             finalized: n => `${n} încercări notate.`
         }
@@ -194,7 +200,8 @@
               <div class="cd-url" id="tp-url"></div><div class="cd-next" id="tp-next"></div>
             </div>
             <div class="tp-exam" id="tp-exam"></div>
-            <p class="login-msg" id="tp-msg" aria-live="polite"></p>`;
+            <p class="login-msg" id="tp-msg" aria-live="polite"></p>
+            <div id="tp-res"></div>`;
         $('tp-full').onclick = () => { const d = $('tp-display'); if (!d.hidden && d.requestFullscreen) d.requestFullscreen(); };
         $('tp-show').onclick = () => showCode();
         status();
@@ -278,8 +285,10 @@
               <button class="btn ${ex.open ? 'btn-outline' : 'btn-secondary'} btn-sm" id="tp-toggle" type="button">${ex.open ? TXT.closeExam : TXT.openExam}</button>
               <button class="btn btn-outline btn-sm" id="tp-final" type="button">${TXT.finalize}</button>
               <button class="btn btn-outline btn-sm" id="tp-refresh" type="button">${TXT.refresh}</button>
+              <button class="btn btn-secondary btn-sm" id="tp-results" type="button">${TXT.results}</button>
             </div>
             <p class="tp-att"><strong>${TXT.attCounts}:</strong> ${att}</p>`;
+        $('tp-results').onclick = showResults;
         $('tp-toggle').onclick = () => {
             const hm = $('tp-close').value;
             let closeAt = null;
@@ -289,6 +298,65 @@
         $('tp-score').onchange = () => teacherCall({ action: 'exam_toggle', open: ex.open, closeAt: ex.closeAt, showScore: $('tp-score').checked }).then(renderExamCtl);
         $('tp-final').onclick = () => teacherCall({ action: 'finalize' }).then(r => { $('tp-msg').textContent = TXT.finalized(r.finalized || 0); status(); });
         $('tp-refresh').onclick = status;
+    }
+
+    // ---------------------------------------------------------- instructor: grades and per-student report
+    const hm = t => t ? new Date(t).toTimeString().slice(0, 5) : '';
+    const grade = r => (r.score / 10).toFixed(2);
+    const mins = r => Math.round(((r.submitted || Math.min(Date.now(), r.deadline)) - r.started) / 60000);
+
+    function showResults() {
+        teacherCall({ action: 'results' }).then(j => {
+            const box = $('tp-res');
+            if (!j || !j.ok || !box) return;
+            const rows = j.rows.slice().sort((a, b) => a.name.localeCompare(b.name));
+            if (!rows.length) { box.innerHTML = `<p>${TXT.resNone}</p>`; return; }
+            const C = TXT.resCols;
+            box.innerHTML = `<h3>${TXT.resTitle} (${rows.length})</h3>
+                <p><button class="btn btn-outline btn-sm" id="tp-csv" type="button">${TXT.resCsv}</button></p>
+                <div class="tp-scroll"><table class="tp-table"><thead><tr>${C.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>
+                ${rows.map((r, i) => `<tr class="${r.submitted ? '' : 'open'}"><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td><strong>${grade(r)}</strong></td>
+                    <td>${r.correct} / ${r.n}</td><td>${r.ce}</td><td>${r.ba}</td><td>${r.answered} / ${r.n}</td><td class="${r.focus ? 'warn' : ''}">${r.focus}</td>
+                    <td>${hm(r.started)}</td><td>${r.submitted ? hm(r.submitted) : TXT.resOpen}</td><td>${mins(r)}</td>
+                    <td><button class="btn btn-outline btn-sm" data-i="${i}" type="button">${TXT.resView}</button></td></tr>`).join('')}
+                </tbody></table></div>`;
+            box.querySelectorAll('button[data-i]').forEach(b => b.onclick = () => showReport(rows[+b.dataset.i].email));
+            $('tp-csv').onclick = () => {
+                const q = v => `"${String(v).replace(/"/g, '""')}"`;
+                const csv = [C.slice(0, 11).map(q).join(',')].concat(rows.map(r => [r.name, r.email, grade(r), r.correct, r.ce, r.ba, r.answered, r.focus,
+                    hm(r.started), r.submitted ? hm(r.submitted) : TXT.resOpen, mins(r)].map(q).join(','))).join('\r\n');
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' }));
+                a.download = 'exam_results.csv';
+                a.click();
+            };
+        });
+    }
+
+    function showReport(email) {
+        teacherCall({ action: 'results', email }).then(j => {
+            const box = $('tp-res');
+            if (!j || !j.ok || !box) return;
+            const rv = j.review;
+            let html = '', lastCase, nCase = 0;
+            rv.paper.questions.forEach((q, n) => {
+                if (q.case && q.case !== lastCase) html += `<div class="ex-case"><h3>${TXT.resCase} ${++nCase}: ${rv.paper.cases[q.case].title}</h3>${rv.paper.cases[q.case].html}</div>`;
+                lastCase = q.case;
+                const a = rv.answers[q.k], key = rv.key[q.k], given = a !== undefined && a !== null;
+                html += `<div class="ex-q ex-rev ${given && a === key ? 'ok' : 'bad'}"><div class="ex-num">${TXT.resQ} ${n + 1}${given ? '' : ` · ${TXT.resNoAns}`}</div>
+                    <div class="ex-stem">${q.stem}</div>
+                    ${q.options.map((o, i) => `<div class="ex-opt ${i === key ? 'right' : i === a ? 'wrong' : ''}">
+                        <span class="ex-letter">${'abcde'[i]})</span> <span>${o}${i === key ? ` <em>(${TXT.resRight}${i === a ? ', ' + TXT.resYours : ''})</em>` : i === a ? ` <em>(${TXT.resYours})</em>` : ''}</span></div>`).join('')}
+                  </div>`;
+            });
+            box.innerHTML = `<p><button class="btn btn-outline btn-sm" id="tp-back" type="button">${TXT.resBack}</button></p>
+                <h3>${esc(j.name)} (${esc(j.email)})</h3>
+                <p><strong>${TXT.resCols[2]}: ${grade(j)}</strong> · ${TXT.resCols[3]}: ${j.correct} / ${j.n} · Crypto Economics: ${j.ce} · Blockchain Analytics: ${j.ba}
+                   · ${hm(j.started)}–${j.submitted ? hm(j.submitted) : TXT.resOpen} · ${TXT.resLeft(j.focus)}</p>
+                <div class="tp-report">${html}</div>`;
+            $('tp-back').onclick = showResults;
+            box.scrollIntoView({ behavior: 'smooth' });
+        });
     }
 
     // ---------------------------------------------------------- entry
