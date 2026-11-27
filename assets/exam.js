@@ -44,7 +44,7 @@
             box.innerHTML = `<p>${T.signin}</p><div class="g-btn"></div><p class="login-msg" aria-live="polite">${msg || ''}</p>`;
             P.signInButton(box.querySelector('.g-btn'), cred => {
                 const p = P.decodeJwt(cred);
-                if (!p || !P.ALLOWED.includes(String(p.email).split('@')[1])) { box.querySelector('.login-msg').textContent = T.wrongDomain; return; }
+                if (!p) { box.querySelector('.login-msg').textContent = T.wrongDomain; return; }
                 P.store.set('cred', cred);
                 tryStart('');
             });
@@ -70,7 +70,7 @@
         P.api({ action: 'exam_start', credential: u.credential, code }).then(j => {
             if (j.ok && j.finished) { showDone(j); return; }
             if (j.ok) { begin(j); return; }
-            if (j.error === 'token') { P.store.del('cred'); renderGate(T.expired); return; }
+            if (j.error === 'token') { P.store.del('cred'); renderGate(P.ALLOWED.includes(String(u.email).split('@')[1]) ? T.expired : T.wrongDomain); return; }
             renderGate(j.error === 'closed' ? T.closed : code === '' ? '' : j.error === 'code' ? T.badCode : T.net);
         }).catch(() => renderGate(T.net));
     }
