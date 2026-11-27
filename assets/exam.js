@@ -13,7 +13,7 @@
         signedAs: 'Signed in as', logout: 'Sign out',
         codeLbl: 'Exam code shown on the screen', start: 'Start the exam', starting: 'Starting…',
         closed: 'The exam is not open yet. Wait for the instructor, then try again.',
-        badCode: 'This code is not valid now. Check it on the screen (it changes every minute) and try again.',
+        badCode: 'This code is not valid now. Check it on the screen (it changes every 5 minutes) and try again.',
         expired: 'Your sign-in has expired. Sign out and sign in again.', net: 'No connection to the server. Try again.',
         disabled: 'The online exam is not configured yet.',
         left: 'Time left', answered: (a, n) => `Answered ${a} / ${n}`,
