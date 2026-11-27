@@ -8,9 +8,10 @@
     const P = window.BA_PORTAL;
     const $ = id => document.getElementById(id);
     const T = {
-        signin: 'Sign in with your ASE Google account (@stud.ase.ro) to start or resume the exam.',
-        wrongDomain: 'Please use your ASE account (@stud.ase.ro or @ase.ro).',
+        signin: 'Sign in with a Google account (your ASE account or a personal one) to start or resume the exam. You will then type your family name and first name.',
+        wrongDomain: 'The sign-in did not work. Please try again with a Google account.',
         signedAs: 'Signed in as', logout: 'Sign out',
+        nameLbl: 'Family name and first name', badName: 'Type your family name and your first name, as in the student register.',
         codeLbl: 'Exam code shown on the screen', start: 'Start the exam', starting: 'Starting…',
         closed: 'The exam is not open yet. Wait for the instructor, then try again.',
         badCode: 'This code is not valid now. Check it on the screen (it changes every 5 minutes) and try again.',
@@ -53,13 +54,15 @@
         box.innerHTML = `<p>${T.signedAs} <strong>${P.esc(u.name)}</strong> (${P.esc(u.email)})
               <button class="btn btn-outline btn-sm" id="ex-logout" type="button">${T.logout}</button></p>
             <form class="att-form" id="ex-form" autocomplete="off">
+              <label for="ex-name">${T.nameLbl}</label>
+              <input id="ex-name" maxlength="80" autocomplete="name" spellcheck="false" required value="${P.esc(P.store.get('fullName') || '')}">
               <label for="ex-code">${T.codeLbl}</label>
               <input id="ex-code" class="code-input" maxlength="6" autocapitalize="characters" spellcheck="false" required>
               <button class="btn btn-primary" type="submit">${T.start}</button>
             </form>
             <p class="att-msg err" id="ex-msg" aria-live="polite">${msg || ''}</p>`;
         $('ex-logout').onclick = () => { P.store.del('cred'); renderGate(); };
-        $('ex-form').onsubmit = ev => { ev.preventDefault(); tryStart($('ex-code').value); };
+        $('ex-form').onsubmit = ev => { ev.preventDefault(); P.store.set('fullName', $('ex-name').value.trim()); tryStart($('ex-code').value); };
     }
 
     function tryStart(code) {
@@ -67,11 +70,11 @@
         if (!u) { renderGate(T.expired); return; }
         const m = $('ex-msg');
         if (m) { m.className = 'att-msg'; m.textContent = T.starting; }
-        P.api({ action: 'exam_start', credential: u.credential, code }).then(j => {
+        P.api({ action: 'exam_start', credential: u.credential, code, fullName: P.store.get('fullName') || '' }).then(j => {
             if (j.ok && j.finished) { showDone(j); return; }
             if (j.ok) { begin(j); return; }
             if (j.error === 'token') { P.store.del('cred'); renderGate(P.ALLOWED.includes(String(u.email).split('@')[1]) ? T.expired : T.wrongDomain); return; }
-            renderGate(j.error === 'closed' ? T.closed : code === '' ? '' : j.error === 'code' ? T.badCode : T.net);
+            renderGate(j.error === 'closed' ? T.closed : code === '' ? '' : j.error === 'code' ? T.badCode : j.error === 'name' ? T.badName : T.net);
         }).catch(() => renderGate(T.net));
     }
 
